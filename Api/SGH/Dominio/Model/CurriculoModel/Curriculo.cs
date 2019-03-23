@@ -1,4 +1,4 @@
-﻿using Dominio.Model.Disciplina;
+﻿using Dominio.Model.CurriculoModel;
 using System.Collections.Generic;
 
 namespace Dominio.Model
@@ -13,7 +13,7 @@ namespace Dominio.Model
 
         public virtual Curso Curso { get; set; }
         public virtual Turno Turno { get; set; }
-        public virtual List<DisciplinaCurriculo> Disciplinas { get; set; }
+        public virtual List<CurriculoDisciplina> Disciplinas { get; set; }
 
     }
 }

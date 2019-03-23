@@ -16,9 +16,11 @@ namespace Data.Mapeamento
             builder.HasKey(lnq => lnq.Codigo);
 
             builder.Property(lnq => lnq.Codigo)
+                .HasColumnName("turno_codigo")
                 .ValueGeneratedOnAdd();
 
             builder.Property(lnq => lnq.Descricao)
+                .HasColumnName("turno_descricao")
                 .IsRequired();
 
             builder.ToTable("turno");

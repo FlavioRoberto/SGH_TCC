@@ -1,7 +1,8 @@
 ﻿using Dominio.Model;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Data.Mapeamento
+namespace Data.Mapeamento.CurriculoMapeamento
 {
     public class CurriculoMapeamento : EntidadeMapeamento<Curriculo>
     {
@@ -17,25 +18,26 @@ namespace Data.Mapeamento
 
             builder.Property(lnq => lnq.Codigo)
                 .ValueGeneratedOnAdd()
-                .HasField("curric_codigo");
+                .HasColumnName("curric_codigo");
 
             builder.Property(lnq => lnq.Periodo)
                 .IsRequired()
-                .HasField("curric_periodo");
+                .HasColumnName("curric_periodo");
 
             builder.Property(lnq => lnq.CodigoCurso)
                 .IsRequired()
-                .HasField("curric_curso");
+                .HasColumnName("curric_curso");
 
             builder.Property(lnq => lnq.CodigoTurno)
                 .IsRequired()
-                .HasField("curric_turno");
+                .HasColumnName("curric_turno");
 
 
             builder.Property(lnq => lnq.Ano)
                 .IsRequired()
-                .HasField("curric_ano");
+                .HasColumnName("curric_ano");
 
+            builder.ToTable("curriculo");
             #endregion
 
             #region relacionamentos

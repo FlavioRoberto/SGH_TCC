@@ -1,6 +1,9 @@
-﻿namespace Dominio.Model.Disciplina
+﻿using Dominio.Model.DisciplinaModel;
+using System.Collections.Generic;
+
+namespace Dominio.Model.CurriculoModel
 {
-    public class DisciplinaCurriculo
+    public class CurriculoDisciplina
     {
         public int Codigo { get; set; }
         public int CodigoDisciplina { get; set; }
@@ -14,5 +17,6 @@
 
         public virtual Disciplina Disciplina { get; set; }
         public virtual Curriculo Curriculo { get; set; }
+        public virtual List<CurriculoDisciplinaPreRequisito> CurriculoDisciplinaPreRequisito { get; set; }
     }
 }
