@@ -30,7 +30,12 @@ namespace Data.Contexto
             modelBuilder.Entity<Turno>(b => new TurnoMapeamento(b).Map());
         }
 
+        public DbSet<CurriculoDisciplina> CurriculoDisciplina { get; set; }
+        public DbSet<CurriculoDisciplinaPreRequisito> CurriculoDisciplinaPreRequisito { get; set; }
+        public DbSet<Curriculo> Curriculo { get; set; }
+        public DbSet<Disciplina> Disciplina { get; set; }
+        public DbSet<DisciplinaTipo> DisciplinaTipo { get; set; }
+        public DbSet<Curso> Curso { get; set; }
         public DbSet<Turno> Turno { get; set; }
-
     }
 }
