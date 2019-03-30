@@ -1,4 +1,5 @@
 ﻿using Data.Contexto;
+using Dominio.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Repositorio;
+using Repositorio.Implementacao;
 
 namespace Api
 {
@@ -37,6 +40,10 @@ namespace Api
             services.AddMvc();
 
             services.AddApiVersioning();
+
+            //Injeção de dependências dos servicos
+            services.AddScoped<IRepositorio<Turno>, TurnoRepositorio>();
+            services.AddScoped<IRepositorio<Curso>, CursoRepositorio>();
           
         }
 
