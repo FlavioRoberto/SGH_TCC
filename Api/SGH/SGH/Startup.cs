@@ -1,5 +1,7 @@
 ﻿using Data.Contexto;
 using Dominio.Model;
+using Dominio.Model.CurriculoModel;
+using Dominio.Model.DisciplinaModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Repositorio;
 using Repositorio.Implementacao;
+using Repositorio.Implementacao.Curriculo;
+using Repositorio.Implementacao.CurriculoImplementacao;
+using Repositorio.Implementacao.Disciplina;
 
 namespace Api
 {
@@ -42,9 +47,15 @@ namespace Api
             services.AddApiVersioning();
 
             //Injeção de dependências dos servicos
+            #region Periodizacao
             services.AddScoped<IRepositorio<Turno>, TurnoRepositorio>();
             services.AddScoped<IRepositorio<Curso>, CursoRepositorio>();
-          
+            services.AddScoped<IRepositorio<Curriculo>, CurriculoRepositorio>();
+            services.AddScoped<IRepositorio<CurriculoDisciplina>, CurriculoDisciplinaRepositorio>();
+            services.AddScoped<IRepositorio<CurriculoDisciplinaPreRequisito>, CurDisPreRequisitoRepositorio>();
+            services.AddScoped<IRepositorio<Disciplina>, DisciplinaRepositorio>();
+            services.AddScoped<IRepositorio<DisciplinaTipo>, DisciplinaTipoRepositorio>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use sthis method to configure the HTTP request pipeline.
