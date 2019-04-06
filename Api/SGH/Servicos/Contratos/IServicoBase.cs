@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Dominio.ViewModel;
+using System.Collections.Generic;
 
 namespace Servico.Contratos
 {
@@ -8,6 +9,7 @@ namespace Servico.Contratos
         Resposta<T> Criar(T entidade);
         Resposta<T> ListarPeloId(long id);
         Resposta<List<T>> ListarTodos();
+        Resposta<Paginacao<T>> ListarComPaginacao(Paginacao<T> entidade);
         Resposta<T> Atualizar(T entidade);
         Resposta<bool> Remover(long id);
 

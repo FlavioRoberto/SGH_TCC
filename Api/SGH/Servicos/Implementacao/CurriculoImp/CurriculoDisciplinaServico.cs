@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Dominio.Model.CurriculoModel;
+using Dominio.ViewModel;
 using Repositorio;
 using Servico.Contratos.CurriculoServico;
 
@@ -28,6 +29,7 @@ namespace Servico.Implementacao.CurriculoImp
             }
         }
 
+
         public Resposta<CurriculoDisciplina> Criar(CurriculoDisciplina entidade)
         {
             try
@@ -38,6 +40,19 @@ namespace Servico.Implementacao.CurriculoImp
             catch(Exception e)
             {
                 return new Resposta<CurriculoDisciplina>(entidade, $"Ocorreu um erro ao adicionar a disciplina: {e.Message}");
+            }
+        }
+
+        public Resposta<Paginacao<CurriculoDisciplina>> ListarComPaginacao(Paginacao<CurriculoDisciplina> entidade)
+        {
+            try
+            {
+                var resultado = _repositorio.ListarPorPaginacao(entidade);
+                return new Resposta<Paginacao<CurriculoDisciplina>>(resultado);
+            }
+            catch (Exception e)
+            {
+                return new Resposta<Paginacao<CurriculoDisciplina>>(null, $"Ocorreu um erro ao listar a disciplina: {e.Message}");
             }
         }
 

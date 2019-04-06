@@ -1,4 +1,5 @@
 ﻿using Data.Contexto;
+using Dominio.ViewModel;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace Repositorio.Implementacao
         private DbSet<T> _dbSet;
         protected IContexto _contexto { get; private set; }
         protected abstract DbSet<T> GetDbSet();
+        public abstract Paginacao<T> ListarPorPaginacao(Paginacao<T> entidade);
 
         public RepositorioBase(IContexto contexto)
         {
@@ -83,10 +85,10 @@ namespace Repositorio.Implementacao
         {
             try
             {
-                var pessoa = await _dbSet.FirstOrDefaultAsync(query);
-                if (pessoa != null)
+                var item = await _dbSet.FirstOrDefaultAsync(query);
+                if (item != null)
                 {
-                    _dbSet.Remove(pessoa);
+                    _dbSet.Remove(item);
                     return true;
                 }
                 else
@@ -100,5 +102,7 @@ namespace Repositorio.Implementacao
                 throw e;
             }
         }
+
+       
     }
 }

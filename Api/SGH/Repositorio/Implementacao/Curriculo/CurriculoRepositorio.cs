@@ -1,4 +1,6 @@
 ﻿using Data.Contexto;
+using Dominio.Model;
+using Dominio.ViewModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repositorio.Implementacao.CurriculoImplementacao
@@ -7,9 +9,14 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
     {
         private IContexto _contexto;
 
-        public CurriculoRepositorio(IContexto contexto) : base(contexto)
+        public CurriculoRepositorio(MySqlContext contexto) : base(contexto)
         {
             _contexto = contexto;
+        }
+
+        public override Paginacao<Dominio.Model.Curriculo> ListarPorPaginacao(Paginacao<Dominio.Model.Curriculo> entidade)
+        {
+            throw new System.NotImplementedException();
         }
 
         protected override DbSet<Dominio.Model.Curriculo> GetDbSet()

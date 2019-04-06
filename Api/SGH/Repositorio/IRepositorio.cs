@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Dominio.Model.CurriculoModel;
+using Dominio.ViewModel;
 
 namespace Repositorio
 {
@@ -12,5 +14,6 @@ namespace Repositorio
         Task<List<T>> ListarTodos();
         Task<T> Atualizar(T entidade);
         Task<bool> Remover(Expression<Func<T, bool>> query);
+        Paginacao<T> ListarPorPaginacao(Paginacao<T> entidade);
     }
 }

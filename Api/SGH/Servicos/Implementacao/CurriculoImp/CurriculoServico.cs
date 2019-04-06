@@ -1,4 +1,5 @@
 ﻿using Dominio.Model;
+using Dominio.ViewModel;
 using Repositorio;
 using Servico.Contratos.CurriculoServico;
 using System;
@@ -25,6 +26,19 @@ namespace Servico.Implementacao.CurriculoImp
             catch (Exception e)
             {
                 return new Resposta<Curriculo>(entidade, $"Ocorreu um erro ao atualizar o currículo: {e.Message}");
+            }
+        }
+
+        public Resposta<Paginacao<Curriculo>> ListarComPaginacao(Paginacao<Curriculo> entidade)
+        {
+            try
+            {
+                var resultado = _repositorio.ListarPorPaginacao(entidade);
+                return new Resposta<Paginacao<Curriculo>>(resultado);
+            }
+            catch (Exception e)
+            {
+                return new Resposta<Paginacao<Curriculo>>(null, $"Ocorreu um erro ao listar o currículo: {e.Message}");
             }
         }
 

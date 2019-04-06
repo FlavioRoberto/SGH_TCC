@@ -57,12 +57,15 @@ namespace Api
             services.AddScoped<IRepositorio<DisciplinaTipo>, DisciplinaTipoRepositorio>();
             #endregion
 
-            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
-            {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-            }));
+            services.AddCors(o =>
+                o.AddPolicy("MyPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader()
+                           .AllowCredentials();
+                })
+           );
         }
 
         // This method gets called by the runtime. Use sthis method to configure the HTTP request pipeline.
@@ -72,9 +75,8 @@ namespace Api
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseCors("MyPolicy");
             app.UseMvc();
+            app.UseCors("MyPolicy");
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Dominio.Model;
+using Dominio.ViewModel;
 using Repositorio;
 using Servico.Contratos;
 using System;
@@ -32,12 +33,32 @@ namespace Servico.Implementacao
         {
             try
             {
+                if (string.IsNullOrEmpty(entidade.Descricao))
+                    return new Resposta<Turno>(null, "Descrição é obrigatório!");
+
                 var resultado = _repositorio.Criar(entidade).Result;
                 return new Resposta<Turno>(resultado);
             }
             catch (Exception e)
             {
                 return new Resposta<Turno>(entidade, $"Ocorreu um erro ao criar o turno: {e.Message}");
+            }
+        }
+
+        public Resposta<Paginacao<Turno>> ListarComPaginacao(Paginacao<Turno> entidadePaginada)
+        {
+            try
+            {
+                if (entidadePaginada.Entidade == null)
+                    entidadePaginada.Entidade = new Turno();
+
+                var resultado = _repositorio.ListarPorPaginacao(entidadePaginada);
+
+                return new Resposta<Paginacao<Turno>>(resultado);
+            }
+            catch (Exception e)
+            {
+                return new Resposta<Paginacao<Turno>>(null, $"Ocorreu um erro ao listar o turno: {e.Message}");
             }
         }
 

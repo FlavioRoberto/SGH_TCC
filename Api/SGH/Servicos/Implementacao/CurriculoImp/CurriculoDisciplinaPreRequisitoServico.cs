@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Dominio.Model.CurriculoModel;
+using Dominio.ViewModel;
 using Repositorio;
 using Servico.Contratos.CurriculoServico;
 
@@ -39,6 +40,19 @@ namespace Servico.Implementacao.CurriculoImp
             catch (Exception e)
             {
                 return new Resposta<CurriculoDisciplinaPreRequisito>(entidade, $"Ocorreu um erro ao criar o pré-requisito: {e.Message}");
+            }
+        }
+
+        public Resposta<Paginacao<CurriculoDisciplinaPreRequisito>> ListarComPaginacao(Paginacao<CurriculoDisciplinaPreRequisito> entidade)
+        {
+            try
+            {
+                var resultado =  _repositorio.ListarPorPaginacao(entidade);
+                return new Resposta<Paginacao<CurriculoDisciplinaPreRequisito>>(resultado);
+            }
+            catch (Exception e)
+            {
+                return new Resposta<Paginacao<CurriculoDisciplinaPreRequisito>>(null, $"Ocorreu um erro ao listar o pré-requisito: {e.Message}");
             }
         }
 

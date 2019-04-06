@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Dominio.Model.DisciplinaModel;
+using Dominio.ViewModel;
 using Repositorio;
 using Servico.Contratos.DisciplinaServico;
 
@@ -38,6 +39,19 @@ namespace Servico.Implementacao.DisciplinaImp
             catch (Exception e)
             {
                 return new Resposta<DisciplinaTipo>(entidade, $"Ocorreu um erro ao criar o tipo: {e.Message}");
+            }
+        }
+
+        public Resposta<Paginacao<DisciplinaTipo>> ListarComPaginacao(Paginacao<DisciplinaTipo> entidade)
+        {
+            try
+            {
+                var resultado = _repositorio.ListarPorPaginacao(entidade);
+                return new Resposta<Paginacao<DisciplinaTipo>>(resultado);
+            }
+            catch (Exception e)
+            {
+                return new Resposta<Paginacao<DisciplinaTipo>>(null, $"Ocorreu um erro ao listar o tipo: {e.Message}");
             }
         }
 

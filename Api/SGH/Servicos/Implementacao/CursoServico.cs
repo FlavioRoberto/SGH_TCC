@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Dominio.Model;
+using Dominio.ViewModel;
 using Repositorio;
 using Servico.Contratos;
 
@@ -25,6 +26,19 @@ namespace Servico.Implementacao
             catch (Exception e)
             {
                 return new Resposta<Curso>(entidade, "Ocorreu um erro ao atualizar o curso: " + e.Message);
+            }
+        }
+
+        public Resposta<Paginacao<Curso>> ListarComPaginacao(Paginacao<Curso> entidade)
+        {
+            try
+            {
+                var resultado = _repositorio.ListarPorPaginacao(entidade);
+                return new Resposta<Paginacao<Curso>>(resultado);
+            }
+            catch (Exception e)
+            {
+                return new Resposta<Paginacao<Curso>>(null, $"Ocorreu um erro ao listar o curso: {e.Message}");
             }
         }
 
