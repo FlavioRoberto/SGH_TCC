@@ -18,12 +18,35 @@ namespace Api.Controllers
             _servico = new TurnoServico(repositorio);
         }
 
-        [HttpPost]
-        [Route("listarPaginacao")]
-        public IActionResult ListarPorPaginacao( Paginacao<Turno> entidadePaginada)
+        [HttpGet]
+        [Route("listarTodos")]
+        public IActionResult ListarTodos()
         {
             try
             {
+                var resultado = _servico.ListarTodos();
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
+        [HttpPost]
+        [Route("listarPaginacao")]
+        public IActionResult ListarPorPaginacao([FromBody] Paginacao<Turno> entidadePaginada)
+        {
+            try
+            {
+                //if (!ModelState.IsValid)
+                //    return BadRequest("Entidade inválida!");
+
                 if (entidadePaginada == null)
                     entidadePaginada = new Paginacao<Turno>();
 
@@ -42,8 +65,8 @@ namespace Api.Controllers
 
 
         [HttpPost]
-        [Route("")]
-        public IActionResult Criar(Turno entidade)
+        [Route("Criar")]
+        public IActionResult Criar([FromBody]Turno entidade)
         {
             try
             {

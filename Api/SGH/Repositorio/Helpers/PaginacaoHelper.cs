@@ -7,16 +7,25 @@ namespace Repositorio.Helpers
     {
       public static Paginacao<T> Paginar(Paginacao<T> entidadePaginada, IQueryable<T> query)
         {
-            var result = query.AsEnumerable()
-                .Select((lnq,i) => new Paginacao<T> {            
+            var total = query.Count();
+            var queryPaginada = query.AsEnumerable()
+                .Select((lnq, i) => new Paginacao<T>
+                {
                     Entidade = lnq,
-                    Posicao = i})
-                .Skip(entidadePaginada.Posicao)
-                .FirstOrDefault();
+                    Posicao = i+1
+                })
+                .Skip(entidadePaginada.Posicao-1);
 
-            result.Total = query.Count();
+            var resultado = queryPaginada.ToList();
 
-            return result;
+            entidadePaginada = resultado.FirstOrDefault();
+
+            if (entidadePaginada != null)
+                entidadePaginada.Total = total;
+            else
+                entidadePaginada = new Paginacao<T>();
+
+            return entidadePaginada;
         }
     }
 }

@@ -45,7 +45,7 @@ namespace Repositorio.Implementacao.Curriculo
             entidadePaginada.Total = query.Count();
             entidadePaginada.Posicao = query.ToList().IndexOf(entidadePaginada.Entidade);
 
-            return PaginacaoMethod<CurriculoDisciplinaPreRequisito>.Paginar(entidadePaginada,query);
+            return PaginacaoHelper<CurriculoDisciplinaPreRequisito>.Paginar(entidadePaginada,query);
 
         }
 

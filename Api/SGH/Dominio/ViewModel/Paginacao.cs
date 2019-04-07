@@ -1,4 +1,6 @@
-﻿namespace Dominio.ViewModel
+﻿using System;
+
+namespace Dominio.ViewModel
 {
     public class Paginacao<T>
     {
