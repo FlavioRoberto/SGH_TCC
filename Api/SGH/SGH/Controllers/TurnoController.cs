@@ -44,12 +44,9 @@ namespace Api.Controllers
         {
             try
             {
-                //if (!ModelState.IsValid)
-                //    return BadRequest("Entidade inválida!");
-
                 if (entidadePaginada == null)
                     entidadePaginada = new Paginacao<Turno>();
-
+                
                 var resultado = _servico.ListarComPaginacao(entidadePaginada);
 
                 if (resultado.TemErro())
@@ -65,7 +62,7 @@ namespace Api.Controllers
 
 
         [HttpPost]
-        [Route("Criar")]
+        [Route("criar")]
         public IActionResult Criar([FromBody]Turno entidade)
         {
             try
@@ -79,6 +76,45 @@ namespace Api.Controllers
                     return BadRequest(resutltado.GetErros());
 
                 return Ok(resutltado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("editar")]
+        public IActionResult Editar([FromBody] Turno entidade)
+        {
+            try
+            {
+                var resultado = _servico.Atualizar(entidade);
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Route("remover")]
+        public IActionResult Remover([FromQuery]int codigo)
+        {
+            try
+            {
+                var resultado = _servico.Remover(codigo);
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok();
             }
             catch (Exception e)
             {

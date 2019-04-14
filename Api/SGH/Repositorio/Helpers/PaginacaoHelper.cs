@@ -22,9 +22,10 @@ namespace Repositorio.Helpers
 
             if (entidadePaginada != null)
                 entidadePaginada.Total = total;
-            else
-                entidadePaginada = new Paginacao<T>();
-
+           
+            if(entidadePaginada.Entidade == null)
+                throw new System.Exception("Não foram encontrados dados!");
+            
             return entidadePaginada;
         }
     }

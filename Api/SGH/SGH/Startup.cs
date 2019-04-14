@@ -5,6 +5,7 @@ using Dominio.Model.DisciplinaModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,9 +42,6 @@ namespace Api
                 options.UseMySQL(connectionString);
             });
 
-
-            services.AddMvc();
-
             services.AddApiVersioning();
 
             //Injeção de dependências dos servicos
@@ -66,17 +64,24 @@ namespace Api
                            .AllowCredentials();
                 })
            );
+
+            services.AddMvc();
+
+            services.Configure<MvcOptions>(options =>
+            {
+                options.Filters.Add(new CorsAuthorizationFilterFactory("MyPolicy"));
+            });
+
         }
 
         // This method gets called by the runtime. Use sthis method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
-            app.UseMvc();
+
             app.UseCors("MyPolicy");
+            app.UseMvc();
         }
     }
 }

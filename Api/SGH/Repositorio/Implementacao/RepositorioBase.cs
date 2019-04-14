@@ -89,6 +89,7 @@ namespace Repositorio.Implementacao
                 if (item != null)
                 {
                     _dbSet.Remove(item);
+                    await _contexto.SaveChangesAsync();
                     return true;
                 }
                 else
