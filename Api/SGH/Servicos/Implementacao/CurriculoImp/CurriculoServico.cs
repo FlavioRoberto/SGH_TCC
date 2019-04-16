@@ -1,5 +1,6 @@
 ﻿using Dominio.Model;
 using Dominio.ViewModel;
+using Global;
 using Repositorio;
 using Servico.Contratos.CurriculoServico;
 using System;
@@ -34,7 +35,10 @@ namespace Servico.Implementacao.CurriculoImp
             try
             {
                 var resultado = _repositorio.ListarPorPaginacao(entidade);
-                return new Resposta<Paginacao<Curriculo>>(resultado);
+                if (resultado.TemErro())
+                    return new Resposta<Paginacao<Curriculo>>(null, resultado.GetErros());
+
+                return new Resposta<Paginacao<Curriculo>>(resultado.GetResultado());
             }
             catch (Exception e)
             {

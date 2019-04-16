@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Dominio.Model.DisciplinaModel;
 using Dominio.ViewModel;
+using Global;
 using Repositorio;
 using Servico.Contratos.DisciplinaServico;
 
@@ -47,7 +48,10 @@ namespace Servico.Implementacao.DisciplinaImp
             try
             {
                 var resultado = _repositorio.ListarPorPaginacao(entidade);
-                return new Resposta<Paginacao<Disciplina>>(resultado);
+                if (resultado.TemErro())
+                    return new Resposta<Paginacao<Disciplina>>(null, resultado.GetErros());
+
+                return new Resposta<Paginacao<Disciplina>>(resultado.GetResultado());
             }
             catch (Exception e)
             {

@@ -1,7 +1,9 @@
 ﻿using Dominio.Model;
 using Dominio.ViewModel;
+using Global;
 using Microsoft.AspNetCore.Mvc;
 using Repositorio;
+using Servico;
 using Servico.Contratos;
 using Servico.Implementacao;
 using System;
@@ -24,7 +26,7 @@ namespace Api.Controllers
         {
             try
             {
-                var resultado = _servico.ListarTodos();
+                Resposta<List<Turno>> resultado = _servico.ListarTodos();
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -46,8 +48,8 @@ namespace Api.Controllers
             {
                 if (entidadePaginada == null)
                     entidadePaginada = new Paginacao<Turno>();
-                
-                var resultado = _servico.ListarComPaginacao(entidadePaginada);
+
+                Resposta<Paginacao<Turno>> resultado = _servico.ListarComPaginacao(entidadePaginada);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -70,7 +72,7 @@ namespace Api.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest("Dados informados inválidos!");
 
-                var resutltado = _servico.Criar(entidade);
+                Resposta<Turno> resutltado = _servico.Criar(entidade);
 
                 if (resutltado.TemErro())
                     return BadRequest(resutltado.GetErros());
@@ -89,7 +91,7 @@ namespace Api.Controllers
         {
             try
             {
-                var resultado = _servico.Atualizar(entidade);
+                Resposta<Turno> resultado = _servico.Atualizar(entidade);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -109,7 +111,7 @@ namespace Api.Controllers
         {
             try
             {
-                var resultado = _servico.Remover(codigo);
+                Resposta<bool> resultado = _servico.Remover(codigo);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());

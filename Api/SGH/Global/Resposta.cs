@@ -1,4 +1,4 @@
-﻿namespace Servico
+﻿namespace Global
 {
     public class Resposta<T>
     {

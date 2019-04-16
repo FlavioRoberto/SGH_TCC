@@ -1,5 +1,6 @@
 ﻿using Data.Contexto;
 using Dominio.ViewModel;
+using Global;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace Repositorio.Implementacao
         private DbSet<T> _dbSet;
         protected IContexto _contexto { get; private set; }
         protected abstract DbSet<T> GetDbSet();
-        public abstract Paginacao<T> ListarPorPaginacao(Paginacao<T> entidade);
+        public abstract Resposta<Paginacao<T>> ListarPorPaginacao(Paginacao<T> entidade);
 
         public RepositorioBase(IContexto contexto)
         {

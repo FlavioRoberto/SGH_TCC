@@ -1,6 +1,7 @@
 ﻿using Data.Contexto;
 using Dominio.Model.DisciplinaModel;
 using Dominio.ViewModel;
+using Global;
 
 namespace Repositorio.Implementacao.Disciplina
 {
@@ -12,7 +13,7 @@ namespace Repositorio.Implementacao.Disciplina
         {
         }
 
-        public override Paginacao<Dominio.Model.DisciplinaModel.Disciplina> ListarPorPaginacao(Paginacao<Dominio.Model.DisciplinaModel.Disciplina> entidade)
+        public override Resposta<Paginacao<Dominio.Model.DisciplinaModel.Disciplina>> ListarPorPaginacao(Paginacao<Dominio.Model.DisciplinaModel.Disciplina> entidade)
         {
             throw new System.NotImplementedException();
         }

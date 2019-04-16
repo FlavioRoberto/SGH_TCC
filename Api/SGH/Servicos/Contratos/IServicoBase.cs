@@ -1,4 +1,5 @@
 ﻿using Dominio.ViewModel;
+using Global;
 using System.Collections.Generic;
 
 namespace Servico.Contratos

@@ -1,5 +1,6 @@
 ﻿using Dominio.Model;
 using Dominio.ViewModel;
+using Global;
 using Repositorio;
 using Servico.Contratos;
 using System;
@@ -54,7 +55,10 @@ namespace Servico.Implementacao
 
                 var resultado = _repositorio.ListarPorPaginacao(entidadePaginada);
 
-                return new Resposta<Paginacao<Turno>>(resultado);
+                if (resultado.TemErro())
+                    return new Resposta<Paginacao<Turno>>(null, resultado.GetErros());
+
+                return new Resposta<Paginacao<Turno>>(resultado.GetResultado());
             }
             catch (Exception e)
             {

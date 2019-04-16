@@ -1,6 +1,7 @@
 ﻿using Data.Contexto;
 using Dominio.Model;
 using Dominio.ViewModel;
+using Global;
 using Microsoft.EntityFrameworkCore;
 using Repositorio.Helpers;
 using System;
@@ -14,7 +15,7 @@ namespace Repositorio.Implementacao
         {
         }
 
-        public override Paginacao<Turno> ListarPorPaginacao(Paginacao<Turno> entidadePaginada)
+        public override Resposta<Paginacao<Turno>> ListarPorPaginacao(Paginacao<Turno> entidadePaginada)
         {
             var query = _contexto.Turno.AsNoTracking();
             

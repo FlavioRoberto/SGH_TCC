@@ -1,11 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Dominio.ViewModel;
+using Global;
 
 namespace Repositorio.Helpers
 {
     public class PaginacaoHelper<T>
     {
-      public static Paginacao<T> Paginar(Paginacao<T> entidadePaginada, IQueryable<T> query)
+      public static Resposta<Paginacao<T>> Paginar(Paginacao<T> entidadePaginada, IQueryable<T> query)
         {
             var total = query.Count();
             var queryPaginada = query.AsEnumerable()
@@ -20,13 +22,15 @@ namespace Repositorio.Helpers
 
             entidadePaginada = resultado.FirstOrDefault();
 
-            if (entidadePaginada != null)
-                entidadePaginada.Total = total;
-           
-            if(entidadePaginada.Entidade == null)
-                throw new System.Exception("Não foram encontrados dados!");
+            if (entidadePaginada == null)
+                new Resposta<Paginacao<T>>(null, "Não foram encontrados dados!");
+
+            if (entidadePaginada.Entidade == null)
+                throw new Exception("Não foram encontrados dados!");
             
-            return entidadePaginada;
+            entidadePaginada.Total = total;
+
+            return new Resposta<Paginacao<T>>(entidadePaginada);
         }
     }
 }

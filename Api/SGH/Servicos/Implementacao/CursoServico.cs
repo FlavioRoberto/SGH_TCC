@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Dominio.Model;
 using Dominio.ViewModel;
+using Global;
 using Repositorio;
 using Servico.Contratos;
 
@@ -34,7 +35,10 @@ namespace Servico.Implementacao
             try
             {
                 var resultado = _repositorio.ListarPorPaginacao(entidade);
-                return new Resposta<Paginacao<Curso>>(resultado);
+                if (resultado.TemErro())
+                    return new Resposta<Paginacao<Curso>>(null, resultado.GetErros());
+
+                return new Resposta<Paginacao<Curso>>(resultado.GetResultado());
             }
             catch (Exception e)
             {

@@ -1,6 +1,7 @@
 ﻿using Data.Contexto;
 using Dominio.Model.DisciplinaModel;
 using Dominio.ViewModel;
+using Global;
 using Microsoft.EntityFrameworkCore;
 
 namespace Repositorio.Implementacao.Disciplina
@@ -14,7 +15,7 @@ namespace Repositorio.Implementacao.Disciplina
             _contexto = contexto;
         }
 
-        public override Paginacao<DisciplinaTipo> ListarPorPaginacao(Paginacao<DisciplinaTipo> entidade)
+        public override Resposta<Paginacao<DisciplinaTipo>> ListarPorPaginacao(Paginacao<DisciplinaTipo> entidade)
         {
             throw new System.NotImplementedException();
         }

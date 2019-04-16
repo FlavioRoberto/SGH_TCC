@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Data.Contexto;
 using Dominio.Model.CurriculoModel;
 using Dominio.ViewModel;
+using Global;
 using Microsoft.EntityFrameworkCore;
 using Repositorio.Helpers;
 
@@ -18,7 +19,7 @@ namespace Repositorio.Implementacao.Curriculo
             _contexto = contexto;
         }
 
-        public override Paginacao<CurriculoDisciplinaPreRequisito> ListarPorPaginacao(Paginacao<CurriculoDisciplinaPreRequisito> entidadePaginada)
+        public override Resposta<Paginacao<CurriculoDisciplinaPreRequisito>> ListarPorPaginacao(Paginacao<CurriculoDisciplinaPreRequisito> entidadePaginada)
         {
             var query = _contexto.CurriculoDisciplinaPreRequisito
                         .Include(lnq=>lnq.CurriculoDisciplina)
@@ -45,7 +46,7 @@ namespace Repositorio.Implementacao.Curriculo
             entidadePaginada.Total = query.Count();
             entidadePaginada.Posicao = query.ToList().IndexOf(entidadePaginada.Entidade);
 
-            return PaginacaoHelper<CurriculoDisciplinaPreRequisito>.Paginar(entidadePaginada,query);
+           return PaginacaoHelper<CurriculoDisciplinaPreRequisito>.Paginar(entidadePaginada,query);
 
         }
 
