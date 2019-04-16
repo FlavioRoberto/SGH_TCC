@@ -23,11 +23,11 @@ namespace Repositorio.Helpers
             entidadePaginada = resultado.FirstOrDefault();
 
             if (entidadePaginada == null)
-                new Resposta<Paginacao<T>>(null, "Não foram encontrados dados!");
+                return new Resposta<Paginacao<T>>(null, "Não foram encontrados dados!");
 
             if (entidadePaginada.Entidade == null)
-                throw new Exception("Não foram encontrados dados!");
-            
+                return new Resposta<Paginacao<T>>(null, "Não foram encontrados dados!");
+
             entidadePaginada.Total = total;
 
             return new Resposta<Paginacao<T>>(entidadePaginada);
