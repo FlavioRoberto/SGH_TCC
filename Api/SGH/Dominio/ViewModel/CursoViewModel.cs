@@ -1,13 +1,14 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Dominio.Model
+namespace Dominio.ViewModel
 {
-    public class Curso
+    public class CursoViewModel
     {
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int Codigo { get; set; }
         public string Descricao { get; set; }
-
-        public virtual List<Curriculo> Curriculos { get; set; }
     }
 }

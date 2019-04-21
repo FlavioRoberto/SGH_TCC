@@ -1,4 +1,5 @@
-﻿using Data.Contexto;
+﻿using AutoMapper;
+using Data.Contexto;
 using Dominio.Model;
 using Dominio.Model.CurriculoModel;
 using Dominio.Model.DisciplinaModel;
@@ -70,6 +71,8 @@ namespace Api
             {
                 options.Filters.Add(new CorsAuthorizationFilterFactory("MyPolicy"));
             });
+
+            services.AddAutoMapper();
 
             services.AddMvc();
 

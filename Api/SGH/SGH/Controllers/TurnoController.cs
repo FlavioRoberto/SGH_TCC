@@ -1,4 +1,5 @@
-﻿using Dominio.Model;
+﻿using AutoMapper;
+using Dominio.Model;
 using Dominio.ViewModel;
 using Global;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,10 @@ namespace Api.Controllers
     public class TurnoController : ControllerBase
     {
         private ITurnoServico _servico;
-        public TurnoController(IRepositorio<Turno> repositorio)
+
+        public TurnoController(IRepositorio<Turno> repositorio, IMapper mapper)
         {
-            _servico = new TurnoServico(repositorio);
+            _servico = new TurnoServico(repositorio, mapper);
         }
 
         [HttpGet]
@@ -26,7 +28,7 @@ namespace Api.Controllers
         {
             try
             {
-                Resposta<List<Turno>> resultado = _servico.ListarTodos();
+                Resposta<List<TurnoViewModel>> resultado = _servico.ListarTodos();
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -42,14 +44,14 @@ namespace Api.Controllers
 
         [HttpPost]
         [Route("listarPaginacao")]
-        public IActionResult ListarPorPaginacao([FromBody] Paginacao<Turno> entidadePaginada)
+        public IActionResult ListarPorPaginacao([FromBody] Paginacao<TurnoViewModel> entidadePaginada)
         {
             try
             {
                 if (entidadePaginada == null)
-                    entidadePaginada = new Paginacao<Turno>();
+                    entidadePaginada = new Paginacao<TurnoViewModel>();
 
-                Resposta<Paginacao<Turno>> resultado = _servico.ListarComPaginacao(entidadePaginada);
+                Resposta<Paginacao<TurnoViewModel>> resultado = _servico.ListarComPaginacao(entidadePaginada);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -65,14 +67,14 @@ namespace Api.Controllers
 
         [HttpPost]
         [Route("criar")]
-        public IActionResult Criar([FromBody]Turno entidade)
+        public IActionResult Criar([FromBody]TurnoViewModel entidade)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Dados informados inválidos!");
 
-                Resposta<Turno> resutltado = _servico.Criar(entidade);
+                Resposta<TurnoViewModel> resutltado = _servico.Criar(entidade);
 
                 if (resutltado.TemErro())
                     return BadRequest(resutltado.GetErros());
@@ -87,11 +89,11 @@ namespace Api.Controllers
 
         [HttpPut]
         [Route("editar")]
-        public IActionResult Editar([FromBody] Turno entidade)
+        public IActionResult Editar([FromBody] TurnoViewModel entidade)
         {
             try
             {
-                Resposta<Turno> resultado = _servico.Atualizar(entidade);
+                Resposta<TurnoViewModel> resultado = _servico.Atualizar(entidade);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());

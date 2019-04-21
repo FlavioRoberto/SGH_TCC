@@ -1,4 +1,5 @@
-﻿using Dominio.Model;
+﻿using AutoMapper;
+using Dominio.Model;
 using Dominio.ViewModel;
 using Global;
 using Microsoft.AspNetCore.Mvc;
@@ -15,22 +16,22 @@ namespace Api.Controllers
 
         private readonly ICursoServico _servico;
 
-        public CursoController(IRepositorio<Curso> repositorio)
+        public CursoController(IRepositorio<Curso> repositorio, IMapper mapper)
         {
-            _servico = new CursoServico(repositorio);
+            _servico = new CursoServico(repositorio,mapper);
         }
 
     
         [HttpPost]
         [Route("listarPaginacao")]
-        public IActionResult ListarPorPaginacao([FromBody] Paginacao<Curso> entidadePaginada)
+        public IActionResult ListarPorPaginacao([FromBody] Paginacao<CursoViewModel> entidadePaginada)
         {
             try
             {
                 if (entidadePaginada == null)
-                    entidadePaginada = new Paginacao<Curso>();
+                    entidadePaginada = new Paginacao<CursoViewModel>();
 
-                Resposta<Paginacao<Curso>> resultado = _servico.ListarComPaginacao(entidadePaginada);
+                Resposta<Paginacao<CursoViewModel>> resultado = _servico.ListarComPaginacao(entidadePaginada);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -46,14 +47,14 @@ namespace Api.Controllers
 
         [HttpPost]
         [Route("criar")]
-        public IActionResult Criar([FromBody]Curso entidade)
+        public IActionResult Criar([FromBody]CursoViewModel entidade)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Dados informados inválidos!");
 
-                Resposta<Curso> resutltado = _servico.Criar(entidade);
+                Resposta<CursoViewModel> resutltado = _servico.Criar(entidade);
 
                 if (resutltado.TemErro())
                     return BadRequest(resutltado.GetErros());
@@ -68,11 +69,11 @@ namespace Api.Controllers
 
         [HttpPut]
         [Route("editar")]
-        public IActionResult Editar([FromBody] Curso entidade)
+        public IActionResult Editar([FromBody] CursoViewModel entidade)
         {
             try
             {
-                Resposta<Curso> resultado = _servico.Atualizar(entidade);
+                Resposta<CursoViewModel> resultado = _servico.Atualizar(entidade);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
