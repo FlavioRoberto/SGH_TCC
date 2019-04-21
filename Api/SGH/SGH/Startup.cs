@@ -65,12 +65,13 @@ namespace Api
                 })
            );
 
-            services.AddMvc();
-
+          
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(new CorsAuthorizationFilterFactory("MyPolicy"));
             });
+
+            services.AddMvc();
 
         }
 

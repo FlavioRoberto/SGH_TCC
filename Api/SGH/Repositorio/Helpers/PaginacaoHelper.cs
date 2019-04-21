@@ -16,7 +16,8 @@ namespace Repositorio.Helpers
                     Entidade = lnq,
                     Posicao = i+1
                 })
-                .Skip(entidadePaginada.Posicao-1);
+                .Skip(entidadePaginada.Posicao-1)
+                .Take(1);
 
             var resultado = queryPaginada.ToList();
 
