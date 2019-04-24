@@ -1,36 +1,40 @@
 ﻿using AutoMapper;
-using Dominio.Model;
+using Dominio.Model.DisciplinaModel;
 using Dominio.ViewModel;
+using Dominio.ViewModel.DisciplinaViewModel;
 using Global;
 using Microsoft.AspNetCore.Mvc;
 using Repositorio;
-using Servico.Contratos;
-using Servico.Implementacao;
+using Servico.Contratos.DisciplinaServico;
+using Servico.Implementacao.DisciplinaImp;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Api.Controllers
+namespace Api.Controllers.Disciplina
 {
     [Route("api/[controller]")]
-    public class CursoController : ControllerBase
+
+    public class DisciplinaTipoController : ControllerBase
     {
+        private readonly IDisciplinaTipoServico _servico;
 
-        private readonly ICursoServico _servico;
-
-        public CursoController(IRepositorio<Curso> repositorio, IMapper mapper)
+        public DisciplinaTipoController(IRepositorio<DisciplinaTipo> repositorio, IMapper mapper)
         {
-            _servico = new CursoServico(repositorio,mapper);
+            _servico = new DisciplinaTipoServico(repositorio, mapper);
         }
-    
+
         [HttpPost]
         [Route("listarPaginacao")]
-        public IActionResult ListarPorPaginacao([FromBody] Paginacao<CursoViewModel> entidadePaginada)
+        public IActionResult ListarPorPaginacao([FromBody] Paginacao<DisciplinaTipoViewModel> entidadePaginada)
         {
             try
             {
                 if (entidadePaginada == null)
-                    entidadePaginada = new Paginacao<CursoViewModel>();
+                    entidadePaginada = new Paginacao<DisciplinaTipoViewModel>();
 
-                Resposta<Paginacao<CursoViewModel>> resultado = _servico.ListarComPaginacao(entidadePaginada);
+                Resposta<Paginacao<DisciplinaTipoViewModel>> resultado = _servico.ListarComPaginacao(entidadePaginada);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -45,14 +49,14 @@ namespace Api.Controllers
 
         [HttpPost]
         [Route("criar")]
-        public IActionResult Criar([FromBody]CursoViewModel entidade)
+        public IActionResult Criar([FromBody]DisciplinaTipoViewModel entidade)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Dados informados inválidos!");
 
-                Resposta<CursoViewModel> resutltado = _servico.Criar(entidade);
+                Resposta<DisciplinaTipoViewModel> resutltado = _servico.Criar(entidade);
 
                 if (resutltado.TemErro())
                     return BadRequest(resutltado.GetErros());
@@ -67,11 +71,11 @@ namespace Api.Controllers
 
         [HttpPut]
         [Route("editar")]
-        public IActionResult Editar([FromBody] CursoViewModel entidade)
+        public IActionResult Editar([FromBody] DisciplinaTipoViewModel entidade)
         {
             try
             {
-                Resposta<CursoViewModel> resultado = _servico.Atualizar(entidade);
+                Resposta<DisciplinaTipoViewModel> resultado = _servico.Atualizar(entidade);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());

@@ -8,11 +8,9 @@ namespace Repositorio.Implementacao.Disciplina
 {
     public class DisciplinaTipoRepositorio : RepositorioBase<Dominio.Model.DisciplinaModel.DisciplinaTipo>
     {
-        private IContexto _contexto;
 
         public DisciplinaTipoRepositorio(MySqlContext contexto) : base(contexto)
         {
-            _contexto = contexto;
         }
 
         public override Resposta<Paginacao<DisciplinaTipo>> ListarPorPaginacao(Paginacao<DisciplinaTipo> entidade)
