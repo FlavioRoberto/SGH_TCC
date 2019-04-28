@@ -18,9 +18,28 @@ namespace Api.Controllers
 
         public CursoController(IRepositorio<Curso> repositorio, IMapper mapper)
         {
-            _servico = new CursoServico(repositorio,mapper);
+            _servico = new CursoServico(repositorio, mapper);
         }
-    
+
+        [HttpGet]
+        [Route("ListarTodos")]
+        public IActionResult ListarTodos()
+        {
+            try
+            {
+                var resultado = _servico.ListarTodos();
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost]
         [Route("listarPaginacao")]
         public IActionResult ListarPorPaginacao([FromBody] Paginacao<CursoViewModel> entidadePaginada)
