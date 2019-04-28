@@ -3,6 +3,8 @@ using Dominio.Model.DisciplinaModel;
 using Dominio.ViewModel;
 using Global;
 using Microsoft.EntityFrameworkCore;
+using Repositorio.Helpers;
+using System.Linq;
 
 namespace Repositorio.Implementacao.Disciplina
 {
@@ -13,9 +15,22 @@ namespace Repositorio.Implementacao.Disciplina
         {
         }
 
-        public override Resposta<Paginacao<DisciplinaTipo>> ListarPorPaginacao(Paginacao<DisciplinaTipo> entidade)
+        public override Resposta<Paginacao<DisciplinaTipo>> ListarPorPaginacao(Paginacao<DisciplinaTipo> entidadePaginada)
         {
-            throw new System.NotImplementedException();
+            var query = GetDbSet().AsNoTracking();
+
+            if (entidadePaginada.Entidade == null)
+                entidadePaginada.Entidade = new DisciplinaTipo();
+
+            var entidade = entidadePaginada.Entidade;
+
+            if (entidade.Codigo > 0)
+                query = query.Where(lnq => lnq.Codigo == entidade.Codigo);
+
+            if (!string.IsNullOrEmpty(entidade.Descricao))
+                query = query.Where(lnq => lnq.Descricao.Contains(entidade.Descricao));
+
+            return PaginacaoHelper<DisciplinaTipo>.Paginar(entidadePaginada, query);
         }
 
         protected override DbSet<DisciplinaTipo> GetDbSet()
