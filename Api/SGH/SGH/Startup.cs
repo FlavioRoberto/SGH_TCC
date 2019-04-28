@@ -51,7 +51,6 @@ namespace Api
             services.AddScoped<IRepositorio<Curso>, CursoRepositorio>();
             services.AddScoped<IRepositorio<Curriculo>, CurriculoRepositorio>();
             services.AddScoped<IRepositorio<CurriculoDisciplina>, CurriculoDisciplinaRepositorio>();
-            services.AddScoped<IRepositorio<CurriculoDisciplinaPreRequisito>, CurDisPreRequisitoRepositorio>();
             services.AddScoped<IRepositorio<Disciplina>, DisciplinaRepositorio>();
             services.AddScoped<IRepositorio<DisciplinaTipo>, DisciplinaTipoRepositorio>();
             #endregion

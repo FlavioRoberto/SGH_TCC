@@ -22,7 +22,6 @@ namespace Data.Contexto
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<CurriculoDisciplina>(b => new CurriculoDisciplinaMapeamento(b).Map());
-            modelBuilder.Entity<CurriculoDisciplinaPreRequisito>(b => new CurriculoDisciplinaPreRequisitoMap(b).Map());
             modelBuilder.Entity<Curriculo>(b => new CurriculoMapeamento(b).Map());
             modelBuilder.Entity<Disciplina>(b => new DisciplinaMapeamento(b).Map());
             modelBuilder.Entity<DisciplinaTipo>(b => new DisciplinaTipoMapeamento(b).Map());
@@ -31,7 +30,6 @@ namespace Data.Contexto
         }
 
         public DbSet<CurriculoDisciplina> CurriculoDisciplina { get; set; }
-        public DbSet<CurriculoDisciplinaPreRequisito> CurriculoDisciplinaPreRequisito { get; set; }
         public DbSet<Curriculo> Curriculo { get; set; }
         public DbSet<Disciplina> Disciplina { get; set; }
         public DbSet<DisciplinaTipo> DisciplinaTipo { get; set; }

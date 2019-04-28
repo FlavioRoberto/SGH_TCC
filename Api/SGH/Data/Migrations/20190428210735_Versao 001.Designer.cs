@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(MySqlContext))]
-    [Migration("20190323211625_Versao 01.00")]
-    partial class Versao0100
+    [Migration("20190428210735_Versao 001")]
+    partial class Versao001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,6 +73,9 @@ namespace Data.Migrations
                     b.Property<int>("HoraTotal")
                         .HasColumnName("curdis_hora_total");
 
+                    b.Property<bool>("PreRequisito")
+                        .HasColumnName("curdis_pre_requisito");
+
                     b.HasKey("Codigo");
 
                     b.HasIndex("CodigoCurriculo");
@@ -80,27 +83,6 @@ namespace Data.Migrations
                     b.HasIndex("CodigoDisciplina");
 
                     b.ToTable("curriculo_disciplina");
-                });
-
-            modelBuilder.Entity("Dominio.Model.CurriculoModel.CurriculoDisciplinaPreRequisito", b =>
-                {
-                    b.Property<int>("Codigo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("curpre_codigo");
-
-                    b.Property<int>("CodigoCurriculoDisciplina")
-                        .HasColumnName("curpre_curriculo_disciplina");
-
-                    b.Property<int>("CodigoDisciplina")
-                        .HasColumnName("curpre_disciplina");
-
-                    b.HasKey("Codigo");
-
-                    b.HasIndex("CodigoCurriculoDisciplina");
-
-                    b.HasIndex("CodigoDisciplina");
-
-                    b.ToTable("curriculo_disciplina_prerequisito");
                 });
 
             modelBuilder.Entity("Dominio.Model.Curso", b =>
@@ -188,19 +170,6 @@ namespace Data.Migrations
 
                     b.HasOne("Dominio.Model.DisciplinaModel.Disciplina", "Disciplina")
                         .WithMany("CurriculoDisciplinas")
-                        .HasForeignKey("CodigoDisciplina")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Dominio.Model.CurriculoModel.CurriculoDisciplinaPreRequisito", b =>
-                {
-                    b.HasOne("Dominio.Model.CurriculoModel.CurriculoDisciplina", "CurriculoDisciplina")
-                        .WithMany("CurriculoDisciplinaPreRequisito")
-                        .HasForeignKey("CodigoCurriculoDisciplina")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Dominio.Model.DisciplinaModel.Disciplina", "Disciplina")
-                        .WithMany("CurriculoDisciplinaPreRequisito")
                         .HasForeignKey("CodigoDisciplina")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

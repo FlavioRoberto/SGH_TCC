@@ -2,7 +2,7 @@
 
 namespace Data.Migrations
 {
-    public partial class Versao0100 : Migration
+    public partial class Versao001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -106,7 +106,8 @@ namespace Data.Migrations
                     CargaHorariaSemanalTotal = table.Column<int>(nullable: false),
                     curdis_hora_aula_total = table.Column<int>(nullable: false),
                     curdis_hora_total = table.Column<int>(nullable: false),
-                    curdis_credito = table.Column<int>(nullable: false)
+                    curdis_credito = table.Column<int>(nullable: false),
+                    curdis_pre_requisito = table.Column<short>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,32 +121,6 @@ namespace Data.Migrations
                     table.ForeignKey(
                         name: "FK_curriculo_disciplina_disciplina_curdis_disciplina",
                         column: x => x.curdis_disciplina,
-                        principalTable: "disciplina",
-                        principalColumn: "dis_codigo",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "curriculo_disciplina_prerequisito",
-                columns: table => new
-                {
-                    curpre_codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    curpre_disciplina = table.Column<int>(nullable: false),
-                    curpre_curriculo_disciplina = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_curriculo_disciplina_prerequisito", x => x.curpre_codigo);
-                    table.ForeignKey(
-                        name: "FK_curriculo_disciplina",
-                        column: x => x.curpre_curriculo_disciplina,
-                        principalTable: "curriculo_disciplina",
-                        principalColumn: "curdis_codigo",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_disciplina",
-                        column: x => x.curpre_disciplina,
                         principalTable: "disciplina",
                         principalColumn: "dis_codigo",
                         onDelete: ReferentialAction.Cascade);
@@ -172,16 +147,6 @@ namespace Data.Migrations
                 column: "curdis_disciplina");
 
             migrationBuilder.CreateIndex(
-                name: "IX_curriculo_disciplina_prerequisito_curpre_curriculo_disciplina",
-                table: "curriculo_disciplina_prerequisito",
-                column: "curpre_curriculo_disciplina");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_curriculo_disciplina_prerequisito_curpre_disciplina",
-                table: "curriculo_disciplina_prerequisito",
-                column: "curpre_disciplina");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_disciplina_dis_tipo",
                 table: "disciplina",
                 column: "dis_tipo");
@@ -189,9 +154,6 @@ namespace Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "curriculo_disciplina_prerequisito");
-
             migrationBuilder.DropTable(
                 name: "curriculo_disciplina");
 
