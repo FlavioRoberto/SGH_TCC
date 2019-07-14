@@ -13,8 +13,7 @@ namespace Api.Controllers
     [Route("api/[controller]")]
     public class CursoController : ControllerBase
     {
-
-        private readonly ICursoServico _servico;
+        private readonly IServicoBase<CursoViewModel> _servico;
 
         public CursoController(IRepositorio<Curso> repositorio, IMapper mapper)
         {
