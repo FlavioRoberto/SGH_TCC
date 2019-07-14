@@ -13,7 +13,7 @@ namespace Data.Migrations
                     usuPrf_codigo = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
                     usuPrf_descricao = table.Column<string>(maxLength: 45, nullable: false),
-                    usuPrf_administrador = table.Column<short>(nullable: false, defaultValue: false)
+                    usuPrf_administrador = table.Column<int>(nullable: false, defaultValue: 0)
                 },
                 constraints: table =>
                 {

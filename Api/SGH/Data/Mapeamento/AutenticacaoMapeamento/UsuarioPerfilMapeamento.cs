@@ -25,6 +25,7 @@ namespace Data.Mapeamento.AutenticacaoMapeamento
 
             builder.Property(p => p.Administrador)
                 .HasDefaultValue(false)
+                .HasConversion<int>()
                 .HasColumnName("usuPrf_administrador");
 
             builder.ToTable("Usuario_Perfil");

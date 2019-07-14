@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(MySqlContext))]
-    [Migration("20190714191950_Versao 002")]
+    [Migration("20190714194846_Versao 002")]
     partial class Versao002
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,10 +23,10 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("usuPrf_codigo");
 
-                    b.Property<bool>("Administrador")
+                    b.Property<int>("Administrador")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("usuPrf_administrador")
-                        .HasDefaultValue(false);
+                        .HasDefaultValue(0);
 
                     b.Property<string>("Descricao")
                         .IsRequired()

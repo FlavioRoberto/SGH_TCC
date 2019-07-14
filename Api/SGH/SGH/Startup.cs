@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Data.Contexto;
 using Dominio.Model;
+using Dominio.Model.Autenticacao;
 using Dominio.Model.CurriculoModel;
 using Dominio.Model.DisciplinaModel;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Repositorio;
 using Repositorio.Implementacao;
+using Repositorio.Implementacao.Autenticacao;
 using Repositorio.Implementacao.Curriculo;
 using Repositorio.Implementacao.CurriculoImplementacao;
 using Repositorio.Implementacao.Disciplina;
@@ -53,6 +55,8 @@ namespace Api
             services.AddScoped<IRepositorio<CurriculoDisciplina>, CurriculoDisciplinaRepositorio>();
             services.AddScoped<IRepositorio<Disciplina>, DisciplinaRepositorio>();
             services.AddScoped<IRepositorio<DisciplinaTipo>, DisciplinaTipoRepositorio>();
+            services.AddScoped<IRepositorio<UsuarioPerfil>, UsuarioPerfilRepositorio>();
+
             #endregion
 
             services.AddCors(o =>
