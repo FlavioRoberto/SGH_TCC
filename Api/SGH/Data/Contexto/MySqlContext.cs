@@ -30,6 +30,8 @@ namespace Data.Contexto
             modelBuilder.Entity<Curso>(b => new CursoMapeamento(b).Map());
             modelBuilder.Entity<Turno>(b => new TurnoMapeamento(b).Map());
             modelBuilder.Entity<UsuarioPerfil>(b => new UsuarioPerfilMapeamento(b).Map());
+            modelBuilder.Entity<Usuario>(b => new UsuarioMapeamento(b).Map());
+
         }
 
         public DbSet<CurriculoDisciplina> CurriculoDisciplina { get; set; }
@@ -39,5 +41,7 @@ namespace Data.Contexto
         public DbSet<Curso> Curso { get; set; }
         public DbSet<Turno> Turno { get; set; }
         public DbSet<UsuarioPerfil> UsuarioPerfil { get; set; }
+        public DbSet<Usuario> Usuario { get; set; }
+
     }
 }
