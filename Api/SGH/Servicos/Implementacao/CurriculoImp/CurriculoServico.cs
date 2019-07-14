@@ -1,91 +1,32 @@
-﻿using Dominio.Model;
-using Dominio.ViewModel;
+﻿using AutoMapper;
+using Dominio.Model;
+using Dominio.ViewModel.CurriculoViewModel;
 using Global;
 using Repositorio;
-using Servico.Contratos.CurriculoServico;
 using System;
-using System.Collections.Generic;
 
 namespace Servico.Implementacao.CurriculoImp
 {
-    public class CurriculoServico : ICurriculoServico
+    public class CurriculoServico : BaseService<CurriculoViewModel, Curriculo>
     {
-        private readonly IRepositorio<Curriculo> _repositorio;
-
-        public CurriculoServico(IRepositorio<Curriculo> repositorio)
-        {
-            _repositorio = repositorio;
-        }
-
-        public Resposta<Curriculo> Atualizar(Curriculo entidade)
-        {
-            try
-            {
-                var resultado = _repositorio.Atualizar(entidade).Result;
-                return new Resposta<Curriculo>(resultado);
-            }
-            catch (Exception e)
-            {
-                return new Resposta<Curriculo>(entidade, $"Ocorreu um erro ao atualizar o currículo: {e.Message}");
-            }
-        }
-
-        public Resposta<Paginacao<Curriculo>> ListarComPaginacao(Paginacao<Curriculo> entidade)
-        {
-            try
-            {
-                var resultado = _repositorio.ListarPorPaginacao(entidade);
-                if (resultado.TemErro())
-                    return new Resposta<Paginacao<Curriculo>>(null, resultado.GetErros());
-
-                return new Resposta<Paginacao<Curriculo>>(resultado.GetResultado());
-            }
-            catch (Exception e)
-            {
-                return new Resposta<Paginacao<Curriculo>>(null, $"Ocorreu um erro ao listar o currículo: {e.Message}");
-            }
-        }
-
-        public Resposta<Curriculo> Criar(Curriculo entidade)
-        {
-            try
-            {
-                var resultado = _repositorio.Criar(entidade).Result;
-                return new Resposta<Curriculo>(resultado);
-            }
-            catch (Exception e)
-            {
-                return new Resposta<Curriculo>(entidade, $"Ocorreu um erro ao criar o currículo: {e.Message}");
-            }
-        }
-
-        public Resposta<Curriculo> ListarPeloId(long id)
+        public CurriculoServico(IRepositorio<Curriculo> repositorio, IMapper mapper) : base(repositorio, mapper, "Currículo")
+        { }
+      
+        protected override Resposta<CurriculoViewModel> ListarPeloCodigo(long id)
         {
             try
             {
                 var resultado = _repositorio.Listar(lnq => lnq.Codigo == id).Result;
-                return new Resposta<Curriculo>(resultado);
+                var resultadoViewModel = _mapper.Map<CurriculoViewModel>(resultado);
+                return new Resposta<CurriculoViewModel>(resultadoViewModel);
             }
             catch (Exception e)
             {
-                return new Resposta<Curriculo>(null, $"Ocorreu um erro ao listar o currículo com código {id}: {e.Message}");
+                return new Resposta<CurriculoViewModel>(null, $"Ocorreu um erro ao listar o currículo com código {id}: {e.Message}");
             }
         }
 
-        public Resposta<List<Curriculo>> ListarTodos()
-        {
-            try
-            {
-                var resultado = _repositorio.ListarTodos().Result;
-                return new Resposta<List<Curriculo>>(resultado);
-            }
-            catch (Exception e)
-            {
-                return new Resposta<List<Curriculo>>(null, $"Ocorreu um erro ao listar os currículos: {e.Message}");
-            }
-        }
-
-        public Resposta<bool> Remover(long id)
+        protected override Resposta<bool> RemoverPeloCodigo(long id)
         {
             try
             {
