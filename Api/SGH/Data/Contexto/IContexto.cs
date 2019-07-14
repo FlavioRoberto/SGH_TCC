@@ -1,4 +1,5 @@
 ﻿using Dominio.Model;
+using Dominio.Model.Autenticacao;
 using Dominio.Model.CurriculoModel;
 using Dominio.Model.DisciplinaModel;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ namespace Data.Contexto
         DbSet<DisciplinaTipo> DisciplinaTipo { get; set; }
         DbSet<Curso> Curso { get; set; }
         DbSet<Turno> Turno { get; set; }
+        DbSet<UsuarioPerfil> UsuarioPerfil { get; set; }
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken));
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
     }

@@ -1,8 +1,10 @@
 ﻿using Data.Mapeamento;
+using Data.Mapeamento.AutenticacaoMapeamento;
 using Data.Mapeamento.CurriculoMapeamento;
 using Data.Mapeamento.Disciplina;
 using Data.Mapeamento.DisciplinaMapeamento;
 using Dominio.Model;
+using Dominio.Model.Autenticacao;
 using Dominio.Model.CurriculoModel;
 using Dominio.Model.DisciplinaModel;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +29,7 @@ namespace Data.Contexto
             modelBuilder.Entity<DisciplinaTipo>(b => new DisciplinaTipoMapeamento(b).Map());
             modelBuilder.Entity<Curso>(b => new CursoMapeamento(b).Map());
             modelBuilder.Entity<Turno>(b => new TurnoMapeamento(b).Map());
+            modelBuilder.Entity<UsuarioPerfil>(b => new UsuarioPerfilMapeamento(b).Map());
         }
 
         public DbSet<CurriculoDisciplina> CurriculoDisciplina { get; set; }
@@ -35,5 +38,6 @@ namespace Data.Contexto
         public DbSet<DisciplinaTipo> DisciplinaTipo { get; set; }
         public DbSet<Curso> Curso { get; set; }
         public DbSet<Turno> Turno { get; set; }
+        public DbSet<UsuarioPerfil> UsuarioPerfil { get; set; }
     }
 }
