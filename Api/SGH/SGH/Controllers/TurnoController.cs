@@ -15,7 +15,7 @@ namespace Api.Controllers
     [Route("api/[controller]")]
     public class TurnoController : ControllerBase
     {
-        private ITurnoServico _servico;
+        private IServicoBase<TurnoViewModel> _servico;
 
         public TurnoController(IRepositorio<Turno> repositorio, IMapper mapper)
         {
