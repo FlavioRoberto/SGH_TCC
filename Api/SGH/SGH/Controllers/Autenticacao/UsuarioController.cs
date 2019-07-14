@@ -1,35 +1,34 @@
 ﻿using AutoMapper;
-using Dominio.Model;
+using Dominio.Model.Autenticacao;
 using Dominio.ViewModel;
+using Dominio.ViewModel.AutenticacaoViewModel;
 using Global;
 using Microsoft.AspNetCore.Mvc;
 using Repositorio;
-using Servico;
 using Servico.Contratos;
-using Servico.Implementacao;
+using Servico.Implementacao.Autenticacao;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Api.Controllers
+namespace Api.Controllers.Autenticacao
 {
     [Route("api/[controller]")]
-    public class TurnoController : ControllerBase
+    public class UsuarioController : ControllerBase
     {
-        private IServicoBase<TurnoViewModel> _servico;
+        private readonly IServicoBase<UsuarioViewModel> _servico;
 
-        public TurnoController(IRepositorio<Turno> repositorio, IMapper mapper)
+        public UsuarioController(IRepositorio<Usuario> repositorio, IMapper mapper)
         {
-            _servico = new TurnoServico(repositorio, mapper);
+            _servico = new UsuarioServico(repositorio, mapper);
         }
 
         [HttpGet]
-        [Route("listarTodos")]
+        [Route("ListarTodos")]
         public async Task<IActionResult> ListarTodos()
         {
             try
             {
-                Resposta<List<TurnoViewModel>> resultado = await _servico.ListarTodos();
+                var resultado = await _servico.ListarTodos();
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -42,17 +41,16 @@ namespace Api.Controllers
             }
         }
 
-
         [HttpPost]
         [Route("listarPaginacao")]
-        public async Task<IActionResult> ListarPorPaginacao([FromBody] Paginacao<TurnoViewModel> entidadePaginada)
+        public async Task<IActionResult> ListarPorPaginacao([FromBody] Paginacao<UsuarioViewModel> entidadePaginada)
         {
             try
             {
                 if (entidadePaginada == null)
-                    entidadePaginada = new Paginacao<TurnoViewModel>();
+                    entidadePaginada = new Paginacao<UsuarioViewModel>();
 
-                Resposta<Paginacao<TurnoViewModel>> resultado = await _servico.ListarComPaginacao(entidadePaginada);
+                Resposta<Paginacao<UsuarioViewModel>> resultado = await _servico.ListarComPaginacao(entidadePaginada);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -65,17 +63,16 @@ namespace Api.Controllers
             }
         }
 
-
         [HttpPost]
         [Route("criar")]
-        public async Task<IActionResult> Criar([FromBody]TurnoViewModel entidade)
+        public async Task<IActionResult> Criar([FromBody]UsuarioViewModel entidade)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Dados informados inválidos!");
 
-                Resposta<TurnoViewModel> resutltado = await _servico.Criar(entidade);
+                Resposta<UsuarioViewModel> resutltado = await _servico.Criar(entidade);
 
                 if (resutltado.TemErro())
                     return BadRequest(resutltado.GetErros());
@@ -90,11 +87,11 @@ namespace Api.Controllers
 
         [HttpPut]
         [Route("editar")]
-        public async Task<IActionResult> Editar([FromBody] TurnoViewModel entidade)
+        public async Task<IActionResult> Editar([FromBody] UsuarioViewModel entidade)
         {
             try
             {
-                Resposta<TurnoViewModel> resultado = await _servico.Atualizar(entidade);
+                Resposta<UsuarioViewModel> resultado = await _servico.Atualizar(entidade);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());

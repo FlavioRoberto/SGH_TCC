@@ -8,6 +8,7 @@ using Repositorio;
 using Servico.Contratos;
 using Servico.Implementacao.DisciplinaImp;
 using System;
+using System.Threading.Tasks;
 
 namespace Api.Controllers.DisciplinaControllers
 {
@@ -23,11 +24,11 @@ namespace Api.Controllers.DisciplinaControllers
 
         [HttpGet]
         [Route("listarTodos")]
-        public IActionResult ListarTodos()
+        public async Task<IActionResult> ListarTodos()
         {
             try
             {
-                var result = _servico.ListarTodos();
+                var result = await _servico.ListarTodos();
 
                 if (result.TemErro())
                     return BadRequest(result.GetErros());
@@ -43,14 +44,14 @@ namespace Api.Controllers.DisciplinaControllers
 
         [HttpPost]
         [Route("listarPaginacao")]
-        public IActionResult ListarPorPaginacao([FromBody] Paginacao<DisciplinaViewModel> entidadePaginada)
+        public async Task<IActionResult> ListarPorPaginacao([FromBody] Paginacao<DisciplinaViewModel> entidadePaginada)
         {
             try
             {
                 if (entidadePaginada == null)
                     entidadePaginada = new Paginacao<DisciplinaViewModel>();
 
-                Resposta<Paginacao<DisciplinaViewModel>> resultado = _servico.ListarComPaginacao(entidadePaginada);
+                Resposta<Paginacao<DisciplinaViewModel>> resultado = await _servico.ListarComPaginacao(entidadePaginada);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -65,14 +66,14 @@ namespace Api.Controllers.DisciplinaControllers
 
         [HttpPost]
         [Route("criar")]
-        public IActionResult Criar([FromBody]DisciplinaViewModel entidade)
+        public async Task<IActionResult> Criar([FromBody]DisciplinaViewModel entidade)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Dados informados inválidos!");
 
-                Resposta<DisciplinaViewModel> resutltado = _servico.Criar(entidade);
+                Resposta<DisciplinaViewModel> resutltado = await _servico.Criar(entidade);
 
                 if (resutltado.TemErro())
                     return BadRequest(resutltado.GetErros());
@@ -87,11 +88,11 @@ namespace Api.Controllers.DisciplinaControllers
 
         [HttpPut]
         [Route("editar")]
-        public IActionResult Editar([FromBody] DisciplinaViewModel entidade)
+        public async Task<IActionResult> Editar([FromBody] DisciplinaViewModel entidade)
         {
             try
             {
-                Resposta<DisciplinaViewModel> resultado = _servico.Atualizar(entidade);
+                Resposta<DisciplinaViewModel> resultado = await _servico.Atualizar(entidade);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -107,11 +108,11 @@ namespace Api.Controllers.DisciplinaControllers
 
         [HttpDelete]
         [Route("remover")]
-        public IActionResult Remover([FromQuery]int codigo)
+        public async Task<IActionResult> Remover([FromQuery]int codigo)
         {
             try
             {
-                Resposta<bool> resultado = _servico.Remover(codigo);
+                Resposta<bool> resultado = await _servico.Remover(codigo);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());

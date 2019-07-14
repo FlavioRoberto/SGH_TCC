@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Linq;
+using System.Threading.Tasks;
 using Dominio.ViewModel;
 using Global;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repositorio.Helpers
 {
     public class PaginacaoHelper<T>
     {
-        public static Resposta<Paginacao<T>> Paginar(Paginacao<T> entidadePaginada, IQueryable<T> query)
+        public static async Task<Resposta<Paginacao<T>>> Paginar(Paginacao<T> entidadePaginada, IQueryable<T> query)
         {
-            var total = query.Count();
+            var total = await query.CountAsync();
             var queryPaginada = query.AsEnumerable()
                 .Select((lnq, i) => new Paginacao<T>
                 {

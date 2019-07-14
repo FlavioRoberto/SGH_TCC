@@ -7,6 +7,7 @@ using Repositorio;
 using Servico.Contratos;
 using Servico.Implementacao;
 using System;
+using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
@@ -22,11 +23,11 @@ namespace Api.Controllers
 
         [HttpGet]
         [Route("ListarTodos")]
-        public IActionResult ListarTodos()
+        public async Task<IActionResult> ListarTodos()
         {
             try
             {
-                var resultado = _servico.ListarTodos();
+                var resultado = await _servico.ListarTodos();
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -41,14 +42,14 @@ namespace Api.Controllers
 
         [HttpPost]
         [Route("listarPaginacao")]
-        public IActionResult ListarPorPaginacao([FromBody] Paginacao<CursoViewModel> entidadePaginada)
+        public async Task<IActionResult> ListarPorPaginacao([FromBody] Paginacao<CursoViewModel> entidadePaginada)
         {
             try
             {
                 if (entidadePaginada == null)
                     entidadePaginada = new Paginacao<CursoViewModel>();
 
-                Resposta<Paginacao<CursoViewModel>> resultado = _servico.ListarComPaginacao(entidadePaginada);
+                Resposta<Paginacao<CursoViewModel>> resultado = await _servico.ListarComPaginacao(entidadePaginada);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -63,14 +64,14 @@ namespace Api.Controllers
 
         [HttpPost]
         [Route("criar")]
-        public IActionResult Criar([FromBody]CursoViewModel entidade)
+        public async Task<IActionResult> Criar([FromBody]CursoViewModel entidade)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Dados informados inválidos!");
 
-                Resposta<CursoViewModel> resutltado = _servico.Criar(entidade);
+                Resposta<CursoViewModel> resutltado = await _servico.Criar(entidade);
 
                 if (resutltado.TemErro())
                     return BadRequest(resutltado.GetErros());
@@ -85,11 +86,11 @@ namespace Api.Controllers
 
         [HttpPut]
         [Route("editar")]
-        public IActionResult Editar([FromBody] CursoViewModel entidade)
+        public async Task<IActionResult> Editar([FromBody] CursoViewModel entidade)
         {
             try
             {
-                Resposta<CursoViewModel> resultado = _servico.Atualizar(entidade);
+                Resposta<CursoViewModel> resultado = await _servico.Atualizar(entidade);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -105,11 +106,11 @@ namespace Api.Controllers
 
         [HttpDelete]
         [Route("remover")]
-        public IActionResult Remover([FromQuery]int codigo)
+        public async Task<IActionResult> Remover([FromQuery]int codigo)
         {
             try
             {
-                Resposta<bool> resultado = _servico.Remover(codigo);
+                Resposta<bool> resultado = await _servico.Remover(codigo);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());

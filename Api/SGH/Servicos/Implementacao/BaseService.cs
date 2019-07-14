@@ -5,7 +5,7 @@ using Repositorio;
 using Servico.Contratos;
 using System;
 using System.Collections.Generic;
-
+using System.Threading.Tasks;
 
 namespace Servico.Implementacao
 {
@@ -24,12 +24,12 @@ namespace Servico.Implementacao
             _nomeEntidade = nomeEntidade;
         }
 
-        public Resposta<TViewModel> Atualizar(TViewModel entidadeViewModel)
+        public async Task<Resposta<TViewModel>> Atualizar(TViewModel entidadeViewModel)
         {
             try
             {
                 var entidade = _mapper.Map<TModel>(entidadeViewModel);
-                var resultado = _mapper.Map<TViewModel>(_repositorio.Atualizar(entidade).Result);
+                var resultado = _mapper.Map<TViewModel>( await _repositorio.Atualizar(entidade));
                 return new Resposta<TViewModel>(resultado);
             }
             catch (Exception e)
@@ -38,24 +38,24 @@ namespace Servico.Implementacao
             }
         }
 
-        public Resposta<TViewModel> Criar(TViewModel entidade)
+        public async Task<Resposta<TViewModel>> Criar(TViewModel entidade)
         {
             try
             {
-                var resultado = _repositorio.Criar(_mapper.Map<TModel>(entidade)).Result;
+                var resultado = await _repositorio.Criar(_mapper.Map<TModel>(entidade));
                 return new Resposta<TViewModel>(_mapper.Map<TViewModel>(resultado));
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new Resposta<TViewModel>(entidade, $"Ocorreu um erro ao criar {_nomeEntidade}: {e.Message}");
             }
         }
 
-        public Resposta<Paginacao<TViewModel>> ListarComPaginacao(Paginacao<TViewModel> entidade)
+        public async Task<Resposta<Paginacao<TViewModel>>> ListarComPaginacao(Paginacao<TViewModel> entidade)
         {
             try
             {
-                var resultado = _repositorio.ListarPorPaginacao(_mapper.Map<Paginacao<TModel>>(entidade));
+                var resultado = await _repositorio.ListarPorPaginacao(_mapper.Map<Paginacao<TModel>>(entidade));
                 if (resultado.TemErro())
                     return new Resposta<Paginacao<TViewModel>>(null, resultado.GetErros());
 
@@ -63,24 +63,24 @@ namespace Servico.Implementacao
 
                 return new Resposta<Paginacao<TViewModel>>(resultadoViewModel);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new Resposta<Paginacao<TViewModel>>(null, $"Ocorreu um erro ao listar {_nomeEntidade}: {e.Message}");
             }
         }
 
-        public Resposta<List<TViewModel>> ListarTodos()
+        public async Task<Resposta<List<TViewModel>>> ListarTodos()
         {
-            var resultado = _repositorio.ListarTodos().Result;
+            var resultado = await _repositorio.ListarTodos();
             return new Resposta<List<TViewModel>>(_mapper.Map<List<TViewModel>>(resultado));
         }
 
-        public Resposta<bool> Remover(long id)
+        public async Task<Resposta<bool>> Remover(long id)
         {
             return RemoverPeloCodigo(id);
         }
 
-        public Resposta<TViewModel> ListarPeloId(long id)
+        public async Task<Resposta<TViewModel>> ListarPeloId(long id)
         {
             return ListarPeloCodigo(id);
         }

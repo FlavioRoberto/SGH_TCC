@@ -5,6 +5,7 @@ using Global;
 using Microsoft.EntityFrameworkCore;
 using Repositorio.Helpers;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Repositorio.Implementacao.Autenticacao
 {
@@ -13,7 +14,7 @@ namespace Repositorio.Implementacao.Autenticacao
         public UsuarioRepositorio(MySqlContext contexto) : base(contexto)
         { }
 
-        public override Resposta<Paginacao<Usuario>> ListarPorPaginacao(Paginacao<Usuario> entidadePaginada)
+        public override async Task<Resposta<Paginacao<Usuario>>> ListarPorPaginacao(Paginacao<Usuario> entidadePaginada)
         {
             var query = GetDbSet().AsNoTracking();
 
@@ -40,7 +41,7 @@ namespace Repositorio.Implementacao.Autenticacao
             if (entidade.PerfilCodigo > 0)
                 query = query.Where(lnq => lnq.PerfilCodigo == entidade.PerfilCodigo);
             
-            return PaginacaoHelper<Usuario>.Paginar(entidadePaginada, query);
+            return await PaginacaoHelper<Usuario>.Paginar(entidadePaginada, query);
         }
 
         protected override DbSet<Usuario> GetDbSet()

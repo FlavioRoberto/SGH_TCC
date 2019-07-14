@@ -56,6 +56,7 @@ namespace Api
             services.AddScoped<IRepositorio<Disciplina>, DisciplinaRepositorio>();
             services.AddScoped<IRepositorio<DisciplinaTipo>, DisciplinaTipoRepositorio>();
             services.AddScoped<IRepositorio<UsuarioPerfil>, UsuarioPerfilRepositorio>();
+            services.AddScoped<IRepositorio<Usuario>, UsuarioRepositorio>();
 
             #endregion
 

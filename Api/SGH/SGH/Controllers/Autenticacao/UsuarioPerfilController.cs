@@ -6,6 +6,7 @@ using Repositorio;
 using Servico.Contratos;
 using Servico.Implementacao.Autenticacao;
 using System;
+using System.Threading.Tasks;
 
 namespace Api.Controllers.Autenticacao
 {
@@ -21,11 +22,11 @@ namespace Api.Controllers.Autenticacao
 
         [HttpGet]
         [Route("ListarTodos")]
-        public IActionResult ListarTodos()
+        public async Task<IActionResult> ListarTodos()
         {
             try
             {
-                var resultado = _servico.ListarTodos();
+                var resultado = await _servico.ListarTodos();
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());

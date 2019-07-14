@@ -3,6 +3,7 @@ using Dominio.Model.Autenticacao;
 using Dominio.ViewModel;
 using Global;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Repositorio.Implementacao.Autenticacao
 {
@@ -12,7 +13,7 @@ namespace Repositorio.Implementacao.Autenticacao
         {
         }
 
-        public override Resposta<Paginacao<UsuarioPerfil>> ListarPorPaginacao(Paginacao<UsuarioPerfil> entidade)
+        public override async Task<Resposta<Paginacao<UsuarioPerfil>>> ListarPorPaginacao(Paginacao<UsuarioPerfil> entidade)
         {
             throw new System.NotImplementedException();
         }

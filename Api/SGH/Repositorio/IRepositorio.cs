@@ -15,6 +15,6 @@ namespace Repositorio
         Task<List<T>> ListarTodos();
         Task<T> Atualizar(T entidade);
         Task<bool> Remover(Expression<Func<T, bool>> query);
-        Resposta<Paginacao<T>> ListarPorPaginacao(Paginacao<T> entidade);
+        Task<Resposta<Paginacao<T>>> ListarPorPaginacao(Paginacao<T> entidade);
     }
 }

@@ -3,6 +3,7 @@ using Dominio.Model;
 using Dominio.ViewModel;
 using Global;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace Repositorio.Implementacao.CurriculoImplementacao
 {
@@ -15,7 +16,7 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
             _contexto = contexto;
         }
 
-        public override Resposta<Paginacao<Dominio.Model.Curriculo>> ListarPorPaginacao(Paginacao<Dominio.Model.Curriculo> entidade)
+        public override async Task<Resposta<Paginacao<Dominio.Model.Curriculo>>> ListarPorPaginacao(Paginacao<Dominio.Model.Curriculo> entidade)
         {
             throw new System.NotImplementedException();
         }

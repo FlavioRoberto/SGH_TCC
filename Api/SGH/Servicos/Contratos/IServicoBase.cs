@@ -1,18 +1,19 @@
 ﻿using Dominio.ViewModel;
 using Global;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Servico.Contratos
 {
     public interface IServicoBase<T> where T : class
     {
 
-        Resposta<T> Criar(T entidade);
-        Resposta<T> ListarPeloId(long id);
-        Resposta<List<T>> ListarTodos();
-        Resposta<Paginacao<T>> ListarComPaginacao(Paginacao<T> entidade);
-        Resposta<T> Atualizar(T entidade);
-        Resposta<bool> Remover(long id);
+        Task<Resposta<T>> Criar(T entidade);
+        Task<Resposta<T>> ListarPeloId(long id);
+        Task<Resposta<List<T>>> ListarTodos();
+        Task<Resposta<Paginacao<T>>> ListarComPaginacao(Paginacao<T> entidade);
+        Task<Resposta<T>> Atualizar(T entidade);
+        Task<Resposta<bool>> Remover(long id);
 
     }
 }

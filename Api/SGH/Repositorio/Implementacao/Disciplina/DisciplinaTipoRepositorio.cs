@@ -5,6 +5,7 @@ using Global;
 using Microsoft.EntityFrameworkCore;
 using Repositorio.Helpers;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Repositorio.Implementacao.Disciplina
 {
@@ -15,7 +16,7 @@ namespace Repositorio.Implementacao.Disciplina
         {
         }
 
-        public override Resposta<Paginacao<DisciplinaTipo>> ListarPorPaginacao(Paginacao<DisciplinaTipo> entidadePaginada)
+        public override async Task<Resposta<Paginacao<DisciplinaTipo>>> ListarPorPaginacao(Paginacao<DisciplinaTipo> entidadePaginada)
         {
             var query = GetDbSet().AsNoTracking();
 
@@ -30,7 +31,7 @@ namespace Repositorio.Implementacao.Disciplina
             if (!string.IsNullOrEmpty(entidade.Descricao))
                 query = query.Where(lnq => lnq.Descricao.Contains(entidade.Descricao));
 
-            return PaginacaoHelper<DisciplinaTipo>.Paginar(entidadePaginada, query);
+            return await PaginacaoHelper<DisciplinaTipo>.Paginar(entidadePaginada, query);
         }
 
         protected override DbSet<DisciplinaTipo> GetDbSet()

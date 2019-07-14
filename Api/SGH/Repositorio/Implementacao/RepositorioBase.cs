@@ -15,7 +15,7 @@ namespace Repositorio.Implementacao
         private DbSet<T> _dbSet;
         protected IContexto _contexto { get; private set; }
         protected abstract DbSet<T> GetDbSet();
-        public abstract Resposta<Paginacao<T>> ListarPorPaginacao(Paginacao<T> entidade);
+        public abstract Task<Resposta<Paginacao<T>>> ListarPorPaginacao(Paginacao<T> entidade);
 
         public RepositorioBase(IContexto contexto)
         {
