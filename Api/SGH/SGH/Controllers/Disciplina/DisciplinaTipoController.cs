@@ -5,7 +5,7 @@ using Dominio.ViewModel.DisciplinaViewModel;
 using Global;
 using Microsoft.AspNetCore.Mvc;
 using Repositorio;
-using Servico.Contratos.DisciplinaServico;
+using Servico.Contratos;
 using Servico.Implementacao.DisciplinaImp;
 using System;
 
@@ -14,7 +14,7 @@ namespace Api.Controllers.DisciplinaControllers
     [Route("api/[controller]")]
     public class DisciplinaTipoController : ControllerBase
     {
-        private readonly IDisciplinaTipoServico _servico;
+        private readonly IServicoBase<DisciplinaTipoViewModel> _servico;
 
         public DisciplinaTipoController(IRepositorio<DisciplinaTipo> repositorio, IMapper mapper)
         {
