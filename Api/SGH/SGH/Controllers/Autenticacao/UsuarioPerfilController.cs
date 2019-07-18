@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Api.Controllers.Autenticacao
 {
-    [Route("api/[controller]")]
+    [Route("api/perfil")]
     public class UsuarioPerfilController : ControllerBase
     {
         private readonly IServicoBase<UsuarioPerfilViewModel> _servico;
