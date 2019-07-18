@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Dominio.Contratos;
+using System.Collections.Generic;
 
 namespace Dominio.Model.DisciplinaModel
 
 {
-    public class DisciplinaTipo
+    public class DisciplinaTipo : EntidadeBase
     {
-        public int Codigo { get; set; }
         public string Descricao { get; set; }
 
         public virtual List<Disciplina> Disciplinas { get; set; }

@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Dominio.Model.CurriculoModel;
 using Dominio.ViewModel;
 using Global;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repositorio
 {
     public interface IRepositorio<T> where T : class
     {
+        DbSet<T> DbSet { get; }
         Task<T> Criar(T entidade);
         Task<T> Listar(Expression<Func<T, bool>> query);
         Task<List<T>> ListarTodos();

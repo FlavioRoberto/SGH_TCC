@@ -1,11 +1,11 @@
-﻿using Dominio.Model.CurriculoModel;
+﻿using Dominio.Contratos;
+using Dominio.Model.CurriculoModel;
 using System.Collections.Generic;
 
 namespace Dominio.Model
 {
-    public class Curriculo
+    public class Curriculo: EntidadeBase
     {
-        public int Codigo { get; set; }
         public int Periodo { get; set; }
         public int CodigoCurso { get; set; }
         public int CodigoTurno { get; set; }

@@ -6,6 +6,6 @@ namespace Servico.Contratos
 {
     public interface IUsuarioService : IServicoBase<UsuarioViewModel>
     {
-        Task<Resposta<string>> Logar(LoginViewModel login);
+        Task<Resposta<string>> Autenticar(LoginViewModel login);
     }
 }

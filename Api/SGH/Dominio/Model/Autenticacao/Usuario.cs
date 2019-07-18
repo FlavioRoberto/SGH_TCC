@@ -1,8 +1,9 @@
-﻿namespace Dominio.Model.Autenticacao
+﻿using Dominio.Contratos;
+
+namespace Dominio.Model.Autenticacao
 {
-    public class Usuario
+    public class Usuario : EntidadeBase
     {
-        public int Codigo { get; set; }
         public string Nome { get; set; }
         public string Telefone { get; set; }
         public string Login { get; set; }

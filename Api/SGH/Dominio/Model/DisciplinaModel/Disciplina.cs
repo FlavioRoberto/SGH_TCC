@@ -1,11 +1,11 @@
-﻿using Dominio.Model.CurriculoModel;
+﻿using Dominio.Contratos;
+using Dominio.Model.CurriculoModel;
 using System.Collections.Generic;
 
-namespace Dominio.Model.DisciplinaModel
+namespace Dominio.Model.DisciplinaModel 
 {
-    public class Disciplina
+    public class Disciplina : EntidadeBase
     {
-        public int Codigo { get; set; }
         public string Descricao { get; set; }
         public int CodigoTipo { get; set; }
 

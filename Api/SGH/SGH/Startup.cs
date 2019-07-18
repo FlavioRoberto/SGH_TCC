@@ -23,6 +23,8 @@ using Repositorio.Implementacao.Autenticacao;
 using Repositorio.Implementacao.Curriculo;
 using Repositorio.Implementacao.CurriculoImplementacao;
 using Repositorio.Implementacao.Disciplina;
+using Servico.Contratos;
+using Servico.Implementacao.Autenticacao;
 using Servico.Store;
 using System.Text;
 
@@ -64,7 +66,7 @@ namespace Api
             services.AddScoped<IRepositorio<DisciplinaTipo>, DisciplinaTipoRepositorio>();
             services.AddScoped<IRepositorio<UsuarioPerfil>, UsuarioPerfilRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
-
+            services.AddScoped<IUsuarioService, UsuarioServico>();
             #endregion
 
             services.AddCors(o =>

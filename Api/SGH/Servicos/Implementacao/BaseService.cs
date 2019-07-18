@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Dominio.Contratos;
 using Dominio.ViewModel;
 using Global;
 using Repositorio;
@@ -9,13 +10,11 @@ using System.Threading.Tasks;
 
 namespace Servico.Implementacao
 {
-    public abstract class BaseService<TViewModel, TModel> : IServicoBase<TViewModel> where TModel : class where TViewModel : class
+    public abstract class BaseService<TViewModel, TModel> : IServicoBase<TViewModel> where TModel : EntidadeBase where TViewModel : class
     {
         private string _nomeEntidade;
         protected readonly IRepositorio<TModel> _repositorio;
         protected readonly IMapper _mapper;
-        protected abstract Resposta<TViewModel> ListarPeloCodigo(long id);
-        protected abstract Resposta<bool> RemoverPeloCodigo(long id);
 
         public BaseService(IRepositorio<TModel> repositorio, IMapper mapper, string nomeEntidade)
         {
@@ -28,8 +27,9 @@ namespace Servico.Implementacao
         {
             try
             {
+                entidadeViewModel = await ValidarEdicao(entidadeViewModel);
                 var entidade = _mapper.Map<TModel>(entidadeViewModel);
-                var resultado = _mapper.Map<TViewModel>( await _repositorio.Atualizar(entidade));
+                var resultado = _mapper.Map<TViewModel>(await _repositorio.Atualizar(entidade));
                 return new Resposta<TViewModel>(resultado);
             }
             catch (Exception e)
@@ -42,6 +42,7 @@ namespace Servico.Implementacao
         {
             try
             {
+                entidade = await ValidarInsercao(entidade);
                 var resultado = await _repositorio.Criar(_mapper.Map<TModel>(entidade));
                 return new Resposta<TViewModel>(_mapper.Map<TViewModel>(resultado));
             }
@@ -77,12 +78,34 @@ namespace Servico.Implementacao
 
         public async Task<Resposta<bool>> Remover(long id)
         {
-            return RemoverPeloCodigo(id);
+            var result = await _repositorio.Remover(lnq=>lnq.Codigo == id);
+
+            if (result)
+                return new Resposta<bool>(result);
+
+            return new Resposta<bool>(false, $"Não foi possível remover {_nomeEntidade}!");
         }
 
         public async Task<Resposta<TViewModel>> ListarPeloId(long id)
         {
-            return ListarPeloCodigo(id);
+            var result = await _repositorio.Listar(lnq => lnq.Codigo == id);
+
+            if (result == null)
+                return new Resposta<TViewModel>(null, $"Não foi encontrado a {_nomeEntidade}!");
+
+            var viewModel = _mapper.Map<TViewModel>(result);
+            return new Resposta<TViewModel>(viewModel);
+
+        }
+
+        public virtual Task<TViewModel> ValidarInsercao(TViewModel viewModel)
+        {
+            return Task.FromResult(viewModel);
+        }
+
+        public virtual Task<TViewModel> ValidarEdicao(TViewModel viewModel)
+        {
+            return Task.FromResult(viewModel);
         }
     }
 }

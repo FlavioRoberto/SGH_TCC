@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Dominio.Contratos;
+using System.Collections.Generic;
 
 namespace Dominio.Model.Autenticacao
 {
-    public class UsuarioPerfil
+    public class UsuarioPerfil : EntidadeBase
     {
-        public int Codigo { get; set; }
         public string Descricao { get; set; }
         public bool Administrador { get; set; }
 

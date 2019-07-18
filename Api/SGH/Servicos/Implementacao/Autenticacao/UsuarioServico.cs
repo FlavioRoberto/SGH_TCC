@@ -18,34 +18,7 @@ namespace Servico.Implementacao.Autenticacao
         public UsuarioServico(IUsuarioRepositorio repositorio, IMapper mapper) : base(repositorio, mapper, "Usuário")
         { }
 
-        protected override Resposta<UsuarioViewModel> ListarPeloCodigo(long id)
-        {
-            try
-            {
-                var resultado = _repositorio.Listar(lnq => lnq.Codigo == id).Result;
-                var resultadoViewModel = _mapper.Map<UsuarioViewModel>(resultado);
-                return new Resposta<UsuarioViewModel>(resultadoViewModel);
-            }
-            catch (Exception e)
-            {
-                return new Resposta<UsuarioViewModel>(null, $"Ocorreu um erro ao listar o usuário com código {id}: {e.Message}");
-            }
-        }
-
-        protected override Resposta<bool> RemoverPeloCodigo(long id)
-        {
-            try
-            {
-                var resultado = _repositorio.Remover(lnq => lnq.Codigo == id).Result;
-                return new Resposta<bool>(resultado);
-            }
-            catch (Exception e)
-            {
-                return new Resposta<bool>(false, $"Ocorreu um erro ao remover o usuário com código {id}: {e.Message}");
-            }
-        }
-
-        public async Task<Resposta<string>> Logar(LoginViewModel viewModel)
+        public async Task<Resposta<string>> Autenticar(LoginViewModel viewModel)
         {
             var resultado = await GetRepositorio().RetornarUsuarioPorLoginESenha(viewModel.Login, viewModel.Senha);
                
@@ -58,23 +31,25 @@ namespace Servico.Implementacao.Autenticacao
 
         }
 
-        public override async Task<Resposta<UsuarioViewModel>> Criar(UsuarioViewModel viewModel)
+        public override Task<UsuarioViewModel> ValidarInsercao(UsuarioViewModel viewModel)
         {
             viewModel.Senha = viewModel.Senha.ToMD5();
-            return await base.Criar(viewModel);
+            return Task.FromResult(viewModel);
         }
-
-        public override async Task<Resposta<UsuarioViewModel>> Atualizar(UsuarioViewModel viewModel)
+        
+        public override async Task<UsuarioViewModel> ValidarEdicao(UsuarioViewModel viewModel)
         {
             var usuarioBanco = await _repositorio.Listar(lnq => lnq.Codigo == viewModel.Codigo);
-            if (usuarioBanco == null)
-                return new Resposta<UsuarioViewModel>(null, $"Usuário com código {viewModel.Codigo} não encontrado!");
+
+            if (usuarioBanco != null)
+                return viewModel;
 
             if (!usuarioBanco.Senha.IgualA(viewModel.Senha))
                 viewModel.Senha = viewModel.Senha.ToMD5();
-            
-            return await base.Atualizar(viewModel);
+
+            return viewModel;
         }
+        
 
         private IUsuarioRepositorio GetRepositorio()
         {

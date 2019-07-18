@@ -1,17 +1,15 @@
-﻿using Newtonsoft.Json;
+﻿using Dominio.Contratos;
 using System.Collections.Generic;
 
 namespace Dominio.Model
 {
-    public class Turno
+    public class Turno : EntidadeBase
     {
         public Turno()
         {
             Codigo = 0;
             Descricao = "";
         }
-
-        public int Codigo { get; set; }
 
         public string Descricao { get; set; }
 

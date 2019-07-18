@@ -12,22 +12,22 @@ namespace Repositorio.Implementacao
 {
     public abstract class RepositorioBase<T> : IRepositorio<T> where T : class
     {
-        private DbSet<T> _dbSet;
+        public DbSet<T> DbSet { get; }
         protected IContexto _contexto { get; private set; }
         protected abstract DbSet<T> GetDbSet();
         public abstract Task<Resposta<Paginacao<T>>> ListarPorPaginacao(Paginacao<T> entidade);
-
+        
         public RepositorioBase(IContexto contexto)
         {
             _contexto = contexto;
-            _dbSet = GetDbSet();
+            DbSet = GetDbSet();
         }
 
         public async Task<T> Atualizar(T entidade)
         {
             try
             {
-                _dbSet.Update(entidade);
+                DbSet.Update(entidade);
                 await _contexto.SaveChangesAsync();
                 return entidade;
             }
@@ -39,14 +39,14 @@ namespace Repositorio.Implementacao
 
         protected async Task<bool> ExisteEntidadeNoBanco(Expression<Func<T, bool>> query)
         {
-            return await _dbSet.CountAsync(query) > 0;
+            return await DbSet.CountAsync(query) > 0;
         }
 
         public async Task<T> Criar(T entidade)
         {
             try
             {
-                _dbSet.Add(entidade);
+                DbSet.Add(entidade);
                 await _contexto.SaveChangesAsync();
             }
             catch (Exception e)
@@ -61,7 +61,7 @@ namespace Repositorio.Implementacao
         {
             try
             {
-                return await _dbSet.AsNoTracking().FirstOrDefaultAsync(query);
+                return await DbSet.AsNoTracking().FirstOrDefaultAsync(query);
             }
             catch (Exception e)
             {
@@ -74,7 +74,7 @@ namespace Repositorio.Implementacao
         {
             try
             {
-                return await _dbSet.AsNoTracking().ToListAsync();
+                return await DbSet.AsNoTracking().ToListAsync();
             }
             catch (Exception e)
             {
@@ -86,10 +86,10 @@ namespace Repositorio.Implementacao
         {
             try
             {
-                var item = await _dbSet.FirstOrDefaultAsync(query);
+                var item = await DbSet.FirstOrDefaultAsync(query);
                 if (item != null)
                 {
-                    _dbSet.Remove(item);
+                    DbSet.Remove(item);
                     await _contexto.SaveChangesAsync();
                     return true;
                 }
@@ -105,6 +105,6 @@ namespace Repositorio.Implementacao
             }
         }
 
-       
+  
     }
 }

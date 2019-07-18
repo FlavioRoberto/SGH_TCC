@@ -1,11 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using Dominio.Contratos;
 using System.Collections.Generic;
 
 namespace Dominio.Model
 {
-    public class Curso
+    public class Curso : EntidadeBase
     {
-        public int Codigo { get; set; }
         public string Descricao { get; set; }
 
         public virtual List<Curriculo> Curriculos { get; set; }

@@ -18,9 +18,9 @@ namespace Api.Controllers.Autenticacao
     {
         private readonly IUsuarioService _servico;
 
-        public UsuarioController(IUsuarioRepositorio repositorio, IMapper mapper)
+        public UsuarioController(IUsuarioService servico)
         {
-            _servico = new UsuarioServico(repositorio, mapper);
+            _servico = servico;
         }
 
         [HttpPost("login")]
@@ -29,7 +29,7 @@ namespace Api.Controllers.Autenticacao
         {
             try
             {
-                var resposta = await _servico.Logar(login);
+                var resposta = await _servico.Autenticar(login);
 
                 if (resposta.TemErro())
                     return BadRequest(resposta.GetErros());
