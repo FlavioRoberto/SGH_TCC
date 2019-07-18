@@ -4,20 +4,27 @@ using Dominio.Model;
 using Dominio.Model.Autenticacao;
 using Dominio.Model.CurriculoModel;
 using Dominio.Model.DisciplinaModel;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Repositorio;
+using Repositorio.Contratos;
 using Repositorio.Implementacao;
 using Repositorio.Implementacao.Autenticacao;
 using Repositorio.Implementacao.Curriculo;
 using Repositorio.Implementacao.CurriculoImplementacao;
 using Repositorio.Implementacao.Disciplina;
+using Servico.Store;
+using System.Text;
 
 namespace Api
 {
@@ -56,7 +63,7 @@ namespace Api
             services.AddScoped<IRepositorio<Disciplina>, DisciplinaRepositorio>();
             services.AddScoped<IRepositorio<DisciplinaTipo>, DisciplinaTipoRepositorio>();
             services.AddScoped<IRepositorio<UsuarioPerfil>, UsuarioPerfilRepositorio>();
-            services.AddScoped<IRepositorio<Usuario>, UsuarioRepositorio>();
+            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
             #endregion
 
@@ -70,15 +77,46 @@ namespace Api
                 })
            );
 
-          
+
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(new CorsAuthorizationFilterFactory("MyPolicy"));
             });
 
+            var key = Encoding.ASCII.GetBytes(Configuracoes.Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            }); ;
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("usuario", policy => policy.RequireClaim("perfil", "usuario"));
+                options.AddPolicy("administrador", policy => policy.RequireClaim("perfil", "administrador"));
+            });
+
             services.AddAutoMapper();
 
-            services.AddMvc();
+            services.AddMvc(config =>
+             {
+                 var policy = new AuthorizationPolicyBuilder()
+                                  .RequireAuthenticatedUser()
+                                  .Build();
+                 config.Filters.Add(new AuthorizeFilter(policy));
+             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
         }
 
@@ -88,6 +126,7 @@ namespace Api
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
+            app.UseAuthentication();
             app.UseCors("MyPolicy");
             app.UseMvc();
         }

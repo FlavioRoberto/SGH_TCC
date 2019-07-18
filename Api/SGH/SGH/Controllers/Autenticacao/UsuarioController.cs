@@ -3,8 +3,10 @@ using Dominio.Model.Autenticacao;
 using Dominio.ViewModel;
 using Dominio.ViewModel.AutenticacaoViewModel;
 using Global;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositorio;
+using Repositorio.Contratos;
 using Servico.Contratos;
 using Servico.Implementacao.Autenticacao;
 using System;
@@ -15,11 +17,30 @@ namespace Api.Controllers.Autenticacao
     [Route("api/[controller]")]
     public class UsuarioController : ControllerBase
     {
-        private readonly IServicoBase<UsuarioViewModel> _servico;
+        private readonly IUsuarioService _servico;
 
-        public UsuarioController(IRepositorio<Usuario> repositorio, IMapper mapper)
+        public UsuarioController(IUsuarioRepositorio repositorio, IMapper mapper)
         {
             _servico = new UsuarioServico(repositorio, mapper);
+        }
+
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public async Task<IActionResult> login([FromBody] LoginViewModel login)
+        {
+            try
+            {
+                var resposta = await _servico.Logar(login);
+
+                if (resposta.TemErro())
+                    return BadRequest(resposta.GetErros());
+
+                return Ok(resposta.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
         }
 
         [HttpGet]

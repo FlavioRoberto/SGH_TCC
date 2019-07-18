@@ -1,4 +1,5 @@
 ﻿using Dominio.ViewModel;
+using Dominio.ViewModel.AutenticacaoViewModel;
 using Global;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -14,6 +15,5 @@ namespace Servico.Contratos
         Task<Resposta<Paginacao<T>>> ListarComPaginacao(Paginacao<T> entidade);
         Task<Resposta<T>> Atualizar(T entidade);
         Task<Resposta<bool>> Remover(long id);
-
     }
 }

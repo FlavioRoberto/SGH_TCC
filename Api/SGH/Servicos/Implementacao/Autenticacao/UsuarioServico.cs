@@ -1,15 +1,21 @@
 ﻿using AutoMapper;
 using Dominio.Model.Autenticacao;
 using Dominio.ViewModel.AutenticacaoViewModel;
-using Global;
 using Repositorio;
+using Servico.Contratos;
 using System;
+using System.Threading.Tasks;
+using Global.Extensions;
+using Global;
+using System.IdentityModel.Tokens.Jwt;
+using Servico.Extensions;
+using Repositorio.Contratos;
 
 namespace Servico.Implementacao.Autenticacao
 {
-    public class UsuarioServico : BaseService<UsuarioViewModel, Usuario>
+    public class UsuarioServico : BaseService<UsuarioViewModel, Usuario>, IUsuarioService
     {
-        public UsuarioServico(IRepositorio<Usuario> repositorio, IMapper mapper) : base(repositorio, mapper, "Usuário")
+        public UsuarioServico(IUsuarioRepositorio repositorio, IMapper mapper) : base(repositorio, mapper, "Usuário")
         { }
 
         protected override Resposta<UsuarioViewModel> ListarPeloCodigo(long id)
@@ -37,6 +43,24 @@ namespace Servico.Implementacao.Autenticacao
             {
                 return new Resposta<bool>(false, $"Ocorreu um erro ao remover o usuário com código {id}: {e.Message}");
             }
+        }
+
+        public async Task<Resposta<string>> Logar(LoginViewModel viewModel)
+        {
+            var resultado = await GetRepositorio().RetornarUsuarioPorLoginESenha(viewModel.Login, viewModel.Senha);
+               
+            if (resultado == null)
+                return new Resposta<string>(null, "Usuário e/ou senha inválidos!");
+
+            string token = TokenGeradorHelper.Gerar(resultado);
+
+            return new Resposta<string>(token);
+
+        }
+
+        private IUsuarioRepositorio GetRepositorio()
+        {
+            return _repositorio as IUsuarioRepositorio;
         }
     }
 }
