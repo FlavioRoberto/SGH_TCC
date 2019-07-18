@@ -58,6 +58,24 @@ namespace Servico.Implementacao.Autenticacao
 
         }
 
+        public override async Task<Resposta<UsuarioViewModel>> Criar(UsuarioViewModel viewModel)
+        {
+            viewModel.Senha = viewModel.Senha.ToMD5();
+            return await base.Criar(viewModel);
+        }
+
+        public override async Task<Resposta<UsuarioViewModel>> Atualizar(UsuarioViewModel viewModel)
+        {
+            var usuarioBanco = await _repositorio.Listar(lnq => lnq.Codigo == viewModel.Codigo);
+            if (usuarioBanco == null)
+                return new Resposta<UsuarioViewModel>(null, $"Usuário com código {viewModel.Codigo} não encontrado!");
+
+            if (!usuarioBanco.Senha.IgualA(viewModel.Senha))
+                viewModel.Senha = viewModel.Senha.ToMD5();
+            
+            return await base.Atualizar(viewModel);
+        }
+
         private IUsuarioRepositorio GetRepositorio()
         {
             return _repositorio as IUsuarioRepositorio;

@@ -24,7 +24,7 @@ namespace Servico.Implementacao
             _nomeEntidade = nomeEntidade;
         }
 
-        public async Task<Resposta<TViewModel>> Atualizar(TViewModel entidadeViewModel)
+        public virtual async Task<Resposta<TViewModel>> Atualizar(TViewModel entidadeViewModel)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace Servico.Implementacao
             }
         }
 
-        public async Task<Resposta<TViewModel>> Criar(TViewModel entidade)
+        public virtual async Task<Resposta<TViewModel>> Criar(TViewModel entidade)
         {
             try
             {

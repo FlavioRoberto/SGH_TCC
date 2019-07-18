@@ -1,16 +1,15 @@
 ﻿using AutoMapper;
-using Dominio.Model.Autenticacao;
 using Dominio.ViewModel;
 using Dominio.ViewModel.AutenticacaoViewModel;
-using Global;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Repositorio;
+using Global.Extensions;
 using Repositorio.Contratos;
 using Servico.Contratos;
 using Servico.Implementacao.Autenticacao;
 using System;
 using System.Threading.Tasks;
+using Global;
 
 namespace Api.Controllers.Autenticacao
 {
