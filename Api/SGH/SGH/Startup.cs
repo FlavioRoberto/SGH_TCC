@@ -4,6 +4,7 @@ using Dominio.Model;
 using Dominio.Model.Autenticacao;
 using Dominio.Model.CurriculoModel;
 using Dominio.Model.DisciplinaModel;
+using Dominio.ViewModel.AutenticacaoViewModel;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -24,8 +25,10 @@ using Repositorio.Implementacao.Curriculo;
 using Repositorio.Implementacao.CurriculoImplementacao;
 using Repositorio.Implementacao.Disciplina;
 using Servico.Contratos;
+using Servico.Implementacao;
 using Servico.Implementacao.Autenticacao;
 using Servico.Store;
+using System.Reflection;
 using System.Text;
 
 namespace Api
@@ -66,6 +69,9 @@ namespace Api
             services.AddScoped<IRepositorio<DisciplinaTipo>, DisciplinaTipoRepositorio>();
             services.AddScoped<IRepositorio<UsuarioPerfil>, UsuarioPerfilRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+
+
+            services.AddScoped<IUsuarioPerfilService, UsuarioPerfilServico>();
             services.AddScoped<IUsuarioService, UsuarioServico>();
             #endregion
 

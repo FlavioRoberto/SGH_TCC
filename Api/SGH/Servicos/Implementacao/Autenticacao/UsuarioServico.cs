@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
 using Dominio.Model.Autenticacao;
 using Dominio.ViewModel.AutenticacaoViewModel;
-using Repositorio;
 using Servico.Contratos;
-using System;
 using System.Threading.Tasks;
 using Global.Extensions;
 using Global;
-using System.IdentityModel.Tokens.Jwt;
 using Servico.Extensions;
 using Repositorio.Contratos;
 

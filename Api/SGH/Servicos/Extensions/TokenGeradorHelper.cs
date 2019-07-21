@@ -19,7 +19,10 @@ namespace Servico.Extensions
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim("Nome", usuario.Nome),
-                    new Claim("perfil", usuario.PerfilCodigo.ToString())
+                    new Claim("Codigo", usuario.Codigo.ToString()),
+                    new Claim("PerfilId", usuario.PerfilCodigo.ToString()),
+                    new Claim("Login", usuario.Login),
+                    new Claim("Foto", string.Empty)
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

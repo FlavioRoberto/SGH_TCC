@@ -1,12 +1,8 @@
-﻿using AutoMapper;
-using Dominio.ViewModel;
+﻿using Dominio.ViewModel;
 using Dominio.ViewModel.AutenticacaoViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Global.Extensions;
-using Repositorio.Contratos;
 using Servico.Contratos;
-using Servico.Implementacao.Autenticacao;
 using System;
 using System.Threading.Tasks;
 using Global;
@@ -23,7 +19,7 @@ namespace Api.Controllers.Autenticacao
             _servico = servico;
         }
 
-        [HttpPost("login")]
+        [HttpPost("autenticar")]
         [AllowAnonymous]
         public async Task<IActionResult> login([FromBody] LoginViewModel login)
         {
@@ -42,25 +38,7 @@ namespace Api.Controllers.Autenticacao
             }
         }
 
-        [HttpGet]
-        [Route("ListarTodos")]
-        public async Task<IActionResult> ListarTodos()
-        {
-            try
-            {
-                var resultado = await _servico.ListarTodos();
-
-                if (resultado.TemErro())
-                    return BadRequest(resultado.GetErros());
-
-                return Ok(resultado.GetResultado());
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-        }
-
+       
         [HttpPost]
         [Route("listarPaginacao")]
         public async Task<IActionResult> ListarPorPaginacao([FromBody] Paginacao<UsuarioViewModel> entidadePaginada)

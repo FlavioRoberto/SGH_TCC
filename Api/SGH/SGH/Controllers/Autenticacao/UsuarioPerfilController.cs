@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Dominio.Model.Autenticacao;
 using Dominio.ViewModel.AutenticacaoViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositorio;
 using Servico.Contratos;
@@ -15,9 +16,9 @@ namespace Api.Controllers.Autenticacao
     {
         private readonly IServicoBase<UsuarioPerfilViewModel> _servico;
 
-        public UsuarioPerfilController(IRepositorio<UsuarioPerfil> repositorio, IMapper mapper)
+        public UsuarioPerfilController(IUsuarioPerfilService servico)
         {
-            _servico = new UsuarioPerfilServico(repositorio, mapper);
+            _servico = servico;
         }
 
         [HttpGet]

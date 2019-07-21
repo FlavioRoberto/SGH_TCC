@@ -54,7 +54,8 @@ namespace Repositorio.Implementacao.Autenticacao
                 .AsNoTracking()
                 .FirstOrDefaultAsync(lnq =>
                     lnq.Login.IgualA(login)
-                    && lnq.Senha.ToMD5().IgualA(senha.ToMD5()));
+                    && lnq.Senha.IgualA(senha.ToMD5()));
+
         }
 
         protected override DbSet<Usuario> GetDbSet()
