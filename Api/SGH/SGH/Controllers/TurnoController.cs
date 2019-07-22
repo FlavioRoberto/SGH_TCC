@@ -2,9 +2,9 @@
 using Dominio.Model;
 using Dominio.ViewModel;
 using Global;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositorio;
-using Servico;
 using Servico.Contratos;
 using Servico.Implementacao;
 using System;
@@ -24,6 +24,7 @@ namespace Api.Controllers
         }
 
         [HttpGet]
+        [Authorize("todos")]
         [Route("listarTodos")]
         public async Task<IActionResult> ListarTodos()
         {
@@ -44,6 +45,7 @@ namespace Api.Controllers
 
 
         [HttpPost]
+        [Authorize("todos")]
         [Route("listarPaginacao")]
         public async Task<IActionResult> ListarPorPaginacao([FromBody] Paginacao<TurnoViewModel> entidadePaginada)
         {
@@ -67,6 +69,7 @@ namespace Api.Controllers
 
 
         [HttpPost]
+        [Authorize("admin")]
         [Route("criar")]
         public async Task<IActionResult> Criar([FromBody]TurnoViewModel entidade)
         {
@@ -89,6 +92,7 @@ namespace Api.Controllers
         }
 
         [HttpPut]
+        [Authorize("admin")]
         [Route("editar")]
         public async Task<IActionResult> Editar([FromBody] TurnoViewModel entidade)
         {
@@ -109,6 +113,7 @@ namespace Api.Controllers
         }
 
         [HttpDelete]
+        [Authorize("admin")]
         [Route("remover")]
         public async Task<IActionResult> Remover([FromQuery]int codigo)
         {

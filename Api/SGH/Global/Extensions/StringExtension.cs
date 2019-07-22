@@ -1,4 +1,6 @@
-﻿namespace Global.Extensions
+﻿using System;
+
+namespace Global.Extensions
 {
     public static class StringExtension
     {
@@ -8,6 +10,21 @@
                 return false;
 
             return value.ToLower().Trim().Equals(campoComparar.Trim().ToLower());
+        }
+
+        public static int ToInt(this string value)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(value))
+                    return 0;
+
+                return int.Parse(value);
+
+            }catch(Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

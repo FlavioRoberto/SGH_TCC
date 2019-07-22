@@ -3,6 +3,7 @@ using Dominio.Model.DisciplinaModel;
 using Dominio.ViewModel;
 using Dominio.ViewModel.DisciplinaViewModel;
 using Global;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositorio;
 using Servico.Contratos;
@@ -23,6 +24,7 @@ namespace Api.Controllers.DisciplinaControllers
         }
 
         [HttpGet]
+        [Authorize("todos")]
         [Route("listarTodos")]
         public async Task<IActionResult> ListarTodos()
         {
@@ -43,6 +45,7 @@ namespace Api.Controllers.DisciplinaControllers
         }
 
         [HttpPost]
+        [Authorize("todos")]
         [Route("listarPaginacao")]
         public async Task<IActionResult> ListarPorPaginacao([FromBody] Paginacao<DisciplinaViewModel> entidadePaginada)
         {
@@ -65,6 +68,7 @@ namespace Api.Controllers.DisciplinaControllers
         }
 
         [HttpPost]
+        [Authorize("admin")]
         [Route("criar")]
         public async Task<IActionResult> Criar([FromBody]DisciplinaViewModel entidade)
         {
@@ -87,6 +91,7 @@ namespace Api.Controllers.DisciplinaControllers
         }
 
         [HttpPut]
+        [Authorize("admin")]
         [Route("editar")]
         public async Task<IActionResult> Editar([FromBody] DisciplinaViewModel entidade)
         {
@@ -107,6 +112,7 @@ namespace Api.Controllers.DisciplinaControllers
         }
 
         [HttpDelete]
+        [Authorize("admin")]
         [Route("remover")]
         public async Task<IActionResult> Remover([FromQuery]int codigo)
         {

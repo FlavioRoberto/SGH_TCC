@@ -23,6 +23,7 @@ namespace Api.Controllers.Autenticacao
 
         [HttpGet]
         [Route("ListarTodos")]
+        [Authorize("todos")]
         public async Task<IActionResult> ListarTodos()
         {
             try

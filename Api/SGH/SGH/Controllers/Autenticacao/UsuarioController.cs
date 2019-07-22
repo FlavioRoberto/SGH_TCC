@@ -38,8 +38,8 @@ namespace Api.Controllers.Autenticacao
             }
         }
 
-       
         [HttpPost]
+        [Authorize("todos")]
         [Route("listarPaginacao")]
         public async Task<IActionResult> ListarPorPaginacao([FromBody] Paginacao<UsuarioViewModel> entidadePaginada)
         {
@@ -62,6 +62,7 @@ namespace Api.Controllers.Autenticacao
         }
 
         [HttpPost]
+        [Authorize("admin")]
         [Route("criar")]
         public async Task<IActionResult> Criar([FromBody]UsuarioViewModel entidade)
         {
@@ -85,6 +86,7 @@ namespace Api.Controllers.Autenticacao
 
         [HttpPut]
         [Route("editar")]
+        [Authorize("admin")]
         public async Task<IActionResult> Editar([FromBody] UsuarioViewModel entidade)
         {
             try
@@ -105,6 +107,7 @@ namespace Api.Controllers.Autenticacao
 
         [HttpDelete]
         [Route("remover")]
+        [Authorize("admin")]
         public async Task<IActionResult> Remover([FromQuery]int codigo)
         {
             try

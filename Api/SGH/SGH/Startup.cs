@@ -4,7 +4,6 @@ using Dominio.Model;
 using Dominio.Model.Autenticacao;
 using Dominio.Model.CurriculoModel;
 using Dominio.Model.DisciplinaModel;
-using Dominio.ViewModel.AutenticacaoViewModel;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -25,11 +24,10 @@ using Repositorio.Implementacao.Curriculo;
 using Repositorio.Implementacao.CurriculoImplementacao;
 using Repositorio.Implementacao.Disciplina;
 using Servico.Contratos;
-using Servico.Implementacao;
 using Servico.Implementacao.Autenticacao;
 using Servico.Store;
-using System.Reflection;
 using System.Text;
+using Global.Extensions;
 
 namespace Api
 {
@@ -112,8 +110,12 @@ namespace Api
 
             services.AddAuthorization(options =>
             {
-                options.AddPolicy("usuario", policy => policy.RequireClaim("perfil", "usuario"));
-                options.AddPolicy("administrador", policy => policy.RequireClaim("perfil", "administrador"));
+                options.AddPolicy("user", policy => policy.RequireClaim("perfilId", "5"));
+                options.AddPolicy("admin", policy => policy.RequireClaim("perfilId", "1"));
+                options.AddPolicy("pedagogico", policy => policy.RequireClaim("perfilId", "2"));
+                options.AddPolicy("todos", policy => policy.RequireAssertion(context =>
+                        context.User.HasClaim(c =>
+                            (c.Type == "perfilId" && (c.Value.ToInt() > 0 && c.Value.ToInt() <= 5)))));
             });
 
             services.AddAutoMapper();
@@ -124,11 +126,11 @@ namespace Api
                                   .RequireAuthenticatedUser()
                                   .Build();
                  config.Filters.Add(new AuthorizeFilter(policy));
-             }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+             })
+             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
         }
 
-        // This method gets called by the runtime. Use sthis method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
