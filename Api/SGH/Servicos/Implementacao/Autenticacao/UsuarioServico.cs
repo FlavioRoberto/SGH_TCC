@@ -7,6 +7,7 @@ using Global.Extensions;
 using Global;
 using Servico.Extensions;
 using Repositorio.Contratos;
+using System;
 
 namespace Servico.Implementacao.Autenticacao
 {
@@ -28,17 +29,29 @@ namespace Servico.Implementacao.Autenticacao
 
         }
 
-        public override Task<UsuarioViewModel> ValidarInsercao(UsuarioViewModel viewModel)
+        public override async Task<UsuarioViewModel> ValidarInsercao(UsuarioViewModel viewModel)
         {
+            var mensagem = await ValidarUsuarioComMesmoLoginOuEmail(viewModel);
+
+            if (!string.IsNullOrEmpty(mensagem))
+                throw new Exception(mensagem);
+
             viewModel.Senha = viewModel.Senha.ToMD5();
-            return Task.FromResult(viewModel);
+
+            return viewModel;
         }
         
         public override async Task<UsuarioViewModel> ValidarEdicao(UsuarioViewModel viewModel)
         {
+
+            var mensagem = await ValidarUsuarioComMesmoLoginOuEmail(viewModel);
+
+            if (!string.IsNullOrEmpty(mensagem))
+                throw new Exception(mensagem);
+
             var usuarioBanco = await _repositorio.Listar(lnq => lnq.Codigo == viewModel.Codigo);
 
-            if (usuarioBanco != null)
+            if (usuarioBanco == null)
                 return viewModel;
 
             if (!usuarioBanco.Senha.IgualA(viewModel.Senha))
@@ -52,5 +65,21 @@ namespace Servico.Implementacao.Autenticacao
         {
             return _repositorio as IUsuarioRepositorio;
         }
+
+        private async Task<string> ValidarUsuarioComMesmoLoginOuEmail(UsuarioViewModel usuario)
+        {
+            var msmLogin = await _repositorio.Listar(lnq => lnq.Login.IgualA(usuario.Login)) != null;
+
+            if (msmLogin)
+                return $"Login informado já está em uso!";
+            
+            var msmEmail = await _repositorio.Listar(lnq => lnq.Email.IgualA(usuario.Email)) != null;
+
+            if (msmEmail)
+                return $"E-mail informado já está em uso!";
+
+            return string.Empty;
+        }
+
     }
 }
