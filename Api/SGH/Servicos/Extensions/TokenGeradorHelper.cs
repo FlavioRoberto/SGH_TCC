@@ -22,7 +22,8 @@ namespace Servico.Extensions
                     new Claim("codigo", usuario.Codigo.ToString()),
                     new Claim("perfilId", usuario.PerfilCodigo.ToString()),
                     new Claim("login", usuario.Login),
-                    new Claim("foto", string.Empty)
+                    new Claim("foto", string.Empty),
+                    new Claim("admin", usuario.Perfil.Administrador == true ? "administrador" : string.Empty)
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
