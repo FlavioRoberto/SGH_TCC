@@ -13,8 +13,11 @@ namespace Servico.Implementacao.Autenticacao
 {
     public class UsuarioServico : BaseService<UsuarioViewModel, Usuario>, IUsuarioService
     {
-        public UsuarioServico(IUsuarioRepositorio repositorio, IMapper mapper) : base(repositorio, mapper, "Usuário")
-        { }
+        private UserResolverService _userResolver;
+        public UsuarioServico(IUsuarioRepositorio repositorio, IMapper mapper, IUserResolverService userResolver) : base(repositorio, mapper, "Usuário")
+        {
+            _userResolver = userResolver as UserResolverService;
+        }
 
         public async Task<Resposta<string>> Autenticar(LoginViewModel viewModel)
         {
@@ -39,6 +42,19 @@ namespace Servico.Implementacao.Autenticacao
             viewModel.Senha = viewModel.Senha.ToMD5();
 
             return viewModel;
+        }
+
+        public override async Task<long> ValidarRemocao(long id)
+        {
+
+            var quantidadeUsuariosAdm = await (_repositorio as IUsuarioRepositorio).QuantidadeUsuarioAdm();
+            var usuarioARemover = await _repositorio.Listar(lnq => lnq.Codigo == id);
+            var usuarioAdm = usuarioARemover.Perfil.Administrador == true;
+
+            if (usuarioAdm && quantidadeUsuariosAdm <= 1)
+                throw new Exception("Não é possível remover o usuário, pois não existem outros usuários administradores!");
+
+            return id;
         }
         
         public override async Task<UsuarioViewModel> ValidarEdicao(UsuarioViewModel viewModel)
@@ -68,12 +84,17 @@ namespace Servico.Implementacao.Autenticacao
 
         private async Task<string> ValidarUsuarioComMesmoLoginOuEmail(UsuarioViewModel usuario)
         {
-            var msmLogin = await _repositorio.Listar(lnq => lnq.Login.IgualA(usuario.Login)) != null;
+            var codigoUsuarioLogado = _userResolver.GetUser().ToInt();
+            
+            var msmLogin = await _repositorio.Listar(lnq => lnq.Login.IgualA(usuario.Login)
+                                 && codigoUsuarioLogado != lnq.Codigo) != null;
 
             if (msmLogin)
                 return $"Login informado já está em uso!";
             
-            var msmEmail = await _repositorio.Listar(lnq => lnq.Email.IgualA(usuario.Email)) != null;
+            var msmEmail = await _repositorio
+                                .Listar(lnq => lnq.Email.IgualA(usuario.Email) 
+                                 && lnq.Codigo != codigoUsuarioLogado) != null;
 
             if (msmEmail)
                 return $"E-mail informado já está em uso!";

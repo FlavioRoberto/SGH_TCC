@@ -6,7 +6,9 @@ using Global.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Repositorio.Contratos;
 using Repositorio.Helpers;
+using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Repositorio.Implementacao.Autenticacao
@@ -47,15 +49,32 @@ namespace Repositorio.Implementacao.Autenticacao
             return await PaginacaoHelper<Usuario>.Paginar(entidadePaginada, query);
         }
 
+        public async Task<int> QuantidadeUsuarioAdm()
+        {
+            return await GetDbSet()
+                 .Include(lnq => lnq.Perfil)
+                 .AsNoTracking()
+                 .CountAsync(lnq => lnq.Perfil.Administrador == true);
+        }
+
         public async Task<Usuario> RetornarUsuarioPorLoginESenha(string login, string senha)
         {
             return await GetDbSet()
-                .Include(lnq=>lnq.Perfil)
+                .Include(lnq => lnq.Perfil)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(lnq =>
                     lnq.Login.IgualA(login)
                     && lnq.Senha.IgualA(senha.ToMD5()));
 
+        }
+
+        public override  async Task<Usuario> Listar(Expression<Func<Usuario, bool>> query)
+        {
+            return await GetDbSet()
+                    .AsNoTracking()
+                    .Include(lnq => lnq.Perfil)
+                    .AsQueryable()
+                    .FirstOrDefaultAsync(query);
         }
 
         protected override DbSet<Usuario> GetDbSet()

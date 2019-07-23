@@ -78,7 +78,9 @@ namespace Servico.Implementacao
 
         public async Task<Resposta<bool>> Remover(long id)
         {
-            var result = await _repositorio.Remover(lnq=>lnq.Codigo == id);
+            id = await ValidarRemocao(id);
+
+            var result = await _repositorio.Remover(lnq => lnq.Codigo == id);
 
             if (result)
                 return new Resposta<bool>(result);
@@ -106,6 +108,10 @@ namespace Servico.Implementacao
         public virtual Task<TViewModel> ValidarEdicao(TViewModel viewModel)
         {
             return Task.FromResult(viewModel);
+        }
+        public virtual Task<long> ValidarRemocao(long id)
+        {
+            return Task.FromResult(id);
         }
     }
 }

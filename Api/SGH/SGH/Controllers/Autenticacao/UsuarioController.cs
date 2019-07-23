@@ -17,6 +17,7 @@ namespace Api.Controllers.Autenticacao
         public UsuarioController(IUsuarioService servico)
         {
             _servico = servico;
+
         }
 
         [HttpPost("autenticar")]

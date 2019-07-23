@@ -28,6 +28,8 @@ using Servico.Implementacao.Autenticacao;
 using Servico.Store;
 using System.Text;
 using Global.Extensions;
+using Servico.Implementacao;
+using Microsoft.AspNetCore.Http;
 
 namespace Api
 {
@@ -68,7 +70,8 @@ namespace Api
             services.AddScoped<IRepositorio<UsuarioPerfil>, UsuarioPerfilRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
 
-
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<IUserResolverService, UserResolverService>();
             services.AddScoped<IUsuarioPerfilService, UsuarioPerfilServico>();
             services.AddScoped<IUsuarioService, UsuarioServico>();
             #endregion

@@ -57,7 +57,7 @@ namespace Repositorio.Implementacao
             return entidade;
         }
 
-        public async Task<T> Listar(Expression<Func<T, bool>> query)
+        public async virtual Task<T> Listar(Expression<Func<T, bool>> query)
         {
             try
             {
