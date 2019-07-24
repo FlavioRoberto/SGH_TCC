@@ -8,15 +8,19 @@ using Global;
 using Servico.Extensions;
 using Repositorio.Contratos;
 using System;
+using System.Text;
 
 namespace Servico.Implementacao.Autenticacao
 {
     public class UsuarioServico : BaseService<UsuarioViewModel, Usuario>, IUsuarioService
     {
         private UserResolverService _userResolver;
-        public UsuarioServico(IUsuarioRepositorio repositorio, IMapper mapper, IUserResolverService userResolver) : base(repositorio, mapper, "Usuário")
+        private readonly IEmailSender _emailSender;
+
+        public UsuarioServico(IUsuarioRepositorio repositorio, IMapper mapper, IUserResolverService userResolver, IEmailSender emailSender) : base(repositorio, mapper, "Usuário")
         {
             _userResolver = userResolver as UserResolverService;
+            _emailSender = emailSender;
         }
 
         public async Task<Resposta<string>> Autenticar(LoginViewModel viewModel)
@@ -39,7 +43,10 @@ namespace Servico.Implementacao.Autenticacao
             if (!string.IsNullOrEmpty(mensagem))
                 throw new Exception(mensagem);
 
-            viewModel.Senha = viewModel.Senha.ToMD5();
+            string senha = GerarSenha();
+            viewModel.Senha = senha.ToMD5();
+
+            await EnviarEmail(viewModel, senha);
 
             return viewModel;
         }
@@ -102,5 +109,22 @@ namespace Servico.Implementacao.Autenticacao
             return string.Empty;
         }
 
+        private string GerarSenha()
+        {
+            string codigoSenha = DateTime.Now.Ticks.ToString();
+            return BitConverter.ToString(new System.Security.Cryptography.SHA512CryptoServiceProvider()
+                .ComputeHash(Encoding.Default.GetBytes(codigoSenha))).Replace("-", String.Empty).Substring(0,35);
+
+        }
+
+        private async Task EnviarEmail(UsuarioViewModel viewModel, string senha)
+        {
+            string mensagem = $@"Seu cadastro no SGH foi realizado com sucesso! <br>
+                                Usuário: {viewModel.Login}<br>
+                                Senha: {senha}<br>
+                                click <a>aqui</a> para acessar o sistema.";
+
+            await _emailSender.SendEmailAsync(viewModel.Email, "Cadastro de novo usuário no SGH", mensagem);
+        }
     }
 }

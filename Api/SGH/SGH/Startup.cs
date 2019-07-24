@@ -30,6 +30,8 @@ using System.Text;
 using Global.Extensions;
 using Servico.Implementacao;
 using Microsoft.AspNetCore.Http;
+using System.Configuration;
+using Api.Servicos.Email;
 
 namespace Api
 {
@@ -74,6 +76,9 @@ namespace Api
             services.AddTransient<IUserResolverService, UserResolverService>();
             services.AddScoped<IUsuarioPerfilService, UsuarioPerfilServico>();
             services.AddScoped<IUsuarioService, UsuarioServico>();
+
+            services.Configure<EmailSettings>(_configuration.GetSection("ConfiguracoesEmail"));
+            services.AddTransient<IEmailSender, AuthMessageSender>();
             #endregion
 
             services.AddCors(o =>
