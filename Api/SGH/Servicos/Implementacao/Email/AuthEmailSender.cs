@@ -20,16 +20,16 @@ namespace Servico.Implementacao.Autenticacao
         {
             try
             {
-                Execute(email, subject, message).Wait();
+                Execute(email, subject, message);
                 return Task.FromResult(0);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
-        public async Task Execute(string toEmail, string subject, string message)
+        public void Execute(string toEmail, string subject, string message)
         {
             try
             {
@@ -55,7 +55,7 @@ namespace Servico.Implementacao.Autenticacao
                 {
                     smtp.Credentials = new NetworkCredential(_emailSettings.Email, _emailSettings.Senha);
                     smtp.EnableSsl = true;
-                    await smtp.SendMailAsync(mail);
+                    smtp.Send(mail);
                 }
             }
             catch (Exception ex)

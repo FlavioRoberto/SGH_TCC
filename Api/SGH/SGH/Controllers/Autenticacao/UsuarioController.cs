@@ -22,11 +22,30 @@ namespace Api.Controllers.Autenticacao
 
         [HttpPost("autenticar")]
         [AllowAnonymous]
-        public async Task<IActionResult> login([FromBody] LoginViewModel login)
+        public async Task<IActionResult> Login([FromBody] LoginViewModel login)
         {
             try
             {
                 var resposta = await _servico.Autenticar(login);
+
+                if (resposta.TemErro())
+                    return BadRequest(resposta.GetErros());
+
+                return Ok(resposta.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
+        [HttpPost("redefinirSenha")]
+        [AllowAnonymous]
+        public async Task<IActionResult> RedefinirSenha([FromBody] string email)
+        {
+            try
+            {
+                var resposta = await _servico.RedefinirSenha(email);
 
                 if (resposta.TemErro())
                     return BadRequest(resposta.GetErros());
