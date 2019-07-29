@@ -45,6 +45,11 @@ namespace Data.Mapeamento.AutenticacaoMapeamento
                 .HasColumnName("usu_telefone")
                 .HasMaxLength(12);
 
+            builder.Property(p => p.Ativo)
+                .HasConversion<int>()
+                .HasColumnName("usu_ativo")
+                .HasDefaultValue(true);
+
             builder.Property(p => p.PerfilCodigo)
                 .IsRequired(true)
                 .HasColumnName("usuPrf_Perfil");
@@ -53,6 +58,7 @@ namespace Data.Mapeamento.AutenticacaoMapeamento
                 .WithMany(lnq => lnq.Usuarios)
                 .HasForeignKey(lnq => lnq.PerfilCodigo)
                 .HasConstraintName("FK_Perfil");
+
 
             builder.ToTable("usuario");
 

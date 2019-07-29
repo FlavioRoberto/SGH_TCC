@@ -30,6 +30,9 @@ namespace Servico.Implementacao.Autenticacao
             if (resultado == null)
                 return new Resposta<string>(null, "Usuário e/ou senha inválidos!");
 
+            if (!resultado.Ativo)
+                return new Resposta<string>(null, "Não foi possível logar no sistema, o usuário informado está inativo!");
+
             string token = TokenGeradorHelper.Gerar(resultado);
 
             return new Resposta<string>(token);
@@ -138,17 +141,17 @@ namespace Servico.Implementacao.Autenticacao
 
         private async Task<string> ValidarUsuarioComMesmoLoginOuEmail(UsuarioViewModel usuario)
         {
-            var codigoUsuarioLogado = _userResolver.GetUser().ToInt();
+           // var codigoUsuarioLogado = _userResolver.GetUser().ToInt();
 
             var msmLogin = await _repositorio.Listar(lnq => lnq.Login.IgualA(usuario.Login)
-                                 && codigoUsuarioLogado != lnq.Codigo) != null;
+                                 && usuario.Codigo != lnq.Codigo) != null;
 
             if (msmLogin)
                 return $"Login informado já está em uso!";
 
             var msmEmail = await _repositorio
                                 .Listar(lnq => lnq.Email.IgualA(usuario.Email)
-                                 && lnq.Codigo != codigoUsuarioLogado) != null;
+                                 && lnq.Codigo != usuario.Codigo) != null;
 
             if (msmEmail)
                 return $"E-mail informado já está em uso!";

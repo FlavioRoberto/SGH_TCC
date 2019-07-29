@@ -11,6 +11,7 @@ namespace Dominio.Model.Autenticacao
         public string Email { get; set; }
         public int PerfilCodigo { get; set; }
         public string Foto { get; set; }
+        public bool Ativo { get; set; }
 
         public UsuarioPerfil Perfil { get; set; }
     }
