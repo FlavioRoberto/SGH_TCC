@@ -8,5 +8,7 @@ namespace Servico.Contratos
     {
         Task<Resposta<string>> Autenticar(LoginViewModel login);
         Task<Resposta<string>> RedefinirSenha(string email);
+        Task<Resposta<string>> AtualizarSenha(string senha, string novaSenha);
+
     }
 }

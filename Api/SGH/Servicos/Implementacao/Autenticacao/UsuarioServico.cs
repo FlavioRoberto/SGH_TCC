@@ -58,6 +58,26 @@ namespace Servico.Implementacao.Autenticacao
             return new Resposta<string>("Senha redefinida com sucesso! Foi enviado um e-mail com seus dados de acesso.");
         }
 
+        public async Task<Resposta<string>> AtualizarSenha(string senha, string novaSenha)
+        {
+            var codigoUsuarioLogado = _userResolver.GetUser().ToInt();
+
+            var usuario = await _repositorio.Listar(lnq => lnq.Codigo == codigoUsuarioLogado);
+
+            if(usuario == null)
+                return new Resposta<string>(null, "Usuário não encontrado!");
+            
+            if (!usuario.Senha.Equals(senha.ToMD5()))
+                return new Resposta<string>(null, "Senha incorreta!");
+
+            usuario.Senha = novaSenha.ToMD5();
+
+            await _repositorio.Atualizar(usuario);
+
+            return new Resposta<string>("A senha foi atualizada!");
+
+        }
+
         public override async Task<UsuarioViewModel> ValidarInsercao(UsuarioViewModel viewModel)
         {
             var mensagem = await ValidarUsuarioComMesmoLoginOuEmail(viewModel);

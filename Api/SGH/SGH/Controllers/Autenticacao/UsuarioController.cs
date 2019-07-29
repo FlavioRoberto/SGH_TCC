@@ -58,6 +58,25 @@ namespace Api.Controllers.Autenticacao
             }
         }
 
+        [HttpPost("atualizarSenha")]
+        [AllowAnonymous]
+        public async Task<IActionResult> AtualizarSenha([FromBody] AtualizacaoSenhaViewModel viewModel)
+        {
+            try
+            {
+                var resposta = await _servico.AtualizarSenha(viewModel.Senha, viewModel.NovaSenha);
+
+                if (resposta.TemErro())
+                    return BadRequest(resposta.GetErros());
+
+                return Ok(resposta.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e);
+            }
+        }
+
         [HttpPost]
         [Authorize("todos")]
         [Route("listarPaginacao")]
