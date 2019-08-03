@@ -11,6 +11,7 @@ namespace Dominio.ViewModel.AutenticacaoViewModel
         public string Login { get; set; }
         public string Senha { get; set; }
         public string Email { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public bool Ativo { get; set; }
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int PerfilCodigo { get; set; }

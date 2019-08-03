@@ -23,6 +23,7 @@ namespace Servico.Extensions
                     new Claim("perfilId", usuario.PerfilCodigo.ToString()),
                     new Claim("login", usuario.Login),
                     new Claim("foto", string.Empty),
+                    new Claim("email", usuario.Email),
                     new Claim("admin", usuario.Perfil.Administrador == true ? "administrador" : string.Empty)
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
