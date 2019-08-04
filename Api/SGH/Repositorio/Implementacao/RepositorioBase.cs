@@ -4,6 +4,7 @@ using Global;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,6 +63,19 @@ namespace Repositorio.Implementacao
             try
             {
                 return await DbSet.AsNoTracking().FirstOrDefaultAsync(query);
+            }
+            catch (Exception e)
+            {
+                throw e;
+
+            }
+        }
+
+        public async virtual Task<List<T>> ListarPor(Expression<Func<T, bool>> query)
+        {
+            try
+            {
+                return await DbSet.AsNoTracking().Where(query).ToListAsync();
             }
             catch (Exception e)
             {

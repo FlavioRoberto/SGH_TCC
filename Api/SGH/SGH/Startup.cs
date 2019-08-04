@@ -32,6 +32,7 @@ using Servico.Implementacao;
 using Microsoft.AspNetCore.Http;
 using System.Configuration;
 using Api.Servicos.Email;
+using Servico.Implementacao.DisciplinaImp;
 
 namespace Api
 {
@@ -76,6 +77,7 @@ namespace Api
             services.AddTransient<IUserResolverService, UserResolverService>();
             services.AddScoped<IUsuarioPerfilService, UsuarioPerfilServico>();
             services.AddScoped<IUsuarioService, UsuarioServico>();
+            services.AddScoped<IDisciplinaService, DisciplinaServico>();
 
             services.Configure<EmailSettings>(_configuration.GetSection("ConfiguracoesEmail"));
             services.AddTransient<IEmailSender, AuthMessageSender>();

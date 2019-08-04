@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
-using Dominio.Model.DisciplinaModel;
 using Dominio.ViewModel;
 using Dominio.ViewModel.DisciplinaViewModel;
 using Global;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Repositorio;
 using Servico.Contratos;
-using Servico.Implementacao.DisciplinaImp;
 using System;
 using System.Threading.Tasks;
 
@@ -16,11 +13,11 @@ namespace Api.Controllers.DisciplinaControllers
     [Route("api/[controller]")]
     public class DisciplinaController : ControllerBase
     {
-        private readonly IServicoBase<DisciplinaViewModel> _servico;
+        private readonly IDisciplinaService _servico;
 
-        public DisciplinaController(IRepositorio<Disciplina> repositorio ,IMapper mapper)
+        public DisciplinaController(IDisciplinaService servico)
         {
-            _servico = new DisciplinaServico(repositorio, mapper);
+            _servico = servico;
         }
 
         [HttpGet]
@@ -31,6 +28,27 @@ namespace Api.Controllers.DisciplinaControllers
             try
             {
                 var result = await _servico.ListarTodos();
+
+                if (result.TemErro())
+                    return BadRequest(result.GetErros());
+
+                return Ok(result.GetResultado());
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize("todos")]
+        [Route("listarPorDescricao")]
+        public async Task<IActionResult> listarPorDescricao([FromQuery] string filtro)
+        {
+            try
+            {
+                var result = await _servico.listarPorDescricao(filtro);
 
                 if (result.TemErro())
                     return BadRequest(result.GetErros());
