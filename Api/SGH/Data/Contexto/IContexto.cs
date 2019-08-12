@@ -11,6 +11,8 @@ namespace Data.Contexto
     public interface IContexto
     {
         DbSet<CurriculoDisciplina> CurriculoDisciplina { get; set; }
+        DbSet<CurriculoDisciplinaPreRequisito> CurriculoDisciplinaPreRequisito { get; set; }
+
         DbSet<Curriculo> Curriculo { get; set; }
         DbSet<Disciplina> Disciplina { get; set; }
         DbSet<DisciplinaTipo> DisciplinaTipo { get; set; }

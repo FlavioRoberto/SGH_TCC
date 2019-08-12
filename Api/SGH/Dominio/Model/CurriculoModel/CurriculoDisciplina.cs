@@ -1,5 +1,6 @@
 ﻿using Dominio.Contratos;
 using Dominio.Model.DisciplinaModel;
+using System.Collections.Generic;
 
 namespace Dominio.Model.CurriculoModel
 {
@@ -12,9 +13,10 @@ namespace Dominio.Model.CurriculoModel
         public int HoraAulaTotal { get; set; }
         public int HoraTotal { get; set; }
         public int Credito { get; set; }
-        public bool PreRequisito { get; set; }
 
         public virtual Disciplina Disciplina { get; set; }
         public virtual Curriculo Curriculo { get; set; }
+        public virtual IEnumerable<CurriculoDisciplinaPreRequisito> CurriculoDisciplinaPreRequisito { get; set; }
+
     }
 }

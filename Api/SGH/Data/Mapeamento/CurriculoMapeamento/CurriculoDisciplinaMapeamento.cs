@@ -40,9 +40,6 @@ namespace Data.Mapeamento.CurriculoMapeamento
             builder.Property(lnq => lnq.Credito)
                 .HasColumnName("curdis_credito");
 
-            builder.Property(lnq => lnq.PreRequisito)
-                .HasColumnName("curdis_pre_requisito");
-
             #endregion
 
             builder.ToTable("curriculo_disciplina");
