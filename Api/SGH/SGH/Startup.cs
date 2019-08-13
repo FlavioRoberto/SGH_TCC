@@ -78,6 +78,7 @@ namespace Api
             services.AddScoped<IUsuarioPerfilService, UsuarioPerfilServico>();
             services.AddScoped<IUsuarioService, UsuarioServico>();
             services.AddScoped<IDisciplinaService, DisciplinaServico>();
+            services.AddScoped<ICursoService, CursoServico>();
 
             services.Configure<EmailSettings>(_configuration.GetSection("ConfiguracoesEmail"));
             services.AddTransient<IEmailSender, AuthMessageSender>();

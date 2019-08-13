@@ -1,12 +1,8 @@
-﻿using AutoMapper;
-using Dominio.Model;
-using Dominio.ViewModel;
+﻿using Dominio.ViewModel;
 using Global;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Repositorio;
 using Servico.Contratos;
-using Servico.Implementacao;
 using System;
 using System.Threading.Tasks;
 
@@ -17,9 +13,9 @@ namespace Api.Controllers
     {
         private readonly IServicoBase<CursoViewModel> _servico;
 
-        public CursoController(IRepositorio<Curso> repositorio, IMapper mapper)
+        public CursoController(ICursoService servico)
         {
-            _servico = new CursoServico(repositorio, mapper);
+            _servico = servico;
         }
 
         [HttpGet]
