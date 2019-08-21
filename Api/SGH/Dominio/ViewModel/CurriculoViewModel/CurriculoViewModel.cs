@@ -17,7 +17,6 @@ namespace Dominio.ViewModel.CurriculoViewModel
 
         public int Ano { get; set; }
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public IEnumerable<CurriculoDisciplinaViewModel> Disciplinas { get; set; }
+        public List<CurriculoDisciplinaViewModel> Disciplinas { get; set; }
     }
 }

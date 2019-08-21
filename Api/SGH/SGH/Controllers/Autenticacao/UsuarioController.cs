@@ -26,7 +26,7 @@ namespace Api.Controllers.Autenticacao
         {
             try
             {
-                var resposta = await _servico.Autenticar(login);
+                Resposta<string> resposta = await _servico.Autenticar(login);
 
                 if (resposta.TemErro())
                     return BadRequest(resposta.GetErros());

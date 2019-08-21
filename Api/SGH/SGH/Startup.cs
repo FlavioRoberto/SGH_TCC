@@ -2,7 +2,6 @@
 using Data.Contexto;
 using Dominio.Model;
 using Dominio.Model.Autenticacao;
-using Dominio.Model.CurriculoModel;
 using Dominio.Model.DisciplinaModel;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +19,6 @@ using Repositorio;
 using Repositorio.Contratos;
 using Repositorio.Implementacao;
 using Repositorio.Implementacao.Autenticacao;
-using Repositorio.Implementacao.Curriculo;
 using Repositorio.Implementacao.CurriculoImplementacao;
 using Repositorio.Implementacao.Disciplina;
 using Servico.Contratos;
@@ -30,9 +28,9 @@ using System.Text;
 using Global.Extensions;
 using Servico.Implementacao;
 using Microsoft.AspNetCore.Http;
-using System.Configuration;
 using Api.Servicos.Email;
 using Servico.Implementacao.DisciplinaImp;
+using Servico.Implementacao.CurriculoImp;
 
 namespace Api
 {
@@ -67,7 +65,6 @@ namespace Api
             services.AddScoped<IRepositorio<Turno>, TurnoRepositorio>();
             services.AddScoped<IRepositorio<Curso>, CursoRepositorio>();
             services.AddScoped<IRepositorio<Curriculo>, CurriculoRepositorio>();
-            services.AddScoped<IRepositorio<CurriculoDisciplina>, CurriculoDisciplinaRepositorio>();
             services.AddScoped<IRepositorio<Disciplina>, DisciplinaRepositorio>();
             services.AddScoped<IRepositorio<DisciplinaTipo>, DisciplinaTipoRepositorio>();
             services.AddScoped<IRepositorio<UsuarioPerfil>, UsuarioPerfilRepositorio>();
@@ -79,6 +76,7 @@ namespace Api
             services.AddScoped<IUsuarioService, UsuarioServico>();
             services.AddScoped<IDisciplinaService, DisciplinaServico>();
             services.AddScoped<ICursoService, CursoServico>();
+            services.AddScoped<ICurriculoService, CurriculoServico>();
 
             services.Configure<EmailSettings>(_configuration.GetSection("ConfiguracoesEmail"));
             services.AddTransient<IEmailSender, AuthMessageSender>();

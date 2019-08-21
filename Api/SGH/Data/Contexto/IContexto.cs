@@ -20,8 +20,9 @@ namespace Data.Contexto
         DbSet<Turno> Turno { get; set; }
         DbSet<UsuarioPerfil> UsuarioPerfil { get; set; }
         DbSet<Usuario> Usuario { get; set; }
-
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken));
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
+        int SaveChanges();
+
     }
 }
