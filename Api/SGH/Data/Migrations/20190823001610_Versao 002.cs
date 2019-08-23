@@ -2,7 +2,7 @@
 
 namespace Data.Migrations
 {
-    public partial class Adicaodeperfis : Migration
+    public partial class Versao002 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

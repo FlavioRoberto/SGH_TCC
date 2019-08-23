@@ -13,7 +13,7 @@ namespace Dominio.Model
 
         public virtual Curso Curso { get; set; }
         public virtual Turno Turno { get; set; }
-        public virtual List<CurriculoDisciplina> Disciplinas { get; set; }
+        public virtual IEnumerable<CurriculoDisciplina> Disciplinas { get; set; }
 
     }
 }

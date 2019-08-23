@@ -5,6 +5,7 @@ using Dominio.ViewModel;
 using Global;
 using Microsoft.EntityFrameworkCore;
 using Repositorio.Contratos;
+using Repositorio.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
         {
             try
             {
-                var curriculoExistente = _contexto.Curriculo.FirstOrDefault(lnq => lnq.Ano == entidade.Ano
+                 var curriculoExistente = _contexto.Curriculo.FirstOrDefault(lnq => lnq.Ano == entidade.Ano
                                                                 && lnq.Periodo == entidade.Periodo
                                                                 && lnq.CodigoCurso == entidade.CodigoCurso
                                                                 && lnq.CodigoTurno == entidade.CodigoTurno) != null;
@@ -54,7 +55,7 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                 _contexto.Curriculo.Add(curriculo);
                 await _contexto.SaveChangesAsync();
 
-                entidade.Disciplinas.ForEach(curDis =>
+                entidade.Disciplinas.ToList().ForEach(curDis =>
                 {
                     var curDisSalvar = new CurriculoDisciplina
                     {
@@ -89,6 +90,7 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                                 .Include(lnq=>lnq.Turno)
                                 .Include(lnq=>lnq.Curso)
                                 .Include(lnq=>lnq.Disciplinas)
+                                .ThenInclude(ce => ce.Disciplina)
                                 .FirstOrDefault(lnq => lnq.Codigo == curriculo.Codigo);
 
                 return retorno;
@@ -109,9 +111,21 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
             throw new NotImplementedException();
         }
 
-        public Task<Resposta<Paginacao<Curriculo>>> ListarPorPaginacao(Paginacao<Curriculo> entidade)
+        public async Task<Resposta<Paginacao<Curriculo>>> ListarPorPaginacao(Paginacao<Curriculo> entidadePaginada)
         {
-            throw new NotImplementedException();
+            var query = _contexto.Curriculo
+                                .Include(lnq => lnq.Turno)
+                                .Include(lnq => lnq.Curso)
+                                .Include(lnq => lnq.Disciplinas)
+                                .ThenInclude(ce => ce.Disciplina)
+                                .AsNoTracking();
+            
+            if (entidadePaginada.Entidade == null)
+                entidadePaginada.Entidade = new Curriculo();
+
+            var entidade = entidadePaginada.Entidade;
+
+            return await PaginacaoHelper<Curriculo>.Paginar(entidadePaginada, query);
         }
 
         public Task<List<Curriculo>> ListarTodos()
@@ -119,9 +133,28 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
             throw new NotImplementedException();
         }
 
-        public Task<bool> Remover(Expression<Func<Curriculo, bool>> query)
+        public async Task<bool> Remover(Expression<Func<Curriculo, bool>> query)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var item = await DbSet.FirstOrDefaultAsync(query);
+
+                if (item != null)
+                {
+                    DbSet.Remove(item);
+                    await _contexto.SaveChangesAsync();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                    throw new Exception("Não foi encontrado currículos com os campos informados!");
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

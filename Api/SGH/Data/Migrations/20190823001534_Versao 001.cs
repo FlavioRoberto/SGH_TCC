@@ -46,6 +46,20 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Usuario_Perfil",
+                columns: table => new
+                {
+                    usuPrf_codigo = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    usuPrf_descricao = table.Column<string>(maxLength: 45, nullable: false),
+                    usuPrf_administrador = table.Column<int>(nullable: false, defaultValue: 0)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Usuario_Perfil", x => x.usuPrf_codigo);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "disciplina",
                 columns: table => new
                 {
@@ -94,33 +108,81 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "usuario",
+                columns: table => new
+                {
+                    usu_codigo = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    usu_nome = table.Column<string>(maxLength: 45, nullable: false),
+                    usu_telefone = table.Column<string>(maxLength: 12, nullable: true),
+                    usu_login = table.Column<string>(maxLength: 30, nullable: false),
+                    usu_senha = table.Column<string>(maxLength: 35, nullable: false),
+                    usu_email = table.Column<string>(maxLength: 50, nullable: false),
+                    usuPrf_Perfil = table.Column<int>(nullable: false),
+                    usu_foto = table.Column<string>(nullable: true),
+                    usu_ativo = table.Column<int>(nullable: false, defaultValue: 1)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_usuario", x => x.usu_codigo);
+                    table.ForeignKey(
+                        name: "FK_Perfil",
+                        column: x => x.usuPrf_Perfil,
+                        principalTable: "Usuario_Perfil",
+                        principalColumn: "usuPrf_codigo",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "curriculo_disciplina",
                 columns: table => new
                 {
                     curdis_codigo = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    curdis_disciplina = table.Column<int>(nullable: false),
+                    curdis_disciplina = table.Column<int>(nullable: true),
                     curdis_curriculo = table.Column<int>(nullable: false),
                     curdis_carga_horaria_semanal_teoricoa = table.Column<int>(nullable: false),
                     curdis_carga_horaria_semanal_pratica = table.Column<int>(nullable: false),
-                    CargaHorariaSemanalTotal = table.Column<int>(nullable: false),
                     curdis_hora_aula_total = table.Column<int>(nullable: false),
                     curdis_hora_total = table.Column<int>(nullable: false),
-                    curdis_credito = table.Column<int>(nullable: false),
-                    curdis_pre_requisito = table.Column<short>(nullable: false)
+                    curdis_credito = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_curriculo_disciplina", x => x.curdis_codigo);
                     table.ForeignKey(
-                        name: "FK_curriculo_disciplina_curriculo_curdis_curriculo",
+                        name: "FK_Curriculo",
                         column: x => x.curdis_curriculo,
                         principalTable: "curriculo",
                         principalColumn: "curric_codigo",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_curriculo_disciplina_disciplina_curdis_disciplina",
+                        name: "FK_Disciplina",
                         column: x => x.curdis_disciplina,
+                        principalTable: "disciplina",
+                        principalColumn: "dis_codigo",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "curriculo_disciplina_pre_requisito",
+                columns: table => new
+                {
+                    disPre_curriculo_disciplina = table.Column<int>(nullable: false),
+                    disPre_disciplina = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_curriculo_disciplina_pre_requisito", x => new { x.disPre_curriculo_disciplina, x.disPre_disciplina });
+                    table.ForeignKey(
+                        name: "FK_Curriculo_Disciplina",
+                        column: x => x.disPre_curriculo_disciplina,
+                        principalTable: "curriculo_disciplina",
+                        principalColumn: "curdis_codigo",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Curriculo_Disciplina_Pre_Req",
+                        column: x => x.disPre_disciplina,
                         principalTable: "disciplina",
                         principalColumn: "dis_codigo",
                         onDelete: ReferentialAction.Cascade);
@@ -147,15 +209,34 @@ namespace Data.Migrations
                 column: "curdis_disciplina");
 
             migrationBuilder.CreateIndex(
+                name: "IX_curriculo_disciplina_pre_requisito_disPre_disciplina",
+                table: "curriculo_disciplina_pre_requisito",
+                column: "disPre_disciplina");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_disciplina_dis_tipo",
                 table: "disciplina",
                 column: "dis_tipo");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_usuario_usuPrf_Perfil",
+                table: "usuario",
+                column: "usuPrf_Perfil");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "curriculo_disciplina_pre_requisito");
+
+            migrationBuilder.DropTable(
+                name: "usuario");
+
+            migrationBuilder.DropTable(
                 name: "curriculo_disciplina");
+
+            migrationBuilder.DropTable(
+                name: "Usuario_Perfil");
 
             migrationBuilder.DropTable(
                 name: "curriculo");

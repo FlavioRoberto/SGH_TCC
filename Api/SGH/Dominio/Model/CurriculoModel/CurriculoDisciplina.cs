@@ -6,7 +6,7 @@ namespace Dominio.Model.CurriculoModel
 {
     public class CurriculoDisciplina: EntidadeBase
     {
-        public int CodigoDisciplina { get; set; }
+        public int? CodigoDisciplina { get; set; }
         public int CodigoCurriculo { get; set; }
         public int CargaHorariaSemanalTeorica { get; set; }
         public int CargaHorariaSemanalPratica { get; set; }

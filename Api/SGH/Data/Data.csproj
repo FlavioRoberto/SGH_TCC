@@ -5,16 +5,38 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20190428210735_Versao 001.cs" />
+    <Compile Remove="Migrations\20190428210735_Versao 001.Designer.cs" />
     <Compile Remove="Migrations\20190714191713_Versao 02_2019.cs" />
     <Compile Remove="Migrations\20190714191713_Versao 02_2019.Designer.cs" />
     <Compile Remove="Migrations\20190714191950_Versao 002.cs" />
     <Compile Remove="Migrations\20190714191950_Versao 002.Designer.cs" />
+    <Compile Remove="Migrations\20190714194846_Versao 002.cs" />
+    <Compile Remove="Migrations\20190714194846_Versao 002.Designer.cs" />
+    <Compile Remove="Migrations\20190714194908_Adicao de perfis.cs" />
+    <Compile Remove="Migrations\20190714194908_Adicao de perfis.Designer.cs" />
     <Compile Remove="Migrations\20190714202413_Versao 003.cs" />
     <Compile Remove="Migrations\20190714202413_Versao 003.Designer.cs" />
+    <Compile Remove="Migrations\20190714202536_Versao 003.cs" />
+    <Compile Remove="Migrations\20190714202536_Versao 003.Designer.cs" />
     <Compile Remove="Migrations\20190721233302_Versao_004.cs" />
     <Compile Remove="Migrations\20190721233302_Versao_004.Designer.cs" />
+    <Compile Remove="Migrations\20190721233606_Versao_004.cs" />
+    <Compile Remove="Migrations\20190721233606_Versao_004.Designer.cs" />
+    <Compile Remove="Migrations\20190729232955_Versao_005.cs" />
+    <Compile Remove="Migrations\20190729232955_Versao_005.Designer.cs" />
     <Compile Remove="Migrations\20190812230517_Versao_006.cs" />
     <Compile Remove="Migrations\20190812230517_Versao_006.Designer.cs" />
+    <Compile Remove="Migrations\20190812230752_Versao_006.cs" />
+    <Compile Remove="Migrations\20190812230752_Versao_006.Designer.cs" />
+    <Compile Remove="Migrations\20190823000234_Versao_007.cs" />
+    <Compile Remove="Migrations\20190823000234_Versao_007.Designer.cs" />
+    <Compile Remove="Migrations\20190823000851_Versao_006.cs" />
+    <Compile Remove="Migrations\20190823000851_Versao_006.Designer.cs" />
+    <Compile Remove="Migrations\20190823001127_Versao_007.cs" />
+    <Compile Remove="Migrations\20190823001127_Versao_007.Designer.cs" />
+    <Compile Remove="Migrations\20190823001157_Versao_007.cs" />
+    <Compile Remove="Migrations\20190823001157_Versao_007.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

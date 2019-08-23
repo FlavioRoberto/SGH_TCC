@@ -20,7 +20,8 @@ namespace Data.Mapeamento.CurriculoMapeamento
                 .HasColumnName("curdis_codigo");
 
             builder.Property(lnq => lnq.CodigoDisciplina)
-                .HasColumnName("curdis_disciplina");
+                .HasColumnName("curdis_disciplina")
+                .IsRequired(false);
 
             builder.Property(lnq => lnq.CodigoCurriculo)
                 .HasColumnName("curdis_curriculo");
@@ -48,11 +49,13 @@ namespace Data.Mapeamento.CurriculoMapeamento
 
             builder.HasOne(lnq => lnq.Curriculo)
                 .WithMany(lnq => lnq.Disciplinas)
-                .HasForeignKey(lnq => lnq.CodigoCurriculo);
+                .HasForeignKey(lnq => lnq.CodigoCurriculo)
+                .HasConstraintName("FK_Curriculo");
 
             builder.HasOne(lnq => lnq.Disciplina)
                 .WithMany(lnq => lnq.CurriculoDisciplinas)
-                .HasForeignKey(lnq => lnq.CodigoDisciplina);
+                .HasForeignKey(lnq => lnq.CodigoDisciplina)
+                .HasConstraintName("FK_Disciplina");
 
             #endregion relacionamentos
 

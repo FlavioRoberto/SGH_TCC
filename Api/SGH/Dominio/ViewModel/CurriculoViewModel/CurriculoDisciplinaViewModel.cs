@@ -25,6 +25,8 @@ namespace Dominio.ViewModel.CurriculoViewModel
 
         public int Credito { get; set; }
 
+        public DisciplinaViewModel.DisciplinaViewModel Disciplina { get; set; }
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public IEnumerable<DisciplinaViewModel.DisciplinaViewModel> PreRequisitos { get; set; }
 
