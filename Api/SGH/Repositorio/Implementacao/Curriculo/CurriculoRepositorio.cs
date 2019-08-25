@@ -26,9 +26,32 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
 
         public DbSet<Curriculo> DbSet => _contexto.Curriculo;
 
-        public Task<Curriculo> Atualizar(Curriculo entidade)
+        public async Task<Curriculo> Atualizar(Curriculo entidade)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var disciplinasCurriculo = await _contexto.CurriculoDisciplina.Where(lnq => lnq.CodigoCurriculo == entidade.Codigo).ToListAsync();
+                _contexto.CurriculoDisciplina.RemoveRange(disciplinasCurriculo);
+                DbSet.Update(entidade);
+                await _contexto.SaveChangesAsync();
+
+                var retorno = DbSet
+                                .Include(lnq => lnq.Turno)
+                                .Include(lnq => lnq.Curso)
+                                .Include(lnq => lnq.Disciplinas)
+                                .ThenInclude(ce => ce.Disciplina)
+                                .Include(lnq => lnq.Disciplinas)
+                                .ThenInclude(cp => cp.CurriculoDisciplinaPreRequisito)
+                                .ThenInclude(dp => dp.Disciplina)
+                                .FirstOrDefault(lnq => lnq.Codigo == entidade.Codigo);
+
+                return retorno;
+
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         public async Task<Curriculo> Criar(Curriculo entidade)
@@ -87,10 +110,13 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                 });
 
                 var retorno = DbSet
-                                .Include(lnq=>lnq.Turno)
-                                .Include(lnq=>lnq.Curso)
-                                .Include(lnq=>lnq.Disciplinas)
+                                .Include(lnq => lnq.Turno)
+                                .Include(lnq => lnq.Curso)
+                                .Include(lnq => lnq.Disciplinas)
                                 .ThenInclude(ce => ce.Disciplina)
+                                .Include(lnq => lnq.Disciplinas)
+                                .ThenInclude(cp => cp.CurriculoDisciplinaPreRequisito)
+                                .ThenInclude(dp => dp.Disciplina)
                                 .FirstOrDefault(lnq => lnq.Codigo == curriculo.Codigo);
 
                 return retorno;
@@ -118,12 +144,30 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                                 .Include(lnq => lnq.Curso)
                                 .Include(lnq => lnq.Disciplinas)
                                 .ThenInclude(ce => ce.Disciplina)
+                                .Include(lnq=>lnq.Disciplinas)
+                                .ThenInclude(cp=>cp.CurriculoDisciplinaPreRequisito)
+                                .ThenInclude(dp=>dp.Disciplina)
                                 .AsNoTracking();
             
             if (entidadePaginada.Entidade == null)
                 entidadePaginada.Entidade = new Curriculo();
 
             var entidade = entidadePaginada.Entidade;
+
+            if (entidade.Ano > 0)
+                query = query.Where(lnq => lnq.Ano == entidade.Ano);
+
+            if (entidade.Codigo > 0)
+                query = query.Where(lnq => lnq.Codigo == entidade.Codigo);
+
+            if (entidade.CodigoCurso > 0)
+                query = query.Where(lnq => lnq.CodigoCurso == entidade.CodigoCurso);
+
+            if (entidade.CodigoTurno > 0)
+                query = query.Where(lnq => lnq.CodigoTurno == entidade.CodigoTurno);
+
+            if (entidade.Periodo > 0)
+                query = query.Where(lnq => lnq.Periodo == entidade.Periodo);
 
             return await PaginacaoHelper<Curriculo>.Paginar(entidadePaginada, query);
         }
@@ -148,7 +192,6 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                 else
                 {
                     return false;
-                    throw new Exception("Não foi encontrado currículos com os campos informados!");
                 }
             }
             catch (Exception e)

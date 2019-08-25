@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Dominio.Model;
-using Dominio.Model.CurriculoModel;
 using Dominio.ViewModel;
 using Dominio.ViewModel.CurriculoViewModel;
 using Global;
@@ -25,9 +24,18 @@ namespace Servico.Implementacao.CurriculoImp
             _mapper = mapper;
         }
 
-        public Task<Resposta<CurriculoViewModel>> Atualizar(CurriculoViewModel entidade)
+        public async Task<Resposta<CurriculoViewModel>> Atualizar(CurriculoViewModel entidadeViewModel)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var entidade = _mapper.Map<Curriculo>(entidadeViewModel);
+                var resultado = _mapper.Map<CurriculoViewModel>(await _repositorio.Atualizar(entidade));
+                return new Resposta<CurriculoViewModel>(resultado);
+            }
+            catch (Exception e)
+            {
+                return new Resposta<CurriculoViewModel>(entidadeViewModel, $"Ocorreu um erro ao atualizar o currículo: {e.Message}");
+            }
         }
 
         public async Task<Resposta<CurriculoViewModel>> Criar(CurriculoViewModel viewModel)
@@ -37,7 +45,7 @@ namespace Servico.Implementacao.CurriculoImp
                 string mensagemErro = ValidarDadosCurriculo(viewModel);
 
                 if (!string.IsNullOrEmpty(mensagemErro))
-                    return new Resposta<CurriculoViewModel>(null, $"Não foi possível cadastrar um novo currículo: {mensagemErro}");
+                    return new Resposta<CurriculoViewModel>(null, $"Não foi possível cadastrar um novo currículo: s{mensagemErro}");
                 
                 var entidade = _mapper.Map<Curriculo>(viewModel);
 
@@ -90,8 +98,8 @@ namespace Servico.Implementacao.CurriculoImp
 
                 if (result)
                     return new Resposta<bool>(result);
-
-                return new Resposta<bool>(false, $"Não foi possível remover o currículo!");
+                else
+                    return new Resposta<bool>(false, $"Não foi possível remover o currículo: Currículos com código {id} não encontrado!");
             }
             catch (Exception e)
             {

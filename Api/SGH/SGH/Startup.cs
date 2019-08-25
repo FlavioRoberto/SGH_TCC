@@ -124,7 +124,7 @@ namespace Api
                 options.AddPolicy("pedagogico", policy => policy.RequireClaim("perfilId", "2"));
                 options.AddPolicy("todos", policy => policy.RequireAssertion(context =>
                         context.User.HasClaim(c =>
-                            (c.Type == "perfilId" && (c.Value.ToInt() > 0 && c.Value.ToInt() <= 5)))));
+                            (c.Type == "perfilId" && (c.Value.ToInt() > 0)))));
             });
 
             services.AddAutoMapper();

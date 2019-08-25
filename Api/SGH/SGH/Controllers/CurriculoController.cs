@@ -44,6 +44,27 @@ namespace Api.Controllers
             }
         }
 
+        [HttpPut]
+        [Authorize("admin")]
+        [Route("editar")]
+        public async Task<IActionResult> Editar([FromBody] CurriculoViewModel entidade)
+        {
+            try
+            {
+                Resposta<CurriculoViewModel> resultado = await _servico.Atualizar(entidade);
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost]
         [Authorize("admin")]
         [Route("listarPaginacao")]
