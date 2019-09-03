@@ -30,22 +30,54 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
         {
             try
             {
-                var disciplinasCurriculo = await _contexto.CurriculoDisciplina.Where(lnq => lnq.CodigoCurriculo == entidade.Codigo).ToListAsync();
-                _contexto.CurriculoDisciplina.RemoveRange(disciplinasCurriculo);
-                DbSet.Update(entidade);
+
+                var disciplinasRemover = await _contexto.CurriculoDisciplina   
+                                             .AsNoTracking()   
+                                             .Where(lnq=>lnq.CodigoCurriculo == entidade.Codigo)
+                                             .ToListAsync();
+
+                _contexto.CurriculoDisciplina.RemoveRange(disciplinasRemover);
                 await _contexto.SaveChangesAsync();
 
-                var retorno = DbSet
-                                .Include(lnq => lnq.Turno)
-                                .Include(lnq => lnq.Curso)
-                                .Include(lnq => lnq.Disciplinas)
-                                .ThenInclude(ce => ce.Disciplina)
-                                .Include(lnq => lnq.Disciplinas)
-                                .ThenInclude(cp => cp.CurriculoDisciplinaPreRequisito)
-                                .ThenInclude(dp => dp.Disciplina)
-                                .FirstOrDefault(lnq => lnq.Codigo == entidade.Codigo);
+                foreach(var disciplina in entidade.Disciplinas)
+                {
+                    var preRequisitos = disciplina.CurriculoDisciplinaPreRequisito;
 
-                return retorno;
+                    var disciplinaAdicionar = new CurriculoDisciplina
+                    {
+                        CargaHorariaSemanalPratica = disciplina.CargaHorariaSemanalPratica,
+                        CargaHorariaSemanalTeorica = disciplina.CargaHorariaSemanalTeorica,
+                        CodigoCurriculo = entidade.Codigo,
+                        HoraAulaTotal = disciplina.HoraAulaTotal,
+                        HoraTotal = disciplina.HoraTotal,
+                        CodigoDisciplina = disciplina.CodigoDisciplina,
+                        Credito = disciplina.Credito,
+                    };
+
+                    _contexto.CurriculoDisciplina.Add(disciplinaAdicionar);
+                    _contexto.SaveChanges();
+
+                    foreach (var preRequisito in preRequisitos)
+                    {
+                        preRequisito.CodigoDisciplina = preRequisito.CodigoDisciplina;
+                        preRequisito.CodigoCurriculoDisciplina = disciplinaAdicionar.Codigo;
+                        _contexto.CurriculoDisciplinaPreRequisito.Add(preRequisito);
+                        _contexto.SaveChanges();
+                    };
+
+                }
+
+                var curriculoAtualizar = await _contexto.Curriculo.FirstOrDefaultAsync(lnq => lnq.Codigo == entidade.Codigo);
+                curriculoAtualizar.Ano = entidade.Ano;
+                curriculoAtualizar.CodigoCurso = entidade.CodigoCurso;
+                curriculoAtualizar.CodigoTurno = entidade.CodigoTurno;
+                curriculoAtualizar.Periodo = entidade.Periodo;
+                curriculoAtualizar.Turno = entidade.Turno;
+
+
+                await _contexto.SaveChangesAsync();
+
+                return curriculoAtualizar;
 
             }
             catch (Exception e)
