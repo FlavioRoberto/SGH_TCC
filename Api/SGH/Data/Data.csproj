@@ -37,6 +37,8 @@
     <Compile Remove="Migrations\20190823001127_Versao_007.Designer.cs" />
     <Compile Remove="Migrations\20190823001157_Versao_007.cs" />
     <Compile Remove="Migrations\20190823001157_Versao_007.Designer.cs" />
+    <Compile Remove="Migrations\20190917234415_Versao 003.cs" />
+    <Compile Remove="Migrations\20190917234415_Versao 003.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

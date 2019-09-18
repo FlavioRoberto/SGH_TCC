@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 namespace Api.Controllers
 {
     [Route("api/[controller]")]
-    public class CursoController : ControllerBase
+    public class ProfessorController : ControllerBase
     {
-        private readonly ICursoService _servico;
+        private readonly IProfessorService _servico;
 
-        public CursoController(ICursoService servico)
+        public ProfessorController(IProfessorService servico)
         {
-            _servico = servico;
+            this._servico = servico;
         }
 
         [HttpGet]
@@ -41,14 +41,14 @@ namespace Api.Controllers
         [HttpPost]
         [Authorize("admin")]
         [Route("listarPaginacao")]
-        public async Task<IActionResult> ListarPorPaginacao([FromBody] Paginacao<CursoViewModel> entidadePaginada)
+        public async Task<IActionResult> ListarPorPaginacao([FromBody] Paginacao<ProfessorViewModel> entidadePaginada)
         {
             try
             {
                 if (entidadePaginada == null)
-                    entidadePaginada = new Paginacao<CursoViewModel>();
+                    entidadePaginada = new Paginacao<ProfessorViewModel>();
 
-                Resposta<Paginacao<CursoViewModel>> resultado = await _servico.ListarComPaginacao(entidadePaginada);
+                Resposta<Paginacao<ProfessorViewModel>> resultado = await _servico.ListarComPaginacao(entidadePaginada);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -64,14 +64,14 @@ namespace Api.Controllers
         [HttpPost]
         [Authorize("admin")]
         [Route("criar")]
-        public async Task<IActionResult> Criar([FromBody]CursoViewModel entidade)
+        public async Task<IActionResult> Criar([FromBody]ProfessorViewModel entidade)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Dados informados inválidos!");
 
-                Resposta<CursoViewModel> resutltado = await _servico.Criar(entidade);
+                Resposta<ProfessorViewModel> resutltado = await _servico.Criar(entidade);
 
                 if (resutltado.TemErro())
                     return BadRequest(resutltado.GetErros());
@@ -87,11 +87,11 @@ namespace Api.Controllers
         [HttpPut]
         [Authorize("admin")]
         [Route("editar")]
-        public async Task<IActionResult> Editar([FromBody] CursoViewModel entidade)
+        public async Task<IActionResult> Editar([FromBody] ProfessorViewModel entidade)
         {
             try
             {
-                Resposta<CursoViewModel> resultado = await _servico.Atualizar(entidade);
+                Resposta<ProfessorViewModel> resultado = await _servico.Atualizar(entidade);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -124,6 +124,5 @@ namespace Api.Controllers
                 return BadRequest(e.Message);
             }
         }
-
     }
 }

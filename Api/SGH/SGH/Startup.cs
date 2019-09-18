@@ -69,6 +69,7 @@ namespace Api
             services.AddScoped<IRepositorio<DisciplinaTipo>, DisciplinaTipoRepositorio>();
             services.AddScoped<IRepositorio<UsuarioPerfil>, UsuarioPerfilRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
+            services.AddScoped<IProfessorRepositorio, ProfessorRepositorio>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<IUserResolverService, UserResolverService>();
@@ -77,6 +78,8 @@ namespace Api
             services.AddScoped<IDisciplinaService, DisciplinaServico>();
             services.AddScoped<ICursoService, CursoServico>();
             services.AddScoped<ICurriculoService, CurriculoServico>();
+            services.AddScoped<IProfessorService, ProfessorServico>();
+
 
             services.Configure<EmailSettings>(_configuration.GetSection("ConfiguracoesEmail"));
             services.AddTransient<IEmailSender, AuthMessageSender>();
