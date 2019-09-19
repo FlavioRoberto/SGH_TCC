@@ -4,6 +4,7 @@ using Dominio.ViewModel;
 using Global;
 using Repositorio;
 using Servico.Contratos;
+using Servico.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -34,8 +35,12 @@ namespace Servico.Implementacao
             }
             catch (Exception e)
             {
+                if (e.GetType() == typeof(ValidacaoException))
+                    return new Resposta<TViewModel>(entidadeViewModel, e.Message);
+
                 return new Resposta<TViewModel>(entidadeViewModel, $"Ocorreu um erro ao atualizar {_nomeEntidade}: {e.Message}");
             }
+
         }
 
         public virtual async Task<Resposta<TViewModel>> Criar(TViewModel entidade)
@@ -48,6 +53,9 @@ namespace Servico.Implementacao
             }
             catch (Exception e)
             {
+                if (e.GetType() == typeof(ValidacaoException))
+                    return new Resposta<TViewModel>(entidade, e.Message);
+
                 return new Resposta<TViewModel>(entidade, $"Ocorreu um erro ao criar {_nomeEntidade}: {e.Message}");
             }
         }
@@ -78,14 +86,26 @@ namespace Servico.Implementacao
 
         public async Task<Resposta<bool>> Remover(long id)
         {
-            id = await ValidarRemocao(id);
+            try
+            {
+                id = await ValidarRemocao(id);
 
-            var result = await _repositorio.Remover(lnq => lnq.Codigo == id);
+                var result = await _repositorio.Remover(lnq => lnq.Codigo == id);
 
-            if (result)
-                return new Resposta<bool>(result);
+                if (result)
+                    return new Resposta<bool>(result);
 
-            return new Resposta<bool>(false, $"Não foi possível remover {_nomeEntidade}!");
+                return new Resposta<bool>(false, $"Não foi possível remover {_nomeEntidade}!");
+
+            }
+            catch (Exception e)
+            {
+                if (e.GetType() == typeof(ValidacaoException))
+                    return new Resposta<bool>(false, e.Message);
+
+                return new Resposta<bool>(false, $"Não foi possível remover {_nomeEntidade}: {e.Message}!");
+
+            }
         }
 
         public async Task<Resposta<TViewModel>> ListarPeloId(long id)

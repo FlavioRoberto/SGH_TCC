@@ -9,6 +9,7 @@ using Servico.Extensions;
 using Repositorio.Contratos;
 using System;
 using System.Text;
+using Servico.Exceptions;
 
 namespace Servico.Implementacao.Autenticacao
 {
@@ -86,7 +87,7 @@ namespace Servico.Implementacao.Autenticacao
             var mensagem = await ValidarUsuarioComMesmoLoginOuEmail(viewModel);
 
             if (!string.IsNullOrEmpty(mensagem))
-                throw new Exception(mensagem);
+                throw new ValidacaoException(mensagem);
 
             string senha = GerarSenha();
             viewModel.Senha = senha.ToMD5();
@@ -109,7 +110,7 @@ namespace Servico.Implementacao.Autenticacao
             var usuarioAdm = usuarioARemover.Perfil.Administrador == true;
 
             if (usuarioAdm && quantidadeUsuariosAdm <= 1)
-                throw new Exception("Não é possível remover o usuário, pois não existem outros usuários administradores!");
+                throw new ValidacaoException("Não é possível remover o usuário, pois não existem outros usuários administradores!");
 
             return id;
         }
@@ -120,7 +121,7 @@ namespace Servico.Implementacao.Autenticacao
             var mensagem = await ValidarUsuarioComMesmoLoginOuEmail(viewModel);
 
             if (!string.IsNullOrEmpty(mensagem))
-                throw new Exception(mensagem);
+                throw new ValidacaoException(mensagem);
 
             var usuarioBanco = await _repositorio.Listar(lnq => lnq.Codigo == viewModel.Codigo);
 
