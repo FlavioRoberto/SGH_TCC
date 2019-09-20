@@ -21,6 +21,8 @@ namespace Data.Contexto
         DbSet<UsuarioPerfil> UsuarioPerfil { get; set; }
         DbSet<Usuario> Usuario { get; set; }
         DbSet<Professor> Professor { get; set; }
+        DbSet<ProfessorCurso> ProfessorCurso { get; set; }
+
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken));
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
         int SaveChanges();

@@ -24,7 +24,7 @@ namespace Repositorio.Implementacao
             DbSet = GetDbSet();
         }
 
-        public async Task<T> Atualizar(T entidade)
+        public async virtual Task<T> Atualizar(T entidade)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace Repositorio.Implementacao
             return await DbSet.CountAsync(query) > 0;
         }
 
-        public async Task<T> Criar(T entidade)
+        public async virtual Task<T> Criar(T entidade)
         {
             try
             {

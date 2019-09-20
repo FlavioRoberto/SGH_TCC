@@ -1,4 +1,5 @@
 ﻿using Dominio.Contratos;
+using System.Collections.Generic;
 
 namespace Dominio.Model
 {
@@ -8,5 +9,11 @@ namespace Dominio.Model
         public string Nome { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
+        public virtual List<ProfessorCurso> Cursos { get; set; }
+
+        public Professor()
+        {
+            Cursos = new List<ProfessorCurso>();
+        }
     }
 }

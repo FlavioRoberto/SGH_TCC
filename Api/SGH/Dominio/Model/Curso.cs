@@ -8,5 +8,6 @@ namespace Dominio.Model
         public string Descricao { get; set; }
 
         public virtual List<Curriculo> Curriculos { get; set; }
+        public virtual List<ProfessorCurso> Professores { get; set; }
     }
 }
