@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(MySqlContext))]
-    [Migration("20190920015928_Versao 004")]
+    [Migration("20190923235402_Versao 004")]
     partial class Versao004
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -218,6 +218,10 @@ namespace Data.Migrations
                     b.Property<int>("Codigo")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("prof_codigo");
+
+                    b.Property<int>("Ativo")
+                        .HasColumnName("prof_ativo")
+                        .HasMaxLength(10);
 
                     b.Property<string>("Email")
                         .IsRequired()

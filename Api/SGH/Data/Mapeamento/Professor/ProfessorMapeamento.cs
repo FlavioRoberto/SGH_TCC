@@ -35,6 +35,11 @@ namespace Data.Mapeamento
               .HasColumnName("prof_matricula")
               .HasMaxLength(10);
 
+            builder.Property(p => p.Ativo)
+              .HasConversion<int>()
+              .HasColumnName("prof_ativo")
+              .HasMaxLength(10);
+
             builder.ToTable("professor");
 
             return this;

@@ -217,6 +217,10 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("prof_codigo");
 
+                    b.Property<int>("Ativo")
+                        .HasColumnName("prof_ativo")
+                        .HasMaxLength(10);
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnName("prof_email")

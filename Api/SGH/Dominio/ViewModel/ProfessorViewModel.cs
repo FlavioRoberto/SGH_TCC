@@ -12,6 +12,9 @@ namespace Dominio.ViewModel
         public string Nome { get; set; }
         public string Telefone { get; set; }
         public string Email { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public bool Ativo { get; set; }
+
         public List<int> Cursos { get; set; }
 
         public ProfessorViewModel()

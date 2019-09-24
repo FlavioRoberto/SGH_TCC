@@ -6,6 +6,13 @@ namespace Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<int>(
+                name: "prof_ativo",
+                table: "professor",
+                maxLength: 10,
+                nullable: false,
+                defaultValue: 0);
+
             migrationBuilder.CreateTable(
                 name: "professor_curso",
                 columns: table => new
@@ -47,6 +54,10 @@ namespace Data.Migrations
         {
             migrationBuilder.DropTable(
                 name: "professor_curso");
+
+            migrationBuilder.DropColumn(
+                name: "prof_ativo",
+                table: "professor");
         }
     }
 }
