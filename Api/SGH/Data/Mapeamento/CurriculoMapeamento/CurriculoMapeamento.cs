@@ -20,10 +20,6 @@ namespace Data.Mapeamento.CurriculoMapeamento
                 .ValueGeneratedOnAdd()
                 .HasColumnName("curric_codigo");
 
-            builder.Property(lnq => lnq.Periodo)
-                .IsRequired()
-                .HasColumnName("curric_periodo");
-
             builder.Property(lnq => lnq.CodigoCurso)
                 .IsRequired()
                 .HasColumnName("curric_curso");

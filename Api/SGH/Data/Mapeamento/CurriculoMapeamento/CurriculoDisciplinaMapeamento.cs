@@ -23,6 +23,10 @@ namespace Data.Mapeamento.CurriculoMapeamento
                 .HasColumnName("curdis_disciplina")
                 .IsRequired(false);
 
+            builder.Property(lnq => lnq.Periodo)
+              .IsRequired()
+              .HasColumnName("curdis_periodo");
+
             builder.Property(lnq => lnq.CodigoCurriculo)
                 .HasColumnName("curdis_curriculo");
 

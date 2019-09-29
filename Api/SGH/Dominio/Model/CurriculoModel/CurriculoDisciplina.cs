@@ -8,6 +8,7 @@ namespace Dominio.Model.CurriculoModel
     {
         public int? CodigoDisciplina { get; set; }
         public int CodigoCurriculo { get; set; }
+        public int Periodo { get; set; }
         public int AulasSemanaisTeorica { get; set; }
         public int AulasSemanaisPratica { get; set; }
         public int Credito { get; set; }

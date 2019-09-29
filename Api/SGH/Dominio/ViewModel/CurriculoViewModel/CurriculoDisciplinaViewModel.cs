@@ -8,6 +8,8 @@ namespace Dominio.ViewModel.CurriculoViewModel
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int Codigo { get; set; }
 
+        public int Periodo { get; set; }
+
         public int CodigoDisciplina { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

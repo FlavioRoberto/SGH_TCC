@@ -30,6 +30,7 @@ namespace Servico.Implementacao.CurriculoImp
             {
                 var entidade = _mapper.Map<Curriculo>(entidadeViewModel);
                 var resultado = _mapper.Map<CurriculoViewModel>(await _repositorio.Atualizar(entidade));
+                resultado.Disciplinas = resultado.Disciplinas.OrderBy(lnq => lnq.Periodo).ToList();
                 return new Resposta<CurriculoViewModel>(resultado);
             }
             catch (Exception e)

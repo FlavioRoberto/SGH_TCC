@@ -31,15 +31,15 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
             try
             {
 
-                var disciplinasRemover = await _contexto.CurriculoDisciplina   
-                                             .AsNoTracking()   
-                                             .Where(lnq=>lnq.CodigoCurriculo == entidade.Codigo)
+                var disciplinasRemover = await _contexto.CurriculoDisciplina
+                                             .AsNoTracking()
+                                             .Where(lnq => lnq.CodigoCurriculo == entidade.Codigo)
                                              .ToListAsync();
 
                 _contexto.CurriculoDisciplina.RemoveRange(disciplinasRemover);
                 await _contexto.SaveChangesAsync();
 
-                foreach(var disciplina in entidade.Disciplinas)
+                foreach (var disciplina in entidade.Disciplinas)
                 {
                     var preRequisitos = disciplina.CurriculoDisciplinaPreRequisito;
 
@@ -49,7 +49,8 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                         AulasSemanaisTeorica = disciplina.AulasSemanaisTeorica,
                         CodigoCurriculo = entidade.Codigo,
                         CodigoDisciplina = disciplina.CodigoDisciplina,
-                        Credito = disciplina.Credito,
+                        Periodo = disciplina.Periodo,
+                        Credito = disciplina.Credito
                     };
 
                     _contexto.CurriculoDisciplina.Add(disciplinaAdicionar);
@@ -69,9 +70,8 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                 curriculoAtualizar.Ano = entidade.Ano;
                 curriculoAtualizar.CodigoCurso = entidade.CodigoCurso;
                 curriculoAtualizar.CodigoTurno = entidade.CodigoTurno;
-                curriculoAtualizar.Periodo = entidade.Periodo;
                 curriculoAtualizar.Turno = entidade.Turno;
-
+                curriculoAtualizar.Disciplinas = curriculoAtualizar.Disciplinas.OrderBy(lnq => lnq.Periodo).ToList();
 
                 await _contexto.SaveChangesAsync();
 
@@ -88,10 +88,9 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
         {
             try
             {
-                 var curriculoExistente = _contexto.Curriculo.FirstOrDefault(lnq => lnq.Ano == entidade.Ano
-                                                                && lnq.Periodo == entidade.Periodo
-                                                                && lnq.CodigoCurso == entidade.CodigoCurso
-                                                                && lnq.CodigoTurno == entidade.CodigoTurno) != null;
+                var curriculoExistente = _contexto.Curriculo.FirstOrDefault(lnq => lnq.Ano == entidade.Ano
+                                                               && lnq.CodigoCurso == entidade.CodigoCurso
+                                                               && lnq.CodigoTurno == entidade.CodigoTurno) != null;
 
                 if (curriculoExistente)
                     throw new Exception("Já existe um currículo cadastrado com os dados informados!");
@@ -102,9 +101,8 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                     Ano = entidade.Ano,
                     CodigoCurso = entidade.CodigoCurso,
                     CodigoTurno = entidade.CodigoTurno,
-                    Periodo = entidade.Periodo
                 };
-         
+
                 _contexto.Curriculo.Add(curriculo);
                 await _contexto.SaveChangesAsync();
 
@@ -146,6 +144,8 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                                 .ThenInclude(dp => dp.Disciplina)
                                 .FirstOrDefault(lnq => lnq.Codigo == curriculo.Codigo);
 
+                retorno.Disciplinas = retorno.Disciplinas.OrderBy(lnq => lnq.Periodo).ToList();
+
                 return retorno;
             }
             catch (Exception e)
@@ -171,11 +171,11 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                                 .Include(lnq => lnq.Curso)
                                 .Include(lnq => lnq.Disciplinas)
                                 .ThenInclude(ce => ce.Disciplina)
-                                .Include(lnq=>lnq.Disciplinas)
-                                .ThenInclude(cp=>cp.CurriculoDisciplinaPreRequisito)
-                                .ThenInclude(dp=>dp.Disciplina)
+                                .Include(lnq => lnq.Disciplinas)
+                                .ThenInclude(cp => cp.CurriculoDisciplinaPreRequisito)
+                                .ThenInclude(dp => dp.Disciplina)
                                 .AsNoTracking();
-            
+
             if (entidadePaginada.Entidade == null)
                 entidadePaginada.Entidade = new Curriculo();
 
@@ -192,9 +192,6 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
 
             if (entidade.CodigoTurno > 0)
                 query = query.Where(lnq => lnq.CodigoTurno == entidade.CodigoTurno);
-
-            if (entidade.Periodo > 0)
-                query = query.Where(lnq => lnq.Periodo == entidade.Periodo);
 
             return await PaginacaoHelper<Curriculo>.Paginar(entidadePaginada, query);
         }

@@ -6,7 +6,6 @@ namespace Dominio.Model
 {
     public class Curriculo: EntidadeBase
     {
-        public int Periodo { get; set; }
         public int CodigoCurso { get; set; }
         public int CodigoTurno { get; set; }
         public int Ano { get; set; }
