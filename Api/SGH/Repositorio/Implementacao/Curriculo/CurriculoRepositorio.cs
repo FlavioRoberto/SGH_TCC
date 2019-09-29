@@ -45,11 +45,9 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
 
                     var disciplinaAdicionar = new CurriculoDisciplina
                     {
-                        CargaHorariaSemanalPratica = disciplina.CargaHorariaSemanalPratica,
-                        CargaHorariaSemanalTeorica = disciplina.CargaHorariaSemanalTeorica,
+                        AulasSemanaisPratica = disciplina.AulasSemanaisPratica,
+                        AulasSemanaisTeorica = disciplina.AulasSemanaisTeorica,
                         CodigoCurriculo = entidade.Codigo,
-                        HoraAulaTotal = disciplina.HoraAulaTotal,
-                        HoraTotal = disciplina.HoraTotal,
                         CodigoDisciplina = disciplina.CodigoDisciplina,
                         Credito = disciplina.Credito,
                     };
@@ -115,13 +113,10 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                     var curDisSalvar = new CurriculoDisciplina
                     {
                         CodigoCurriculo = curriculo.Codigo,
-                        CargaHorariaSemanalPratica = curDis.CargaHorariaSemanalPratica,
-                        CargaHorariaSemanalTeorica = curDis.CargaHorariaSemanalTeorica,
+                        AulasSemanaisPratica = curDis.AulasSemanaisPratica,
+                        AulasSemanaisTeorica = curDis.AulasSemanaisTeorica,
                         Codigo = curDis.Codigo,
                         CodigoDisciplina = curDis.CodigoDisciplina,
-                        Credito = curDis.Credito,
-                        HoraAulaTotal = curDis.HoraAulaTotal,
-                        HoraTotal = curDis.HoraTotal
                     };
 
                     _contexto.CurriculoDisciplina.Add(curDisSalvar);

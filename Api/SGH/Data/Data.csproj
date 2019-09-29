@@ -37,10 +37,20 @@
     <Compile Remove="Migrations\20190823001127_Versao_007.Designer.cs" />
     <Compile Remove="Migrations\20190823001157_Versao_007.cs" />
     <Compile Remove="Migrations\20190823001157_Versao_007.Designer.cs" />
+    <Compile Remove="Migrations\20190823001534_Versao 001.cs" />
+    <Compile Remove="Migrations\20190823001534_Versao 001.Designer.cs" />
+    <Compile Remove="Migrations\20190823001610_Versao 002.cs" />
+    <Compile Remove="Migrations\20190823001610_Versao 002.Designer.cs" />
     <Compile Remove="Migrations\20190917234415_Versao 003.cs" />
     <Compile Remove="Migrations\20190917234415_Versao 003.Designer.cs" />
+    <Compile Remove="Migrations\20190917234526_Versao 003.cs" />
+    <Compile Remove="Migrations\20190917234526_Versao 003.Designer.cs" />
     <Compile Remove="Migrations\20190920015928_Versao 004.cs" />
     <Compile Remove="Migrations\20190920015928_Versao 004.Designer.cs" />
+    <Compile Remove="Migrations\20190923235402_Versao 004.cs" />
+    <Compile Remove="Migrations\20190923235402_Versao 004.Designer.cs" />
+    <Compile Remove="Migrations\20190929135239_Versao 005.cs" />
+    <Compile Remove="Migrations\20190929135239_Versao 005.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

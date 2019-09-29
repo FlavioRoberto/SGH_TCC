@@ -118,11 +118,11 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("curdis_codigo");
 
-                    b.Property<int>("CargaHorariaSemanalPratica")
-                        .HasColumnName("curdis_carga_horaria_semanal_pratica");
+                    b.Property<int>("AulasSemanaisPraticas")
+                        .HasColumnName("curdis_quantidade_aulas_semanal_pratica");
 
-                    b.Property<int>("CargaHorariaSemanalTeorica")
-                        .HasColumnName("curdis_carga_horaria_semanal_teoricoa");
+                    b.Property<int>("AulasSemanaisTeorica")
+                        .HasColumnName("curdis_quantidade_aulas_semanais_teorica");
 
                     b.Property<int>("CodigoCurriculo")
                         .HasColumnName("curdis_curriculo");
@@ -132,12 +132,6 @@ namespace Data.Migrations
 
                     b.Property<int>("Credito")
                         .HasColumnName("curdis_credito");
-
-                    b.Property<int>("HoraAulaTotal")
-                        .HasColumnName("curdis_hora_aula_total");
-
-                    b.Property<int>("HoraTotal")
-                        .HasColumnName("curdis_hora_total");
 
                     b.HasKey("Codigo");
 

@@ -26,17 +26,11 @@ namespace Data.Mapeamento.CurriculoMapeamento
             builder.Property(lnq => lnq.CodigoCurriculo)
                 .HasColumnName("curdis_curriculo");
 
-            builder.Property(lnq => lnq.CargaHorariaSemanalPratica)
-                .HasColumnName("curdis_carga_horaria_semanal_pratica");
+            builder.Property(lnq => lnq.AulasSemanaisPratica)
+                .HasColumnName("curdis_quantidade_aulas_semanal_pratica");
 
-            builder.Property(lnq => lnq.CargaHorariaSemanalTeorica)
-                .HasColumnName("curdis_carga_horaria_semanal_teoricoa");
-
-            builder.Property(lnq => lnq.HoraAulaTotal)
-                .HasColumnName("curdis_hora_aula_total");
-
-            builder.Property(lnq => lnq.HoraTotal)
-                .HasColumnName("curdis_hora_total");
+            builder.Property(lnq => lnq.AulasSemanaisTeorica)
+                .HasColumnName("curdis_quantidade_aulas_semanais_teorica");
 
             builder.Property(lnq => lnq.Credito)
                 .HasColumnName("curdis_credito");

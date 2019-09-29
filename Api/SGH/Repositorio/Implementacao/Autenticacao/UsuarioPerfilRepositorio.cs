@@ -13,7 +13,7 @@ namespace Repositorio.Implementacao.Autenticacao
         {
         }
 
-        public override async Task<Resposta<Paginacao<UsuarioPerfil>>> ListarPorPaginacao(Paginacao<UsuarioPerfil> entidade)
+        public override Task<Resposta<Paginacao<UsuarioPerfil>>> ListarPorPaginacao(Paginacao<UsuarioPerfil> entidade)
         {
             throw new System.NotImplementedException();
         }
