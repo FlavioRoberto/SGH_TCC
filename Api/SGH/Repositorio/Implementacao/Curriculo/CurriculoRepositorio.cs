@@ -69,8 +69,6 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                 var curriculoAtualizar = await _contexto.Curriculo.FirstOrDefaultAsync(lnq => lnq.Codigo == entidade.Codigo);
                 curriculoAtualizar.Ano = entidade.Ano;
                 curriculoAtualizar.CodigoCurso = entidade.CodigoCurso;
-                curriculoAtualizar.CodigoTurno = entidade.CodigoTurno;
-                curriculoAtualizar.Turno = entidade.Turno;
                 curriculoAtualizar.Disciplinas = curriculoAtualizar.Disciplinas.OrderBy(lnq => lnq.Periodo).ToList();
 
                 await _contexto.SaveChangesAsync();
@@ -89,8 +87,7 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
             try
             {
                 var curriculoExistente = _contexto.Curriculo.FirstOrDefault(lnq => lnq.Ano == entidade.Ano
-                                                               && lnq.CodigoCurso == entidade.CodigoCurso
-                                                               && lnq.CodigoTurno == entidade.CodigoTurno) != null;
+                                                               && lnq.CodigoCurso == entidade.CodigoCurso) != null;
 
                 if (curriculoExistente)
                     throw new Exception("Já existe um currículo cadastrado com os dados informados!");
@@ -100,7 +97,6 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                     Codigo = entidade.Codigo,
                     Ano = entidade.Ano,
                     CodigoCurso = entidade.CodigoCurso,
-                    CodigoTurno = entidade.CodigoTurno,
                 };
 
                 _contexto.Curriculo.Add(curriculo);
@@ -114,6 +110,8 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                         AulasSemanaisPratica = curDis.AulasSemanaisPratica,
                         AulasSemanaisTeorica = curDis.AulasSemanaisTeorica,
                         Codigo = curDis.Codigo,
+                        Periodo = curDis.Periodo,
+                        Credito = curDis.Credito,
                         CodigoDisciplina = curDis.CodigoDisciplina,
                     };
 
@@ -135,7 +133,6 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                 });
 
                 var retorno = DbSet
-                                .Include(lnq => lnq.Turno)
                                 .Include(lnq => lnq.Curso)
                                 .Include(lnq => lnq.Disciplinas)
                                 .ThenInclude(ce => ce.Disciplina)
@@ -167,7 +164,6 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
         public async Task<Resposta<Paginacao<Curriculo>>> ListarPorPaginacao(Paginacao<Curriculo> entidadePaginada)
         {
             var query = _contexto.Curriculo
-                                .Include(lnq => lnq.Turno)
                                 .Include(lnq => lnq.Curso)
                                 .Include(lnq => lnq.Disciplinas)
                                 .ThenInclude(ce => ce.Disciplina)
@@ -189,9 +185,6 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
 
             if (entidade.CodigoCurso > 0)
                 query = query.Where(lnq => lnq.CodigoCurso == entidade.CodigoCurso);
-
-            if (entidade.CodigoTurno > 0)
-                query = query.Where(lnq => lnq.CodigoTurno == entidade.CodigoTurno);
 
             return await PaginacaoHelper<Curriculo>.Paginar(entidadePaginada, query);
         }

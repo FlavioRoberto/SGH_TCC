@@ -97,41 +97,14 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "professor_curso",
-                columns: table => new
-                {
-                    profcur_codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    profcur_professor = table.Column<int>(nullable: false),
-                    profcur_curso = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_professor_curso", x => x.profcur_codigo);
-                    table.ForeignKey(
-                        name: "FK_professor_curso_curso_profcur_curso",
-                        column: x => x.profcur_curso,
-                        principalTable: "curso",
-                        principalColumn: "curso_codigo",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_professor_curso_professor_profcur_professor",
-                        column: x => x.profcur_professor,
-                        principalTable: "professor",
-                        principalColumn: "prof_codigo",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "curriculo",
                 columns: table => new
                 {
                     curric_codigo = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    curric_periodo = table.Column<int>(nullable: false),
                     curric_curso = table.Column<int>(nullable: false),
-                    curric_turno = table.Column<int>(nullable: false),
-                    curric_ano = table.Column<int>(nullable: false)
+                    curric_ano = table.Column<int>(nullable: false),
+                    TurnoCodigo = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -143,11 +116,11 @@ namespace Data.Migrations
                         principalColumn: "curso_codigo",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_curriculo_turno_curric_turno",
-                        column: x => x.curric_turno,
+                        name: "FK_curriculo_turno_TurnoCodigo",
+                        column: x => x.TurnoCodigo,
                         principalTable: "turno",
                         principalColumn: "turno_codigo",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -184,6 +157,7 @@ namespace Data.Migrations
                         .Annotation("MySQL:AutoIncrement", true),
                     curdis_disciplina = table.Column<int>(nullable: true),
                     curdis_curriculo = table.Column<int>(nullable: false),
+                    curdis_periodo = table.Column<int>(nullable: false),
                     curdis_quantidade_aulas_semanais_teorica = table.Column<int>(nullable: false),
                     curdis_quantidade_aulas_semanal_pratica = table.Column<int>(nullable: false),
                     curdis_credito = table.Column<int>(nullable: false)
@@ -235,9 +209,9 @@ namespace Data.Migrations
                 column: "curric_curso");
 
             migrationBuilder.CreateIndex(
-                name: "IX_curriculo_curric_turno",
+                name: "IX_curriculo_TurnoCodigo",
                 table: "curriculo",
-                column: "curric_turno");
+                column: "TurnoCodigo");
 
             migrationBuilder.CreateIndex(
                 name: "IX_curriculo_disciplina_curdis_curriculo",
@@ -260,16 +234,6 @@ namespace Data.Migrations
                 column: "dis_tipo");
 
             migrationBuilder.CreateIndex(
-                name: "IX_professor_curso_profcur_curso",
-                table: "professor_curso",
-                column: "profcur_curso");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_professor_curso_profcur_professor",
-                table: "professor_curso",
-                column: "profcur_professor");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_usuario_usuPrf_Perfil",
                 table: "usuario",
                 column: "usuPrf_Perfil");
@@ -281,16 +245,13 @@ namespace Data.Migrations
                 name: "curriculo_disciplina_pre_requisito");
 
             migrationBuilder.DropTable(
-                name: "professor_curso");
+                name: "professor");
 
             migrationBuilder.DropTable(
                 name: "usuario");
 
             migrationBuilder.DropTable(
                 name: "curriculo_disciplina");
-
-            migrationBuilder.DropTable(
-                name: "professor");
 
             migrationBuilder.DropTable(
                 name: "Usuario_Perfil");

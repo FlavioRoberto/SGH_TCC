@@ -23,12 +23,7 @@ namespace Data.Mapeamento.CurriculoMapeamento
             builder.Property(lnq => lnq.CodigoCurso)
                 .IsRequired()
                 .HasColumnName("curric_curso");
-
-            builder.Property(lnq => lnq.CodigoTurno)
-                .IsRequired()
-                .HasColumnName("curric_turno");
-
-
+       
             builder.Property(lnq => lnq.Ano)
                 .IsRequired()
                 .HasColumnName("curric_ano");
@@ -41,10 +36,6 @@ namespace Data.Mapeamento.CurriculoMapeamento
             builder.HasOne(lnq => lnq.Curso)
                 .WithMany(lnq => lnq.Curriculos)
                 .HasForeignKey(lnq => lnq.CodigoCurso);
-
-            builder.HasOne(lnq => lnq.Turno)
-               .WithMany(lnq => lnq.Curriculos)
-               .HasForeignKey(lnq => lnq.CodigoTurno);
 
             #endregion
 

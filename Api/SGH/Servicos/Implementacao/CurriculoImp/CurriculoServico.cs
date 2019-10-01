@@ -115,13 +115,7 @@ namespace Servico.Implementacao.CurriculoImp
 
             if(curriculo.CodigoCurso <= 0)
                 mensagem.Append("Código do curso não foi informado!");
-
-            if (curriculo.CodigoTurno <= 0)
-                mensagem.Append("Código do turno não foi informado!");
-
-            if (curriculo.CodigoTurno <= 0)
-                mensagem.Append("Período não foi informado!");
-
+            
             if(curriculo.Ano <= 0)
                 mensagem.Append("Ano não foi informado!");
 

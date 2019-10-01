@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(MySqlContext))]
-    [Migration("20190929155135_Versao 003")]
-    partial class Versao003
+    [Migration("20191001004738_Versao 002")]
+    partial class Versao002
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -99,14 +99,13 @@ namespace Data.Migrations
                     b.Property<int>("CodigoCurso")
                         .HasColumnName("curric_curso");
 
-                    b.Property<int>("CodigoTurno")
-                        .HasColumnName("curric_turno");
+                    b.Property<int?>("TurnoCodigo");
 
                     b.HasKey("Codigo");
 
                     b.HasIndex("CodigoCurso");
 
-                    b.HasIndex("CodigoTurno");
+                    b.HasIndex("TurnoCodigo");
 
                     b.ToTable("curriculo");
                 });
@@ -240,27 +239,6 @@ namespace Data.Migrations
                     b.ToTable("professor");
                 });
 
-            modelBuilder.Entity("Dominio.Model.ProfessorCurso", b =>
-                {
-                    b.Property<int>("Codigo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("profcur_codigo");
-
-                    b.Property<int>("CursoId")
-                        .HasColumnName("profcur_curso");
-
-                    b.Property<int>("ProfessorId")
-                        .HasColumnName("profcur_professor");
-
-                    b.HasKey("Codigo");
-
-                    b.HasIndex("CursoId");
-
-                    b.HasIndex("ProfessorId");
-
-                    b.ToTable("professor_curso");
-                });
-
             modelBuilder.Entity("Dominio.Model.Turno", b =>
                 {
                     b.Property<int>("Codigo")
@@ -292,10 +270,9 @@ namespace Data.Migrations
                         .HasForeignKey("CodigoCurso")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Dominio.Model.Turno", "Turno")
+                    b.HasOne("Dominio.Model.Turno")
                         .WithMany("Curriculos")
-                        .HasForeignKey("CodigoTurno")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TurnoCodigo");
                 });
 
             modelBuilder.Entity("Dominio.Model.CurriculoModel.CurriculoDisciplina", b =>
@@ -332,19 +309,6 @@ namespace Data.Migrations
                     b.HasOne("Dominio.Model.DisciplinaModel.DisciplinaTipo", "DisciplinaTipo")
                         .WithMany("Disciplinas")
                         .HasForeignKey("CodigoTipo")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Dominio.Model.ProfessorCurso", b =>
-                {
-                    b.HasOne("Dominio.Model.Curso", "Curso")
-                        .WithMany("Professores")
-                        .HasForeignKey("CursoId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Dominio.Model.Professor", "Professor")
-                        .WithMany("Cursos")
-                        .HasForeignKey("ProfessorId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -15,11 +15,7 @@ namespace Dominio.ViewModel
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public bool Ativo { get; set; }
 
-        public List<int> Cursos { get; set; }
-
         public ProfessorViewModel()
-        {
-            Cursos = new List<int>();
-        }
+        { }
     }
 }
