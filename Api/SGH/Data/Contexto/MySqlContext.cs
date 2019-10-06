@@ -1,5 +1,6 @@
 ﻿using Data.Mapeamento;
 using Data.Mapeamento.AutenticacaoMapeamento;
+using Data.Mapeamento.CargoMapeamento;
 using Data.Mapeamento.CurriculoMapeamento;
 using Data.Mapeamento.Disciplina;
 using Data.Mapeamento.DisciplinaMapeamento;
@@ -15,7 +16,7 @@ namespace Data.Contexto
     public class MySqlContext : DbContext, IContexto
     {
         public MySqlContext()
-        {}
+        { }
 
         public MySqlContext(DbContextOptions<MySqlContext> options) : base(options)
         {
@@ -33,6 +34,8 @@ namespace Data.Contexto
             modelBuilder.Entity<UsuarioPerfil>(b => new UsuarioPerfilMapeamento(b).Map());
             modelBuilder.Entity<Usuario>(b => new UsuarioMapeamento(b).Map());
             modelBuilder.Entity<Professor>(b => new ProfessorMapeamento(b).Map());
+            modelBuilder.Entity<Cargo>(b => new CargoMapeamento(b).Map());
+            modelBuilder.Entity<CargoDisciplina>(b => new CargoDisciplinaMapeamento(b).Map());
         }
 
         public DbSet<CurriculoDisciplina> CurriculoDisciplina { get; set; }
@@ -45,5 +48,7 @@ namespace Data.Contexto
         public DbSet<UsuarioPerfil> UsuarioPerfil { get; set; }
         public DbSet<Usuario> Usuario { get; set; }
         public DbSet<Professor> Professor { get; set; }
+        public DbSet<Cargo> Cargo { get; set; }
+        public DbSet<CargoDisciplina> CargoDisciplina { get; set; }
     }
 }

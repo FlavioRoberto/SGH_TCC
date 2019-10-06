@@ -63,6 +63,8 @@
     <Compile Remove="Migrations\20191001001646_Versao 001.Designer.cs" />
     <Compile Remove="Migrations\20191001001726_Versao 002.cs" />
     <Compile Remove="Migrations\20191001001726_Versao 002.Designer.cs" />
+    <Compile Remove="Migrations\20191005210537_Versao 003.cs" />
+    <Compile Remove="Migrations\20191005210537_Versao 003.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -72,10 +74,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dominio\Dominio.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Mapeamento\Cargo\" />
   </ItemGroup>
 
 </Project>

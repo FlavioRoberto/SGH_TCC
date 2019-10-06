@@ -16,6 +16,6 @@ namespace Dominio.Model.CurriculoModel
         public virtual Disciplina Disciplina { get; set; }
         public virtual Curriculo Curriculo { get; set; }
         public virtual IEnumerable<CurriculoDisciplinaPreRequisito> CurriculoDisciplinaPreRequisito { get; set; }
-
+        public virtual IEnumerable<CargoDisciplina> Cargos { get; set; }
     }
 }
