@@ -151,14 +151,19 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
             }
         }
 
-        public Task<Curriculo> Listar(Expression<Func<Curriculo, bool>> query)
+        public async Task<Curriculo> Listar(Expression<Func<Curriculo, bool>> query)
         {
-            throw new NotImplementedException();
+            return await DbSet.Include(lnq => lnq.Curso).Where(query).AsNoTracking().FirstOrDefaultAsync();
         }
 
-        public Task<List<Curriculo>> ListarPor(Expression<Func<Curriculo, bool>> query)
+        public async Task<List<CurriculoDisciplina>> ListarDisciplinas(int codigoCurriculo)
         {
-            throw new NotImplementedException();
+            return await _contexto.CurriculoDisciplina.Include(lnq=>lnq.Disciplina).Where(lnq => lnq.CodigoCurriculo == codigoCurriculo).AsNoTracking().ToListAsync();
+        }
+
+        public async Task<List<Curriculo>> ListarPor(Expression<Func<Curriculo, bool>> query)
+        {
+            return await DbSet.Include(lnq => lnq.Curso).Where(query).AsNoTracking().ToListAsync();
         }
 
         public async Task<Resposta<Paginacao<Curriculo>>> ListarPorPaginacao(Paginacao<Curriculo> entidadePaginada)
@@ -189,9 +194,9 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
             return await PaginacaoHelper<Curriculo>.Paginar(entidadePaginada, query);
         }
 
-        public Task<List<Curriculo>> ListarTodos()
+        public async Task<List<Curriculo>> ListarTodos()
         {
-            throw new NotImplementedException();
+            return await DbSet.Include(lnq => lnq.Curso).AsNoTracking().ToListAsync();
         }
 
         public async Task<bool> Remover(Expression<Func<Curriculo, bool>> query)

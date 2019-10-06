@@ -20,6 +20,46 @@ namespace Api.Controllers
             this._servico = servico;
         }
 
+        [HttpGet]
+        [Authorize("admin")]
+        [Route("listarTodos")]
+        public async Task<IActionResult> ListarTodos()
+        {
+            try
+            {
+                var resultado = await _servico.ListarTodos();
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize("admin")]
+        [Route("{curriculoId}/disciplinas")]
+        public async Task<IActionResult> ListarTodos(int curriculoId)
+        {
+            try
+            {
+                var resultado = await _servico.ListarDisciplinas(curriculoId);
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost]
         [Authorize("admin")]
         [Route("criar")]

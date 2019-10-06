@@ -9,16 +9,17 @@ using Dominio.ViewModel;
 using Dominio.ViewModel.CurriculoViewModel;
 using Global;
 using Repositorio;
+using Repositorio.Contratos;
 using Servico.Contratos;
 
 namespace Servico.Implementacao.CurriculoImp
 {
     public class CurriculoServico : ICurriculoService
     {
-        private IRepositorio<Curriculo> _repositorio;
+        private ICurriculoRepositorio _repositorio;
         private IMapper _mapper;
 
-        public CurriculoServico(IRepositorio<Curriculo> repositorio, IMapper mapper)
+        public CurriculoServico(ICurriculoRepositorio repositorio, IMapper mapper)
         {
             _repositorio = repositorio;
             _mapper = mapper;
@@ -81,14 +82,39 @@ namespace Servico.Implementacao.CurriculoImp
             }
         }
 
+        public async Task<Resposta<List<CurriculoDisciplinaViewModel>>> ListarDisciplinas(int codigoCurriculo)
+        {
+            try
+            {
+                if (codigoCurriculo <= 0)
+                    return new Resposta<List<CurriculoDisciplinaViewModel>>(null, "O código do currículo não foi informado!");
+
+                var resultado = await _repositorio.ListarDisciplinas(codigoCurriculo);
+
+                if (resultado.Count <= 0)
+                    return new Resposta<List<CurriculoDisciplinaViewModel>>(null, $"Não foram vinculadas disciplinas para o currículo {codigoCurriculo}");
+
+                return new Resposta<List<CurriculoDisciplinaViewModel>>(_mapper.Map<List<CurriculoDisciplinaViewModel>>(resultado));
+            }
+            catch (Exception e)
+            {
+                return new Resposta<List<CurriculoDisciplinaViewModel>>(null, e.Message);
+            }
+        }
+
         public Task<Resposta<CurriculoViewModel>> ListarPeloId(long id)
         {
             throw new System.NotImplementedException();
         }
 
-        public Task<Resposta<List<CurriculoViewModel>>> ListarTodos()
+        public async Task<Resposta<List<CurriculoViewModel>>> ListarTodos()
         {
-            throw new System.NotImplementedException();
+            var resultado = await _repositorio.ListarTodos();
+
+            if (resultado.Count <= 0)
+                return new Resposta<List<CurriculoViewModel>>( null, "Nenhum currículo encontrado!");
+
+            return new Resposta<List<CurriculoViewModel>>(_mapper.Map<List<CurriculoViewModel>>(resultado));
         }
 
         public async Task<Resposta<bool>> Remover(long id)

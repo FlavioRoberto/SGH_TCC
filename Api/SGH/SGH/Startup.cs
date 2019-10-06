@@ -64,7 +64,7 @@ namespace Api
             #region Periodizacao
             services.AddScoped<IRepositorio<Turno>, TurnoRepositorio>();
             services.AddScoped<IRepositorio<Curso>, CursoRepositorio>();
-            services.AddScoped<IRepositorio<Curriculo>, CurriculoRepositorio>();
+            services.AddScoped<ICurriculoRepositorio, CurriculoRepositorio>();
             services.AddScoped<IRepositorio<Disciplina>, DisciplinaRepositorio>();
             services.AddScoped<IRepositorio<DisciplinaTipo>, DisciplinaTipoRepositorio>();
             services.AddScoped<IRepositorio<UsuarioPerfil>, UsuarioPerfilRepositorio>();

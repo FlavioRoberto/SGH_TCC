@@ -38,6 +38,26 @@ namespace Api.Controllers
             }
         }
 
+        [HttpGet]
+        [Authorize("todos")]
+        [Route("ListarAtivos")]
+        public async Task<IActionResult> ListarAtivos()
+        {
+            try
+            {
+                var resultado = await _servico.ListarAtivos();
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [HttpPost]
         [Authorize("admin")]
         [Route("listarPaginacao")]

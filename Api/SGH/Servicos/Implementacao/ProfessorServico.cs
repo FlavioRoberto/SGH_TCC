@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Dominio.Model;
 using Dominio.ViewModel;
+using Global;
 using Repositorio.Contratos;
 using Servico.Contratos;
 using Servico.Exceptions;
@@ -40,5 +42,14 @@ namespace Servico.Implementacao
                 return await base.ValidarEdicao(viewModel);
         }
 
+        public async Task<Resposta<List<ProfessorViewModel>>> ListarAtivos()
+        {
+            var professores = _mapper.Map<List<ProfessorViewModel>>(await _repositorio.ListarPor(prof => prof.Ativo == true));
+
+            if (professores.Count <= 0)
+                return new Resposta<List<ProfessorViewModel>>(null, "Não foram encontrados professores ativos!");
+
+            return new Resposta<List<ProfessorViewModel>>(professores);
+        }
     }
 }

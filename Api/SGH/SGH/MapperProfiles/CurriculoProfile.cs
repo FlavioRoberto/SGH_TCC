@@ -28,8 +28,8 @@ namespace Api.MapperProfiles
             CreateMap<CurriculoDisciplina, CurriculoDisciplinaViewModel>().
                 ForMember(d => d.PreRequisitos, opt => opt.MapFrom(p => p.CurriculoDisciplinaPreRequisito));
 
-            CreateMap<Curriculo, CurriculoViewModel>();
-            //  .ForMember(dto => dto.Disciplinas, opt => opt.Ignore());
+            CreateMap<Curriculo, CurriculoViewModel>()
+              .ForMember(dto => dto.DescricaoCurso, opt => opt.MapFrom(p => p.Curso != null ? p.Curso.Descricao : ""));
 
             CreateMap<CurriculoViewModel, Curriculo>();
             //.ForMember(dto => dto.Disciplinas, opt => opt.Ignore());

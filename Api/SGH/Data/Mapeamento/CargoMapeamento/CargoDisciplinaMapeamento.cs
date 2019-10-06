@@ -32,7 +32,7 @@ namespace Data.Mapeamento.CargoMapeamento
             .HasConstraintName("FK_Cargo_Disciplina");
 
             builder.HasOne(lnq => lnq.Cargo)
-            .WithMany(lnq => lnq.Cargos)
+            .WithMany(lnq => lnq.Disciplinas)
             .HasForeignKey(lnq => lnq.CodigoCargo)
             .HasConstraintName("FK_Cargo");
 
