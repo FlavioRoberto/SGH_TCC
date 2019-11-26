@@ -178,9 +178,9 @@ namespace Repositorio.Implementacao.CurriculoImplementacao
                                 .AsNoTracking();
 
             if (entidadePaginada.Entidade == null)
-                entidadePaginada.Entidade = new Curriculo();
+                entidadePaginada.Entidade = new List<Curriculo>();
 
-            var entidade = entidadePaginada.Entidade;
+            var entidade = entidadePaginada.Entidade.FirstOrDefault();
 
             if (entidade.Ano > 0)
                 query = query.Where(lnq => lnq.Ano == entidade.Ano);

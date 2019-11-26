@@ -23,9 +23,9 @@ namespace Repositorio.Implementacao
             var query = GetDbSet().AsNoTracking();
 
             if (entidadePaginada.Entidade == null)
-                entidadePaginada.Entidade = new Professor();
+                entidadePaginada.Entidade = new List<Professor>();
 
-            var entidade = entidadePaginada.Entidade;
+            var entidade = entidadePaginada.Entidade.FirstOrDefault();
 
             if (entidade.Codigo > 0)
                 query = query.Where(lnq => lnq.Codigo == entidade.Codigo);

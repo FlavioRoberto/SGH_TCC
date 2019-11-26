@@ -20,7 +20,7 @@ namespace Repositorio.Implementacao
         {
             var query = _contexto.Turno.AsNoTracking();
             
-            var entidade = entidadePaginada.Entidade;
+            var entidade = entidadePaginada.Entidade.FirstOrDefault();
 
             if (entidade.Codigo > 0)
                 query = query.Where(lnq => lnq.Codigo == entidade.Codigo);

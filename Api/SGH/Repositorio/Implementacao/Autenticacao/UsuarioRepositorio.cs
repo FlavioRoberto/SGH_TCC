@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Repositorio.Contratos;
 using Repositorio.Helpers;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -24,9 +25,9 @@ namespace Repositorio.Implementacao.Autenticacao
                 .AsNoTracking();
 
             if (entidadePaginada.Entidade == null)
-                entidadePaginada.Entidade = new Usuario();
+                entidadePaginada.Entidade = new List<Usuario>();
 
-            var entidade = entidadePaginada.Entidade;
+            var entidade = entidadePaginada.Entidade.FirstOrDefault();
 
             if (entidade.Codigo > 0)
                 query = query.Where(lnq => lnq.Codigo == entidade.Codigo);

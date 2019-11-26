@@ -4,6 +4,7 @@ using Dominio.ViewModel;
 using Global;
 using Microsoft.EntityFrameworkCore;
 using Repositorio.Helpers;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -21,9 +22,9 @@ namespace Repositorio.Implementacao
             var query = _contexto.Curso.AsNoTracking();
 
             if (entidadePaginada.Entidade == null)
-                entidadePaginada.Entidade = new Curso();
+                entidadePaginada.Entidade = new List<Curso>();
 
-            var entidade = entidadePaginada.Entidade;
+            var entidade = entidadePaginada.Entidade.FirstOrDefault();
 
             if (entidade.Codigo > 0)
                 query = query.Where(lnq => lnq.Codigo == entidade.Codigo);

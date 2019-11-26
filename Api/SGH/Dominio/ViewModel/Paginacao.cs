@@ -1,10 +1,11 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace Dominio.ViewModel
 {
     public class Paginacao<T>
     {
-        public T Entidade { get; set; }
+        public int Quantidade { get; set; }
+        public ICollection<T> Entidade { get; set; }
         public int Total { get; set; }
         public int Posicao { get; set; }
     }

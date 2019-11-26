@@ -13,23 +13,26 @@ namespace Repositorio.Helpers
         {
             var total = await query.CountAsync();
             var queryPaginada = query.AsEnumerable()
-                .Select((lnq, i) => new Paginacao<T>
-                {
-                    Entidade = lnq,
-                    Posicao = i + 1
-                })
-                .Skip(entidadePaginada.Posicao - 1)
-                .Take(1);
-            
-            entidadePaginada = queryPaginada.FirstOrDefault();
+                                     .Select((n, i)=> new {
+                                         Value = n,
+                                         Index = i
+                                     })
+                                     .Skip(entidadePaginada.Posicao - 1)
+                                     .Take(entidadePaginada.Quantidade)
+                                     .ToList();
 
-            if (entidadePaginada == null)
+            if (queryPaginada.Count <= 0)
                 return new Resposta<Paginacao<T>>(null, "Não foram encontrados dados!");
 
-            if (entidadePaginada.Entidade == null)
-                return new Resposta<Paginacao<T>>(null, "Não foram encontrados dados!");
-
+            entidadePaginada.Entidade = queryPaginada.Select(lnq => lnq.Value).ToList();
+            entidadePaginada.Posicao = queryPaginada.LastOrDefault().Index + 1;
             entidadePaginada.Total = total;
+
+            //if (entidadePaginada == null)
+            //    return new Resposta<Paginacao<T>>(null, "Não foram encontrados dados!");
+
+            //if (entidadePaginada.Entidade == null)
+            //    return new Resposta<Paginacao<T>>(null, "Não foram encontrados dados!");
 
             return new Resposta<Paginacao<T>>(entidadePaginada);
         }
