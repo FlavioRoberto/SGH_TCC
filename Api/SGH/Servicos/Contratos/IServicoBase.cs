@@ -10,7 +10,6 @@ namespace Servico.Contratos
     {
 
         Task<Resposta<T>> Criar(T entidade);
-        Task<Resposta<T>> ListarPeloId(long id);
         Task<Resposta<List<T>>> ListarTodos();
         Task<Resposta<Paginacao<T>>> ListarComPaginacao(Paginacao<T> entidade);
         Task<Resposta<T>> Atualizar(T entidade);

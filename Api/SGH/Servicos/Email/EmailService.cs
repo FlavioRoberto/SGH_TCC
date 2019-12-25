@@ -5,11 +5,11 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace Servico.Implementacao.Autenticacao
+namespace Api.Servicos.Email
 {
-    public class AuthMessageSender : IEmailSender
+    public class EmailService : IEmailService
     {
-        public AuthMessageSender(IOptions<EmailSettings> emailSettings)
+        public EmailService(IOptions<EmailSettings> emailSettings)
         {
             _emailSettings = emailSettings.Value;
         }

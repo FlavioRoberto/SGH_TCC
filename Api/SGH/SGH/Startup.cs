@@ -72,7 +72,7 @@ namespace Api
             services.AddScoped<IProfessorRepositorio, ProfessorRepositorio>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IUserResolverService, UserResolverService>();
+            services.AddTransient<IUsuarioResolverService, UsuarioResolverService>();
             services.AddScoped<IUsuarioPerfilService, UsuarioPerfilServico>();
             services.AddScoped<IUsuarioService, UsuarioServico>();
             services.AddScoped<IDisciplinaService, DisciplinaServico>();
@@ -82,7 +82,7 @@ namespace Api
 
 
             services.Configure<EmailSettings>(_configuration.GetSection("ConfiguracoesEmail"));
-            services.AddTransient<IEmailSender, AuthMessageSender>();
+            services.AddTransient<IEmailService, EmailService>();
             #endregion
 
             services.AddCors(o =>

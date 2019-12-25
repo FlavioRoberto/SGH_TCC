@@ -4,10 +4,10 @@ using System.Security.Claims;
 
 namespace Servico.Implementacao
 {
-    public class UserResolverService : IUserResolverService
+    public class UsuarioResolverService : IUsuarioResolverService
     {
         private readonly IHttpContextAccessor accessor;
-        public UserResolverService(IHttpContextAccessor accessor)
+        public UsuarioResolverService(IHttpContextAccessor accessor)
         {
             this.accessor = accessor;
         }

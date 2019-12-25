@@ -1,8 +1,7 @@
 ﻿namespace Servico.Contratos
 {
-    public interface IUserResolverService
+    public interface IUsuarioResolverService
     {
         string GetUser();
-
     }
 }
