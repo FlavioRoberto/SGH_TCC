@@ -53,14 +53,19 @@ namespace Api.Servicos.Email
 
                 using (SmtpClient smtp = new SmtpClient(_emailSettings.Dominio, _emailSettings.Porta))
                 {
+                    smtp.UseDefaultCredentials = false;
                     smtp.Credentials = new NetworkCredential(_emailSettings.Email, _emailSettings.Senha);
                     smtp.EnableSsl = true;
                     smtp.Send(mail);
                 }
             }
-            catch (Exception ex)
+            catch (SmtpException ex)
             {
-                throw ex;
+                throw new Exception("Não foi possível enviar o e-mail para o usuário, verifique se o e-mail e a senha do aplicativo são válidas.", ex);
+            }
+            catch(Exception e)
+            {
+                throw e;
             }
         }
     }
