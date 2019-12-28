@@ -22,7 +22,6 @@ using Repositorio.Implementacao.Autenticacao;
 using Repositorio.Implementacao.CurriculoImplementacao;
 using Repositorio.Implementacao.Disciplina;
 using Servico.Contratos;
-using Servico.Implementacao.Autenticacao;
 using Servico.Store;
 using System.Text;
 using Global.Extensions;
@@ -37,6 +36,7 @@ using Api.Filters;
 using Servico.Implementacao.Autenticacao.Contratos;
 using Servico.Implementacao.Usuarios;
 using Servico.Implementacao.Autenticacao.Comandos.RedefinirSenha;
+using Servico.Implementacao.Autenticacao.Comandos.AtualizarSenha;
 
 namespace Api
 {
@@ -91,7 +91,10 @@ namespace Api
 
             services.AddScoped<IRedefinirSenhaComandoValidador, RedefinirSenhaComandoValidador>();
             services.AddScoped<IRedefinirSenhaService, RedefinirSenhaComandoHandler>();
-            
+
+            services.AddScoped<IAtualizarSenhaComandoValidador, AtualizarSenhaComandoValidador>();
+            services.AddScoped<IAtualizarSenhaService, AtualizarSenhaComandoHandler>();
+
             services.Configure<EmailSettings>(_configuration.GetSection("ConfiguracoesEmail"));
             services.AddTransient<IEmailService, EmailService>();
             #endregion

@@ -9,6 +9,7 @@ using Global;
 using Servico.Implementacao.Autenticacao.Comandos.Login;
 using Servico.Implementacao.Autenticacao.Contratos;
 using Servico.Implementacao.Autenticacao.Comandos.RedefinirSenha;
+using Servico.Implementacao.Autenticacao.Comandos.AtualizarSenha;
 
 namespace Api.Controllers.Autenticacao
 {
@@ -18,12 +19,14 @@ namespace Api.Controllers.Autenticacao
         private readonly IUsuarioService _servico;
         private readonly IAutenticacaoService _autenticacaoService;
         private readonly IRedefinirSenhaService _redefinirSenhaService;
+        private readonly IAtualizarSenhaService _atualizarSenhaService;
 
-        public UsuarioController(IUsuarioService servico, IAutenticacaoService autenticacaoService, IRedefinirSenhaService redefinirSenhaService)
+        public UsuarioController(IUsuarioService servico, IAutenticacaoService autenticacaoService, IRedefinirSenhaService redefinirSenhaService, IAtualizarSenhaService atualizarSenhaService)
         {
             _servico = servico;
             _autenticacaoService = autenticacaoService;
             _redefinirSenhaService = redefinirSenhaService;
+            _atualizarSenhaService = atualizarSenhaService;
         }
 
         [HttpPost("autenticar")]
@@ -79,7 +82,11 @@ namespace Api.Controllers.Autenticacao
         {
             try
             {
-                var resposta = await _servico.AtualizarSenha(viewModel.Senha, viewModel.NovaSenha);
+                var resposta = await _atualizarSenhaService.Atualizar(new AtualizarSenhaComando
+                {
+                    Senha = viewModel.Senha,
+                    NovaSenha = viewModel.NovaSenha
+                });
 
                 if (resposta.TemErro())
                     return BadRequest(resposta.GetErros());

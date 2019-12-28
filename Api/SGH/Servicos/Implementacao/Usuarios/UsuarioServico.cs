@@ -18,14 +18,14 @@ namespace Servico.Implementacao.Usuarios
 {
     public class UsuarioServico : IUsuarioService
     {
-        private UsuarioResolverService _userResolver;
+        private IUsuarioResolverService _userResolver;
         private readonly IEmailService _emailService;
         private readonly IRepositorio<Usuario> _repositorio;
         private readonly IMapper _mapper;
 
         public UsuarioServico(IUsuarioRepositorio repositorio, IMapper mapper, IUsuarioResolverService userResolver, IEmailService emailSender)
         {
-            _userResolver = userResolver as UsuarioResolverService;
+            _userResolver = userResolver ;
             _emailService = emailSender;
             _repositorio = repositorio;
             _mapper = mapper;
@@ -113,26 +113,6 @@ namespace Servico.Implementacao.Usuarios
                 return new Resposta<bool>(false, $"Não foi possível remover o usuário: {e.Message}!");
 
             }
-        }
-
-        public async Task<Resposta<string>> AtualizarSenha(string senha, string novaSenha)
-        {
-            var codigoUsuarioLogado = _userResolver.GetUser().ToInt();
-
-            var usuario = await _repositorio.Listar(lnq => lnq.Codigo == codigoUsuarioLogado);
-
-            if (usuario == null)
-                return new Resposta<string>(null, "Usuário não encontrado!");
-
-            if (!usuario.Senha.Equals(senha.ToMD5()))
-                return new Resposta<string>(null, "Senha incorreta!");
-
-            usuario.Senha = novaSenha.ToMD5();
-
-            await _repositorio.Atualizar(usuario);
-
-            return new Resposta<string>("A senha foi atualizada!");
-
         }
 
         public async Task<UsuarioViewModel> ValidarInsercao(UsuarioViewModel viewModel)
