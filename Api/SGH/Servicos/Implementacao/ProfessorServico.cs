@@ -6,10 +6,10 @@ using Dominio.Model;
 using Dominio.ViewModel;
 using Global;
 using Repositorio.Contratos;
-using Servico.Contratos;
-using Servico.Exceptions;
+using Aplicacao.Contratos;
+using Aplicacao.Exceptions;
 
-namespace Servico.Implementacao
+namespace Aplicacao.Implementacao
 {
     public class ProfessorServico : IProfessorService
     {

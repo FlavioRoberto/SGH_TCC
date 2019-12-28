@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text;
 
-namespace Servico.Helpers
+namespace Aplicacao.Helpers
 {
     public static class SenhaHelper
     {

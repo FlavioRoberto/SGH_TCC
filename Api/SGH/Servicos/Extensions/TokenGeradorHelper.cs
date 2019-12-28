@@ -1,12 +1,12 @@
 ﻿using Dominio.Model.Autenticacao;
 using Microsoft.IdentityModel.Tokens;
-using Servico.Store;
+using Aplicacao.Store;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace Servico.Extensions
+namespace Aplicacao.Extensions
 {
     public static class TokenGeradorHelper
     {

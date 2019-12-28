@@ -1,8 +1,10 @@
-﻿using Servico.Contratos;
+﻿using Aplicacao.Contratos;
+using Global;
+using MediatR;
 
-namespace Servico.Implementacao.Autenticacao.Comandos.RedefinirSenha
+namespace Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha
 {
-    public class RedefinirSenhaComando : IComando
+    public class RedefinirSenhaComando : IRequest<Resposta<string>>
     {
         public string Email { get; set; }
     }

@@ -6,9 +6,9 @@ using Dominio.Model;
 using Dominio.ViewModel;
 using Global;
 using Repositorio;
-using Servico.Contratos;
+using Aplicacao.Contratos;
 
-namespace Servico.Implementacao
+namespace Aplicacao.Implementacao
 {
     public class TurnoServico : ITurnoService
     {

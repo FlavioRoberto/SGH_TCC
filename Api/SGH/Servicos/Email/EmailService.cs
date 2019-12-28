@@ -1,11 +1,11 @@
-﻿using Api.Servicos.Email;
+﻿using Api.Aplicacao.Email;
 using Microsoft.Extensions.Options;
 using System;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace Api.Servicos.Email
+namespace Api.Aplicacao.Email
 {
     public class EmailService : IEmailService
     {

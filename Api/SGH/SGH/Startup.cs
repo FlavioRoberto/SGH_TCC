@@ -21,22 +21,24 @@ using Repositorio.Implementacao;
 using Repositorio.Implementacao.Autenticacao;
 using Repositorio.Implementacao.CurriculoImplementacao;
 using Repositorio.Implementacao.Disciplina;
-using Servico.Contratos;
-using Servico.Store;
+using Aplicacao.Contratos;
+using Aplicacao.Store;
 using System.Text;
 using Global.Extensions;
-using Servico.Implementacao;
+using Aplicacao.Implementacao;
 using Microsoft.AspNetCore.Http;
-using Api.Servicos.Email;
-using Servico.Implementacao.DisciplinaImp;
-using Servico.Implementacao.CurriculoImp;
-using Servico.Implementacao.Autenticacao.Comandos.Login;
+using Api.Aplicacao.Email;
+using Aplicacao.Implementacao.DisciplinaImp;
+using Aplicacao.Implementacao.CurriculoImp;
+using Aplicacao.Implementacao.Autenticacao.Comandos.Login;
 using FluentValidation.AspNetCore;
 using Api.Filters;
-using Servico.Implementacao.Autenticacao.Contratos;
-using Servico.Implementacao.Usuarios;
-using Servico.Implementacao.Autenticacao.Comandos.RedefinirSenha;
-using Servico.Implementacao.Autenticacao.Comandos.AtualizarSenha;
+using Aplicacao.Implementacao.Autenticacao.Contratos;
+using Aplicacao.Implementacao.Usuarios;
+using Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha;
+using Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha;
+using MediatR;
+using System;
 
 namespace Api
 {
@@ -86,14 +88,9 @@ namespace Api
             services.AddScoped<ICurriculoService, CurriculoServico>();
             services.AddScoped<IProfessorService, ProfessorServico>();
 
-            services.AddScoped<IAutenticacaoService, LoginComandoHandler>();
             services.AddScoped<ILoginComandoValidator, LoginComandoValidator>();
-
             services.AddScoped<IRedefinirSenhaComandoValidador, RedefinirSenhaComandoValidador>();
-            services.AddScoped<IRedefinirSenhaService, RedefinirSenhaComandoHandler>();
-
             services.AddScoped<IAtualizarSenhaComandoValidador, AtualizarSenhaComandoValidador>();
-            services.AddScoped<IAtualizarSenhaService, AtualizarSenhaComandoHandler>();
 
             services.Configure<EmailSettings>(_configuration.GetSection("ConfiguracoesEmail"));
             services.AddTransient<IEmailService, EmailService>();
@@ -145,6 +142,8 @@ namespace Api
             });
 
             services.AddAutoMapper();
+            var assembly = AppDomain.CurrentDomain.Load("Aplicacao");
+            services.AddMediatR(assembly);
 
             services.AddMvc(config =>
              {

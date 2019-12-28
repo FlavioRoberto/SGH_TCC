@@ -10,9 +10,9 @@ using Dominio.ViewModel.CurriculoViewModel;
 using Global;
 using Repositorio;
 using Repositorio.Contratos;
-using Servico.Contratos;
+using Aplicacao.Contratos;
 
-namespace Servico.Implementacao.CurriculoImp
+namespace Aplicacao.Implementacao.CurriculoImp
 {
     public class CurriculoServico : ICurriculoService
     {

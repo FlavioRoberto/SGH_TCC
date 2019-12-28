@@ -1,14 +1,16 @@
-﻿using Servico.Contratos;
+﻿using Aplicacao.Contratos;
 using System.Threading.Tasks;
 using Global.Extensions;
 using Global;
 using Repositorio.Contratos;
-using Servico.Implementacao.Autenticacao.Contratos;
-using Servico.Extensions;
+using Aplicacao.Implementacao.Autenticacao.Contratos;
+using Aplicacao.Extensions;
+using MediatR;
+using System.Threading;
 
-namespace Servico.Implementacao.Autenticacao.Comandos.AtualizarSenha
+namespace Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha
 {
-    public class AtualizarSenhaComandoHandler : IAtualizarSenhaService
+    public class AtualizarSenhaComandoHandler : IRequestHandler<AtualizarSenhaComando, Resposta<string>>
     {
         private readonly IUsuarioRepositorio _repositorio;
         private readonly IUsuarioResolverService _usuarioResolverService;
@@ -21,9 +23,10 @@ namespace Servico.Implementacao.Autenticacao.Comandos.AtualizarSenha
             _validador = validador;
         }
 
-        public async Task<Resposta<string>> Atualizar(AtualizarSenhaComando comando)
+
+        public async Task<Resposta<string>> Handle(AtualizarSenhaComando request, CancellationToken cancellationToken)
         {
-            var erros = _validador.Validar(comando);
+            var erros = _validador.Validar(request);
 
             if (!string.IsNullOrEmpty(erros))
                 return new Resposta<string>("", erros);
@@ -32,7 +35,7 @@ namespace Servico.Implementacao.Autenticacao.Comandos.AtualizarSenha
 
             var usuario = await _repositorio.Listar(lnq => lnq.Codigo == codigoUsuarioLogado);
 
-            usuario.Senha = comando.NovaSenha.ToMD5();
+            usuario.Senha = request.NovaSenha.ToMD5();
 
             await _repositorio.Atualizar(usuario);
 

@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Servico.Contratos;
+using Aplicacao.Contratos;
 using System.Security.Claims;
 
-namespace Servico.Implementacao
+namespace Aplicacao.Implementacao
 {
     public class UsuarioResolverService : IUsuarioResolverService
     {

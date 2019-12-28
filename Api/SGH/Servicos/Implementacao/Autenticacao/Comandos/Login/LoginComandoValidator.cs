@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using Dominio.Model.Autenticacao;
 using FluentValidation;
 using Repositorio.Contratos;
-using Servico.Implementacao.Autenticacao.Contratos;
+using Aplicacao.Implementacao.Autenticacao.Contratos;
 
-namespace Servico.Implementacao.Autenticacao.Comandos.Login
+namespace Aplicacao.Implementacao.Autenticacao.Comandos.Login
 {
     public class LoginComandoValidator : AbstractValidator<LoginComando>, ILoginComandoValidator
     {

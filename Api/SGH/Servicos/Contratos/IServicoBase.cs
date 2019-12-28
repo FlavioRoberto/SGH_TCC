@@ -4,7 +4,7 @@ using Global;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Servico.Contratos
+namespace Aplicacao.Contratos
 {
     public interface IServicoBase<T> where T : class
     {

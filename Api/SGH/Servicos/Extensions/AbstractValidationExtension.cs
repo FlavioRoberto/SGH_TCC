@@ -1,13 +1,14 @@
 ﻿using FluentValidation;
-using Servico.Contratos;
+using Aplicacao.Contratos;
 using System;
 using System.ComponentModel.DataAnnotations;
+using MediatR;
 
-namespace Servico.Extensions
+namespace Aplicacao.Extensions
 {
     public static class AbstractValidationExtension
     {
-        public static string Validar(this IValidator value, IComando comando)
+        public static string Validar<T>(this IValidator value, IRequest<T> comando)
         {
             var resultado = value.Validate(comando);
 

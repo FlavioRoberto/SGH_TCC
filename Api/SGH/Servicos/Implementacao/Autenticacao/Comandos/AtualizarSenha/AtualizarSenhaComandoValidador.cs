@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using Dominio.Model.Autenticacao;
 using FluentValidation;
 using Repositorio.Contratos;
-using Servico.Contratos;
+using Aplicacao.Contratos;
 using Global.Extensions;
-using Servico.Implementacao.Autenticacao.Contratos;
+using Aplicacao.Implementacao.Autenticacao.Contratos;
 
-namespace Servico.Implementacao.Autenticacao.Comandos.AtualizarSenha
+namespace Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha
 {
     public class AtualizarSenhaComandoValidador : AbstractValidator<AtualizarSenhaComando>, IAtualizarSenhaComandoValidador
     {

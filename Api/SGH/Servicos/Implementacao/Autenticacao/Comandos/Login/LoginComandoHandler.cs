@@ -1,12 +1,14 @@
 ﻿using Global;
 using Repositorio.Contratos;
-using Servico.Extensions;
-using Servico.Implementacao.Autenticacao.Contratos;
+using Aplicacao.Extensions;
+using Aplicacao.Implementacao.Autenticacao.Contratos;
 using System.Threading.Tasks;
+using MediatR;
+using System.Threading;
 
-namespace Servico.Implementacao.Autenticacao.Comandos.Login
+namespace Aplicacao.Implementacao.Autenticacao.Comandos.Login
 {
-    public class LoginComandoHandler : IAutenticacaoService
+    public class LoginComandoHandler : IRequestHandler<LoginComando, Resposta<string>>
     {
         private readonly IUsuarioRepositorio _repositorio;
         private readonly ILoginComandoValidator _validador;
@@ -17,14 +19,14 @@ namespace Servico.Implementacao.Autenticacao.Comandos.Login
             _validador = validator;
         }
 
-        public async Task<Resposta<string>> Autenticar(LoginComando login)
+        public async Task<Resposta<string>> Handle(LoginComando request, CancellationToken cancellationToken)
         {
-            var erros = _validador.Validar(login);
+            var erros = _validador.Validar(request);
 
             if (!string.IsNullOrEmpty(erros))
                 return new Resposta<string>("", erros);
 
-            var usuario = await _repositorio.RetornarUsuarioPorLoginESenha(login.Login, login.Senha);
+            var usuario = await _repositorio.RetornarUsuarioPorLoginESenha(request.Login, request.Senha);
 
             string token = TokenGeradorHelper.Gerar(usuario);
 

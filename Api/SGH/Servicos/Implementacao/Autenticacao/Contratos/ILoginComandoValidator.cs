@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace Servico.Implementacao.Autenticacao.Contratos
+namespace Aplicacao.Implementacao.Autenticacao.Contratos
 {
     public interface ILoginComandoValidator  : IValidator
     {

@@ -2,14 +2,15 @@
 using Dominio.ViewModel.AutenticacaoViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Servico.Contratos;
+using Aplicacao.Contratos;
 using System;
 using System.Threading.Tasks;
 using Global;
-using Servico.Implementacao.Autenticacao.Comandos.Login;
-using Servico.Implementacao.Autenticacao.Contratos;
-using Servico.Implementacao.Autenticacao.Comandos.RedefinirSenha;
-using Servico.Implementacao.Autenticacao.Comandos.AtualizarSenha;
+using Aplicacao.Implementacao.Autenticacao.Comandos.Login;
+using Aplicacao.Implementacao.Autenticacao.Contratos;
+using Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha;
+using Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha;
+using MediatR;
 
 namespace Api.Controllers.Autenticacao
 {
@@ -17,16 +18,13 @@ namespace Api.Controllers.Autenticacao
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _servico;
-        private readonly IAutenticacaoService _autenticacaoService;
-        private readonly IRedefinirSenhaService _redefinirSenhaService;
-        private readonly IAtualizarSenhaService _atualizarSenhaService;
+        private readonly IMediator _mediator;
+    
 
-        public UsuarioController(IUsuarioService servico, IAutenticacaoService autenticacaoService, IRedefinirSenhaService redefinirSenhaService, IAtualizarSenhaService atualizarSenhaService)
+        public UsuarioController(IUsuarioService servico, IMediator mediator)
         {
             _servico = servico;
-            _autenticacaoService = autenticacaoService;
-            _redefinirSenhaService = redefinirSenhaService;
-            _atualizarSenhaService = atualizarSenhaService;
+            _mediator = mediator;
         }
 
         [HttpPost("autenticar")]
@@ -41,7 +39,7 @@ namespace Api.Controllers.Autenticacao
                     Senha = login.Senha
                 };
 
-                Resposta<string> resposta = await _autenticacaoService.Autenticar(loginComando);
+                Resposta<string> resposta = await _mediator.Send(loginComando);
 
                 if (resposta.TemErro())
                     return BadRequest(resposta.GetErros());
@@ -60,7 +58,7 @@ namespace Api.Controllers.Autenticacao
         {
             try
             {
-                var resposta = await _redefinirSenhaService.Redefinir(new RedefinirSenhaComando
+                var resposta = await _mediator.Send(new RedefinirSenhaComando
                 {
                     Email = email
                 });
@@ -82,7 +80,7 @@ namespace Api.Controllers.Autenticacao
         {
             try
             {
-                var resposta = await _atualizarSenhaService.Atualizar(new AtualizarSenhaComando
+                var resposta = await _mediator.Send(new AtualizarSenhaComando
                 {
                     Senha = viewModel.Senha,
                     NovaSenha = viewModel.NovaSenha

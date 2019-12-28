@@ -2,7 +2,7 @@
 using Dominio.ViewModel.AutenticacaoViewModel;
 using Global;
 
-namespace Servico.Contratos
+namespace Aplicacao.Contratos
 {
     public interface IUsuarioService : IServicoBase<UsuarioViewModel>
     {

@@ -4,8 +4,8 @@ using Dominio.ViewModel.AutenticacaoViewModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositorio;
-using Servico.Contratos;
-using Servico.Implementacao.Autenticacao;
+using Aplicacao.Contratos;
+using Aplicacao.Implementacao.Autenticacao;
 using System;
 using System.Threading.Tasks;
 

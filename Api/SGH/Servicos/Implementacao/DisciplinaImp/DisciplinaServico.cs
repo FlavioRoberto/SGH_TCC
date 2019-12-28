@@ -4,12 +4,12 @@ using Dominio.ViewModel;
 using Dominio.ViewModel.DisciplinaViewModel;
 using Global;
 using Repositorio;
-using Servico.Contratos;
+using Aplicacao.Contratos;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Servico.Implementacao.DisciplinaImp
+namespace Aplicacao.Implementacao.DisciplinaImp
 {
     public class DisciplinaServico : IDisciplinaService
     {

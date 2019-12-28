@@ -1,20 +1,20 @@
 ﻿using AutoMapper;
 using Dominio.Model.Autenticacao;
 using Dominio.ViewModel.AutenticacaoViewModel;
-using Servico.Contratos;
+using Aplicacao.Contratos;
 using System.Threading.Tasks;
 using Global.Extensions;
 using Global;
 using Repositorio.Contratos;
 using System;
-using Servico.Exceptions;
-using Api.Servicos.Email;
+using Aplicacao.Exceptions;
+using Api.Aplicacao.Email;
 using Repositorio;
 using Dominio.ViewModel;
 using System.Collections.Generic;
-using Servico.Helpers;
+using Aplicacao.Helpers;
 
-namespace Servico.Implementacao.Usuarios
+namespace Aplicacao.Implementacao.Usuarios
 {
     public class UsuarioServico : IUsuarioService
     {
@@ -165,12 +165,6 @@ namespace Servico.Implementacao.Usuarios
                 viewModel.Senha = viewModel.Senha.ToMD5();
 
             return viewModel;
-        }
-
-
-        private IUsuarioRepositorio GetRepositorio()
-        {
-            return _repositorio as IUsuarioRepositorio;
         }
 
         private async Task<string> ValidarUsuarioComMesmoLoginOuEmail(UsuarioViewModel usuario)

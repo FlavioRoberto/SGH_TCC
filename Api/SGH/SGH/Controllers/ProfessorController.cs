@@ -2,7 +2,7 @@
 using Global;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Servico.Contratos;
+using Aplicacao.Contratos;
 using System;
 using System.Threading.Tasks;
 

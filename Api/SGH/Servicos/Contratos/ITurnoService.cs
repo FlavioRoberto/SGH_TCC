@@ -1,6 +1,6 @@
 ﻿using Dominio.ViewModel;
 
-namespace Servico.Contratos
+namespace Aplicacao.Contratos
 {
     public interface ITurnoService : IServicoBase<TurnoViewModel>
     {

@@ -7,9 +7,9 @@ using Dominio.ViewModel;
 using Dominio.ViewModel.DisciplinaViewModel;
 using Global;
 using Repositorio;
-using Servico.Contratos;
+using Aplicacao.Contratos;
 
-namespace Servico.Implementacao.DisciplinaImp
+namespace Aplicacao.Implementacao.DisciplinaImp
 {
     public class DisciplinaTipoServico : IDisciplinaTipoService
     {

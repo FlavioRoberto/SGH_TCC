@@ -3,7 +3,7 @@ using Global;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Servico.Contratos
+namespace Aplicacao.Contratos
 {
     public interface IProfessorService : IServicoBase<ProfessorViewModel>
     {

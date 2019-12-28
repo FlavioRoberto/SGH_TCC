@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using FluentValidation;
 using Repositorio.Contratos;
-using Servico.Implementacao.Autenticacao.Contratos;
+using Aplicacao.Implementacao.Autenticacao.Contratos;
 
-namespace Servico.Implementacao.Autenticacao.Comandos.RedefinirSenha
+namespace Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha
 {
     public class RedefinirSenhaComandoValidador : AbstractValidator<RedefinirSenhaComando>, IRedefinirSenhaComandoValidador
     {

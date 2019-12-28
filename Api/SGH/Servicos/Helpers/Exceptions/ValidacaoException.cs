@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Servico.Exceptions
+namespace Aplicacao.Exceptions
 {
     public class ValidacaoException : Exception
     {

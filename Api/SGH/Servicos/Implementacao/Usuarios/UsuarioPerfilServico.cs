@@ -4,12 +4,12 @@ using Dominio.ViewModel;
 using Dominio.ViewModel.AutenticacaoViewModel;
 using Global;
 using Repositorio;
-using Servico.Contratos;
+using Aplicacao.Contratos;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Servico.Implementacao.Usuarios
+namespace Aplicacao.Implementacao.Usuarios
 {
     public class UsuarioPerfilServico : IUsuarioPerfilService
     {

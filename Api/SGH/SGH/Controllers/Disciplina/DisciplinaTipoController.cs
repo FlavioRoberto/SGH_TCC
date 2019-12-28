@@ -6,8 +6,8 @@ using Global;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositorio;
-using Servico.Contratos;
-using Servico.Implementacao.DisciplinaImp;
+using Aplicacao.Contratos;
+using Aplicacao.Implementacao.DisciplinaImp;
 using System;
 using System.Threading.Tasks;
 

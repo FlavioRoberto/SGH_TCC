@@ -1,6 +1,6 @@
 ﻿using Dominio.ViewModel.AutenticacaoViewModel;
 
-namespace Servico.Contratos
+namespace Aplicacao.Contratos
 {
     public interface IUsuarioPerfilService : IServicoBase<UsuarioPerfilViewModel>
     {

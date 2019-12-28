@@ -1,4 +1,4 @@
-﻿namespace Servico.Contratos
+﻿namespace Aplicacao.Contratos
 {
     public interface IUsuarioResolverService
     {

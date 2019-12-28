@@ -1,4 +1,4 @@
-﻿namespace Servico.Store
+﻿namespace Aplicacao.Store
 {
     public class Configuracoes
     {
