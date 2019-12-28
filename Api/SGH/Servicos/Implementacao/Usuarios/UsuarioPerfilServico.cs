@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Servico.Implementacao.Autenticacao
+namespace Servico.Implementacao.Usuarios
 {
     public class UsuarioPerfilServico : IUsuarioPerfilService
     {

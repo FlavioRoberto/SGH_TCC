@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Global;
 using Servico.Implementacao.Autenticacao.Comandos.Login;
 using Servico.Implementacao.Autenticacao.Contratos;
+using Servico.Implementacao.Autenticacao.Comandos.RedefinirSenha;
 
 namespace Api.Controllers.Autenticacao
 {
@@ -16,11 +17,13 @@ namespace Api.Controllers.Autenticacao
     {
         private readonly IUsuarioService _servico;
         private readonly IAutenticacaoService _autenticacaoService;
+        private readonly IRedefinirSenhaService _redefinirSenhaService;
 
-        public UsuarioController(IUsuarioService servico, IAutenticacaoService autenticacaoService)
+        public UsuarioController(IUsuarioService servico, IAutenticacaoService autenticacaoService, IRedefinirSenhaService redefinirSenhaService)
         {
             _servico = servico;
             _autenticacaoService = autenticacaoService;
+            _redefinirSenhaService = redefinirSenhaService;
         }
 
         [HttpPost("autenticar")]
@@ -54,7 +57,10 @@ namespace Api.Controllers.Autenticacao
         {
             try
             {
-                var resposta = await _servico.RedefinirSenha(email);
+                var resposta = await _redefinirSenhaService.Redefinir(new RedefinirSenhaComando
+                {
+                    Email = email
+                });
 
                 if (resposta.TemErro())
                     return BadRequest(resposta.GetErros());

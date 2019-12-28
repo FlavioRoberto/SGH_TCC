@@ -35,6 +35,8 @@ using Servico.Implementacao.Autenticacao.Comandos.Login;
 using FluentValidation.AspNetCore;
 using Api.Filters;
 using Servico.Implementacao.Autenticacao.Contratos;
+using Servico.Implementacao.Usuarios;
+using Servico.Implementacao.Autenticacao.Comandos.RedefinirSenha;
 
 namespace Api
 {
@@ -87,7 +89,9 @@ namespace Api
             services.AddScoped<IAutenticacaoService, LoginComandoHandler>();
             services.AddScoped<ILoginComandoValidator, LoginComandoValidator>();
 
-
+            services.AddScoped<IRedefinirSenhaComandoValidador, RedefinirSenhaComandoValidador>();
+            services.AddScoped<IRedefinirSenhaService, RedefinirSenhaComandoHandler>();
+            
             services.Configure<EmailSettings>(_configuration.GetSection("ConfiguracoesEmail"));
             services.AddTransient<IEmailService, EmailService>();
             #endregion

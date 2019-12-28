@@ -1,14 +1,7 @@
-﻿using Dominio.Model.Autenticacao;
-using Dominio.ViewModel.AutenticacaoViewModel;
-using FluentValidation;
-using FluentValidation.Results;
-using Global;
-using Repositorio;
+﻿using Global;
 using Repositorio.Contratos;
-using Servico.Contratos;
 using Servico.Extensions;
 using Servico.Implementacao.Autenticacao.Contratos;
-using System;
 using System.Threading.Tasks;
 
 namespace Servico.Implementacao.Autenticacao.Comandos.Login

@@ -7,14 +7,14 @@ using Global.Extensions;
 using Global;
 using Repositorio.Contratos;
 using System;
-using System.Text;
 using Servico.Exceptions;
 using Api.Servicos.Email;
 using Repositorio;
 using Dominio.ViewModel;
 using System.Collections.Generic;
+using Servico.Helpers;
 
-namespace Servico.Implementacao.Autenticacao
+namespace Servico.Implementacao.Usuarios
 {
     public class UsuarioServico : IUsuarioService
     {
@@ -115,28 +115,6 @@ namespace Servico.Implementacao.Autenticacao
             }
         }
 
-        public async Task<Resposta<string>> RedefinirSenha(string email)
-        {
-            var usuario = await GetRepositorio().Listar(lnq => lnq.Email.Equals(email));
-
-            if (usuario == null)
-                return new Resposta<string>(null, $"Não foi encontrado um usuário vinculado com o e-mail {email}!");
-
-            string senha = GerarSenha();
-            usuario.Senha = senha.ToMD5();
-            await _repositorio.Atualizar(usuario);
-
-            var usuarioViewModel = _mapper.Map<UsuarioViewModel>(usuario);
-
-            string mensagem = mensagem = $@"Sua senha no SGH foi redefinida com sucesso! <br>
-                                Usuário: {usuario.Login}<br>
-                                Senha: {senha}<br>
-                                click <a>aqui</a> para acessar o sistema.";
-
-            await EnviarEmail(usuarioViewModel, "Redefinição de senha no SGH", mensagem);
-            return new Resposta<string>("Senha redefinida com sucesso! Foi enviado um e-mail com seus dados de acesso.");
-        }
-
         public async Task<Resposta<string>> AtualizarSenha(string senha, string novaSenha)
         {
             var codigoUsuarioLogado = _userResolver.GetUser().ToInt();
@@ -164,7 +142,7 @@ namespace Servico.Implementacao.Autenticacao
             if (!string.IsNullOrEmpty(mensagem))
                 throw new ValidacaoException(mensagem);
 
-            string senha = GerarSenha();
+            string senha = SenhaHelper.Gerar();
             viewModel.Senha = senha.ToMD5();
 
             mensagem = $@"Seu cadastro no SGH foi realizado com sucesso! <br>
@@ -172,7 +150,7 @@ namespace Servico.Implementacao.Autenticacao
                                 Senha: {senha}<br>
                                 click <a>aqui</a> para acessar o sistema.";
 
-            await EnviarEmail(viewModel, "Cadastro de novo usuário no SGH", mensagem);
+            await _emailService.SendEmailAsync(viewModel.Email, "Cadastro de novo usuário no SGH", mensagem);
 
             return viewModel;
         }
@@ -235,16 +213,5 @@ namespace Servico.Implementacao.Autenticacao
             return string.Empty;
         }
 
-        private string GerarSenha()
-        {
-            string codigoSenha = DateTime.Now.Ticks.ToString();
-            return BitConverter.ToString(new System.Security.Cryptography.SHA512CryptoServiceProvider()
-                .ComputeHash(Encoding.Default.GetBytes(codigoSenha))).Replace("-", String.Empty).Substring(0, 35);
-        }
-
-        private async Task EnviarEmail(UsuarioViewModel viewModel, string assunto, string mensagem)
-        {
-            await _emailService.SendEmailAsync(viewModel.Email, assunto, mensagem);
-        }
     }
 }
