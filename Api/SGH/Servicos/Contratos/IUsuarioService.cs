@@ -6,9 +6,7 @@ namespace Servico.Contratos
 {
     public interface IUsuarioService : IServicoBase<UsuarioViewModel>
     {
-        Task<Resposta<string>> Autenticar(LoginViewModel login);
         Task<Resposta<string>> RedefinirSenha(string email);
         Task<Resposta<string>> AtualizarSenha(string senha, string novaSenha);
-
     }
 }

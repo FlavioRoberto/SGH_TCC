@@ -6,6 +6,8 @@ using Servico.Contratos;
 using System;
 using System.Threading.Tasks;
 using Global;
+using Servico.Implementacao.Autenticacao.Comandos.Login;
+using Servico.Implementacao.Autenticacao.Contratos;
 
 namespace Api.Controllers.Autenticacao
 {
@@ -13,11 +15,12 @@ namespace Api.Controllers.Autenticacao
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _servico;
+        private readonly IAutenticacaoService _autenticacaoService;
 
-        public UsuarioController(IUsuarioService servico)
+        public UsuarioController(IUsuarioService servico, IAutenticacaoService autenticacaoService)
         {
             _servico = servico;
-
+            _autenticacaoService = autenticacaoService;
         }
 
         [HttpPost("autenticar")]
@@ -26,7 +29,13 @@ namespace Api.Controllers.Autenticacao
         {
             try
             {
-                Resposta<string> resposta = await _servico.Autenticar(login);
+                var loginComando = new LoginComando
+                {
+                    Login = login.Login,
+                    Senha = login.Senha
+                };
+
+                Resposta<string> resposta = await _autenticacaoService.Autenticar(loginComando);
 
                 if (resposta.TemErro())
                     return BadRequest(resposta.GetErros());

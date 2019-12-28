@@ -31,6 +31,10 @@ using Microsoft.AspNetCore.Http;
 using Api.Servicos.Email;
 using Servico.Implementacao.DisciplinaImp;
 using Servico.Implementacao.CurriculoImp;
+using Servico.Implementacao.Autenticacao.Comandos.Login;
+using FluentValidation.AspNetCore;
+using Api.Filters;
+using Servico.Implementacao.Autenticacao.Contratos;
 
 namespace Api
 {
@@ -79,6 +83,9 @@ namespace Api
             services.AddScoped<ICursoService, CursoServico>();
             services.AddScoped<ICurriculoService, CurriculoServico>();
             services.AddScoped<IProfessorService, ProfessorServico>();
+
+            services.AddScoped<IAutenticacaoService, LoginComandoHandler>();
+            services.AddScoped<ILoginComandoValidator, LoginComandoValidator>();
 
 
             services.Configure<EmailSettings>(_configuration.GetSection("ConfiguracoesEmail"));
@@ -138,7 +145,9 @@ namespace Api
                                   .RequireAuthenticatedUser()
                                   .Build();
                  config.Filters.Add(new AuthorizeFilter(policy));
+                 config.Filters.Add(typeof(FiltroExcecaoAtributo));
              })
+             .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<Startup>())
              .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
         }

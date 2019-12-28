@@ -5,7 +5,6 @@ using Servico.Contratos;
 using System.Threading.Tasks;
 using Global.Extensions;
 using Global;
-using Servico.Extensions;
 using Repositorio.Contratos;
 using System;
 using System.Text;
@@ -114,22 +113,6 @@ namespace Servico.Implementacao.Autenticacao
                 return new Resposta<bool>(false, $"Não foi possível remover o usuário: {e.Message}!");
 
             }
-        }
-
-        public async Task<Resposta<string>> Autenticar(LoginViewModel viewModel)
-        {
-            var resultado = await GetRepositorio().RetornarUsuarioPorLoginESenha(viewModel.Login, viewModel.Senha);
-
-            if (resultado == null)
-                return new Resposta<string>(null, "Usuário e/ou senha inválidos!");
-
-            if (!resultado.Ativo)
-                return new Resposta<string>(null, "Não foi possível logar no sistema, o usuário informado está inativo!");
-
-            string token = TokenGeradorHelper.Gerar(resultado);
-
-            return new Resposta<string>(token);
-
         }
 
         public async Task<Resposta<string>> RedefinirSenha(string email)
