@@ -22,35 +22,6 @@ namespace Aplicacao.Implementacao.DisciplinaImp
             _mapper = mapper;
         }
 
-        public async Task<Resposta<DisciplinaViewModel>> Atualizar(DisciplinaViewModel entidadeViewModel)
-        {
-            try
-            {
-                var entidade = _mapper.Map<Disciplina>(entidadeViewModel);
-                var resultado = _mapper.Map<DisciplinaViewModel>(await _repositorio.Atualizar(entidade));
-                return new Resposta<DisciplinaViewModel>(resultado);
-            }
-            catch (Exception e)
-            {
-                return new Resposta<DisciplinaViewModel>(entidadeViewModel, $"Ocorreu um erro ao atualizar a disciplina: {e.Message}");
-            }
-
-        }
-
-        public async Task<Resposta<DisciplinaViewModel>> Criar(DisciplinaViewModel entidade)
-        {
-            try
-            {
-                var resultado = await _repositorio.Criar(_mapper.Map<Disciplina>(entidade));
-                return new Resposta<DisciplinaViewModel>(_mapper.Map<DisciplinaViewModel>(resultado));
-            }
-            catch (Exception e)
-            {
-
-                return new Resposta<DisciplinaViewModel>(entidade, $"Ocorreu um erro ao criar a disciplina: {e.Message}");
-            }
-        }
-
         public async Task<Resposta<Paginacao<DisciplinaViewModel>>> ListarComPaginacao(Paginacao<DisciplinaViewModel> entidade)
         {
             try
@@ -73,24 +44,6 @@ namespace Aplicacao.Implementacao.DisciplinaImp
         {
             var resultado = await _repositorio.ListarTodos();
             return new Resposta<List<DisciplinaViewModel>>(_mapper.Map<List<DisciplinaViewModel>>(resultado));
-        }
-
-        public async Task<Resposta<bool>> Remover(long id)
-        {
-            try
-            {
-                var result = await _repositorio.Remover(lnq => lnq.Codigo == id);
-
-                if (result)
-                    return new Resposta<bool>(result);
-
-                return new Resposta<bool>(false, $"Não foi possível remover a disciplina!");
-
-            }
-            catch (Exception e)
-            {
-                return new Resposta<bool>(false, $"Não foi possível remover a disciplina: {e.Message}!");
-            }
         }
 
         public async Task<Resposta<List<DisciplinaViewModel>>> listarPorDescricao(string descricao)

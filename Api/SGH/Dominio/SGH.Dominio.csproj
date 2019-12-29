@@ -5,15 +5,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Implementacao\Curriculo\**" />
+    <EmbeddedResource Remove="Implementacao\Curriculo\**" />
+    <None Remove="Implementacao\Curriculo\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Data\SGH.Data.csproj" />
     <ProjectReference Include="..\Servicos\SGH.Dominio.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Implementacao\Curriculo\Consultas\" />
+    <Folder Include="Implementacao\Disciplinas\Comandos\Remover\" />
+    <Folder Include="Implementacao\Disciplinas\Consultas\" />
   </ItemGroup>
 
 </Project>

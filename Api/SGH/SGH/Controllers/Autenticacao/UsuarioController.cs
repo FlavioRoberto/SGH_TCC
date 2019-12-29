@@ -1,15 +1,7 @@
-﻿using Dominio.ViewModel;
-using Dominio.ViewModel.AutenticacaoViewModel;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Aplicacao.Contratos;
 using System;
 using System.Threading.Tasks;
-using Global;
-using Aplicacao.Implementacao.Autenticacao.Comandos.Login;
-using Aplicacao.Implementacao.Autenticacao.Contratos;
-using Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha;
-using Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha;
 using MediatR;
 
 namespace Api.Controllers.Autenticacao
