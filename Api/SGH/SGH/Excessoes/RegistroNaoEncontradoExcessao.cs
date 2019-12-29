@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Api.Excessoes
+namespace SGH.Api.Excessoes
 {
     public class RegistroNaoEncontradoExcecao : Exception
     {

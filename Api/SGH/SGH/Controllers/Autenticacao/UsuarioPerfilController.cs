@@ -1,15 +1,11 @@
-﻿using AutoMapper;
-using Dominio.Model.Autenticacao;
-using Dominio.ViewModel.AutenticacaoViewModel;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Repositorio;
 using Aplicacao.Contratos;
-using Aplicacao.Implementacao.Autenticacao;
 using System;
 using System.Threading.Tasks;
+using SGH.APi.ViewModel;
 
-namespace Api.Controllers.Autenticacao
+namespace SGH.Api.Controllers
 {
     [Route("api/perfil")]
     public class UsuarioPerfilController : ControllerBase

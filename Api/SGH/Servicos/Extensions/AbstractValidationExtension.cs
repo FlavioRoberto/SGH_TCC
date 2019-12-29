@@ -1,10 +1,8 @@
 ﻿using FluentValidation;
-using Aplicacao.Contratos;
 using System;
-using System.ComponentModel.DataAnnotations;
 using MediatR;
 
-namespace Aplicacao.Extensions
+namespace SGH.Dominio.Core.Extensions
 {
     public static class AbstractValidationExtension
     {

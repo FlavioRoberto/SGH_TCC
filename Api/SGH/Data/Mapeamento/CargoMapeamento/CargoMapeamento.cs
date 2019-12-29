@@ -3,7 +3,7 @@ using Dominio.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Data.Mapeamento.CargoMapeamento
+namespace SHG.Data.Mapeamento
 {
     public class CargoMapeamento : EntidadeMapeamento<Cargo>
     {

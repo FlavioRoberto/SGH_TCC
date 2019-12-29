@@ -1,4 +1,4 @@
-﻿namespace Aplicacao.Store
+﻿namespace SGH.Dominio.Core.Store
 {
     public class Configuracoes
     {

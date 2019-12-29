@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Data.Mapeamento.AutenticacaoMapeamento
+namespace SHG.Data.Mapeamento
 {
     public class UsuarioPerfilMapeamento : EntidadeMapeamento<UsuarioPerfil>
     {

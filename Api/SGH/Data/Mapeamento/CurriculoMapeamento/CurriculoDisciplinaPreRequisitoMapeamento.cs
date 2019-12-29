@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Data.Mapeamento.CurriculoMapeamento
+namespace SHG.Data.Mapeamento
 {
     public class CurriculoDisciplinaPreRequisitoMapeamento : EntidadeMapeamento<CurriculoDisciplinaPreRequisito>
     {

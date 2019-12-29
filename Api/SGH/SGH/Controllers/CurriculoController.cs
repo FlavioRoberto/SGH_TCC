@@ -1,53 +1,44 @@
-﻿using Dominio.ViewModel;
-using Dominio.ViewModel.CurriculoViewModel;
-using Global;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Aplicacao.Contratos;
+using SGH.APi.ViewModel;
+using SGH.Dominio.Core.Model;
+using SGH.Dominio.Implementacao.Curriculos.Comandos.Atualizar;
+using SGH.Dominio.Implementacao.Curriculos.Comandos.Criar;
+using SGH.Dominio.Implementacao.Curriculos.Comandos.Remover;
+using SGH.Dominio.Implementacao.Curriculos.Consultas.ListarDisciplinas;
+using SGH.Dominio.Implementacao.Curriculos.Consultas.ListarPaginacao;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Api.Controllers
+namespace SGH.Api.Controllers
 {
-    
+
     [Route("api/[controller]")]
     public class CurriculoController : ControllerBase
     {
-        private ICurriculoService _servico;
+        private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public CurriculoController(ICurriculoService servico)
+        public CurriculoController(IMediator mediator, IMapper mapper)
         {
-            this._servico = servico;
-        }
-
-        [HttpGet]
-        [Authorize("admin")]
-        [Route("listarTodos")]
-        public async Task<IActionResult> ListarTodos()
-        {
-            try
-            {
-                var resultado = await _servico.ListarTodos();
-
-                if (resultado.TemErro())
-                    return BadRequest(resultado.GetErros());
-
-                return Ok(resultado.GetResultado());
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
+            _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [Authorize("admin")]
         [Route("{curriculoId}/disciplinas")]
-        public async Task<IActionResult> ListarTodos(int curriculoId)
+        public async Task<IActionResult> ListarDisciplinas(int curriculoId)
         {
             try
             {
-                var resultado = await _servico.ListarDisciplinas(curriculoId);
+                var resultado = await _mediator.Send(new ListarDisciplinasCurriculoConsulta
+                {
+                    CodigoCurriculo = curriculoId
+                });
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -70,7 +61,12 @@ namespace Api.Controllers
                 if (!ModelState.IsValid)
                     return BadRequest("Dados informados inválidos!");
 
-                var resultado = await _servico.Criar(entidade);
+                var resultado = await _mediator.Send(new CriarCurriculoComando
+                {
+                    Ano = entidade.Ano,
+                    Codigo = entidade.Codigo,
+                    CodigoCurso = entidade.CodigoCurso
+                });
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -91,7 +87,13 @@ namespace Api.Controllers
         {
             try
             {
-                Resposta<CurriculoViewModel> resultado = await _servico.Atualizar(entidade);
+                var resultado = await _mediator.Send(new AtualizarCurriculoComando
+                {
+                    Ano = entidade.Ano,
+                    Codigo = entidade.Codigo,
+                    CodigoCurso = entidade.CodigoCurso,
+                    Disciplinas = _mapper.Map<List<CurriculoDisciplina>>(entidade.Disciplinas)
+                });
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -115,7 +117,10 @@ namespace Api.Controllers
                 if (entidadePaginada == null)
                     entidadePaginada = new Paginacao<CurriculoViewModel>();
 
-                Resposta<Paginacao<CurriculoViewModel>> resultado = await _servico.ListarComPaginacao(entidadePaginada);
+                var resultado = await _mediator.Send(new ListarPaginacaoCurriculoConsulta
+                {
+                    CurriculoPaginado = _mapper.Map<Paginacao<Curriculo>>(entidadePaginada)
+                });
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -135,7 +140,10 @@ namespace Api.Controllers
         {
             try
             {
-                Resposta<bool> resultado = await _servico.Remover(codigo);
+                var resultado = await _mediator.Send(new RemoverCurriculoComando
+                {
+                    CodigoCurriculo = codigo
+                });
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());

@@ -1,12 +1,13 @@
-﻿using Dominio.ViewModel;
-using Global;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Aplicacao.Contratos;
 using System;
 using System.Threading.Tasks;
+using SGH.Dominio.Core;
+using SGH.APi.ViewModel;
+using SGH.Dominio.Model;
 
-namespace Api.Controllers
+namespace SGH.Api.Controllers
 {
     [Route("api/[controller]")]
     public class CursoController : ControllerBase

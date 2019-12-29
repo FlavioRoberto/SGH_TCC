@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Data.Migrations
+namespace SGH.Data.Migrations
 {
     public partial class Versao001 : Migration
     {

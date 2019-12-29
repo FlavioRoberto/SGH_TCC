@@ -1,4 +1,4 @@
-﻿namespace Api.Aplicacao.Email
+﻿namespace SGH.Dominio.Core.Email
 {
     public class EmailSettings
     {

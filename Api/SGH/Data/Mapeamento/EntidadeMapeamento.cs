@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Data.Mapeamento
+namespace SHG.Data.Mapeamento
 {
     public abstract class EntidadeMapeamento<T> where T : class
     {

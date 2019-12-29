@@ -1,0 +1,18 @@
+﻿using Dominio.Contratos;
+
+namespace SGH.Dominio.Core.Model
+{
+    public class Usuario : EntidadeBase
+    {
+        public string Nome { get; set; }
+        public string Telefone { get; set; }
+        public string Login { get; set; }
+        public string Senha { get; set; }
+        public string Email { get; set; }
+        public int PerfilCodigo { get; set; }
+        public string Foto { get; set; }
+        public bool Ativo { get; set; }
+
+        public UsuarioPerfil Perfil { get; set; }
+    }
+}

@@ -1,0 +1,79 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190428210735_Versao 001.cs" />
+    <Compile Remove="Migrations\20190428210735_Versao 001.Designer.cs" />
+    <Compile Remove="Migrations\20190714191713_Versao 02_2019.cs" />
+    <Compile Remove="Migrations\20190714191713_Versao 02_2019.Designer.cs" />
+    <Compile Remove="Migrations\20190714191950_Versao 002.cs" />
+    <Compile Remove="Migrations\20190714191950_Versao 002.Designer.cs" />
+    <Compile Remove="Migrations\20190714194846_Versao 002.cs" />
+    <Compile Remove="Migrations\20190714194846_Versao 002.Designer.cs" />
+    <Compile Remove="Migrations\20190714194908_Adicao de perfis.cs" />
+    <Compile Remove="Migrations\20190714194908_Adicao de perfis.Designer.cs" />
+    <Compile Remove="Migrations\20190714202413_Versao 003.cs" />
+    <Compile Remove="Migrations\20190714202413_Versao 003.Designer.cs" />
+    <Compile Remove="Migrations\20190714202536_Versao 003.cs" />
+    <Compile Remove="Migrations\20190714202536_Versao 003.Designer.cs" />
+    <Compile Remove="Migrations\20190721233302_Versao_004.cs" />
+    <Compile Remove="Migrations\20190721233302_Versao_004.Designer.cs" />
+    <Compile Remove="Migrations\20190721233606_Versao_004.cs" />
+    <Compile Remove="Migrations\20190721233606_Versao_004.Designer.cs" />
+    <Compile Remove="Migrations\20190729232955_Versao_005.cs" />
+    <Compile Remove="Migrations\20190729232955_Versao_005.Designer.cs" />
+    <Compile Remove="Migrations\20190812230517_Versao_006.cs" />
+    <Compile Remove="Migrations\20190812230517_Versao_006.Designer.cs" />
+    <Compile Remove="Migrations\20190812230752_Versao_006.cs" />
+    <Compile Remove="Migrations\20190812230752_Versao_006.Designer.cs" />
+    <Compile Remove="Migrations\20190823000234_Versao_007.cs" />
+    <Compile Remove="Migrations\20190823000234_Versao_007.Designer.cs" />
+    <Compile Remove="Migrations\20190823000851_Versao_006.cs" />
+    <Compile Remove="Migrations\20190823000851_Versao_006.Designer.cs" />
+    <Compile Remove="Migrations\20190823001127_Versao_007.cs" />
+    <Compile Remove="Migrations\20190823001127_Versao_007.Designer.cs" />
+    <Compile Remove="Migrations\20190823001157_Versao_007.cs" />
+    <Compile Remove="Migrations\20190823001157_Versao_007.Designer.cs" />
+    <Compile Remove="Migrations\20190823001534_Versao 001.cs" />
+    <Compile Remove="Migrations\20190823001534_Versao 001.Designer.cs" />
+    <Compile Remove="Migrations\20190823001610_Versao 002.cs" />
+    <Compile Remove="Migrations\20190823001610_Versao 002.Designer.cs" />
+    <Compile Remove="Migrations\20190917234415_Versao 003.cs" />
+    <Compile Remove="Migrations\20190917234415_Versao 003.Designer.cs" />
+    <Compile Remove="Migrations\20190917234526_Versao 003.cs" />
+    <Compile Remove="Migrations\20190917234526_Versao 003.Designer.cs" />
+    <Compile Remove="Migrations\20190920015928_Versao 004.cs" />
+    <Compile Remove="Migrations\20190920015928_Versao 004.Designer.cs" />
+    <Compile Remove="Migrations\20190923235402_Versao 004.cs" />
+    <Compile Remove="Migrations\20190923235402_Versao 004.Designer.cs" />
+    <Compile Remove="Migrations\20190929135239_Versao 005.cs" />
+    <Compile Remove="Migrations\20190929135239_Versao 005.Designer.cs" />
+    <Compile Remove="Migrations\20190929135758_Versao 001.cs" />
+    <Compile Remove="Migrations\20190929135758_Versao 001.Designer.cs" />
+    <Compile Remove="Migrations\20190929141415_Versao 002.cs" />
+    <Compile Remove="Migrations\20190929141415_Versao 002.Designer.cs" />
+    <Compile Remove="Migrations\20190929155135_Versao 003.cs" />
+    <Compile Remove="Migrations\20190929155135_Versao 003.Designer.cs" />
+    <Compile Remove="Migrations\20191001000441_Versao 001.cs" />
+    <Compile Remove="Migrations\20191001000441_Versao 001.Designer.cs" />
+    <Compile Remove="Migrations\20191001001646_Versao 001.cs" />
+    <Compile Remove="Migrations\20191001001646_Versao 001.Designer.cs" />
+    <Compile Remove="Migrations\20191001001726_Versao 002.cs" />
+    <Compile Remove="Migrations\20191001001726_Versao 002.Designer.cs" />
+    <Compile Remove="Migrations\20191005210537_Versao 003.cs" />
+    <Compile Remove="Migrations\20191005210537_Versao 003.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Servicos\SGH.Dominio.Core.csproj" />
+  </ItemGroup>
+
+</Project>

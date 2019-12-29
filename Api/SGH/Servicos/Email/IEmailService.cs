@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Api.Aplicacao.Email
+namespace SGH.Dominio.Core.Email
 {
     public interface IEmailService
     {

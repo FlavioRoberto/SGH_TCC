@@ -1,7 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 
-namespace Data.Mapeamento.DisciplinaMapeamento
+namespace SHG.Data.Mapeamento
 {
     public class DisciplinaMapeamento : EntidadeMapeamento<Dominio.Model.DisciplinaModel.Disciplina>
     {

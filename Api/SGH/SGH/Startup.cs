@@ -40,7 +40,7 @@ using Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha;
 using MediatR;
 using System;
 
-namespace Api
+namespace SGH.APi
 {
     public class Startup
     {

@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Api.Controllers
+namespace SGH.Api.Controllers
 {
     [Route("api/[controller]")]
     public class TurnoController : ControllerBase

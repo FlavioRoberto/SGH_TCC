@@ -1,12 +1,9 @@
-﻿using Dominio.Model;
-using Dominio.Model.Autenticacao;
-using Dominio.Model.CurriculoModel;
-using Dominio.Model.DisciplinaModel;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using SGH.Dominio.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Data.Contexto
+namespace SHG.Data.Contexto
 {
     public interface IContexto
     {

@@ -1,17 +1,15 @@
 ﻿using AutoMapper;
 using Dominio.Model.DisciplinaModel;
-using Dominio.ViewModel;
-using Dominio.ViewModel.DisciplinaViewModel;
-using Global;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Repositorio;
 using Aplicacao.Contratos;
 using Aplicacao.Implementacao.DisciplinaImp;
 using System;
 using System.Threading.Tasks;
+using SGH.Data.Repositorio;
+using SGH.APi.ViewModel;
 
-namespace Api.Controllers.DisciplinaControllers
+namespace SGH.Api.Controllers
 {
     [Route("api/[controller]")]
     public class DisciplinaTipoController : ControllerBase

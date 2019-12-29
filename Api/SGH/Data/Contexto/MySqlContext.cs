@@ -1,17 +1,8 @@
-﻿using Data.Mapeamento;
-using Data.Mapeamento.AutenticacaoMapeamento;
-using Data.Mapeamento.CargoMapeamento;
-using Data.Mapeamento.CurriculoMapeamento;
-using Data.Mapeamento.Disciplina;
-using Data.Mapeamento.DisciplinaMapeamento;
-using Dominio.Model;
-using Dominio.Model.Autenticacao;
-using Dominio.Model.CurriculoModel;
-using Dominio.Model.DisciplinaModel;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using SGH.Dominio.Core.Model;
+using SHG.Data.Mapeamento;
 
-
-namespace Data.Contexto
+namespace SHG.Data.Contexto
 {
     public class MySqlContext : DbContext, IContexto
     {
