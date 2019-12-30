@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Servicos\SGH.Dominio.Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Implementacao\Disciplinas\Consultas\" />
-  </ItemGroup>
-
 </Project>
