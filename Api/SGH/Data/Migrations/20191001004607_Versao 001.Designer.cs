@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using SHG.Data.Contexto;
 
-namespace Data.Migrations
+namespace SGH.Data.Migrations
 {
     [DbContext(typeof(MySqlContext))]
     [Migration("20191001004607_Versao 001")]

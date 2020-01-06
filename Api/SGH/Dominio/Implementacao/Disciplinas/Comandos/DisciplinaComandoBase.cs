@@ -18,7 +18,7 @@ namespace SGH.Dominio.Implementacao.Disciplinas.Comandos
                 Codigo = Codigo ?? 0,
                 CodigoTipo = CodigoTipo,
                 Descricao = Descricao
-            }
+            };
         }
     }
 }

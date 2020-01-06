@@ -28,5 +28,4 @@ namespace SGH.Dominio.Implementacao.DIsciplinasTipoServico.Comandos.Atualizar
             return new Resposta<DisciplinaTipo>(resultado);
         }
     }
-    }
 }
