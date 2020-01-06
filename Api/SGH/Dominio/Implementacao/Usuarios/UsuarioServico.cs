@@ -1,18 +1,7 @@
 ﻿using AutoMapper;
-using Dominio.Model.Autenticacao;
-using Dominio.ViewModel.AutenticacaoViewModel;
-using Aplicacao.Contratos;
 using System.Threading.Tasks;
-using Global.Extensions;
-using Global;
-using Repositorio.Contratos;
 using System;
-using Aplicacao.Exceptions;
-using Api.Aplicacao.Email;
-using Repositorio;
-using Dominio.ViewModel;
 using System.Collections.Generic;
-using Aplicacao.Helpers;
 
 namespace Aplicacao.Implementacao.Usuarios
 {
@@ -29,25 +18,6 @@ namespace Aplicacao.Implementacao.Usuarios
             _emailService = emailSender;
             _repositorio = repositorio;
             _mapper = mapper;
-        }
-
-        public virtual async Task<Resposta<UsuarioViewModel>> Atualizar(UsuarioViewModel entidadeViewModel)
-        {
-            try
-            {
-                entidadeViewModel = await ValidarEdicao(entidadeViewModel);
-                var entidade = _mapper.Map<Usuario>(entidadeViewModel);
-                var resultado = _mapper.Map<UsuarioViewModel>(await _repositorio.Atualizar(entidade));
-                return new Resposta<UsuarioViewModel>(resultado);
-            }
-            catch (Exception e)
-            {
-                if (e.GetType() == typeof(ValidacaoException))
-                    return new Resposta<UsuarioViewModel>(entidadeViewModel, e.Message);
-
-                return new Resposta<UsuarioViewModel>(entidadeViewModel, $"Ocorreu um erro ao atualizar o usuário: {e.Message}");
-            }
-
         }
 
         public virtual async Task<Resposta<UsuarioViewModel>> Criar(UsuarioViewModel entidade)
