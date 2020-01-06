@@ -1,5 +1,5 @@
-﻿using Dominio.Model.Autenticacao;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
+using SGH.Dominio.Core.Model;
 using SGH.Dominio.Core.Store;
 using System;
 using System.IdentityModel.Tokens.Jwt;

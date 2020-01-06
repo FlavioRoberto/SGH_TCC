@@ -1,6 +1,6 @@
-using Dominio.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SGH.Dominio.Core.Model;
 
 namespace SHG.Data.Mapeamento
 {

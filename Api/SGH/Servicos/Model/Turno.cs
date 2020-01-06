@@ -1,5 +1,4 @@
-﻿using Dominio.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SGH.Dominio.Core.Model
 {

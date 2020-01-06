@@ -1,6 +1,4 @@
-﻿using Dominio.Model.DisciplinaModel;
-
-namespace SGH.Dominio.Core.Model
+﻿namespace SGH.Dominio.Core.Model
 {
     public class CurriculoDisciplinaPreRequisito
     {

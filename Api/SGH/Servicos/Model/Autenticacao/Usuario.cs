@@ -1,5 +1,4 @@
-﻿using Dominio.Contratos;
-
+﻿
 namespace SGH.Dominio.Core.Model
 {
     public class Usuario : EntidadeBase

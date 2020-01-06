@@ -1,6 +1,4 @@
-﻿using Dominio.Contratos;
-using Dominio.Model.DisciplinaModel;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SGH.Dominio.Core.Model
 {

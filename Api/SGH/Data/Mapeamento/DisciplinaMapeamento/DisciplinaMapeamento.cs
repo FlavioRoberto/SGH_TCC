@@ -1,16 +1,17 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
+using SGH.Dominio.Core.Model;
 
 namespace SHG.Data.Mapeamento
 {
-    public class DisciplinaMapeamento : EntidadeMapeamento<Dominio.Model.DisciplinaModel.Disciplina>
+    public class DisciplinaMapeamento : EntidadeMapeamento<Disciplina>
     {
-        public DisciplinaMapeamento(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Dominio.Model.DisciplinaModel.Disciplina> builder) : base(builder)
+        public DisciplinaMapeamento(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Disciplina> builder) : base(builder)
         {
            
         }
 
-        public override EntidadeMapeamento<Dominio.Model.DisciplinaModel.Disciplina> Map()
+        public override EntidadeMapeamento<Disciplina> Map()
         {
             builder.HasKey(lnq => lnq.Codigo);
 

@@ -1,4 +1,4 @@
-﻿using Dominio.Model;
+﻿using SGH.Dominio.Core.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
