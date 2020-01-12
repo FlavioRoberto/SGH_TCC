@@ -1,10 +1,11 @@
 ﻿using MediatR;
+using SGH.Dominio.Contratos;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 
 namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Atualizar
 {
-    public class AtualizarUsuarioComando : UsuarioComando, IRequest<Resposta<Usuario>>
+    public class AtualizarUsuarioComando : IUsuarioComando, IRequest<Resposta<Usuario>>
     {
         public int Codigo { get; set; }
         public string Nome { get; set; }
@@ -13,5 +14,7 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Atualizar
         public int PerfilCodigo { get; set; }
         public string Foto { get; set; }
         public bool Ativo { get; set; }
+        public string Email { get; set; }
+        public string Login { get; set; }
     }
 }

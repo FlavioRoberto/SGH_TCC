@@ -1,12 +1,10 @@
-﻿using Aplicacao.Contratos;
-using System.Threading.Tasks;
-using Global.Extensions;
-using Global;
-using Repositorio.Contratos;
-using Aplicacao.Implementacao.Autenticacao.Contratos;
-using Aplicacao.Extensions;
+﻿using System.Threading.Tasks;
 using MediatR;
 using System.Threading;
+using SGH.Dominio.Core;
+using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Contratos;
+using SGH.Dominio.Core.Extensions;
 
 namespace Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha
 {

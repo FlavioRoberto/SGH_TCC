@@ -1,10 +1,9 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using Dominio.Model.Autenticacao;
 using FluentValidation;
-using Repositorio.Contratos;
-using Aplicacao.Implementacao.Autenticacao.Contratos;
+using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Contratos;
+using SGH.Dominio.Core.Model;
 
 namespace Aplicacao.Implementacao.Autenticacao.Comandos.Login
 {

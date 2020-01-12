@@ -1,6 +1,5 @@
-﻿using Aplicacao.Contratos;
-using Global;
-using MediatR;
+﻿using MediatR;
+using SGH.Dominio.Core;
 
 namespace Aplicacao.Implementacao.Autenticacao.Comandos.Login
 {

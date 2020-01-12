@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
-using Repositorio.Contratos;
-using Aplicacao.Implementacao.Autenticacao.Contratos;
+using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Contratos;
 
 namespace Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha
 {

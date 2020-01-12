@@ -1,15 +1,13 @@
-﻿using Global;
-using Repositorio.Contratos;
-using Aplicacao.Helpers;
-using Aplicacao.Implementacao.Autenticacao.Contratos;
-using Global.Extensions;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
-using Dominio.ViewModel.AutenticacaoViewModel;
-using Api.Aplicacao.Email;
-using Aplicacao.Extensions;
 using MediatR;
 using System.Threading;
+using SGH.Dominio.Core;
+using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Email;
+using SGH.Dominio.Contratos;
+using SGH.Dominio.Core.Extensions;
+using SGH.Dominio.Core.Helpers;
 
 namespace Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha
 {
@@ -42,14 +40,12 @@ namespace Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha
             usuario.Senha = senha.ToMD5();
             await _repositorio.Atualizar(usuario);
 
-            var usuarioViewModel = _mapper.Map<UsuarioViewModel>(usuario);
-
             string mensagem = mensagem = $@"Sua senha no SGH foi redefinida com sucesso! <br>
                                 Usuário: {usuario.Login}<br>
                                 Senha: {senha}<br>
                                 click <a>aqui</a> para acessar o sistema.";
 
-            await _emailService.SendEmailAsync(usuarioViewModel.Email, "Redefinição de senha no SGH", mensagem);
+            await _emailService.SendEmailAsync(usuario.Email, "Redefinição de senha no SGH", mensagem);
 
             return new Resposta<string>("Senha redefinida com sucesso! Foi enviado um e-mail com seus dados de acesso.");
         }

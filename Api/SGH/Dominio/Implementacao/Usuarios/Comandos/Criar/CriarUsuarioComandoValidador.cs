@@ -1,44 +1,19 @@
 ﻿using FluentValidation;
-using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Core.Extensions;
-using System.Threading;
-using System.Threading.Tasks;
+using SGH.Dominio.Contratos;
 
 namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Criar
 {
-    public class CriarUsuarioComandoValidador : AbstractValidator<UsuarioComando>
+    public class CriarUsuarioComandoValidador : AbstractValidator<IUsuarioComando>, ICriarUsuarioComandoValidador
     {
-        private IUsuarioRepositorio _repositorio;
+        private IUsuarioComandoValidador _validadorUsuario;
 
-        public CriarUsuarioComandoValidador(IUsuarioRepositorio repositorio)
+        public CriarUsuarioComandoValidador(IUsuarioComandoValidador validadorUsuario)
         {
-            _repositorio = repositorio;
+            _validadorUsuario = validadorUsuario;
 
-            RuleFor(lnq => lnq).MustAsync(ValidarUsuarioComMesmoLogin).WithMessage("O login informado já esta em uso.");
-            RuleFor(lnq => lnq).MustAsync(ValidarUsuarioComMesmoEmail).WithMessage("O e-mail informado já esta em uso.");
-        }
+            RuleFor(lnq => lnq).MustAsync(_validadorUsuario.ValidarUsuarioComMesmoLogin).WithMessage("O login informado já esta em uso.");
+            RuleFor(lnq => lnq).MustAsync(_validadorUsuario.ValidarUsuarioComMesmoEmail).WithMessage("O e-mail informado já esta em uso.");
 
-        private async Task<bool> ValidarUsuarioComMesmoEmail(UsuarioComando comando, CancellationToken cancellationToken)
-        {
-            var msmEmail = await _repositorio
-                                .Listar(lnq => lnq.Email.IgualA(comando.Email)
-                                 && lnq.Codigo != comando.Codigo) != null;
-
-            if (msmEmail)
-                return false;
-
-            return true;
-        }
-
-        private async Task<bool> ValidarUsuarioComMesmoLogin(UsuarioComando comando, CancellationToken cancellationToken)
-        {
-            var msmLogin = await _repositorio.Listar(lnq => lnq.Login.IgualA(comando.Login)
-                                 && comando.Codigo != lnq.Codigo) != null;
-
-            if (msmLogin)
-                return false;
-
-            return true;
         }
 
     }

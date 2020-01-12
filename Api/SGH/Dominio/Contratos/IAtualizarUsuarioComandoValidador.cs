@@ -2,7 +2,7 @@
 
 namespace SGH.Dominio.Contratos
 {
-    public interface IAtualizarUsuarioComandoValidador : IValidator
+    public interface IAtualizarUsuarioComandoValidador : IUsuarioComandoValidador
     {
     }
 }
