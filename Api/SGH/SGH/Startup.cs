@@ -1,8 +1,4 @@
 ﻿using AutoMapper;
-using Data.Contexto;
-using Dominio.Model;
-using Dominio.Model.Autenticacao;
-using Dominio.Model.DisciplinaModel;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
@@ -15,30 +11,18 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
-using Repositorio;
-using Repositorio.Contratos;
-using Repositorio.Implementacao;
-using Repositorio.Implementacao.Autenticacao;
-using Repositorio.Implementacao.CurriculoImplementacao;
-using Repositorio.Implementacao.Disciplina;
-using Aplicacao.Contratos;
-using Aplicacao.Store;
 using System.Text;
-using Global.Extensions;
-using Aplicacao.Implementacao;
 using Microsoft.AspNetCore.Http;
-using Api.Aplicacao.Email;
-using Aplicacao.Implementacao.DisciplinaImp;
-using Aplicacao.Implementacao.CurriculoImp;
-using Aplicacao.Implementacao.Autenticacao.Comandos.Login;
 using FluentValidation.AspNetCore;
-using Api.Filters;
-using Aplicacao.Implementacao.Autenticacao.Contratos;
-using Aplicacao.Implementacao.Usuarios;
-using Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha;
-using Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha;
 using MediatR;
 using System;
+using SHG.Data.Contexto;
+using SGH.Dominio.Core.Store;
+using SGH.Dominio.Core.Extensions;
+using SGH.Api.Filters;
+using SGH.Data.Extensios;
+using SGH.Api.Servicos.Email;
+using SGH.Dominio.Extensions;
 
 namespace SGH.APi
 {
@@ -60,6 +44,8 @@ namespace SGH.APi
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = _configuration["MySqlConnections:ConexaoLocal"];
+            services.Configure<EmailSettings>(_configuration.GetSection("ConfiguracoesEmail"));
+            services.AddTransient<IEmailService, EmailService>();
 
             services.AddDbContext<MySqlContext>(options =>
             {
@@ -67,34 +53,10 @@ namespace SGH.APi
             });
 
             services.AddApiVersioning();
-
-            //Injeção de dependências dos servicos
-            #region Periodizacao
-            services.AddScoped<IRepositorio<Turno>, TurnoRepositorio>();
-            services.AddScoped<IRepositorio<Curso>, CursoRepositorio>();
-            services.AddScoped<ICurriculoRepositorio, CurriculoRepositorio>();
-            services.AddScoped<IRepositorio<Disciplina>, DisciplinaRepositorio>();
-            services.AddScoped<IRepositorio<DisciplinaTipo>, DisciplinaTipoRepositorio>();
-            services.AddScoped<IRepositorio<UsuarioPerfil>, UsuarioPerfilRepositorio>();
-            services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
-            services.AddScoped<IProfessorRepositorio, ProfessorRepositorio>();
-
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IUsuarioResolverService, UsuarioResolverService>();
-            services.AddScoped<IUsuarioPerfilService, UsuarioPerfilServico>();
-            services.AddScoped<IUsuarioService, UsuarioServico>();
-            services.AddScoped<IDisciplinaService, DisciplinaServico>();
-            services.AddScoped<ICursoService, CursoServico>();
-            services.AddScoped<ICurriculoService, CurriculoServico>();
-            services.AddScoped<IProfessorService, ProfessorServico>();
 
-            services.AddScoped<ILoginComandoValidator, LoginComandoValidator>();
-            services.AddScoped<IRedefinirSenhaComandoValidador, RedefinirSenhaComandoValidador>();
-            services.AddScoped<IAtualizarSenhaComandoValidador, AtualizarSenhaComandoValidador>();
-
-            services.Configure<EmailSettings>(_configuration.GetSection("ConfiguracoesEmail"));
-            services.AddTransient<IEmailService, EmailService>();
-            #endregion
+            services.AddPersistencia();
+            services.AddDominio();
 
             services.AddCors(o =>
                 o.AddPolicy("MyPolicy", builder =>
