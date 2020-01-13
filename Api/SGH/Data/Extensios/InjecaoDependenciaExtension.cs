@@ -3,9 +3,6 @@ using SGH.Data.Repositorio;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Data.Repositorio.Implementacao;
 using SGH.Dominio.Core.Model;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SGH.Data.Extensios
 {
@@ -20,7 +17,9 @@ namespace SGH.Data.Extensios
             services.AddScoped<IUsuarioPerfilRepositorio, UsuarioPerfilRepositorio>();
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             services.AddScoped<IProfessorRepositorio, ProfessorRepositorio>();
+            services.AddScoped<ICursoRepositorio, CursoRepositorio>();
 
             return services;
         }
 }
+

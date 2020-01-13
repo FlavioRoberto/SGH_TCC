@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SGH.Data.Repositorio.Contratos;
 using SGH.Data.Repositorio.Helpers;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Data.Repositorio.Implementacao
 {
-    public class CursoRepositorio : RepositorioBase<Curso>
+    public class CursoRepositorio : RepositorioBase<Curso>, ICursoRepositorio
     {
 
         public CursoRepositorio(IContexto contexto) : base(contexto)
