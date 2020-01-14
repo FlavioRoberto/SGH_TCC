@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Implementacao.Usuarios.Comandos
 {
-    public class UsuarioComandoValidador : AbstractValidator<IUsuarioComando>, IUsuarioComandoValidador
+    public abstract class UsuarioComandoValidador<T> : AbstractValidator<T> where T : IUsuarioComando
     {
         protected readonly IUsuarioRepositorio _repositorio;
 
@@ -22,7 +22,7 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos
             RuleFor(lnq => lnq).MustAsync(ValidarUsuarioComMesmoLogin).WithMessage(comando => $"Já existe um usuário cadastrado com o login {comando.Login}");
         }
 
-        public async Task<bool> ValidarUsuarioComMesmoEmail(IUsuarioComando comando, CancellationToken cancellationToken)
+        protected async Task<bool> ValidarUsuarioComMesmoEmail(T comando, CancellationToken cancellationToken)
         {
             var msmEmail = await _repositorio
                                 .Listar(lnq => lnq.Email.IgualA(comando.Email)
@@ -34,7 +34,7 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos
             return true;
         }
 
-        public async Task<bool> ValidarUsuarioComMesmoLogin(IUsuarioComando comando, CancellationToken cancellationToken)
+        protected async Task<bool> ValidarUsuarioComMesmoLogin(T comando, CancellationToken cancellationToken)
         {
             var msmLogin = await _repositorio.Listar(lnq => lnq.Login.IgualA(comando.Login)
                                  && comando.Codigo != lnq.Codigo) != null;

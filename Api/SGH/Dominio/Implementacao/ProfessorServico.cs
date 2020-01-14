@@ -8,6 +8,7 @@ using Global;
 using Repositorio.Contratos;
 using Aplicacao.Contratos;
 using Aplicacao.Exceptions;
+using SGH.Dominio.Core;
 
 namespace Aplicacao.Implementacao
 {
