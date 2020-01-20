@@ -34,49 +34,6 @@ namespace Aplicacao.Implementacao
             return new Resposta<List<ProfessorViewModel>>(professores);
         }
 
-        public async Task<Resposta<ProfessorViewModel>> Criar(ProfessorViewModel entidadeViewModel)
-        {
-            try
-            {
-                var matriculaExiste = await ValidarSeMatriculaExistente(entidadeViewModel.Matricula, entidadeViewModel.Codigo);
-
-                if (matriculaExiste)
-                    return new Resposta<ProfessorViewModel>(entidadeViewModel, $"Já existe um professor com a matrícula {entidadeViewModel.Matricula}.");
-
-                var resultado = await _repositorio.Criar(_mapper.Map<Professor>(entidadeViewModel));
-                return new Resposta<ProfessorViewModel>(_mapper.Map<ProfessorViewModel>(resultado));
-            }
-            catch (Exception e)
-            {
-                if (e.GetType() == typeof(ValidacaoException))
-                    return new Resposta<ProfessorViewModel>(entidadeViewModel, e.Message);
-
-                return new Resposta<ProfessorViewModel>(entidadeViewModel, $"Ocorreu um erro ao criar o professor: {e.Message}");
-            }
-        }
-
-        public async Task<Resposta<ProfessorViewModel>> Atualizar(ProfessorViewModel entidadeViewModel)
-        {
-            try
-            {
-                var matriculaExiste = await ValidarSeMatriculaExistente(entidadeViewModel.Matricula, entidadeViewModel.Codigo);
-
-                if (matriculaExiste)
-                    return new Resposta<ProfessorViewModel>(entidadeViewModel, $"Já existe um professor com a matrícula {entidadeViewModel.Matricula}.");
-
-                var entidade = _mapper.Map<Professor>(entidadeViewModel);
-                var resultado = _mapper.Map<ProfessorViewModel>(await _repositorio.Atualizar(entidade));
-                return new Resposta<ProfessorViewModel>(resultado);
-            }
-            catch (Exception e)
-            {
-                if (e.GetType() == typeof(ValidacaoException))
-                    return new Resposta<ProfessorViewModel>(entidadeViewModel, e.Message);
-
-                return new Resposta<ProfessorViewModel>(entidadeViewModel, $"Ocorreu um erro ao atualizar o professor: {e.Message}");
-            }
-        }
-
         public async Task<Resposta<List<ProfessorViewModel>>> ListarTodos()
         {
             var resultado = await _repositorio.ListarTodos();
