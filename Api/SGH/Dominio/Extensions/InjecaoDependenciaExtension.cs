@@ -12,6 +12,7 @@ using SGH.Dominio.Implementacao.Disciplinas.Comandos.Remover;
 using SGH.Dominio.Implementacao.DIsciplinasTipoServico.Comandos.Remover;
 using SGH.Dominio.Implementacao.Professores.Comandos.Atualizar;
 using SGH.Dominio.Implementacao.Professores.Comandos.Criar;
+using SGH.Dominio.Implementacao.Professores.Comandos.Remover;
 using SGH.Dominio.Implementacao.Usuarios.Comandos.Criar;
 using SGH.Dominio.Implementacao.Usuarios.Comandos.Remover;
 
@@ -40,6 +41,7 @@ namespace SGH.Dominio.Extensions
             services.AddScoped<IRemoverCursoComandoValidador, RemoverCursoComandoValidador>();
             services.AddScoped<ICriarProfessorComandoValidador, CriarProfessorComandoValidador>();
             services.AddScoped<IAtualizarProfessorComandoValidador, AtualizarProfessorComandoValidador>();
+            services.AddScoped<IRemoverProfessorComandoValidador, RemoverProfessorComandoValidador>();
             #endregion
 
             return services;
