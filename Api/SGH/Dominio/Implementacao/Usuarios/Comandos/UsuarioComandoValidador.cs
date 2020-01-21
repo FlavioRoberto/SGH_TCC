@@ -25,7 +25,7 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos
         protected async Task<bool> ValidarUsuarioComMesmoEmail(T comando, CancellationToken cancellationToken)
         {
             var msmEmail = await _repositorio
-                                .Listar(lnq => lnq.Email.IgualA(comando.Email)
+                                .Consultar(lnq => lnq.Email.IgualA(comando.Email)
                                  && lnq.Codigo != comando.Codigo) != null;
 
             if (msmEmail)
@@ -36,7 +36,7 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos
 
         protected async Task<bool> ValidarUsuarioComMesmoLogin(T comando, CancellationToken cancellationToken)
         {
-            var msmLogin = await _repositorio.Listar(lnq => lnq.Login.IgualA(comando.Login)
+            var msmLogin = await _repositorio.Consultar(lnq => lnq.Login.IgualA(comando.Login)
                                  && comando.Codigo != lnq.Codigo) != null;
 
             if (msmLogin)

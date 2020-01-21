@@ -1,21 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SGH.Data.Repositorio.Contratos;
 using SGH.Data.Repositorio.Helpers;
-using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Contexto;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace SGH.Data.Repositorio.Implementacao
 {
-    public class TurnoRepositorio : RepositorioBase<Turno>
+    public class TurnoRepositorio : RepositorioBase<Turno>, ITurnoRepositorio
     {
         public TurnoRepositorio(IContexto contexto) : base(contexto)
         {
         }
 
-        public override async Task<Resposta<Paginacao<Turno>>> ListarPorPaginacao(Paginacao<Turno> entidadePaginada)
+        public override async Task<Paginacao<Turno>> ListarPorPaginacao(Paginacao<Turno> entidadePaginada)
         {
             var query = _contexto.Turno.AsNoTracking();
             

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Contratos;
+using SGH.Dominio.Core.Extensions;
 using SGH.Dominio.Core.Model;
 
 namespace Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha
@@ -39,7 +40,7 @@ namespace Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha
         private async Task<bool> ValidarUsuarioNaoEncontrado(AtualizarSenhaComando comando, CancellationToken cancellationToken)
         {
             var codigoUsuarioLogado = _usuarioResolverService.GetUser().ToInt();
-            _usuario = await _repositorio.Listar(lnq => lnq.Codigo == codigoUsuarioLogado);
+            _usuario = await _repositorio.Consultar(lnq => lnq.Codigo == codigoUsuarioLogado);
 
             if (_usuario == null)
                 return false;

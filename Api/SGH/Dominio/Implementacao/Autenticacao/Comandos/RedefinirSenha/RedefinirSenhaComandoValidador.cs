@@ -20,7 +20,7 @@ namespace Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha
 
         private async Task<bool> ValidarEmailExistente(string email, CancellationToken cancellationToken)
         {
-            var usuario = await _repositorio.Listar(lnq => lnq.Email.Equals(email));
+            var usuario = await _repositorio.Consultar(lnq => lnq.Email.Equals(email));
             if (usuario == null)
                 return false;
             return true;

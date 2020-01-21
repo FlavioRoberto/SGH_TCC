@@ -29,7 +29,7 @@ namespace Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha
         public async Task<Resposta<string>> Handle(RedefinirSenhaComando request, CancellationToken cancellationToken)
         {
             var email = request.Email;
-            var usuario = await _repositorio.Listar(lnq => lnq.Email.Equals(email));
+            var usuario = await _repositorio.Consultar(lnq => lnq.Email.Equals(email));
 
             var erros = _validador.Validar(request);
 

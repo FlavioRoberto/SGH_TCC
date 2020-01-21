@@ -12,11 +12,13 @@ namespace SGH.Data.Repositorio
     {
         DbSet<T> DbSet { get; }
         Task<T> Criar(T entidade);
-        Task<T> Listar(Expression<Func<T, bool>> query);
+        Task<T> Consultar(Expression<Func<T, bool>> query);
         Task<List<T>> ListarTodos();
-        Task<List<T>> ListarPor(Expression<Func<T, bool>> query);
+        Task<List<T>> Listar(Expression<Func<T, bool>> query);
         Task<T> Atualizar(T entidade);
         Task<bool> Remover(Expression<Func<T, bool>> query);
-        Task<Resposta<Paginacao<T>>> ListarPorPaginacao(Paginacao<T> entidade);
+        Task<Paginacao<T>> ListarPorPaginacao(Paginacao<T> entidade);
+        Task<bool> Contem(Expression<Func<T, bool>> expressao);
+
     }
 }

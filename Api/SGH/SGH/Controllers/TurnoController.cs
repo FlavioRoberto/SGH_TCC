@@ -1,12 +1,7 @@
 ﻿using AutoMapper;
-using Dominio.Model;
-using Dominio.ViewModel;
-using Global;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Repositorio;
-using Aplicacao.Contratos;
-using Aplicacao.Implementacao;
+using SGH.Data.Repositorio;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

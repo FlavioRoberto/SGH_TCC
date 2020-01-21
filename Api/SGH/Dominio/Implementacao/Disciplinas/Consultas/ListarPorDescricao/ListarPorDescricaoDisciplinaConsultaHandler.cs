@@ -19,7 +19,7 @@ namespace SGH.Dominio.Implementacao.Disciplinas.Consultas.ListarPorDescricao
 
         public async Task<Resposta<List<Disciplina>>> Handle(ListarPorDescricaoDisciplinaConsulta request, CancellationToken cancellationToken)
         {
-            var dados = await _repositorio.ListarPor(lnq => lnq.Descricao.ToLower().Contains(request.Descricao.ToLower()));
+            var dados = await _repositorio.Listar(lnq => lnq.Descricao.ToLower().Contains(request.Descricao.ToLower()));
             return new Resposta<List<Disciplina>>(dados);
         }
     }

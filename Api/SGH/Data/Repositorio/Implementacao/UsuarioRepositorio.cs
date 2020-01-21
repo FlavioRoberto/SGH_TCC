@@ -18,7 +18,7 @@ namespace SGH.Data.Repositorio.Implementacao
         public UsuarioRepositorio(IContexto contexto) : base(contexto)
         { }
 
-        public override async Task<Resposta<Paginacao<Usuario>>> ListarPorPaginacao(Paginacao<Usuario> entidadePaginada)
+        public override async Task<Paginacao<Usuario>> ListarPorPaginacao(Paginacao<Usuario> entidadePaginada)
         {
             var query = GetDbSet()
                 .AsNoTracking();
@@ -68,7 +68,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         }
 
-        public override  async Task<Usuario> Listar(Expression<Func<Usuario, bool>> query)
+        public override  async Task<Usuario> Consultar(Expression<Func<Usuario, bool>> query)
         {
             return await GetDbSet()
                     .AsNoTracking()

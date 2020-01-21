@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Implementacao.UsuarioPerfis.Consultas.ListarPaginacao
 {
-    public class ListarPaginacaoUsuarioPefilConsultaHandler : IRequestHandler<ListarPaginacaoUsuarioPerfilConsulta, Resposta<Paginacao<UsuarioPerfil>>>
+    public class ListarPaginacaoUsuarioPefilConsultaHandler : IRequestHandler<ListarPaginacaoUsuarioPerfilConsulta, Paginacao<UsuarioPerfil>>
     {
         private readonly IUsuarioPerfilRepositorio _repositorio;
 
@@ -16,10 +16,9 @@ namespace SGH.Dominio.Implementacao.UsuarioPerfis.Consultas.ListarPaginacao
             _repositorio = repositorio;
         }
 
-        public async Task<Resposta<Paginacao<UsuarioPerfil>>> Handle(ListarPaginacaoUsuarioPerfilConsulta request, CancellationToken cancellationToken)
+        public async Task<Paginacao<UsuarioPerfil>> Handle(ListarPaginacaoUsuarioPerfilConsulta request, CancellationToken cancellationToken)
         {
-            var resultado = await _repositorio.ListarPorPaginacao(request.UsuarioPerfilPaginado);
-            return resultado;
+            return await _repositorio.ListarPorPaginacao(request.UsuarioPerfilPaginado);
         }
     }
 }

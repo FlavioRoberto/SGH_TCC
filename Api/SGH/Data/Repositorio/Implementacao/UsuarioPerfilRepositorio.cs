@@ -13,7 +13,7 @@ namespace SGH.Data.Repositorio.Implementacao
         {
         }
 
-        public override Task<Resposta<Paginacao<UsuarioPerfil>>> ListarPorPaginacao(Paginacao<UsuarioPerfil> entidade)
+        public override Task<Paginacao<UsuarioPerfil>> ListarPorPaginacao(Paginacao<UsuarioPerfil> entidade)
         {
             throw new System.NotImplementedException();
         }

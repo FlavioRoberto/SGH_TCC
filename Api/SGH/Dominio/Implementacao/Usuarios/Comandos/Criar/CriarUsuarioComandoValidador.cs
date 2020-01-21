@@ -1,19 +1,13 @@
-﻿using FluentValidation;
+﻿using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Contratos;
 
 namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Criar
 {
-    public class CriarUsuarioComandoValidador : AbstractValidator<IUsuarioComando>, ICriarUsuarioComandoValidador
+    public class CriarUsuarioComandoValidador : UsuarioComandoValidador<CriarUsuarioComando>, ICriarUsuarioComandoValidador
     {
-        private IUsuarioComandoValidador _validadorUsuario;
 
-        public CriarUsuarioComandoValidador(IUsuarioComandoValidador validadorUsuario)
+        public CriarUsuarioComandoValidador(IUsuarioRepositorio repositorio) :base(repositorio)
         {
-            _validadorUsuario = validadorUsuario;
-
-            RuleFor(lnq => lnq).MustAsync(_validadorUsuario.ValidarUsuarioComMesmoLogin).WithMessage("O login informado já esta em uso.");
-            RuleFor(lnq => lnq).MustAsync(_validadorUsuario.ValidarUsuarioComMesmoEmail).WithMessage("O e-mail informado já esta em uso.");
-
         }
 
     }

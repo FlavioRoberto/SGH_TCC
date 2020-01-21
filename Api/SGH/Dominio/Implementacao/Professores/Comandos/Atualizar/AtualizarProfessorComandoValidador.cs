@@ -15,7 +15,7 @@ namespace SGH.Dominio.Implementacao.Professores.Comandos.Atualizar
 
         private async Task<bool> ValidarMatriculaExistente(AtualizarProfessorComando comando, CancellationToken cancellationToken)
         {
-            var resultado = await _repositorio.ListarPor(lnq => lnq.Matricula == comando.Matricula && lnq.Codigo != comando.ProfessorId);
+            var resultado = await _repositorio.Listar(lnq => lnq.Matricula == comando.Matricula && lnq.Codigo != comando.ProfessorId);
             return resultado.Count > 0;
         }
     }

@@ -20,7 +20,7 @@ namespace SGH.Dominio.Implementacao.UsuarioPerfis.Comando.Remover
 
         private async Task<bool> ValidarUsuarioPerfilExistente(int codigo, CancellationToken cancellationToken)
         {
-            var perfil = await _repositorio.Listar(lnq => lnq.Codigo == codigo);
+            var perfil = await _repositorio.Consultar(lnq => lnq.Codigo == codigo);
 
             if (perfil != null)
                 return true;

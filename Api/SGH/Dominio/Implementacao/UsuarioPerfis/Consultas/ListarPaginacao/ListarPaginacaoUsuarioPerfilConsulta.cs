@@ -4,7 +4,7 @@ using SGH.Dominio.Core.Model;
 
 namespace SGH.Dominio.Implementacao.UsuarioPerfis.Consultas.ListarPaginacao
 {
-    public class ListarPaginacaoUsuarioPerfilConsulta: IRequest<Resposta<Paginacao<UsuarioPerfil>>>
+    public class ListarPaginacaoUsuarioPerfilConsulta: IRequest<Paginacao<UsuarioPerfil>>
     {
         public Paginacao<UsuarioPerfil> UsuarioPerfilPaginado { get; set; }
     }

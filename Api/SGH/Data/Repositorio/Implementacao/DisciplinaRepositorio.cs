@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Data.Repositorio.Helpers;
-using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Contexto;
 using System.Collections.Generic;
@@ -17,7 +16,7 @@ namespace SGH.Data.Repositorio.Implementacao
         {
         }
 
-        public override async Task<Resposta<Paginacao<Disciplina>>> ListarPorPaginacao(Paginacao<Disciplina> entidadePaginada)
+        public override async Task<Paginacao<Disciplina>> ListarPorPaginacao(Paginacao<Disciplina> entidadePaginada)
         {
             var query = GetDbSet().AsNoTracking();
 

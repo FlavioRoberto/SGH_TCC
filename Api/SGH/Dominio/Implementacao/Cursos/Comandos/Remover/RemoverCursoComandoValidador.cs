@@ -20,7 +20,7 @@ namespace SGH.Dominio.Implementacao.Cursos.Comandos.Remover
 
         private async Task<bool> ValidarCursoExistente(int cursoId, CancellationToken cancellationToken)
         {
-            var curso = await _repositorio.Listar(lnq => lnq.Codigo == cursoId);
+            var curso = await _repositorio.Consultar(lnq => lnq.Codigo == cursoId);
 
             if (curso == null)
                 return false;

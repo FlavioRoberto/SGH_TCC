@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Data.Repositorio.Helpers;
-using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Contexto;
 using System.Collections.Generic;
@@ -15,7 +14,7 @@ namespace SGH.Data.Repositorio.Implementacao
         public ProfessorRepositorio(IContexto contexto):base(contexto)
         { }
 
-        public override async Task<Resposta<Paginacao<Professor>>> ListarPorPaginacao(Paginacao<Professor> entidadePaginada)
+        public override async Task<Paginacao<Professor>> ListarPorPaginacao(Paginacao<Professor> entidadePaginada)
         {
             var query = GetDbSet().AsNoTracking();
 

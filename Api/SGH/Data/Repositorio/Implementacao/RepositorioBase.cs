@@ -15,7 +15,7 @@ namespace SGH.Data.Repositorio.Implementacao
         public DbSet<T> DbSet { get; }
         protected IContexto _contexto { get; private set; }
         protected abstract DbSet<T> GetDbSet();
-        public abstract Task<Resposta<Paginacao<T>>> ListarPorPaginacao(Paginacao<T> entidade);
+        public abstract Task<Paginacao<T>> ListarPorPaginacao(Paginacao<T> entidade);
         
         public RepositorioBase(IContexto contexto)
         {
@@ -57,7 +57,7 @@ namespace SGH.Data.Repositorio.Implementacao
             return entidade;
         }
 
-        public async virtual Task<T> Listar(Expression<Func<T, bool>> query)
+        public async virtual Task<T> Consultar(Expression<Func<T, bool>> query)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace SGH.Data.Repositorio.Implementacao
             }
         }
 
-        public async virtual Task<List<T>> ListarPor(Expression<Func<T, bool>> query)
+        public async virtual Task<List<T>> Listar(Expression<Func<T, bool>> query)
         {
             try
             {
@@ -118,6 +118,9 @@ namespace SGH.Data.Repositorio.Implementacao
             }
         }
 
-  
+        public async Task<bool> Contem(Expression<Func<T, bool>> expressao)
+        {
+            return await DbSet.AnyAsync(expressao);
+        }
     }
 }

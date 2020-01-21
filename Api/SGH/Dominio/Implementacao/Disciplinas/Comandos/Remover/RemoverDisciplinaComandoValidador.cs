@@ -20,7 +20,7 @@ namespace SGH.Dominio.Implementacao.Disciplinas.Comandos.Remover
 
         private async Task<bool> ValidarDisciplinaExistente(long codigoDisciplina, CancellationToken cancellationToken)
         {
-            var disciplina = await _repositorio.Listar(lnq => lnq.Codigo == codigoDisciplina);
+            var disciplina = await _repositorio.Consultar(lnq => lnq.Codigo == codigoDisciplina);
 
             if (disciplina == null)
                 return false;

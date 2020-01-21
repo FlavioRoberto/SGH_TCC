@@ -17,7 +17,7 @@ namespace SGH.Data.Repositorio.Implementacao
         {
         }
 
-        public override async Task<Resposta<Paginacao<Curso>>> ListarPorPaginacao(Paginacao<Curso> entidadePaginada)
+        public override async Task<Paginacao<Curso>> ListarPorPaginacao(Paginacao<Curso> entidadePaginada)
         {
             var query = _contexto.Curso.AsNoTracking();
 

@@ -149,7 +149,7 @@ namespace SGH.Data.Repositorio.Implementacao
             }
         }
 
-        public async Task<Curriculo> Listar(Expression<Func<Curriculo, bool>> query)
+        public async Task<Curriculo> Consultar(Expression<Func<Curriculo, bool>> query)
         {
             return await DbSet.Include(lnq => lnq.Curso).Where(query).AsNoTracking().FirstOrDefaultAsync();
         }
@@ -159,12 +159,12 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _contexto.CurriculoDisciplina.Include(lnq=>lnq.Disciplina).Where(lnq => lnq.CodigoCurriculo == codigoCurriculo).AsNoTracking().ToListAsync();
         }
 
-        public async Task<List<Curriculo>> ListarPor(Expression<Func<Curriculo, bool>> query)
+        public async Task<List<Curriculo>> Listar(Expression<Func<Curriculo, bool>> query)
         {
             return await DbSet.Include(lnq => lnq.Curso).Where(query).AsNoTracking().ToListAsync();
         }
 
-        public async Task<Resposta<Paginacao<Curriculo>>> ListarPorPaginacao(Paginacao<Curriculo> entidadePaginada)
+        public async Task<Paginacao<Curriculo>> ListarPorPaginacao(Paginacao<Curriculo> entidadePaginada)
         {
             var query = _contexto.Curriculo
                                 .Include(lnq => lnq.Curso)
@@ -225,6 +225,9 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _contexto.CurriculoDisciplina.CountAsync(lnq => lnq.CodigoCurriculo == codigoCurriculo);
         }
 
- 
+        public async Task<bool> Contem(Expression<Func<Curriculo, bool>> expressao)
+        {
+            return await _contexto.Curriculo.AnyAsync(expressao);
+        }
     }
 }

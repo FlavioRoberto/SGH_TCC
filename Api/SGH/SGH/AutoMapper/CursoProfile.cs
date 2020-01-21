@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using Dominio.Model;
 using SGH.APi.ViewModel;
-using SGH.Dominio.Model;
+using SGH.Dominio.Core.Model;
 
 namespace SGH.Api.AutoMapper
 {

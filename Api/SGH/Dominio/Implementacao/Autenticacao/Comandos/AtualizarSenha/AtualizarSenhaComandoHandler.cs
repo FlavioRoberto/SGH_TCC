@@ -31,7 +31,7 @@ namespace Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha
 
             var codigoUsuarioLogado = _usuarioResolverService.GetUser().ToInt();
 
-            var usuario = await _repositorio.Listar(lnq => lnq.Codigo == codigoUsuarioLogado);
+            var usuario = await _repositorio.Consultar(lnq => lnq.Codigo == codigoUsuarioLogado);
 
             usuario.Senha = request.NovaSenha.ToMD5();
 

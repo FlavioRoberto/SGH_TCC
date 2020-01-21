@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Implementacao.Curriculos.Consultas.ListarPaginacao
 {
-    public class ListarPaginacaoCurriculoConsultaHandler : IRequestHandler<ListarPaginacaoCurriculoConsulta, Resposta<Paginacao<Curriculo>>>
+    public class ListarPaginacaoCurriculoConsultaHandler : IRequestHandler<ListarPaginacaoCurriculoConsulta, Paginacao<Curriculo>>
     {
         private ICurriculoRepositorio _repositorio;
 
@@ -16,7 +16,7 @@ namespace SGH.Dominio.Implementacao.Curriculos.Consultas.ListarPaginacao
             _repositorio = repositorio;
         }
 
-        public async Task<Resposta<Paginacao<Curriculo>>> Handle(ListarPaginacaoCurriculoConsulta request, CancellationToken cancellationToken)
+        public async Task<Paginacao<Curriculo>> Handle(ListarPaginacaoCurriculoConsulta request, CancellationToken cancellationToken)
         {
             var resultado = await _repositorio.ListarPorPaginacao(request.CurriculoPaginado);
             return resultado;

@@ -21,7 +21,7 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Remover
         private async Task<bool> ValidarUltimoUsuarioAdministrador(int codigoUsuario, CancellationToken cancellationToken)
         {
             var quantidadeUsuariosAdm = await(_repositorio as IUsuarioRepositorio).QuantidadeUsuarioAdm();
-            var usuarioARemover = await _repositorio.Listar(lnq => lnq.Codigo == codigoUsuario;
+            var usuarioARemover = await _repositorio.Consultar(lnq => lnq.Codigo == codigoUsuario);
             var usuarioAdm = usuarioARemover.Perfil.Administrador == true;
 
             if (usuarioAdm && quantidadeUsuariosAdm <= 1)
@@ -32,7 +32,7 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Remover
 
         private async Task<bool> ValidarUsuarioExistente(int codigoUsuario, CancellationToken cancellationToken)
         {
-            var usuario = await _repositorio.Listar(lnq => lnq.Codigo == codigoUsuario);
+            var usuario = await _repositorio.Consultar(lnq => lnq.Codigo == codigoUsuario);
             
             if (usuario == null)
                 return false;
