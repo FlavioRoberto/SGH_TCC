@@ -17,7 +17,7 @@ namespace SGH.Data.Repositorio.Implementacao
         {
         }
 
-        public override async Task<Paginacao<Curso>> ListarPorPaginacao(Paginacao<Curso> entidadePaginada)
+        public async Task<Paginacao<Curso>> ListarPorPaginacao(Paginacao<Curso> entidadePaginada)
         {
             var query = _contexto.Curso.AsNoTracking();
 
@@ -35,9 +35,5 @@ namespace SGH.Data.Repositorio.Implementacao
             return await PaginacaoHelper<Curso>.Paginar(entidadePaginada, query);
         }
 
-        protected override DbSet<Curso> GetDbSet()
-        {
-            return _contexto.Curso;
-        }
     }
 }

@@ -13,11 +13,6 @@ namespace SGH.Data.Repositorio.Implementacao
         {
         }
 
-        public override Task<Paginacao<UsuarioPerfil>> ListarPorPaginacao(Paginacao<UsuarioPerfil> entidade)
-        {
-            throw new System.NotImplementedException();
-        }
-
         protected override DbSet<UsuarioPerfil> GetDbSet()
         {
             return _contexto.UsuarioPerfil;

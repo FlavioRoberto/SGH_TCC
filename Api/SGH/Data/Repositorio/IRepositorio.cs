@@ -10,14 +10,12 @@ namespace SGH.Data.Repositorio
 {
     public interface IRepositorio<T> where T : class
     {
-        DbSet<T> DbSet { get; }
         Task<T> Criar(T entidade);
         Task<T> Consultar(Expression<Func<T, bool>> query);
         Task<List<T>> ListarTodos();
         Task<List<T>> Listar(Expression<Func<T, bool>> query);
         Task<T> Atualizar(T entidade);
         Task<bool> Remover(Expression<Func<T, bool>> query);
-        Task<Paginacao<T>> ListarPorPaginacao(Paginacao<T> entidade);
         Task<bool> Contem(Expression<Func<T, bool>> expressao);
 
     }

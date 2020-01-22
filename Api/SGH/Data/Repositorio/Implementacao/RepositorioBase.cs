@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SGH.Dominio.Core;
-using SGH.Dominio.Core.Model;
 using SHG.Data.Contexto;
 using System;
 using System.Collections.Generic;
@@ -12,22 +10,18 @@ namespace SGH.Data.Repositorio.Implementacao
 {
     public abstract class RepositorioBase<T> : IRepositorio<T> where T : class
     {
-        public DbSet<T> DbSet { get; }
         protected IContexto _contexto { get; private set; }
-        protected abstract DbSet<T> GetDbSet();
-        public abstract Task<Paginacao<T>> ListarPorPaginacao(Paginacao<T> entidade);
-        
+
         public RepositorioBase(IContexto contexto)
         {
             _contexto = contexto;
-            DbSet = GetDbSet();
         }
 
         public async virtual Task<T> Atualizar(T entidade)
         {
             try
             {
-                DbSet.Update(entidade);
+                _contexto.Set<T>().Update(entidade);
                 await _contexto.SaveChangesAsync();
                 return entidade;
             }
@@ -37,16 +31,11 @@ namespace SGH.Data.Repositorio.Implementacao
             }
         }
 
-        protected async Task<bool> ExisteEntidadeNoBanco(Expression<Func<T, bool>> query)
-        {
-            return await DbSet.CountAsync(query) > 0;
-        }
-
         public async virtual Task<T> Criar(T entidade)
         {
             try
             {
-                DbSet.Add(entidade);
+                _contexto.Set<T>().Add(entidade);
                 await _contexto.SaveChangesAsync();
             }
             catch (Exception e)
@@ -61,7 +50,7 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             try
             {
-                return await DbSet.AsNoTracking().FirstOrDefaultAsync(query);
+                return await _contexto.Set<T>().AsNoTracking().FirstOrDefaultAsync(query);
             }
             catch (Exception e)
             {
@@ -74,7 +63,7 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             try
             {
-                return await DbSet.AsNoTracking().Where(query).ToListAsync();
+                return await _contexto.Set<T>().AsNoTracking().Where(query).ToListAsync();
             }
             catch (Exception e)
             {
@@ -87,7 +76,7 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             try
             {
-                return await DbSet.AsNoTracking().ToListAsync();
+                return await _contexto.Set<T>().AsNoTracking().ToListAsync();
             }
             catch (Exception e)
             {
@@ -99,10 +88,10 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             try
             {
-                var item = await DbSet.FirstOrDefaultAsync(query);
+                var item = await _contexto.Set<T>().FirstOrDefaultAsync(query);
                 if (item != null)
                 {
-                    DbSet.Remove(item);
+                    _contexto.Set<T>().Remove(item);
                     await _contexto.SaveChangesAsync();
                     return true;
                 }
@@ -120,7 +109,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<bool> Contem(Expression<Func<T, bool>> expressao)
         {
-            return await DbSet.AnyAsync(expressao);
+            return await _contexto.Set<T>().AnyAsync(expressao);
         }
     }
 }

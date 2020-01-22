@@ -2,7 +2,7 @@
 
 namespace SGH.Data.Repositorio.Contratos
 {
-    public interface IUsuarioPerfilRepositorio : IRepositorio<UsuarioPerfil>
+    public interface IUsuarioPerfilRepositorio
     {
     }
 }
