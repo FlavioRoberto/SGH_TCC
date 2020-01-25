@@ -1,24 +1,29 @@
 ﻿using AutoMapper;
-using Dominio.Model.DisciplinaModel;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Aplicacao.Contratos;
-using Aplicacao.Implementacao.DisciplinaImp;
 using System;
 using System.Threading.Tasks;
-using SGH.Data.Repositorio;
 using SGH.APi.ViewModel;
+using MediatR;
+using SGH.Dominio.Implementacao.DIsciplinasTipoServico.Consultas.ListarTodos;
+using SGH.Dominio.Core.Model;
+using SGH.Dominio.Implementacao.DIsciplinasTipoServico.Consultas.ListarPaginacao;
+using SGH.Dominio.Implementacao.DIsciplinasTipoServico.Comandos.Criar;
+using SGH.Dominio.Implementacao.DIsciplinasTipoServico.Comandos.Atualizar;
+using SGH.Dominio.Implementacao.DIsciplinasTipoServico.Comandos.Remover;
 
 namespace SGH.Api.Controllers
 {
     [Route("api/[controller]")]
     public class DisciplinaTipoController : ControllerBase
     {
-        private readonly IServicoBase<DisciplinaTipoViewModel> _servico;
+        private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public DisciplinaTipoController(IRepositorio<DisciplinaTipo> repositorio, IMapper mapper)
+        public DisciplinaTipoController(IMediator mediator, IMapper mapper)
         {
-            _servico = new DisciplinaTipoServico(repositorio, mapper);
+            _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -28,13 +33,8 @@ namespace SGH.Api.Controllers
         {
             try
             {
-                var result = await _servico.ListarTodos();
-
-                if (result.TemErro())
-                    return BadRequest(result.GetErros());
-
-                return Ok(result.GetResultado());
-
+                var resultado = await _mediator.Send(new ListarTodosDisciplinaTipoConsulta());
+                return Ok(resultado);
             }
             catch (Exception e)
             {
@@ -52,12 +52,14 @@ namespace SGH.Api.Controllers
                 if (entidadePaginada == null)
                     entidadePaginada = new Paginacao<DisciplinaTipoViewModel>();
 
-                Resposta<Paginacao<DisciplinaTipoViewModel>> resultado = await _servico.ListarComPaginacao(entidadePaginada);
+                var disciplinaPaginada = _mapper.Map<Paginacao<DisciplinaTipo>>(entidadePaginada);
 
-                if (resultado.TemErro())
-                    return BadRequest(resultado.GetErros());
+                var resultado = await _mediator.Send(new ListarPaginacaoDisciplinaTipoConsulta
+                {
+                    DisciplinaTipoPaginacao = disciplinaPaginada
+                });
 
-                return Ok(resultado.GetResultado());
+                return Ok(resultado);                
             }
             catch (Exception e)
             {
@@ -68,14 +70,11 @@ namespace SGH.Api.Controllers
         [HttpPost]
         [Authorize("admin")]
         [Route("criar")]
-        public async Task<IActionResult> Criar([FromBody]DisciplinaTipoViewModel entidade)
+        public async Task<IActionResult> Criar([FromBody]CriarDisciplinaTipoComando comando)
         {
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest("Dados informados inválidos!");
-
-                Resposta<DisciplinaTipoViewModel> resutltado = await _servico.Criar(entidade);
+                var resutltado = await _mediator.Send(comando);
 
                 if (resutltado.TemErro())
                     return BadRequest(resutltado.GetErros());
@@ -91,11 +90,11 @@ namespace SGH.Api.Controllers
         [HttpPut]
         [Authorize("admin")]
         [Route("editar")]
-        public async Task<IActionResult> Editar([FromBody] DisciplinaTipoViewModel entidade)
+        public async Task<IActionResult> Editar([FromBody] AtualizarDisciplinaTipoComando comando)
         {
             try
             {
-                Resposta<DisciplinaTipoViewModel> resultado = await _servico.Atualizar(entidade);
+                var resultado = await _mediator.Send(comando);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -116,7 +115,10 @@ namespace SGH.Api.Controllers
         {
             try
             {
-                Resposta<bool> resultado = await _servico.Remover(codigo);
+                var resultado = await _mediator.Send(new RemoverDisciplinaTipoComando
+                {
+                    Codigo = codigo
+                });
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());

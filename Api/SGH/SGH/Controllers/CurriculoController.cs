@@ -54,19 +54,14 @@ namespace SGH.Api.Controllers
         [HttpPost]
         [Authorize("admin")]
         [Route("criar")]
-        public async Task<IActionResult> Criar([FromBody]CurriculoViewModel entidade)
+        public async Task<IActionResult> Criar([FromBody]CriarCurriculoComando comando)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Dados informados inválidos!");
 
-                var resultado = await _mediator.Send(new CriarCurriculoComando
-                {
-                    Ano = entidade.Ano,
-                    Codigo = entidade.Codigo,
-                    CodigoCurso = entidade.CodigoCurso
-                });
+                var resultado = await _mediator.Send(comando);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -83,17 +78,11 @@ namespace SGH.Api.Controllers
         [HttpPut]
         [Authorize("admin")]
         [Route("editar")]
-        public async Task<IActionResult> Editar([FromBody] CurriculoViewModel entidade)
+        public async Task<IActionResult> Editar([FromBody] AtualizarCurriculoComando comando)
         {
             try
             {
-                var resultado = await _mediator.Send(new AtualizarCurriculoComando
-                {
-                    Ano = entidade.Ano,
-                    Codigo = entidade.Codigo,
-                    CodigoCurso = entidade.CodigoCurso,
-                    Disciplinas = _mapper.Map<List<CurriculoDisciplina>>(entidade.Disciplinas)
-                });
+                var resultado = await _mediator.Send(comando);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -122,10 +111,7 @@ namespace SGH.Api.Controllers
                     CurriculoPaginado = _mapper.Map<Paginacao<Curriculo>>(entidadePaginada)
                 });
 
-                if (resultado.TemErro())
-                    return BadRequest(resultado.GetErros());
-
-                return Ok(resultado.GetResultado());
+                return Ok(resultado);
             }
             catch (Exception e)
             {

@@ -21,10 +21,10 @@ namespace SGH.APi.ViewModel
 
         public int Credito { get; set; }
 
-        public DisciplinaViewModel.DisciplinaViewModel Disciplina { get; set; }
+        public DisciplinaViewModel Disciplina { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public IEnumerable<DisciplinaViewModel.DisciplinaViewModel> PreRequisitos { get; set; }
+        public IEnumerable<DisciplinaViewModel> PreRequisitos { get; set; }
 
     }
 }

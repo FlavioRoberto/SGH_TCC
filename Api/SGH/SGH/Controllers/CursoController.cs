@@ -1,22 +1,30 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Aplicacao.Contratos;
 using System;
 using System.Threading.Tasks;
 using SGH.Dominio.Core;
 using SGH.APi.ViewModel;
-using SGH.Dominio.Model;
+using MediatR;
+using AutoMapper;
+using SGH.Dominio.Implementacao.Cursos.Consultas.ListarTodos;
+using SGH.Dominio.Core.Model;
+using SGH.Dominio.Implementacao.Cursos.Consultas.ListarPaginacao;
+using SGH.Dominio.Implementacao.Cursos.Comandos.Criar;
+using SGH.Dominio.Implementacao.Cursos.Comandos.Atualizar;
+using SGH.Dominio.Implementacao.Cursos.Comandos.Remover;
 
 namespace SGH.Api.Controllers
 {
     [Route("api/[controller]")]
     public class CursoController : ControllerBase
     {
-        private readonly ICursoService _servico;
+        private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public CursoController(ICursoService servico)
+        public CursoController(IMediator mediator, IMapper mapper)
         {
-            _servico = servico;
+            _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -26,12 +34,8 @@ namespace SGH.Api.Controllers
         {
             try
             {
-                var resultado = await _servico.ListarTodos();
-
-                if (resultado.TemErro())
-                    return BadRequest(resultado.GetErros());
-
-                return Ok(resultado.GetResultado());
+                var resultado = await _mediator.Send(new ListarTodosCursosConsulta());
+                return Ok(resultado);
             }
             catch (Exception e)
             {
@@ -49,12 +53,14 @@ namespace SGH.Api.Controllers
                 if (entidadePaginada == null)
                     entidadePaginada = new Paginacao<CursoViewModel>();
 
-                Resposta<Paginacao<CursoViewModel>> resultado = await _servico.ListarComPaginacao(entidadePaginada);
+                var cursoPaginado = _mapper.Map<Paginacao<Curso>>(entidadePaginada);
 
-                if (resultado.TemErro())
-                    return BadRequest(resultado.GetErros());
+                var resultado = await _mediator.Send(new ListarPaginacaoCursoConsulta
+                {
+                    CursoPaginado = cursoPaginado
+                });
 
-                return Ok(resultado.GetResultado());
+                return Ok(resultado);            
             }
             catch (Exception e)
             {
@@ -65,14 +71,14 @@ namespace SGH.Api.Controllers
         [HttpPost]
         [Authorize("admin")]
         [Route("criar")]
-        public async Task<IActionResult> Criar([FromBody]CursoViewModel entidade)
+        public async Task<IActionResult> Criar([FromBody]CriarCursoComando comando)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Dados informados inválidos!");
 
-                Resposta<CursoViewModel> resutltado = await _servico.Criar(entidade);
+                var resutltado = await _mediator.Send(comando);
 
                 if (resutltado.TemErro())
                     return BadRequest(resutltado.GetErros());
@@ -88,11 +94,11 @@ namespace SGH.Api.Controllers
         [HttpPut]
         [Authorize("admin")]
         [Route("editar")]
-        public async Task<IActionResult> Editar([FromBody] CursoViewModel entidade)
+        public async Task<IActionResult> Editar([FromBody] AtualizarCursoComando comando)
         {
             try
             {
-                Resposta<CursoViewModel> resultado = await _servico.Atualizar(entidade);
+                var resultado = await _mediator.Send(comando);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -113,7 +119,10 @@ namespace SGH.Api.Controllers
         {
             try
             {
-                Resposta<bool> resultado = await _servico.Remover(codigo);
+                Resposta<bool> resultado = await _mediator.Send(new RemoverCursoComando
+                {
+                    CursoId = codigo
+                });
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());

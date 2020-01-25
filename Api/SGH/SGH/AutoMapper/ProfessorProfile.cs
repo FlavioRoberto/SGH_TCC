@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Dominio.Model;
 using SGH.APi.ViewModel;
-using SGH.Dominio.Model;
+using SGH.Dominio.Core.Model;
+using SGH.Dominio.Implementacao.Professores.Comandos.Criar;
 
 namespace SGH.Api.AutoMapper
 {

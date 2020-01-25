@@ -3,20 +3,30 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using MediatR;
+using SGH.APi.ViewModel;
+using Aplicacao.Implementacao.Autenticacao.Comandos.Login;
+using SGH.Dominio.Core;
+using Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha;
+using Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha;
+using SGH.Dominio.Core.Model;
+using SGH.Dominio.Implementacao.Usuarios.Consultas.ListarPaginacao;
+using AutoMapper;
+using SGH.Dominio.Implementacao.Usuarios.Comandos.Criar;
+using SGH.Dominio.Implementacao.Usuarios.Comandos.Atualizar;
+using SGH.Dominio.Implementacao.Usuarios.Comandos.Remover;
 
 namespace Api.Controllers.Autenticacao
 {
     [Route("api/[controller]")]
     public class UsuarioController : ControllerBase
     {
-        private readonly IUsuarioService _servico;
         private readonly IMediator _mediator;
-    
+        private readonly IMapper _mapper;
 
-        public UsuarioController(IUsuarioService servico, IMediator mediator)
+        public UsuarioController(IMediator mediator, IMapper mapper)
         {
-            _servico = servico;
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpPost("autenticar")]
@@ -99,12 +109,14 @@ namespace Api.Controllers.Autenticacao
                 if (entidadePaginada == null)
                     entidadePaginada = new Paginacao<UsuarioViewModel>();
 
-                Resposta<Paginacao<UsuarioViewModel>> resultado = await _servico.ListarComPaginacao(entidadePaginada);
+                var usuarioPaginado = _mapper.Map<Paginacao<Usuario>>(entidadePaginada);
 
-                if (resultado.TemErro())
-                    return BadRequest(resultado.GetErros());
+                var resultado = await _mediator.Send(new ListarPaginacaoUsuarioConsulta
+                {
+                    UsuarioPaginado = usuarioPaginado
+                });
 
-                return Ok(resultado.GetResultado());
+                return Ok(resultado);
             }
             catch (Exception e)
             {
@@ -122,12 +134,14 @@ namespace Api.Controllers.Autenticacao
                 if (!ModelState.IsValid)
                     return BadRequest("Dados informados inválidos!");
 
-                Resposta<UsuarioViewModel> resutltado = await _servico.Criar(entidade);
+                var comandoUsuario = _mapper.Map<CriarUsuarioComando>(entidade);
 
-                if (resutltado.TemErro())
-                    return BadRequest(resutltado.GetErros());
+                var resultado = await _mediator.Send(comandoUsuario);
 
-                return Ok(resutltado.GetResultado());
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
             }
             catch (Exception e)
             {
@@ -142,7 +156,9 @@ namespace Api.Controllers.Autenticacao
         {
             try
             {
-                Resposta<UsuarioViewModel> resultado = await _servico.Atualizar(entidade);
+                var comando = _mapper.Map<AtualizarUsuarioComando>(entidade);
+
+                var resultado = await _mediator.Send(comando);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -163,7 +179,10 @@ namespace Api.Controllers.Autenticacao
         {
             try
             {
-                Resposta<bool> resultado = await _servico.Remover(codigo);
+                var resultado = await _mediator.Send(new RemoverUsuarioComando
+                {
+                    CodigoUsuario = codigo
+                });
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());

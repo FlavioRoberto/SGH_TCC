@@ -16,9 +16,9 @@ namespace SGH.Data.Repositorio.Implementacao
         {
         }
 
-        public override async Task<Paginacao<Disciplina>> ListarPorPaginacao(Paginacao<Disciplina> entidadePaginada)
+        public async Task<Paginacao<Disciplina>> ListarPorPaginacao(Paginacao<Disciplina> entidadePaginada)
         {
-            var query = GetDbSet().AsNoTracking();
+            var query = _contexto.Disciplina.AsNoTracking();
 
             if (entidadePaginada.Entidade == null)
                 entidadePaginada.Entidade = new List<Disciplina>();
@@ -36,11 +36,6 @@ namespace SGH.Data.Repositorio.Implementacao
 
 
             return await PaginacaoHelper<Disciplina>.Paginar(entidadePaginada, query);
-        }
-
-        protected override Microsoft.EntityFrameworkCore.DbSet<Disciplina> GetDbSet()
-        {
-            return _contexto.Disciplina;
         }
     }
 }

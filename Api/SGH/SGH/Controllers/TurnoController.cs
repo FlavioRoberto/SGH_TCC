@@ -1,7 +1,15 @@
 ﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SGH.Data.Repositorio;
+using SGH.APi.ViewModel;
+using SGH.Dominio.Core;
+using SGH.Dominio.Core.Model;
+using SGH.Dominio.Implementacao.Turnos.Comandos.Atualizar;
+using SGH.Dominio.Implementacao.Turnos.Comandos.Criar;
+using SGH.Dominio.Implementacao.Turnos.Comandos.Remover;
+using SGH.Dominio.Implementacao.Turnos.Consultas.ListarPaginacao;
+using SGH.Dominio.Implementacao.Turnos.Consultas.ListarTodos;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,11 +19,13 @@ namespace SGH.Api.Controllers
     [Route("api/[controller]")]
     public class TurnoController : ControllerBase
     {
-        private IServicoBase<TurnoViewModel> _servico;
+        private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public TurnoController(IRepositorio<Turno> repositorio, IMapper mapper)
+        public TurnoController(IMediator mediator, IMapper mapper)
         {
-            _servico = new TurnoServico(repositorio, mapper);
+            _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -25,12 +35,8 @@ namespace SGH.Api.Controllers
         {
             try
             {
-                Resposta<List<TurnoViewModel>> resultado = await _servico.ListarTodos();
-
-                if (resultado.TemErro())
-                    return BadRequest(resultado.GetErros());
-
-                return Ok(resultado.GetResultado());
+                var resultado = await _mediator.Send(new ListarTodosTurnoConsulta());
+                return Ok(resultado);
             }
             catch (Exception e)
             {
@@ -49,12 +55,14 @@ namespace SGH.Api.Controllers
                 if (entidadePaginada == null)
                     entidadePaginada = new Paginacao<TurnoViewModel>();
 
-                Resposta<Paginacao<TurnoViewModel>> resultado = await _servico.ListarComPaginacao(entidadePaginada);
+                var turnoPaginado = _mapper.Map<Paginacao<Turno>>(entidadePaginada);
 
-                if (resultado.TemErro())
-                    return BadRequest(resultado.GetErros());
+                var resultado = await _mediator.Send(new ListarPaginacaoTurnoConsulta
+                {
+                    TurnoPaginado = turnoPaginado
+                });
 
-                return Ok(resultado.GetResultado());
+                return Ok(resultado);
             }
             catch (Exception e)
             {
@@ -66,14 +74,11 @@ namespace SGH.Api.Controllers
         [HttpPost]
         [Authorize("admin")]
         [Route("criar")]
-        public async Task<IActionResult> Criar([FromBody]TurnoViewModel entidade)
+        public async Task<IActionResult> Criar([FromBody]CriarTurnoComando comando)
         {
             try
-            {
-                if (!ModelState.IsValid)
-                    return BadRequest("Dados informados inválidos!");
-
-                Resposta<TurnoViewModel> resutltado = await _servico.Criar(entidade);
+            {              
+                var resutltado = await _mediator.Send(comando);
 
                 if (resutltado.TemErro())
                     return BadRequest(resutltado.GetErros());
@@ -89,11 +94,11 @@ namespace SGH.Api.Controllers
         [HttpPut]
         [Authorize("admin")]
         [Route("editar")]
-        public async Task<IActionResult> Editar([FromBody] TurnoViewModel entidade)
+        public async Task<IActionResult> Editar([FromBody] AtualizarTurnoComando comando)
         {
             try
             {
-                Resposta<TurnoViewModel> resultado = await _servico.Atualizar(entidade);
+                var resultado = await _mediator.Send(comando);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -114,7 +119,10 @@ namespace SGH.Api.Controllers
         {
             try
             {
-                Resposta<bool> resultado = await _servico.Remover(codigo);
+                Resposta<bool> resultado = await _mediator.Send(new RemoverTurnoComando
+                {
+                    TurnoId = codigo
+                });
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());

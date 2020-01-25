@@ -87,10 +87,7 @@ namespace SGH.Api.Controllers
                     DisciplinaPaginacao = _mapper.Map<Paginacao<Disciplina>>(entidadePaginada)
                 });
 
-                if (resultado.TemErro())
-                    return BadRequest(resultado.GetErros());
-
-                return Ok(resultado.GetResultado());
+                return Ok(resultado);
             }
             catch (Exception e)
             {
@@ -101,19 +98,14 @@ namespace SGH.Api.Controllers
         [HttpPost]
         [Authorize("admin")]
         [Route("criar")]
-        public async Task<IActionResult> Criar([FromBody]DisciplinaViewModel entidade)
+        public async Task<IActionResult> Criar([FromBody]CriarDisciplinaComando comando)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return BadRequest("Dados informados inválidos!");
 
-                var resutltado = await _mediator.Send(new CriarDisciplinaComando
-                {
-                    Codigo = entidade.Codigo,
-                    CodigoTipo = entidade.CodigoTipo,
-                    Descricao = entidade.Descricao
-                });
+                var resutltado = await _mediator.Send(comando);
 
                 if (resutltado.TemErro())
                     return BadRequest(resutltado.GetErros());
@@ -129,16 +121,11 @@ namespace SGH.Api.Controllers
         [HttpPut]
         [Authorize("admin")]
         [Route("editar")]
-        public async Task<IActionResult> Editar([FromBody] DisciplinaViewModel entidade)
+        public async Task<IActionResult> Editar([FromBody] AtualizarDisciplinaComando comando)
         {
             try
             {
-                var resultado = await _mediator.Send(new AtualizarDisciplinaComando
-                {
-                    Codigo = entidade.Codigo,
-                    Descricao = entidade.Descricao,
-                    CodigoTipo = entidade.CodigoTipo
-                });
+                var resultado = await _mediator.Send(comando);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());

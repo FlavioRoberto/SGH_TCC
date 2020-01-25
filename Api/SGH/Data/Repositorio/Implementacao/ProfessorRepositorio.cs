@@ -14,9 +14,9 @@ namespace SGH.Data.Repositorio.Implementacao
         public ProfessorRepositorio(IContexto contexto):base(contexto)
         { }
 
-        public override async Task<Paginacao<Professor>> ListarPorPaginacao(Paginacao<Professor> entidadePaginada)
+        public async Task<Paginacao<Professor>> ListarPorPaginacao(Paginacao<Professor> entidadePaginada)
         {
-            var query = GetDbSet().AsNoTracking();
+            var query =_contexto.Professor.AsNoTracking();
 
             if (entidadePaginada.Entidade == null)
                 entidadePaginada.Entidade = new List<Professor>();
@@ -38,10 +38,5 @@ namespace SGH.Data.Repositorio.Implementacao
             return await PaginacaoHelper<Professor>.Paginar(entidadePaginada, query);
         }
 
-
-        protected override DbSet<Professor> GetDbSet()
-        {
-            return _contexto.Professor;
-        }
     }
 }

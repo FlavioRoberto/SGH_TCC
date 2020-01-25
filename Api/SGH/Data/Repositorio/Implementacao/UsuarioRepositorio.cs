@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Data.Repositorio.Helpers;
-using SGH.Dominio.Core;
 using SGH.Dominio.Core.Extensions;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Contexto;
@@ -18,10 +17,9 @@ namespace SGH.Data.Repositorio.Implementacao
         public UsuarioRepositorio(IContexto contexto) : base(contexto)
         { }
 
-        public override async Task<Paginacao<Usuario>> ListarPorPaginacao(Paginacao<Usuario> entidadePaginada)
+        public async Task<Paginacao<Usuario>> ListarPorPaginacao(Paginacao<Usuario> entidadePaginada)
         {
-            var query = GetDbSet()
-                .AsNoTracking();
+            var query = _contexto.Usuario.AsNoTracking();
 
             if (entidadePaginada.Entidade == null)
                 entidadePaginada.Entidade = new List<Usuario>();
@@ -51,7 +49,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<int> QuantidadeUsuarioAdm()
         {
-            return await GetDbSet()
+            return await _contexto.Usuario
                  .Include(lnq => lnq.Perfil)
                  .AsNoTracking()
                  .CountAsync(lnq => lnq.Perfil.Administrador == true);
@@ -59,7 +57,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<Usuario> RetornarUsuarioPorLoginESenha(string login, string senha)
         {
-            return await GetDbSet()
+            return await _contexto.Usuario
                 .Include(lnq => lnq.Perfil)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(lnq =>
@@ -68,18 +66,13 @@ namespace SGH.Data.Repositorio.Implementacao
 
         }
 
-        public override  async Task<Usuario> Consultar(Expression<Func<Usuario, bool>> query)
+        public override async Task<Usuario> Consultar(Expression<Func<Usuario, bool>> query)
         {
-            return await GetDbSet()
+            return await _contexto.Usuario
                     .AsNoTracking()
                     .Include(lnq => lnq.Perfil)
                     .AsQueryable()
                     .FirstOrDefaultAsync(query);
-        }
-
-        protected override DbSet<Usuario> GetDbSet()
-        {
-            return _contexto.Usuario;
         }
     }
 }

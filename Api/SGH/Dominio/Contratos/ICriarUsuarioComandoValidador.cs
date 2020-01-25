@@ -2,7 +2,7 @@
 
 namespace SGH.Dominio.Contratos
 {
-    public interface ICriarUsuarioComandoValidador : IValidator
+    public interface ICriarUsuarioComandoValidador : IUsuarioComandoValidador
     {
     }
 }

@@ -2,7 +2,7 @@
 
 namespace SGH.Data.Repositorio.Contratos
 {
-    public interface ITurnoRepositorio : IRepositorio<Turno>
+    public interface ITurnoRepositorio : IRepositorio<Turno>, IRepositorioPaginacao<Turno>
     {
     }
 }

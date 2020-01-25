@@ -2,7 +2,7 @@
 
 namespace SGH.Data.Repositorio.Contratos
 {
-    public interface IProfessorRepositorio : IRepositorio<Professor>
+    public interface IProfessorRepositorio : IRepositorio<Professor>, IRepositorioPaginacao<Professor>
     {
     }
 }

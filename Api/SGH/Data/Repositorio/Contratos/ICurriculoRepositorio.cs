@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Data.Repositorio.Contratos
 {
-    public interface ICurriculoRepositorio : IRepositorio<Curriculo>
+    public interface ICurriculoRepositorio : IRepositorio<Curriculo>, IRepositorioPaginacao<Curriculo>
     {
         Task<List<CurriculoDisciplina>> ListarDisciplinas(int curriculoId);
         Task<int> RetornarQuantidadeDisciplinaCurriculo(int codigoCurriculo);

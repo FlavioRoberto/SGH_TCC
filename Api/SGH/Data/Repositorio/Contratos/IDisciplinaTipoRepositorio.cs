@@ -2,7 +2,7 @@
 
 namespace SGH.Data.Repositorio.Contratos
 {
-    public interface IDisciplinaTipoRepositorio : IRepositorio<DisciplinaTipo>
+    public interface IDisciplinaTipoRepositorio : IRepositorio<DisciplinaTipo>, IRepositorioPaginacao<DisciplinaTipo>
     {
     }
 }

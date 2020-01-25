@@ -1,6 +1,6 @@
-﻿using Api.Excessoes;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using SGH.Api.Excessoes;
 using System.Net;
 
 namespace SGH.Api.Filters

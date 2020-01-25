@@ -16,6 +16,7 @@ namespace SGH.Dominio.Implementacao.UsuarioPerfis.Comando.Remover
         public RemoverUsuarioPerfilHandler(IUsuarioPerfilRepositorio repositorio, IRemoverUsuarioPerfilComandoValidador validador)
         {
             _repositorio = repositorio;
+            _validador = validador;
         }
 
         public async Task<Resposta<bool>> Handle(RemoverUsuarioPerfilComando request, CancellationToken cancellationToken)

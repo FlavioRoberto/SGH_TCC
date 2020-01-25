@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using Dominio.Model.Autenticacao;
 using SGH.APi.ViewModel;
-using SGH.Dominio.Model;
+using SGH.Dominio.Core.Model;
+using SGH.Dominio.Implementacao.Usuarios.Comandos.Atualizar;
+using SGH.Dominio.Implementacao.Usuarios.Comandos.Criar;
 
 namespace SGH.Api.AutoMapper
 {

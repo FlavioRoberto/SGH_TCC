@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SGH.Dominio.Implementacao.Cursos.Consultas.ListarTodos
 {
-    public class ListarTodosCursosConsulta : IRequest<Resposta<List<Curso>>>
+    public class ListarTodosCursosConsulta : IRequest<List<Curso>>
     {
     }
 }

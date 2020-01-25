@@ -17,9 +17,9 @@ namespace SGH.Data.Repositorio.Implementacao
         {
         }
 
-        public override async Task<Paginacao<DisciplinaTipo>> ListarPorPaginacao(Paginacao<DisciplinaTipo> entidadePaginada)
+        public async Task<Paginacao<DisciplinaTipo>> ListarPorPaginacao(Paginacao<DisciplinaTipo> entidadePaginada)
         {
-            var query = GetDbSet().AsNoTracking();
+            var query = _contexto.DisciplinaTipo.AsNoTracking();
 
             if (entidadePaginada.Entidade == null)
                 entidadePaginada.Entidade = new List<DisciplinaTipo>();
@@ -33,11 +33,6 @@ namespace SGH.Data.Repositorio.Implementacao
                 query = query.Where(lnq => lnq.Descricao.Contains(entidade.Descricao));
 
             return await PaginacaoHelper<DisciplinaTipo>.Paginar(entidadePaginada, query);
-        }
-
-        protected override DbSet<DisciplinaTipo> GetDbSet()
-        {
-            return _contexto.DisciplinaTipo;
         }
     }
 }

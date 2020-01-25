@@ -104,7 +104,7 @@ namespace SGH.APi
             });
 
             services.AddAutoMapper();
-            var assembly = AppDomain.CurrentDomain.Load("Aplicacao");
+            var assembly = AppDomain.CurrentDomain.Load("SGH.Dominio");
             services.AddMediatR(assembly);
 
             services.AddMvc(config =>

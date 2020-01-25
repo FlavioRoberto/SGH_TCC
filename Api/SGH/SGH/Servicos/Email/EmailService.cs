@@ -1,5 +1,4 @@
-﻿using Api.Aplicacao.Email;
-using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Options;
 using System;
 using System.Net;
 using System.Net.Mail;

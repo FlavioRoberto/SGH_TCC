@@ -27,7 +27,6 @@ namespace SGH.Dominio.Extensions
             services.AddScoped<IAtualizarSenhaComandoValidador, AtualizarSenhaComandoValidador>();
             services.AddScoped<IAtualizarCurriculoComandoValidador, AtualizarCurriculoComandoValidador>();
             services.AddScoped<ICriarUsuarioComandoValidador, CriarUsuarioComandoValidador>();
-            services.AddScoped<ICriarUsuarioComandoValidador, CriarUsuarioComandoValidador>();
             services.AddScoped<IListarDisciplinaCurriculoConsultaValidador, ListarDisciplinaCurriculoConsultaValidador>();
             services.AddScoped<ILoginComandoValidator, LoginComandoValidator>();
             services.AddScoped<IRedefinirSenhaComandoValidador, RedefinirSenhaComandoValidador>();
@@ -35,7 +34,6 @@ namespace SGH.Dominio.Extensions
             services.AddScoped<IRemoverDisciplinaComandoValidador, RemoverDisciplinaComandoValidador>();
             services.AddScoped<IRemoverDisciplinaTipoComandoValidador, RemoverDisciplinaTipoComandoValidador>();
             services.AddScoped<IRemoverUsuarioComandoValidador, RemoverUsuarioComandoValidador>();
-            services.AddScoped<IUsuarioComandoValidador, IUsuarioComandoValidador>();
             services.AddTransient<IUsuarioResolverService, UsuarioResolverService>();
             services.AddScoped<IRemoverCursoComandoValidador, RemoverCursoComandoValidador>();
             services.AddScoped<ICriarProfessorComandoValidador, CriarProfessorComandoValidador>();

@@ -14,7 +14,7 @@ namespace SGH.Data.Repositorio.Implementacao
         {
         }
 
-        public override async Task<Paginacao<Turno>> ListarPorPaginacao(Paginacao<Turno> entidadePaginada)
+        public async Task<Paginacao<Turno>> ListarPorPaginacao(Paginacao<Turno> entidadePaginada)
         {
             var query = _contexto.Turno.AsNoTracking();
             
@@ -27,11 +27,6 @@ namespace SGH.Data.Repositorio.Implementacao
                 query = query.Where(lnq => lnq.Descricao.Contains(entidade.Descricao));
 
             return await PaginacaoHelper<Turno>.Paginar(entidadePaginada, query);
-        }
-
-        protected override DbSet<Turno> GetDbSet()
-        {
-            return _contexto.Turno;
         }
     }
 }

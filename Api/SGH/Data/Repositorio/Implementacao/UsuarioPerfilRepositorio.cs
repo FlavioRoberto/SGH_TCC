@@ -1,9 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Core;
+﻿using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Contexto;
-using System.Threading.Tasks;
 
 namespace SGH.Data.Repositorio.Implementacao
 {
@@ -11,11 +8,6 @@ namespace SGH.Data.Repositorio.Implementacao
     {
         public UsuarioPerfilRepositorio(IContexto contexto) : base(contexto)
         {
-        }
-
-        protected override DbSet<UsuarioPerfil> GetDbSet()
-        {
-            return _contexto.UsuarioPerfil;
         }
     }
 }

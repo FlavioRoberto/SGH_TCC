@@ -1,20 +1,20 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Aplicacao.Contratos;
 using System;
 using System.Threading.Tasks;
-using SGH.APi.ViewModel;
+using MediatR;
+using SGH.Dominio.Implementacao.UsuarioPerfis.Consultas.ListarTodos;
 
 namespace SGH.Api.Controllers
 {
     [Route("api/perfil")]
     public class UsuarioPerfilController : ControllerBase
     {
-        private readonly IServicoBase<UsuarioPerfilViewModel> _servico;
+        private readonly IMediator _mediator;
 
-        public UsuarioPerfilController(IUsuarioPerfilService servico)
+        public UsuarioPerfilController(IMediator mediator)
         {
-            _servico = servico;
+            _mediator = mediator;
         }
 
         [HttpGet]
@@ -24,12 +24,8 @@ namespace SGH.Api.Controllers
         {
             try
             {
-                var resultado = await _servico.ListarTodos();
-
-                if (resultado.TemErro())
-                    return BadRequest(resultado.GetErros());
-
-                return Ok(resultado.GetResultado());
+                var resultado = await _mediator.Send(new ListarTodosPerfilConsulta());
+                return Ok(resultado);
             }
             catch (Exception e)
             {
