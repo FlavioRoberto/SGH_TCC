@@ -11,9 +11,9 @@ namespace SGH.Dominio.Implementacao.Turnos.Comandos.Remover
     public class RemoverTurnoComandoHandler : IRequestHandler<RemoverTurnoComando, Resposta<bool>>
     {
         private readonly ITurnoRepositorio _repositorio;
-        private readonly ITurnoValidador _validador;
+        private readonly IRemoverTurnoComandoValidador _validador;
 
-        public RemoverTurnoComandoHandler(ITurnoRepositorio repositorio, ITurnoValidador validador)
+        public RemoverTurnoComandoHandler(ITurnoRepositorio repositorio, IRemoverTurnoComandoValidador validador)
         {
             _repositorio = repositorio;
             _validador = validador;

@@ -6,7 +6,7 @@ using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Contratos;
 using SGH.Dominio.Core.Extensions;
 
-namespace Aplicacao.Implementacao.Autenticacao.Comandos.Login
+namespace SGH.Dominio.Implementacao.Autenticacao.Comandos.Login
 {
     public class LoginComandoHandler : IRequestHandler<LoginComando, Resposta<string>>
     {
@@ -30,7 +30,7 @@ namespace Aplicacao.Implementacao.Autenticacao.Comandos.Login
 
             string token = TokenGeradorHelper.Gerar(usuario);
 
-            return new Resposta<string>(token);
+            return new Resposta<string>(token, "");
         }
     }
 }

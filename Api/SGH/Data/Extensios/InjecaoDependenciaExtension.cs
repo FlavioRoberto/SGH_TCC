@@ -3,6 +3,7 @@ using SGH.Data.Repositorio;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Data.Repositorio.Implementacao;
 using SGH.Dominio.Core.Model;
+using SHG.Data.Contexto;
 
 namespace SGH.Data.Extensios
 {
@@ -10,6 +11,7 @@ namespace SGH.Data.Extensios
     {
         public static IServiceCollection AddPersistencia(this IServiceCollection services)
         {
+            services.AddScoped<IContexto, MySqlContext>();
             services.AddScoped<IRepositorio<Curso>, CursoRepositorio>();
             services.AddScoped<ICurriculoRepositorio, CurriculoRepositorio>();
             services.AddScoped<IDisciplinaRepositorio, DisciplinaRepositorio>();

@@ -2,7 +2,7 @@
 
 namespace SGH.Dominio.Contratos
 {
-    public interface ITurnoValidador : IValidator
+    public interface IRemoverTurnoComandoValidador : IValidator
     {
     }
 }

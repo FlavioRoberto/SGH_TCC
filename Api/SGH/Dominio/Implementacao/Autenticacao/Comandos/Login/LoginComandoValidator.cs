@@ -5,7 +5,7 @@ using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Contratos;
 using SGH.Dominio.Core.Model;
 
-namespace Aplicacao.Implementacao.Autenticacao.Comandos.Login
+namespace SGH.Dominio.Implementacao.Autenticacao.Comandos.Login
 {
     public class LoginComandoValidator : AbstractValidator<LoginComando>, ILoginComandoValidator
     {

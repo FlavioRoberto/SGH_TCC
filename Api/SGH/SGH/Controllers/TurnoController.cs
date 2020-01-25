@@ -62,7 +62,10 @@ namespace SGH.Api.Controllers
                     TurnoPaginado = turnoPaginado
                 });
 
-                return Ok(resultado);
+                if (resultado.Entidade != null && resultado.Entidade.Count > 0)
+                    return Ok(resultado);
+
+                return BadRequest("Nenhum turno encontrado.");
             }
             catch (Exception e)
             {

@@ -26,6 +26,9 @@ namespace SGH.Data.Repositorio.Implementacao
 
             var entidade = entidadePaginada.Entidade.FirstOrDefault();
 
+            if (entidade == null)
+                entidade = new Curso();
+
             if (entidade.Codigo > 0)
                 query = query.Where(lnq => lnq.Codigo == entidade.Codigo);
 

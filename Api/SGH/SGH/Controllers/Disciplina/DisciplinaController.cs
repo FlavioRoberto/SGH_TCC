@@ -87,7 +87,10 @@ namespace SGH.Api.Controllers
                     DisciplinaPaginacao = _mapper.Map<Paginacao<Disciplina>>(entidadePaginada)
                 });
 
-                return Ok(resultado);
+                if (resultado.Entidade != null && resultado.Entidade.Count > 0)
+                    return Ok(resultado);
+
+                return BadRequest("Nenhuma disciplina encontrada.");
             }
             catch (Exception e)
             {

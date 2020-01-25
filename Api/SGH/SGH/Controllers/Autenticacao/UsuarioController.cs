@@ -4,9 +4,7 @@ using System;
 using System.Threading.Tasks;
 using MediatR;
 using SGH.APi.ViewModel;
-using Aplicacao.Implementacao.Autenticacao.Comandos.Login;
 using SGH.Dominio.Core;
-using Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha;
 using Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Implementacao.Usuarios.Consultas.ListarPaginacao;
@@ -14,6 +12,8 @@ using AutoMapper;
 using SGH.Dominio.Implementacao.Usuarios.Comandos.Criar;
 using SGH.Dominio.Implementacao.Usuarios.Comandos.Atualizar;
 using SGH.Dominio.Implementacao.Usuarios.Comandos.Remover;
+using SGH.Dominio.Implementacao.Autenticacao.Comandos.Login;
+using SGH.Dominio.Implementacao.Autenticacao.Comandos.RedefinirSenha;
 
 namespace Api.Controllers.Autenticacao
 {
@@ -31,17 +31,11 @@ namespace Api.Controllers.Autenticacao
 
         [HttpPost("autenticar")]
         [AllowAnonymous]
-        public async Task<IActionResult> Login([FromBody] LoginViewModel login)
+        public async Task<IActionResult> Login([FromBody] LoginComando comando)
         {
             try
-            {
-                var loginComando = new LoginComando
-                {
-                    Login = login.Login,
-                    Senha = login.Senha
-                };
-
-                Resposta<string> resposta = await _mediator.Send(loginComando);
+            {               
+                Resposta<string> resposta = await _mediator.Send(comando);
 
                 if (resposta.TemErro())
                     return BadRequest(resposta.GetErros());

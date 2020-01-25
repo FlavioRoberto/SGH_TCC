@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using SGH.Dominio.Core;
 
-namespace Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha
+namespace SGH.Dominio.Implementacao.Autenticacao.Comandos.RedefinirSenha
 {
     public class RedefinirSenhaComando : IRequest<Resposta<string>>
     {

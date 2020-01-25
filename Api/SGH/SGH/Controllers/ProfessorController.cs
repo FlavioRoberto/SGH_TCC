@@ -64,8 +64,11 @@ namespace SGH.Api.Controllers
                     ProfessorPaginado = professorPaginado
                 });
 
-                return Ok(resultado);
-              
+                if (resultado.Entidade != null && resultado.Entidade.Count > 0)
+                    return Ok(resultado);
+
+                return BadRequest("Nenhum professor encontrado.");
+
             }
             catch (Exception e)
             {

@@ -9,7 +9,7 @@ using SGH.Dominio.Contratos;
 using SGH.Dominio.Core.Extensions;
 using SGH.Dominio.Core.Helpers;
 
-namespace Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha
+namespace SGH.Dominio.Implementacao.Autenticacao.Comandos.RedefinirSenha
 {
     public class RedefinirSenhaComandoHandler : IRequestHandler<RedefinirSenhaComando, Resposta<string>>
     {

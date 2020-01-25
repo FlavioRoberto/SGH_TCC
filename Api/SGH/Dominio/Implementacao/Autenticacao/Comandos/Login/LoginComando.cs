@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using SGH.Dominio.Core;
 
-namespace Aplicacao.Implementacao.Autenticacao.Comandos.Login
+namespace SGH.Dominio.Implementacao.Autenticacao.Comandos.Login
 {
     public class LoginComando : IRequest<Resposta<string>>
     {

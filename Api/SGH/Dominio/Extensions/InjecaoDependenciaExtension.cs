@@ -1,9 +1,9 @@
 ﻿using Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha;
-using Aplicacao.Implementacao.Autenticacao.Comandos.Login;
-using Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha;
 using Microsoft.Extensions.DependencyInjection;
 using SGH.Dominio.Contratos;
 using SGH.Dominio.Implementacao;
+using SGH.Dominio.Implementacao.Autenticacao.Comandos.Login;
+using SGH.Dominio.Implementacao.Autenticacao.Comandos.RedefinirSenha;
 using SGH.Dominio.Implementacao.Curriculos.Comandos.Atualizar;
 using SGH.Dominio.Implementacao.Curriculos.Comandos.Remover;
 using SGH.Dominio.Implementacao.Curriculos.Consultas.ListarDisciplinas;
@@ -14,6 +14,7 @@ using SGH.Dominio.Implementacao.Professores.Comandos.Atualizar;
 using SGH.Dominio.Implementacao.Professores.Comandos.Criar;
 using SGH.Dominio.Implementacao.Professores.Comandos.Remover;
 using SGH.Dominio.Implementacao.Turnos.Comandos.Atualizar;
+using SGH.Dominio.Implementacao.Turnos.Comandos.Remover;
 using SGH.Dominio.Implementacao.Usuarios.Comandos.Criar;
 using SGH.Dominio.Implementacao.Usuarios.Comandos.Remover;
 
@@ -40,7 +41,8 @@ namespace SGH.Dominio.Extensions
             services.AddScoped<IAtualizarProfessorComandoValidador, AtualizarProfessorComandoValidador>();
             services.AddScoped<IRemoverProfessorComandoValidador, RemoverProfessorComandoValidador>();
             services.AddScoped<IAtualizarTurnoComandoValidador, AtualizarTurnoComandoValidador>();
-                        
+            services.AddScoped<IRemoverTurnoComandoValidador, RemoverTurnoComandoValidador>();
+            
             return services;
         }
     }

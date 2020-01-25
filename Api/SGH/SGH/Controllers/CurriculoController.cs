@@ -111,7 +111,10 @@ namespace SGH.Api.Controllers
                     CurriculoPaginado = _mapper.Map<Paginacao<Curriculo>>(entidadePaginada)
                 });
 
-                return Ok(resultado);
+                if (resultado.Entidade != null && resultado.Entidade.Count > 0)
+                    return Ok(resultado);
+
+                return BadRequest("Nenhum currículo encontrado.");
             }
             catch (Exception e)
             {

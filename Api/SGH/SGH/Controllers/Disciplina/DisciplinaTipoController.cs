@@ -59,7 +59,10 @@ namespace SGH.Api.Controllers
                     DisciplinaTipoPaginacao = disciplinaPaginada
                 });
 
-                return Ok(resultado);                
+                if (resultado.Entidade != null && resultado.Entidade.Count > 0)
+                    return Ok(resultado);
+
+                return BadRequest("Nenhum tipo de disciplina encontrado.");
             }
             catch (Exception e)
             {

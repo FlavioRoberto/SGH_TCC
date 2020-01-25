@@ -4,7 +4,7 @@ using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Contratos;
 
-namespace Aplicacao.Implementacao.Autenticacao.Comandos.RedefinirSenha
+namespace SGH.Dominio.Implementacao.Autenticacao.Comandos.RedefinirSenha
 {
     public class RedefinirSenhaComandoValidador : AbstractValidator<RedefinirSenhaComando>, IRedefinirSenhaComandoValidador
     {

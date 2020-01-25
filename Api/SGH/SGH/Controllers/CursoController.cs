@@ -60,7 +60,10 @@ namespace SGH.Api.Controllers
                     CursoPaginado = cursoPaginado
                 });
 
-                return Ok(resultado);            
+                if(resultado.Entidade != null && resultado.Entidade.Count > 0)
+                    return Ok(resultado);
+
+                return BadRequest("Nenhum curso encontrado.");
             }
             catch (Exception e)
             {
