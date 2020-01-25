@@ -121,16 +121,11 @@ namespace Api.Controllers.Autenticacao
         [HttpPost]
         [Authorize("admin")]
         [Route("criar")]
-        public async Task<IActionResult> Criar([FromBody]UsuarioViewModel entidade)
+        public async Task<IActionResult> Criar([FromBody]CriarUsuarioComando comando)
         {
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest("Dados informados inválidos!");
-
-                var comandoUsuario = _mapper.Map<CriarUsuarioComando>(entidade);
-
-                var resultado = await _mediator.Send(comandoUsuario);
+                var resultado = await _mediator.Send(comando);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
@@ -146,12 +141,10 @@ namespace Api.Controllers.Autenticacao
         [HttpPut]
         [Route("editar")]
         [Authorize("admin")]
-        public async Task<IActionResult> Editar([FromBody] UsuarioViewModel entidade)
+        public async Task<IActionResult> Editar([FromBody] AtualizarUsuarioComando comando)
         {
             try
             {
-                var comando = _mapper.Map<AtualizarUsuarioComando>(entidade);
-
                 var resultado = await _mediator.Send(comando);
 
                 if (resultado.TemErro())

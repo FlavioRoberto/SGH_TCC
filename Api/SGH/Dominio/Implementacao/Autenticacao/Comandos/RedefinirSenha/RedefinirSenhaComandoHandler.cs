@@ -45,7 +45,7 @@ namespace SGH.Dominio.Implementacao.Autenticacao.Comandos.RedefinirSenha
                                 Senha: {senha}<br>
                                 click <a>aqui</a> para acessar o sistema.";
 
-            await _emailService.SendEmailAsync(usuario.Email, "Redefinição de senha no SGH", mensagem);
+            await _emailService.Enviar(usuario.Email, "Redefinição de senha no SGH", mensagem);
 
             return new Resposta<string>("Senha redefinida com sucesso! Foi enviado um e-mail com seus dados de acesso.");
         }

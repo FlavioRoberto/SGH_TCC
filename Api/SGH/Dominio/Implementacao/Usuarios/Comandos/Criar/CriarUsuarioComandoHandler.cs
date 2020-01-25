@@ -2,7 +2,9 @@
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Contratos;
 using SGH.Dominio.Core;
+using SGH.Dominio.Core.Email;
 using SGH.Dominio.Core.Extensions;
+using SGH.Dominio.Core.Helpers;
 using SGH.Dominio.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,11 +15,13 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Criar
     {
         private readonly IUsuarioRepositorio _repositorio;
         private readonly ICriarUsuarioComandoValidador _validador;
+        private readonly IEmailService _emailService;
 
-        public CriarUsuarioComandoHandler(IUsuarioRepositorio repositorio, ICriarUsuarioComandoValidador validador)
+        public CriarUsuarioComandoHandler(IUsuarioRepositorio repositorio, ICriarUsuarioComandoValidador validador, IEmailService emailService)
         {
             _repositorio = repositorio;
             _validador = validador;
+            _emailService = emailService;
         }
 
         public async Task<Resposta<Usuario>> Handle(CriarUsuarioComando request, CancellationToken cancellationToken)
@@ -37,6 +41,16 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Criar
                 PerfilCodigo = request.PerfilCodigo,
                 Telefone = request.Telefone
             };
+
+            string senha = SenhaHelper.Gerar();
+            usuario.Senha = senha.ToMD5();
+
+           var mensagem = $@"Seu cadastro no SGH foi realizado com sucesso! <br>
+                                Usuário: {usuario.Login}<br>
+                                Senha: {senha}<br>
+                                click <a>aqui</a> para acessar o sistema.";
+
+            await _emailService.Enviar(usuario.Email, "Cadastro de novo usuário no SGH", mensagem);
 
             var usuarioCadastrado = await _repositorio.Criar(usuario);
 

@@ -25,8 +25,12 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos
         protected async Task<bool> ValidarUsuarioComMesmoEmail(T comando, CancellationToken cancellationToken)
         {
             var msmEmail = await _repositorio
-                                .Consultar(lnq => lnq.Email.IgualA(comando.Email)
-                                 && lnq.Codigo != comando.Codigo) != null;
+                            .Contem(lnq => lnq.Email.IgualA(comando.Email));
+
+            if (comando.Codigo.HasValue)
+                msmEmail = await _repositorio
+                                .Contem(lnq => lnq.Email.IgualA(comando.Email)
+                                 && lnq.Codigo != comando.Codigo);
 
             if (msmEmail)
                 return false;

@@ -21,7 +21,6 @@ using SGH.Dominio.Core.Store;
 using SGH.Dominio.Core.Extensions;
 using SGH.Api.Filters;
 using SGH.Data.Extensios;
-using SGH.Api.Servicos.Email;
 using SGH.Dominio.Extensions;
 
 namespace SGH.APi
@@ -39,15 +38,11 @@ namespace SGH.APi
             _logger = logger;
         }
 
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = _configuration["MySqlConnections:ConexaoLocal"];
-            services.Configure<EmailSettings>(_configuration.GetSection("ConfiguracoesEmail"));
-            services.AddTransient<IEmailService, EmailService>();
-
-            services.AddDbContext<MySqlContext>(options =>
+                      services.AddDbContext<MySqlContext>(options =>
             {
                 options.UseMySQL(connectionString);
             });
@@ -55,6 +50,7 @@ namespace SGH.APi
             services.AddApiVersioning();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+            services.AddDominioCore(_configuration.GetSection("ConfiguracoesEmail"));
             services.AddPersistencia();
             services.AddDominio();
 
@@ -67,7 +63,6 @@ namespace SGH.APi
                            .AllowCredentials();
                 })
            );
-
 
             services.Configure<MvcOptions>(options =>
             {

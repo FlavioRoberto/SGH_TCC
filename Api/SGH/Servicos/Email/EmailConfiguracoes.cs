@@ -1,6 +1,6 @@
 ﻿namespace SGH.Dominio.Core.Email
 {
-    public class EmailSettings
+    public class EmailConfiguracoes
     {
         public string Dominio { get; set; }
         public int Porta { get; set; }

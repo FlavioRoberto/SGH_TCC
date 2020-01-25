@@ -29,7 +29,7 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Atualizar
 
             var usuario = new Usuario
             {
-                Codigo = request.Codigo,
+                Codigo = request.Codigo ?? 0,
                 Ativo = request.Ativo,
                 Email = request.Email,
                 Foto = request.Foto,

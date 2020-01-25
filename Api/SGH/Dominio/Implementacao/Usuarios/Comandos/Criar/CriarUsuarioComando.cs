@@ -7,7 +7,7 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Criar
 {
     public class CriarUsuarioComando : IRequest<Resposta<Usuario>>, IUsuarioComando
     {
-        public int Codigo { get; set; }
+        public int? Codigo { get; set; }
         public string Nome { get; set; }
         public string Telefone { get; set; }
         public string Senha { get; set; }
@@ -16,6 +16,5 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Criar
         public bool Ativo { get; set; }
         public string Email { get; set; }
         public string Login { get; set; }
-
     }
 }

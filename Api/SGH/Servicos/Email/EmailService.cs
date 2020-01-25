@@ -8,18 +8,18 @@ namespace SGH.Dominio.Core.Email
 {
     public class EmailService : IEmailService
     {
-        public EmailService(IOptions<EmailSettings> emailSettings)
+        public EmailService(IOptions<EmailConfiguracoes> configuracoes)
         {
-            _emailSettings = emailSettings.Value;
+            _configuracoes = configuracoes.Value;
         }
 
-        public EmailSettings _emailSettings { get; }
+        public EmailConfiguracoes _configuracoes { get; }
 
-        public Task SendEmailAsync(string email, string subject, string message)
+        public Task Enviar(string email, string assunto, string mensagem)
         {
             try
             {
-                Execute(email, subject, message);
+                Executar(email, assunto, mensagem);
                 return Task.FromResult(0);
             }
             catch (Exception ex)
@@ -28,18 +28,17 @@ namespace SGH.Dominio.Core.Email
             }
         }
 
-        public void Execute(string toEmail, string subject, string message)
+        public void Executar(string toEmail, string subject, string message)
         {
             try
             {
-
                 MailMessage mail = new MailMessage()
                 {
-                    From = new MailAddress(_emailSettings.Email, "SGH - UEMG")
+                    From = new MailAddress(_configuracoes.Email, "SGH - UEMG")
                 };
 
                 mail.To.Add(new MailAddress(toEmail));
-                mail.Bcc.Add(new MailAddress(_emailSettings.CcoEmail));
+                mail.Bcc.Add(new MailAddress(_configuracoes.CcoEmail));
 
                 mail.Subject = "SGH - " + subject;
                 mail.Body = message;
@@ -50,10 +49,10 @@ namespace SGH.Dominio.Core.Email
                 //mail.Attachments.Add(new Attachment(arquivo));
                 //
 
-                using (SmtpClient smtp = new SmtpClient(_emailSettings.Dominio, _emailSettings.Porta))
+                using (SmtpClient smtp = new SmtpClient(_configuracoes.Dominio, _configuracoes.Porta))
                 {
                     smtp.UseDefaultCredentials = false;
-                    smtp.Credentials = new NetworkCredential(_emailSettings.Email, _emailSettings.Senha);
+                    smtp.Credentials = new NetworkCredential(_configuracoes.Email, _configuracoes.Senha);
                     smtp.EnableSsl = true;
                     smtp.Send(mail);
                 }

@@ -7,7 +7,7 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Atualizar
 {
     public class AtualizarUsuarioComando : IUsuarioComando, IRequest<Resposta<Usuario>>
     {
-        public int Codigo { get; set; }
+        public int? Codigo { get; set; }
         public string Nome { get; set; }
         public string Telefone { get; set; }
         public string Senha { get; set; }

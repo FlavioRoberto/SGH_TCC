@@ -4,6 +4,6 @@ namespace SGH.Dominio.Core.Email
 {
     public interface IEmailService
     {
-        Task SendEmailAsync(string email, string subject, string message);
+        Task Enviar(string email, string assunto, string mensagem);
     }
 }
