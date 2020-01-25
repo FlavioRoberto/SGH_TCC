@@ -15,6 +15,7 @@ using SGH.Dominio.Implementacao.Professores.Comandos.Criar;
 using SGH.Dominio.Implementacao.Professores.Comandos.Remover;
 using SGH.Dominio.Implementacao.Turnos.Comandos.Atualizar;
 using SGH.Dominio.Implementacao.Turnos.Comandos.Remover;
+using SGH.Dominio.Implementacao.Usuarios.Comandos.Atualizar;
 using SGH.Dominio.Implementacao.Usuarios.Comandos.Criar;
 using SGH.Dominio.Implementacao.Usuarios.Comandos.Remover;
 
@@ -28,6 +29,7 @@ namespace SGH.Dominio.Extensions
             services.AddScoped<IAtualizarSenhaComandoValidador, AtualizarSenhaComandoValidador>();
             services.AddScoped<IAtualizarCurriculoComandoValidador, AtualizarCurriculoComandoValidador>();
             services.AddScoped<ICriarUsuarioComandoValidador, CriarUsuarioComandoValidador>();
+            services.AddScoped<IAtualizarUsuarioComandoValidador, AtualizarUsuarioComandoValidador>();            
             services.AddScoped<IListarDisciplinaCurriculoConsultaValidador, ListarDisciplinaCurriculoConsultaValidador>();
             services.AddScoped<ILoginComandoValidator, LoginComandoValidator>();
             services.AddScoped<IRedefinirSenhaComandoValidador, RedefinirSenhaComandoValidador>();

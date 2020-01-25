@@ -1,6 +1,5 @@
 ﻿using MediatR;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 using System.Collections.Generic;
 using System.Threading;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Implementacao.DIsciplinasTipoServico.Consultas.ListarTodos
 {
-    public class ListarTodosDisciplinaTipoConsultaHandler : IRequestHandler<ListarTodosDisciplinaTipoConsulta, Resposta<List<DisciplinaTipo>>>
+    public class ListarTodosDisciplinaTipoConsultaHandler : IRequestHandler<ListarTodosDisciplinaTipoConsulta, List<DisciplinaTipo>>
     {
 
         private readonly IDisciplinaTipoRepositorio _repositorio;
@@ -18,10 +17,9 @@ namespace SGH.Dominio.Implementacao.DIsciplinasTipoServico.Consultas.ListarTodos
             _repositorio = repositorio;
         }
 
-        public async Task<Resposta<List<DisciplinaTipo>>> Handle(ListarTodosDisciplinaTipoConsulta request, CancellationToken cancellationToken)
+        public async Task<List<DisciplinaTipo>> Handle(ListarTodosDisciplinaTipoConsulta request, CancellationToken cancellationToken)
         {
-            var resultado = await _repositorio.ListarTodos();
-            return new Resposta<List<DisciplinaTipo>>(resultado);
+            return await _repositorio.ListarTodos();
         }
     }
 }

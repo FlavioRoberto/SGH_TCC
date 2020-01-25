@@ -23,7 +23,7 @@ namespace SGH.Dominio.Implementacao.Professores.Comandos.Remover
         {
             var erros = _validador.Validar(request);
 
-            if (string.IsNullOrEmpty(erros))
+            if (!string.IsNullOrEmpty(erros))
                 return new Resposta<bool>(erros);
 
             var resultado = await _repositorio.Remover(lnq => lnq.Codigo == request.ProfessorId);

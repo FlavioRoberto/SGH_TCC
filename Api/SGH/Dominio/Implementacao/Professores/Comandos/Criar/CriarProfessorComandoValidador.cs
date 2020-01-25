@@ -15,8 +15,8 @@ namespace SGH.Dominio.Implementacao.Professores.Comandos.Criar
 
         private async Task<bool> ValidarMatriculaExistente(string matricula, CancellationToken cancellationToken)
         {
-            var resultado = await _repositorio.Listar(lnq => lnq.Matricula == matricula);
-            return resultado.Count > 0;
+            var contemMatricula = await _repositorio.Contem(lnq => lnq.Matricula == matricula);
+            return !contemMatricula;
         }
     }
 }

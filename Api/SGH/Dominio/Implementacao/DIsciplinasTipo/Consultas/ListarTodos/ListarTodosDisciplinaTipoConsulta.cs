@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SGH.Dominio.Implementacao.DIsciplinasTipoServico.Consultas.ListarTodos
 {
-    public class ListarTodosDisciplinaTipoConsulta : IRequest<Resposta<List<DisciplinaTipo>>>
+    public class ListarTodosDisciplinaTipoConsulta : IRequest<List<DisciplinaTipo>>
     {
     }
 }
