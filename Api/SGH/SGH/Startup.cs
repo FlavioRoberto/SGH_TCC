@@ -110,6 +110,10 @@ namespace SGH.APi
                  config.Filters.Add(new AuthorizeFilter(policy));
                  config.Filters.Add(typeof(FiltroExcecaoAtributo));
              })
+             .AddJsonOptions(options =>
+             {
+                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+             })
              .AddFluentValidation(configuration => configuration.RegisterValidatorsFromAssemblyContaining<Startup>())
              .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 

@@ -58,9 +58,6 @@ namespace SGH.Api.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
-                    return BadRequest("Dados informados inválidos!");
-
                 var resultado = await _mediator.Send(comando);
 
                 if (resultado.TemErro())
