@@ -12,14 +12,18 @@ namespace SGH.Dominio.Implementacao.Curriculos.Comandos
         public virtual IEnumerable<CurriculoDisciplina> Disciplinas { get; set; }
         public virtual Curriculo ConverterParaCurriculo()
         {
-            return new Curriculo
+            var curriculo = new Curriculo
             {
                 Ano = Ano,
-                Codigo = Codigo.Value,
                 CodigoCurso = CodigoCurso,
                 Curso = Curso,
                 Disciplinas = Disciplinas
             };
+
+            if (Codigo.HasValue)
+                curriculo.Codigo = Codigo.Value;
+
+            return curriculo;
         }
     }
 }

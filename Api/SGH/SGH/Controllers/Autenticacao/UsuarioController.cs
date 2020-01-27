@@ -66,7 +66,7 @@ namespace Api.Controllers.Autenticacao
             }
             catch (Exception e)
             {
-                return BadRequest(e);
+                return BadRequest(e.Message);
             }
         }
 

@@ -28,14 +28,15 @@ namespace SGH.Dominio.Implementacao.Autenticacao.Comandos.RedefinirSenha
 
         public async Task<Resposta<string>> Handle(RedefinirSenhaComando request, CancellationToken cancellationToken)
         {
-            var email = request.Email;
-            var usuario = await _repositorio.Consultar(lnq => lnq.Email.Equals(email));
 
             var erros = _validador.Validar(request);
 
             if (!string.IsNullOrEmpty(erros))
                 return new Resposta<string>(null, erros);
 
+            var email = request.Email;
+            var usuario = await _repositorio.Consultar(lnq => lnq.Email.Equals(email));
+            
             string senha = SenhaHelper.Gerar();
             usuario.Senha = senha.ToMD5();
             await _repositorio.Atualizar(usuario);
