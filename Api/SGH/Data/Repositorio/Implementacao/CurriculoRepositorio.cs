@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Data.Repositorio.Helpers;
-using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Contexto;
 using System;
@@ -12,19 +11,14 @@ using System.Threading.Tasks;
 
 namespace SGH.Data.Repositorio.Implementacao
 {
-    public class CurriculoRepositorio : ICurriculoRepositorio
+    public class CurriculoRepositorio : RepositorioBase<Curriculo>, ICurriculoRepositorio
     {
 
-        IContexto _contexto;
-
-        public CurriculoRepositorio(IContexto contexto)
+        public CurriculoRepositorio(IContexto contexto) : base(contexto)
         {
-            _contexto = contexto;
         }
 
-        public DbSet<Curriculo> DbSet => _contexto.Curriculo;
-
-        public async Task<Curriculo> Atualizar(Curriculo entidade)
+        public override async Task<Curriculo> Atualizar(Curriculo entidade)
         {
             try
             {
@@ -80,16 +74,10 @@ namespace SGH.Data.Repositorio.Implementacao
             }
         }
 
-        public async Task<Curriculo> Criar(Curriculo entidade)
+        public override async Task<Curriculo> Criar(Curriculo entidade)
         {
             try
             {
-                var curriculoExistente = _contexto.Curriculo.FirstOrDefault(lnq => lnq.Ano == entidade.Ano
-                                                               && lnq.CodigoCurso == entidade.CodigoCurso) != null;
-
-                if (curriculoExistente)
-                    throw new Exception("Já existe um currículo cadastrado com os dados informados!");
-
                 Curriculo curriculo = new Curriculo
                 {
                     Codigo = entidade.Codigo,
@@ -130,7 +118,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
                 });
 
-                var retorno = DbSet
+                var retorno = _contexto.Curriculo
                                 .Include(lnq => lnq.Curso)
                                 .Include(lnq => lnq.Disciplinas)
                                 .ThenInclude(ce => ce.Disciplina)
@@ -149,9 +137,9 @@ namespace SGH.Data.Repositorio.Implementacao
             }
         }
 
-        public async Task<Curriculo> Consultar(Expression<Func<Curriculo, bool>> query)
+        public override async Task<Curriculo> Consultar(Expression<Func<Curriculo, bool>> query)
         {
-            return await DbSet.Include(lnq => lnq.Curso).Where(query).AsNoTracking().FirstOrDefaultAsync();
+            return await _contexto.Curriculo.Include(lnq => lnq.Curso).Where(query).AsNoTracking().FirstOrDefaultAsync();
         }
 
         public async Task<List<CurriculoDisciplina>> ListarDisciplinas(int codigoCurriculo)
@@ -159,9 +147,9 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _contexto.CurriculoDisciplina.Include(lnq=>lnq.Disciplina).Where(lnq => lnq.CodigoCurriculo == codigoCurriculo).AsNoTracking().ToListAsync();
         }
 
-        public async Task<List<Curriculo>> Listar(Expression<Func<Curriculo, bool>> query)
+        public override async Task<List<Curriculo>> Listar(Expression<Func<Curriculo, bool>> query)
         {
-            return await DbSet.Include(lnq => lnq.Curso).Where(query).AsNoTracking().ToListAsync();
+            return await _contexto.Curriculo.Include(lnq => lnq.Curso).Where(query).AsNoTracking().ToListAsync();
         }
 
         public async Task<Paginacao<Curriculo>> ListarPorPaginacao(Paginacao<Curriculo> entidadePaginada)
@@ -191,43 +179,10 @@ namespace SGH.Data.Repositorio.Implementacao
 
             return await PaginacaoHelper<Curriculo>.Paginar(entidadePaginada, query);
         }
-
-        public async Task<List<Curriculo>> ListarTodos()
-        {
-            return await DbSet.Include(lnq => lnq.Curso).AsNoTracking().ToListAsync();
-        }
-
-        public async Task<bool> Remover(Expression<Func<Curriculo, bool>> query)
-        {
-            try
-            {
-                var item = await DbSet.FirstOrDefaultAsync(query);
-
-                if (item != null)
-                {
-                    DbSet.Remove(item);
-                    await _contexto.SaveChangesAsync();
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
-        }
-
+                
         public async Task<int> RetornarQuantidadeDisciplinaCurriculo(int codigoCurriculo)
         {
             return await _contexto.CurriculoDisciplina.CountAsync(lnq => lnq.CodigoCurriculo == codigoCurriculo);
-        }
-
-        public async Task<bool> Contem(Expression<Func<Curriculo, bool>> expressao)
-        {
-            return await _contexto.Curriculo.AnyAsync(expressao);
         }
     }
 }
