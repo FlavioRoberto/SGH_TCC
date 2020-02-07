@@ -17,11 +17,11 @@ using Xunit;
 namespace SGH.TestesDeUnidade
 {
     [Collection(nameof(UsuarioCollection))]
-    public class UsuarioTests
+    public class CriarUsuarioComandoTests
     {
         readonly UsuarioTestsFixture _usuarioTestsFixture;
 
-        public UsuarioTests(UsuarioTestsFixture usuarioTestsFixture)
+        public CriarUsuarioComandoTests(UsuarioTestsFixture usuarioTestsFixture)
         {
             _usuarioTestsFixture = usuarioTestsFixture;
         }
@@ -32,18 +32,7 @@ namespace SGH.TestesDeUnidade
         {
             var usuario = _usuarioTestsFixture.GerarUsuarioValido();
 
-            var comando = new CriarUsuarioComando
-            {
-                Ativo = usuario.Ativo,
-                Codigo = usuario.Codigo,
-                Email = usuario.Email,
-                Foto = usuario.Foto,
-                Login = usuario.Login,
-                Nome = usuario.Nome,
-                PerfilCodigo = usuario.PerfilCodigo,
-                Senha = usuario.Senha,
-                Telefone = usuario.Telefone
-            };
+            var comando = GerarUsuarioComando(usuario);
 
             var mocker = new AutoMocker();
 
@@ -75,18 +64,7 @@ namespace SGH.TestesDeUnidade
         {
             var usuario = _usuarioTestsFixture.GerarUsuarioInvalido();
 
-            var comando = new CriarUsuarioComando
-            {
-                Ativo = usuario.Ativo,
-                Codigo = usuario.Codigo,
-                Email = usuario.Email,
-                Foto = usuario.Foto,
-                Login = usuario.Login,
-                Nome = usuario.Nome,
-                PerfilCodigo = usuario.PerfilCodigo,
-                Senha = usuario.Senha,
-                Telefone = usuario.Telefone
-            };
+            var comando = GerarUsuarioComando(usuario);
 
             var repositorioMock = new Mock<IUsuarioRepositorio>();
 
@@ -113,6 +91,21 @@ namespace SGH.TestesDeUnidade
 
         }
 
+        private CriarUsuarioComando GerarUsuarioComando(Usuario usuario)
+        {
+            return new CriarUsuarioComando
+            {
+                Ativo = usuario.Ativo,
+                Codigo = usuario.Codigo,
+                Email = usuario.Email,
+                Foto = usuario.Foto,
+                Login = usuario.Login,
+                Nome = usuario.Nome,
+                PerfilCodigo = usuario.PerfilCodigo,
+                Senha = usuario.Senha,
+                Telefone = usuario.Telefone
+            };
+        }
 
     }
 }
