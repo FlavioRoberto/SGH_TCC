@@ -1,5 +1,4 @@
 ﻿using FluentValidation.Results;
-using Microsoft.VisualStudio.TestPlatform.PlatformAbstractions.Interfaces;
 using Moq;
 using Moq.AutoMock;
 using SGH.Data.Repositorio.Contratos;
@@ -26,7 +25,7 @@ namespace SGH.TestesDeUnidade
             _usuarioTestsFixture = usuarioTestsFixture;
         }
      
-        [Fact(DisplayName = "Usuário - Deve cadastrar o usuário válido")]
+        [Fact(DisplayName = "Criar usuário - Deve cadastrar o usuário válido")]
         [Trait("Categoria", "Usuário")]
         public async Task Usuario_Criar_CadastrarUsuarioValido()
         {
@@ -58,7 +57,7 @@ namespace SGH.TestesDeUnidade
 
         }
 
-        [Fact(DisplayName = "Usuário - Deve cadastrar o usuário inválido")]
+        [Fact(DisplayName = "Criar usuário - Deve cadastrar o usuário inválido")]
         [Trait("Categoria", "Usuário")]
         public async Task Usuario_Criar_CadastrarUsuarioInvalido()
         {
