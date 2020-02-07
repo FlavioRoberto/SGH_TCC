@@ -1,7 +1,5 @@
 ﻿using Moq;
-using Moq.AutoMock;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Data.Repositorio.Implementacao;
 using SGH.Dominio.Core.Extensions;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Implementacao.Usuarios.Comandos.Atualizar;
@@ -62,7 +60,7 @@ namespace SGH.TestesDeUnidade
 
         }
 
-        [Fact(DisplayName = "Atualizar usuário - Deve atualizar o usuário inválido.")]
+        [Fact(DisplayName = "Atualizar usuário - Deve atualizar o usuário código não encontrado.")]
         [Trait("Categoria", "Usuário")]
         public async Task Usuario_Atualizar_AtualizarUsuarioInvalido()
         {
