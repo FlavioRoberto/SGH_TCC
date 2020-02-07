@@ -161,6 +161,15 @@ namespace SGH.APi
                    PerfilCodigo = 1,
                    Senha = "admin".ToMD5(),
                    Telefone = "3732153995"
+                },
+                 new Usuario {
+                   Ativo = false,
+                   Email = "inativo@email.com",
+                   Login = "inativo",
+                   Nome = "Inativo",
+                   PerfilCodigo = 1,
+                   Senha = "inativo".ToMD5(),
+                   Telefone = "3732153995"
                 }
             };
 

@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using SGH.APi;
+using SGH.Dominio.Core.Extensions;
 using SGH.Dominio.Implementacao.Autenticacao.Comandos.Login;
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
@@ -68,6 +70,15 @@ namespace SGH.TestesDeIntegracao.Config
             var token = await resultado.Content.ReadAsStringAsync();
 
             return token;
+        }
+
+        internal async Task TestarRequisicaoInvalida(HttpResponseMessage response, string mensagemErro)
+        {
+            var responseString = await response.Content.ReadAsStringAsync();
+
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+
+            Assert.Equal(mensagemErro.RemoverEspacosVazios(), responseString.RemoverEspacosVazios());
         }
     }
 }

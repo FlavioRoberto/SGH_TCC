@@ -20,7 +20,11 @@ namespace SGH.Dominio.Implementacao.Autenticacao.Comandos.Login
 
             RuleFor(rule => rule.Login).NotEmpty().WithMessage("O campo de login não pode ser vazio.");
             RuleFor(rule => rule.Senha).NotEmpty().WithMessage("O campo de senha não pode ser vazio.");
-            RuleFor(rule => rule).MustAsync(ValidarAutenticacao).WithMessage("Usuário e/ou senha inválidos!");
+
+            When(lnq => !string.IsNullOrEmpty(lnq.Login) && !string.IsNullOrEmpty(lnq.Senha), () =>
+            {
+                RuleFor(rule => rule).MustAsync(ValidarAutenticacao).WithMessage("Usuário e/ou senha inválidos!");
+            });
 
             When(lnq => _usuario != null, () =>
             {
