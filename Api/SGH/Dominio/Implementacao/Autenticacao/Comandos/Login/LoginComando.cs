@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using SGH.Dominio.Core;
+using System.ComponentModel.DataAnnotations;
 
 namespace SGH.Dominio.Implementacao.Autenticacao.Comandos.Login
 {

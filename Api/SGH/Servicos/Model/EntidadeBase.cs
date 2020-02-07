@@ -1,4 +1,6 @@
-﻿namespace SGH.Dominio.Core.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace SGH.Dominio.Core.Model
 {
     public abstract class EntidadeBase
     {

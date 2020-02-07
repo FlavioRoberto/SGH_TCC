@@ -12,6 +12,11 @@ namespace SGH.Dominio.Core.Extensions
             return value.ToLower().Trim().Equals(campoComparar.Trim().ToLower());
         }
 
+        public static string RemoverEspacosVazios(this string value)
+        {
+            return value.Replace(" ", "").Replace(Environment.NewLine, "");
+        }
+
         public static int ToInt(this string value)
         {
             try

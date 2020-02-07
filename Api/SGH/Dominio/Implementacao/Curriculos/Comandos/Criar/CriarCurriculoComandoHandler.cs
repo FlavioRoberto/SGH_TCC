@@ -11,8 +11,8 @@ namespace SGH.Dominio.Implementacao.Curriculos.Comandos.Criar
 {
     public class CriarCurriculoComandoHandler : IRequestHandler<CriarCurriculoComando, Resposta<Curriculo>>
     {
-        private ICurriculoRepositorio _repositorio;
-        private ICriarCurriculoComandoValidador _validador;
+        private readonly ICurriculoRepositorio _repositorio;
+        private readonly ICriarCurriculoComandoValidador _validador;
 
         public CriarCurriculoComandoHandler(ICurriculoRepositorio repositorio, ICriarCurriculoComandoValidador validador)
         {

@@ -16,7 +16,7 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Criar
         private readonly IUsuarioRepositorio _repositorio;
         private readonly ICriarUsuarioComandoValidador _validador;
         private readonly IEmailService _emailService;
-
+               
         public CriarUsuarioComandoHandler(IUsuarioRepositorio repositorio, ICriarUsuarioComandoValidador validador, IEmailService emailService)
         {
             _repositorio = repositorio;
@@ -43,19 +43,37 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Criar
             };
 
             string senha = SenhaHelper.Gerar();
+
             usuario.Senha = senha.ToMD5();
 
-           var mensagem = $@"Seu cadastro no SGH foi realizado com sucesso! <br>
-                                Usuário: {usuario.Login}<br>
-                                Senha: {senha}<br>
-                                click <a>aqui</a> para acessar o sistema.";
-
-            await _emailService.Enviar(usuario.Email, "Cadastro de novo usuário no SGH", mensagem);
+            await EnviarEmailConfirmacaoCadastro(usuario);
 
             var usuarioCadastrado = await _repositorio.Criar(usuario);
 
             return new Resposta<Usuario>(usuarioCadastrado);
 
+        }
+
+        public async Task EnviarEmailConfirmacaoCadastro(Usuario usuario)
+        {
+            var mensagem = GerarEmailMensagem(usuario.Login, usuario.Senha);
+
+            var assunto = GerarEmailAssunto();
+
+            await _emailService.Enviar(usuario.Email, assunto, mensagem);
+        }
+
+        public string GerarEmailAssunto()
+        {
+            return "Cadastro de novo usuário no SGH";
+        }
+
+        public string GerarEmailMensagem(string login, string senha)
+        {
+            return $@"Seu cadastro no SGH foi realizado com sucesso! <br>
+                                Usuário: {login}<br>
+                                Senha: {senha}<br>
+                                click <a>aqui</a> para acessar o sistema.";
         }
     }
 }

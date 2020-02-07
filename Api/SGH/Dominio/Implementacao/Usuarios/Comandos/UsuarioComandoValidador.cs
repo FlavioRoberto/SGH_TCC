@@ -18,8 +18,8 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos
             RuleFor(lnq => lnq.Login).NotEmpty().WithMessage("O campo de login não pode ser vazio.");
             RuleFor(lnq => lnq.Nome).NotEmpty().WithMessage("O campo de nome não pode ser vazio.");
             RuleFor(lnq => lnq.PerfilCodigo).NotEmpty().WithMessage("O campo de perfil não pode ser vazio.");
-            RuleFor(lnq => lnq).MustAsync(ValidarUsuarioComMesmoEmail).WithMessage(comando => $"Já existe um usuário cadastrado com o e-mail {comando.Email}");
-            RuleFor(lnq => lnq).MustAsync(ValidarUsuarioComMesmoLogin).WithMessage(comando => $"Já existe um usuário cadastrado com o login {comando.Login}");
+            RuleFor(lnq => lnq).MustAsync(ValidarUsuarioComMesmoEmail).WithMessage(comando => $"Já existe um usuário cadastrado com o e-mail {comando.Email}.");
+            RuleFor(lnq => lnq).MustAsync(ValidarUsuarioComMesmoLogin).WithMessage(comando => $"Já existe um usuário cadastrado com o login {comando.Login}.");
         }
 
         protected async Task<bool> ValidarUsuarioComMesmoEmail(T comando, CancellationToken cancellationToken)
@@ -40,8 +40,8 @@ namespace SGH.Dominio.Implementacao.Usuarios.Comandos
 
         protected async Task<bool> ValidarUsuarioComMesmoLogin(T comando, CancellationToken cancellationToken)
         {
-            var msmLogin = await _repositorio.Consultar(lnq => lnq.Login.IgualA(comando.Login)
-                                 && comando.Codigo != lnq.Codigo) != null;
+            var msmLogin = await _repositorio.Contem(lnq => lnq.Login.IgualA(comando.Login)
+                                 && comando.Codigo != lnq.Codigo);
 
             if (msmLogin)
                 return false;
