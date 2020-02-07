@@ -1,7 +1,5 @@
 ﻿using Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha;
 using Microsoft.Extensions.DependencyInjection;
-using SGH.Data.Repositorio.Contratos;
-using SGH.Data.Repositorio.Implementacao;
 using SGH.Dominio.Contratos;
 using SGH.Dominio.Implementacao;
 using SGH.Dominio.Implementacao.Autenticacao.Comandos.Login;
