@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using FluentAssertions;
+using Moq;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Extensions;
 using SGH.Dominio.Core.Model;
@@ -87,10 +88,10 @@ namespace SGH.TestesDeUnidade
             var handler = new AtualizarUsuarioComandoHandler(repositorioMock.Object, validadorMock);
 
             var resultado = await handler.Handle(comando, CancellationToken.None);
-            
-            Assert.True(resultado.TemErro());
 
-            Assert.Equal(mensagem.RemoverEspacosVazios(), resultado.GetErros().RemoverEspacosVazios());
+            resultado.TemErro().Should().BeTrue();
+
+            resultado.GetErros().RemoverEspacosVazios().Should().BeEquivalentTo(mensagem.RemoverEspacosVazios());
         }
 
         private AtualizarUsuarioComando GerarUsuarioComando(Usuario usuario)

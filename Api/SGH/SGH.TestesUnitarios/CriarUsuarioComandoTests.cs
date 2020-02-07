@@ -1,4 +1,5 @@
-﻿using FluentValidation.Results;
+﻿using FluentAssertions;
+using FluentValidation.Results;
 using Moq;
 using Moq.AutoMock;
 using SGH.Data.Repositorio.Contratos;
@@ -52,9 +53,9 @@ namespace SGH.TestesDeUnidade
             mocker.GetMock<IUsuarioRepositorio>().Verify(c => c.Criar(It.IsAny<Usuario>()), Times.Once);
 
             mocker.GetMock<IEmailService>().Verify(c => c.Enviar(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
-            
-            Assert.NotNull(resultado);
 
+            resultado.Should().NotBeNull();
+            
         }
 
         [Fact(DisplayName = "Criar usuário - Deve cadastrar o usuário inválido")]
@@ -84,9 +85,9 @@ namespace SGH.TestesDeUnidade
                                  Já existe um usuário cadastrado com o e-mail {comando.Email}.
                                  Já existe um usuário cadastrado com o login {comando.Login}.";
 
-            Assert.True(resultado.TemErro());
+            resultado.TemErro().Should().BeTrue();
 
-            Assert.Equal(mensagemErro.RemoverEspacosVazios(), resultado.GetErros().RemoverEspacosVazios());
+            resultado.GetErros().RemoverEspacosVazios().Should().BeEquivalentTo(mensagemErro.RemoverEspacosVazios());
 
         }
 

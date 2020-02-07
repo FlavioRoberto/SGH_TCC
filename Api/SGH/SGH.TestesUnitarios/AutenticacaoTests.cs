@@ -1,4 +1,5 @@
-﻿using Moq;
+﻿using FluentAssertions;
+using Moq;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Implementacao.Autenticacao.Comandos.Login;
 using System.Linq;
@@ -50,7 +51,7 @@ namespace SGH.TestesDeUnidade
 
             var resultado = await handler.Handle(comando, CancellationToken.None);
 
-            Assert.False(resultado.TemErro());
+            resultado.TemErro().Should().BeFalse();
         }
     }
 }
