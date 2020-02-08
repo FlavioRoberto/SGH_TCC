@@ -2,15 +2,10 @@
 using Bogus.DataSets;
 using Newtonsoft.Json;
 using SGH.APi;
-using SGH.Dominio.Core.Extensions;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Implementacao.Autenticacao.Comandos.Login;
 using SGH.Dominio.Implementacao.Usuarios.Comandos.Criar;
 using SGH.TestesDeIntegracao.Config;
-using System;
-using System.Net;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 

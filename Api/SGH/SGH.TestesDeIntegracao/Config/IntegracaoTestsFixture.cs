@@ -16,7 +16,6 @@ namespace SGH.TestesDeIntegracao.Config
     [CollectionDefinition(nameof(IntegracaoWebTestsFixtureCollection))]
     public class IntegracaoWebTestsFixtureCollection : ICollectionFixture<IntegracaoTestsFixture<StartupTests>>
     {
-
     }
 
     public class IntegracaoTestsFixture<TStartup> : IDisposable where TStartup : class
