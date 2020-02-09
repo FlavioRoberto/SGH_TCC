@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using SGH.APi;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Enums;
+using SGH.Dominio.Core.Extensions;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Criar;
 using SGH.Dominio.ViewModel;
@@ -44,6 +45,8 @@ namespace SGH.TestesDeIntegracao
 
             comando.CodigoProfessor = 1;
 
+            comando.Numero = 2;
+
             var cargo = await RealizarRequisicaoCargo(HttpMethod.Post, comando);
 
             cargo.CodigoProfessor.Should().Be(1);
@@ -55,20 +58,27 @@ namespace SGH.TestesDeIntegracao
         [Fact(DisplayName = "Realizar cadastro de cargo inválido")]
         public async Task Cargo_RealizarCadastro_DeveRetornarMensagemCargoInvalido() {
 
+            var comando = new CriarCargoComando();
+            comando.CodigoProfessor = 999;
 
-            Assert.True(false);
+            var response = await _testsFixture.Client.PostAsync(GetRota("criar"), _testsFixture.GerarCorpoRequisicao(comando));
 
-            //validar se campos preenchidos
+            response.IsSuccessStatusCode.Should().Be(false);
 
-            //validar se professor existente
+            var mensagemErro = await response.Content.ReadAsStringAsync();
 
-            //validar se curriculo disciplina existente
+            var mensagemEsperada = $@"O campo ano é obrigatório.
+                                     O campo edital é obrigatório.
+                                     O campo número é obrigatório.
+                                     O campo semestre é obrigatório.
+                                     Para realizar o cadastro é necessário informar pelo menos uma disciplina.
+                                     Não foi encontrado um professor com o código {comando.CodigoProfessor}"
+                                   .RemoverEspacosVazios();
 
-            //validar se disciplinas maiores que 0
+            mensagemErro.RemoverEspacosVazios().Should().Be(mensagemEsperada);
 
+            //testar com disciplinas nao encontradas
             //validar se cargo existente para semestre, ano, edital e numero iguais
-
-            //Validar se disciplinas possuem codigo
         }
 
         private void VaidarCargo(Cargo cargo)
@@ -116,7 +126,7 @@ namespace SGH.TestesDeIntegracao
             return new CriarCargoComando
             {
                 Ano = DateTime.Now.Year,
-                Edital = 1,
+                Edital = 2,
                 Numero = 1,
                 Semestre = ESemestre.PRIMEIRO,
                 Disciplinas = disciplinas

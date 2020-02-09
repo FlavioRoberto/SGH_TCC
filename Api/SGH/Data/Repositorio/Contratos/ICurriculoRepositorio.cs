@@ -8,5 +8,6 @@ namespace SGH.Data.Repositorio.Contratos
     {
         Task<List<CurriculoDisciplina>> ListarDisciplinas(int curriculoId);
         Task<int> RetornarQuantidadeDisciplinaCurriculo(int codigoCurriculo);
+        Task<CurriculoDisciplina> ConsultarCurriculoDisciplina(int codigoCurriculoDisciplina);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Model;
 using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace SGH.Data.Repositorio.Implementacao
@@ -18,10 +19,16 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             return _repositorio.Criar(entidade);
         }
+      
+        public async Task<bool> Contem(Expression<Func<Cargo, bool>> expressao)
+        {
+            return await _repositorio.Contem(expressao);
+        }
 
         public Task<Paginacao<Cargo>> ListarPorPaginacao(Paginacao<Cargo> entidadePaginada)
         {
             throw new NotImplementedException();
         }
+
     }
 }

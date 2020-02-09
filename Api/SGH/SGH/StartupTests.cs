@@ -23,6 +23,7 @@ using SGH.Data.Extensios;
 using SGH.Dominio.Extensions;
 using SGH.Dominio.Core.Model;
 using System.Collections.Generic;
+using SGH.Dominio.Core.Enums;
 
 namespace SGH.APi
 {
@@ -175,6 +176,110 @@ namespace SGH.APi
 
             contexto.Usuario.AddRange(usuarios);
             contexto.SaveChanges();
+
+            var professores = new List<Professor>
+            {
+                new Professor
+                {
+                    Ativo = true,
+                    Email = "teste@gmail.com",
+                    Matricula = "1629675",
+                    Nome = "Teste",
+                    Telefone = "37991456665"
+                }
+            };
+
+            contexto.Professor.AddRange(professores);
+            contexto.SaveChanges();
+
+            var tiposDisciplinas = new List<DisciplinaTipo>
+            {
+                new DisciplinaTipo
+                {
+                    Descricao = "Eletiva"
+                },
+
+                new DisciplinaTipo
+                {
+                    Descricao = "Optativa"
+                }
+            };
+
+            contexto.DisciplinaTipo.AddRange(tiposDisciplinas);
+            contexto.SaveChanges();
+
+            var disciplinas = new List<Disciplina>
+            {
+                new Disciplina
+                {
+                    CodigoTipo = 1,
+                    Descricao = "Engenharia de software"
+                }
+            };
+
+            contexto.Disciplina.AddRange(disciplinas);
+            contexto.SaveChanges();
+
+            var cursos = new List<Curso>
+            {
+                new Curso
+                {
+                    Descricao = "Engenharia da computação"
+                }
+            };
+
+            contexto.Curso.AddRange(cursos);
+            contexto.SaveChanges();
+
+            var curriculos = new List<Curriculo>
+            {
+                new Curriculo
+                {
+                    Ano = DateTime.Now.Year,
+                    CodigoCurso = 1                   
+                }
+            };
+
+            contexto.Curriculo.AddRange(curriculos);
+            contexto.SaveChanges();
+
+            var disciplinasCurriculo = new List<CurriculoDisciplina>
+            {
+                new CurriculoDisciplina
+                {
+                    CodigoCurriculo = 1,
+                    CodigoDisciplina = 1
+                }
+            };
+
+            contexto.CurriculoDisciplina.AddRange(disciplinasCurriculo);
+            contexto.SaveChanges();
+
+            var cargos = new List<Cargo>
+            {
+                new Cargo
+                {
+                    Ano = DateTime.Now.Year,
+                    CodigoProfessor = 1,
+                    Edital = 1,
+                    Numero = 1,
+                    Semestre = ESemestre.PRIMEIRO
+                }
+            };
+
+            contexto.Cargo.AddRange(cargos);
+            contexto.SaveChanges();
+
+            var disciplinasCargo = new List<CargoDisciplina> {
+                 new CargoDisciplina
+                {
+                   CodigoCargo = 1,
+                   CodigoCurriculoDisciplina = 1
+                }
+            };
+
+            contexto.CargoDisciplina.AddRange(disciplinasCargo);
+            contexto.SaveChangesAsync();
         }
     }
 }

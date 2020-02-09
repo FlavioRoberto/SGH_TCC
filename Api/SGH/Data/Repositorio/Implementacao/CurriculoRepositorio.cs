@@ -184,5 +184,10 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             return await _contexto.CurriculoDisciplina.CountAsync(lnq => lnq.CodigoCurriculo == codigoCurriculo);
         }
+
+        public async Task<CurriculoDisciplina> ConsultarCurriculoDisciplina(int codigoCurriculoDisciplina)
+        {
+            return await _contexto.CurriculoDisciplina.FirstOrDefaultAsync(lnq => lnq.Codigo == codigoCurriculoDisciplina);
+        }
     }
 }

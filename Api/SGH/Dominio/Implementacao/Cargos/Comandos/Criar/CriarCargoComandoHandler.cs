@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Contratos;
 using SGH.Dominio.Core;
+using SGH.Dominio.Core.Extensions;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.ViewModel;
 using System.Collections.Generic;
@@ -13,15 +15,22 @@ namespace SGH.Dominio.Implementacao.Cargos.Comandos.Criar
     {
         private readonly ICargoRepositorio _repositorioCargo;
         private readonly ICargoDisciplinaRepositorio _repositorioCargoDisciplina;
+        private readonly ICriarCargoComandoValidador _validador;
 
-        public CriarCargoComandoHandler(ICargoRepositorio repositorio, ICargoDisciplinaRepositorio repositorioCargoDisciplina)
+        public CriarCargoComandoHandler(ICargoRepositorio repositorio, ICargoDisciplinaRepositorio repositorioCargoDisciplina, ICriarCargoComandoValidador validador)
         {
             _repositorioCargo = repositorio;
             _repositorioCargoDisciplina = repositorioCargoDisciplina;
+            _validador = validador;
         }
 
         public async Task<Resposta<CriarCargoComando>> Handle(CriarCargoComando request, CancellationToken cancellationToken)
         {
+            var erros = _validador.Validar(request);
+
+            if (!string.IsNullOrEmpty(erros))
+                return new Resposta<CriarCargoComando>(erros);
+
             var entidade = new Cargo
             {
                 Ano = request.Ano,
