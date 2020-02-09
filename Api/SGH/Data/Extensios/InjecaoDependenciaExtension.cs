@@ -21,6 +21,8 @@ namespace SGH.Data.Extensios
             services.AddScoped<IProfessorRepositorio, ProfessorRepositorio>();
             services.AddScoped<ICursoRepositorio, CursoRepositorio>();
             services.AddScoped<ITurnoRepositorio, TurnoRepositorio>();
+            services.AddScoped<IRepositorio<Cargo>, RepositorioBase<Cargo>>();
+            services.AddScoped<ICargoRepositorio, CargoRepositorio>();
 
             return services;
         }

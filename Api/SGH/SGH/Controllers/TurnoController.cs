@@ -2,16 +2,15 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SGH.APi.ViewModel;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
+using SGH.Dominio.ViewModel;
 using SGH.Dominio.Implementacao.Turnos.Comandos.Atualizar;
 using SGH.Dominio.Implementacao.Turnos.Comandos.Criar;
 using SGH.Dominio.Implementacao.Turnos.Comandos.Remover;
 using SGH.Dominio.Implementacao.Turnos.Consultas.ListarPaginacao;
 using SGH.Dominio.Implementacao.Turnos.Consultas.ListarTodos;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SGH.Api.Controllers

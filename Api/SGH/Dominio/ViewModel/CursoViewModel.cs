@@ -1,8 +1,6 @@
-﻿using Newtonsoft.Json;
-
-namespace SGH.APi.ViewModel
+﻿namespace SGH.Dominio.ViewModel
 {
-    public class TurnoViewModel
+    public class CursoViewModel
     {
         public int? Codigo { get; set; }
         public string Descricao { get; set; }

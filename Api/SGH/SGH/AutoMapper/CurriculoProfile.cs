@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using SGH.APi.ViewModel;
+using SGH.Dominio.ViewModel;
 using SGH.Dominio.Core.Model;
 
 namespace SGH.Api.AutoMapper

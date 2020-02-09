@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using SGH.Dominio.Core;
-using SGH.Dominio.Core.Model;
 
 namespace SGH.Data.Repositorio
 {

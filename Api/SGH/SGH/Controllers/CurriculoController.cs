@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SGH.APi.ViewModel;
+using SGH.Dominio.ViewModel;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Implementacao.Curriculos.Comandos.Atualizar;
 using SGH.Dominio.Implementacao.Curriculos.Comandos.Criar;
@@ -10,7 +10,6 @@ using SGH.Dominio.Implementacao.Curriculos.Comandos.Remover;
 using SGH.Dominio.Implementacao.Curriculos.Consultas.ListarDisciplinas;
 using SGH.Dominio.Implementacao.Curriculos.Consultas.ListarPaginacao;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SGH.Api.Controllers

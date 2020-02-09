@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Data.Repositorio.Implementacao
 {
-    public abstract class RepositorioBase<T> : IRepositorio<T> where T : class
+    public class RepositorioBase<T> : IRepositorio<T> where T : class
     {
         protected IContexto _contexto { get; private set; }
 
@@ -37,13 +37,12 @@ namespace SGH.Data.Repositorio.Implementacao
             {
                 _contexto.Set<T>().Add(entidade);
                 await _contexto.SaveChangesAsync();
+                return entidade;
             }
             catch (Exception e)
             {
                 throw e;
             }
-
-            return entidade;
         }
 
         public async virtual Task<T> Consultar(Expression<Func<T, bool>> query)

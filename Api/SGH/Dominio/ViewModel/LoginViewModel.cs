@@ -1,4 +1,4 @@
-﻿namespace SGH.APi.ViewModel
+﻿namespace SGH.Dominio.ViewModel
 {
     public class LoginViewModel
     {

@@ -46,7 +46,7 @@ namespace SGH.TestesDeUnidade
             var usuarios = new Faker<Usuario>("pt_BR");
 
             usuarios.RuleFor(lnq => lnq.Ativo, (f, u) => ativo);
-            usuarios.RuleFor(lnq => lnq.Codigo, (f, u) => f.Random.Number());
+            usuarios.RuleFor(lnq => lnq.Codigo, (f, u) => f.Random.Number(1, 100));
             usuarios.RuleFor(lnq => lnq.Nome, (f, u) => f.Name.FirstName(genero));
             usuarios.RuleFor(lnq => lnq.Email, (f, u) => f.Internet.Email(u.Nome));
             usuarios.RuleFor(lnq => lnq.Telefone, (f, u) => f.Phone.PhoneNumber());

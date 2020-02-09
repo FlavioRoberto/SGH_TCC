@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using MediatR;
-using SGH.APi.ViewModel;
+using SGH.Dominio.ViewModel;
 using SGH.Dominio.Core;
 using Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha;
 using SGH.Dominio.Core.Model;

@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Servicos\SGH.Dominio.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Implementacao\Cargos\Consultas\" />
+  </ItemGroup>
+
 </Project>

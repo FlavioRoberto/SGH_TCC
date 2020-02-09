@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using SGH.Dominio.Core;
-using SGH.APi.ViewModel;
+using SGH.Dominio.ViewModel;
 using MediatR;
 using AutoMapper;
 using SGH.Dominio.Implementacao.Professores.Consultas.ListarAtivos;

@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 
-namespace SGH.APi.ViewModel
+namespace SGH.Dominio.ViewModel
 {
     public class CurriculoViewModel
     {

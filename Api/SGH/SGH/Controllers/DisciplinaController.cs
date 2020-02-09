@@ -7,7 +7,7 @@ using SGH.Dominio.Implementacao.Disciplinas.Consultas.ListarTodas;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Implementacao.Disciplinas.Consultas.ListarPorDescricao;
-using SGH.APi.ViewModel;
+using SGH.Dominio.ViewModel;
 using SGH.Dominio.Implementacao.Disciplinas.Consultas.ListarPaginacao;
 using AutoMapper;
 using SGH.Dominio.Implementacao.Disciplinas.Comandos.Criar;

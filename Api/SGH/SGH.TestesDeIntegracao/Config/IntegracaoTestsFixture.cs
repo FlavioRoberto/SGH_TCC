@@ -18,7 +18,7 @@ namespace SGH.TestesDeIntegracao.Config
     {
     }
 
-    public class IntegracaoTestsFixture<TStartup> : IDisposable where TStartup : class
+    public class IntegracaoTestsFixture<TStartup>  where TStartup : class
     {
         public readonly AppFactory<TStartup> Factory;
         public HttpClient Client;
@@ -29,10 +29,10 @@ namespace SGH.TestesDeIntegracao.Config
             Client = GerarClient();
         }
 
-        public void Dispose()
+        internal async Task<T> RecuperarConteudoRequisicao<T>(HttpResponseMessage response)
         {
-            Client.Dispose();
-            Factory.Dispose();
+            var dados = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(dados);
         }
 
         private HttpClient GerarClient()

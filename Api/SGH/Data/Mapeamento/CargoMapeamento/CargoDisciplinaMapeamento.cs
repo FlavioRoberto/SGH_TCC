@@ -12,7 +12,7 @@ namespace SHG.Data.Mapeamento
 
         public override EntidadeMapeamento<CargoDisciplina> Map()
         {
-            builder.HasKey(lnq => new { lnq.CodigoCargo, lnq.CodigoCurriculoDisciplina });
+            builder.HasKey(lnq => lnq.Codigo);
 
             #region propriedades
 
@@ -26,14 +26,14 @@ namespace SHG.Data.Mapeamento
 
             #region relacionamentos
 
-            builder.HasOne(lnq => lnq.CurriculoDisciplina)
+            builder.HasOne(lnq => lnq.Disciplina)
             .WithMany(lnq => lnq.Cargos)
             .HasForeignKey(lnq => lnq.CodigoCurriculoDisciplina)
             .HasConstraintName("FK_Cargo_Disciplina");
 
             builder.HasOne(lnq => lnq.Cargo)
             .WithMany(lnq => lnq.Disciplinas)
-            .HasForeignKey(lnq => lnq.CodigoCargo)
+            .HasForeignKey(lnq => lnq.Codigo)
             .HasConstraintName("FK_Cargo");
 
             #endregion relacionamentos

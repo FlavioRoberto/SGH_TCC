@@ -1,6 +1,5 @@
 ﻿using Bogus;
 using Bogus.DataSets;
-using Newtonsoft.Json;
 using SGH.APi;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Implementacao.Autenticacao.Comandos.Login;
@@ -23,7 +22,7 @@ namespace SGH.TestesDeIntegracao
         
 
         [Fact(DisplayName = "Realizar login com sucesso")]
-        [Trait("Categoria", "Integração Api - Usuário")]
+        [Trait("Integração", "Usuário")]
         public async Task Usuario_RealizarCadastro_DeveRealizarLoginComSucesso()
         {
             var comando = new LoginComando
@@ -42,7 +41,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Fact(DisplayName = "Realizar login inválido")]
-        [Trait("Categoria", "Integração Api - Usuário")]
+        [Trait("Integração", "Usuário")]
         public async Task Usuario_RealizarCadastro_DeveRealizarLoginInválido()
         {
             var comando = new LoginComando();           
@@ -56,7 +55,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Fact(DisplayName = "Realizar login usuário ou senha inválidos")]
-        [Trait("Categoria", "Integração Api - Usuário")]
+        [Trait("Integração", "Usuário")]
         public async Task Usuario_RealizarCadastro_DeveRealizarLoginUsuarioOuSenhaInválido()
         {
             var comando = new LoginComando { 
@@ -72,7 +71,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Fact(DisplayName = "Realizar login usuário inativo")]
-        [Trait("Categoria", "Integração Api - Usuário")]
+        [Trait("Integração", "Usuário")]
         public async Task Usuario_RealizarCadastro_DeveRealizarLoginUsuarioInativo()
         {
             var comando = new LoginComando
@@ -89,7 +88,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Fact(DisplayName = "Realizar cadastro com sucesso")]
-        [Trait("Categoria", "Integração Api - Usuário")]
+        [Trait("Integração", "Usuário")]
         public async Task Usuario_RealizarCadastro_DeveExecutarComSucesso()
         {
 
@@ -97,18 +96,16 @@ namespace SGH.TestesDeIntegracao
 
             var response = await _testsFixture.Client.PostAsync("/api/usuario/criar", _testsFixture.GerarCorpoRequisicao(comando));
 
-            var responseString = await response.Content.ReadAsStringAsync();
-
             response.EnsureSuccessStatusCode();
 
-            var usuarioCadastrado = JsonConvert.DeserializeObject<Usuario>(responseString);
+            var usuarioCadastrado = await _testsFixture.RecuperarConteudoRequisicao<Usuario>(response);
 
             Assert.True(usuarioCadastrado.Codigo > 0);
 
         }
 
         [Fact(DisplayName = "Realizar cadastro usuário inválido")]
-        [Trait("Categoria", "Integração Api - Usuário")]
+        [Trait("Integração", "Usuário")]
         public async Task Usuario_RealizarCadastroSemEmail_DeveRetornarMensagemUsuarioInvalido()
         {
             var comando = new CriarUsuarioComando();
@@ -123,7 +120,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Fact(DisplayName = "Realizar cadastro usuário login já cadastrado")]
-        [Trait("Categoria", "Integração Api - Usuário")]
+        [Trait("Integração", "Usuário")]
         public async Task Usuario_RealizarCadastroSemEmail_DeveRetornarMensagemUsuarioLoginJaCadastrado()
         {
             var comando = GerarComando();
@@ -137,7 +134,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Fact(DisplayName = "Realizar cadastro usuário e-mail já cadastrado")]
-        [Trait("Categoria", "Integração Api - Usuário")]
+        [Trait("Integração", "Usuário")]
         public async Task Usuario_RealizarCadastroSemEmail_DeveRetornarMensagemUsuarioEmailJaCadastrado()
         {
             var comando = GerarComando();
