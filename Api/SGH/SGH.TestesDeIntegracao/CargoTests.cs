@@ -56,7 +56,8 @@ namespace SGH.TestesDeIntegracao
 
         [Trait("Integração", "Cargo")]
         [Fact(DisplayName = "Realizar cadastro de cargo inválido")]
-        public async Task Cargo_RealizarCadastro_DeveRetornarMensagemCargoInvalido() {
+        public async Task Cargo_RealizarCadastro_DeveRetornarMensagemCargoInvalido()
+        {
 
             var comando = new CriarCargoComando();
             comando.CodigoProfessor = 999;
@@ -77,8 +78,48 @@ namespace SGH.TestesDeIntegracao
 
             mensagemErro.RemoverEspacosVazios().Should().Be(mensagemEsperada);
 
-            //testar com disciplinas nao encontradas
-            //validar se cargo existente para semestre, ano, edital e numero iguais
+        }
+
+        [Trait("Integração", "Cargo")]
+        [Fact(DisplayName = "Realizar cadastro de cargo igual")]
+        public async Task Cargo_RealizarCadastro_DeveRetornarMensagemCargoIgual()
+        {
+            var comando = GerarComandoCargo();
+            comando.Edital = 1;
+
+            var response = await _testsFixture.Client.PostAsync(GetRota("criar"), _testsFixture.GerarCorpoRequisicao(comando));
+
+            var mensagemErro = await response.Content.ReadAsStringAsync();
+
+            var mensagemEsperada = $@"Já existe um cargo com os mesmos valores para os campos semestre, ano, edital e número."
+                                   .RemoverEspacosVazios();
+
+            mensagemErro.RemoverEspacosVazios().Should().Be(mensagemEsperada);
+        }
+
+        [Trait("Integração", "Cargo")]
+        [Fact(DisplayName = "Realizar cadastro de cargo com disciplina não cadastrada")]
+        public async Task Cargo_RealizarCadastro_DeveRetornarMensagemCargoDisciplinaNaoCadastrada()
+        {
+            var comando = GerarComandoCargo();
+            comando.Edital = 3;
+            comando.Disciplinas = new List<CargoDisciplinaViewModel>
+            {
+                new CargoDisciplinaViewModel
+                {
+                    CodigoCargo = 1,
+                    CodigoCurriculoDisciplina = 99
+                }
+            };
+
+            var response = await _testsFixture.Client.PostAsync(GetRota("criar"), _testsFixture.GerarCorpoRequisicao(comando));
+
+            var mensagemErro = await response.Content.ReadAsStringAsync();
+
+            var mensagemEsperada = $@"Currículo não encontrado para alguma disciplina informada."
+                                   .RemoverEspacosVazios();
+
+            mensagemErro.RemoverEspacosVazios().Should().Be(mensagemEsperada);
         }
 
         private void VaidarCargo(Cargo cargo)
@@ -97,7 +138,7 @@ namespace SGH.TestesDeIntegracao
 
             cargo.Disciplinas.Should().NotBeEmpty();
 
-            cargo.Disciplinas.Should().NotContain(lnq => lnq.Codigo <= 0 || lnq.CodigoCargo <= 0 || lnq.CodigoCurriculoDisciplina <= 0);        
+            cargo.Disciplinas.Should().NotContain(lnq => lnq.Codigo <= 0 || lnq.CodigoCargo <= 0 || lnq.CodigoCurriculoDisciplina <= 0);
         }
 
         private async Task<Cargo> RealizarRequisicaoCargo(HttpMethod metodoHttp, CriarCargoComando comando)
