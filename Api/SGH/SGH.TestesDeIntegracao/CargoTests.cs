@@ -87,8 +87,7 @@ namespace SGH.TestesDeIntegracao
 
             cargo.Disciplinas.Should().NotBeEmpty();
 
-            cargo.Disciplinas.Should().NotContain(lnq => lnq.Codigo <= 0 || lnq.CodigoCargo <= 0 || lnq.CodigoCurriculoDisciplina <= 0);
-            
+            cargo.Disciplinas.Should().NotContain(lnq => lnq.Codigo <= 0 || lnq.CodigoCargo <= 0 || lnq.CodigoCurriculoDisciplina <= 0);        
         }
 
         private async Task<Cargo> RealizarRequisicaoCargo(HttpMethod metodoHttp, CriarCargoComando comando)

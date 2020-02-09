@@ -3,7 +3,6 @@ using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.ViewModel;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,10 +12,12 @@ namespace SGH.Dominio.Implementacao.Cargos.Comandos.Criar
     public class CriarCargoComandoHandler : IRequestHandler<CriarCargoComando,Resposta<CriarCargoComando>>
     {
         private readonly ICargoRepositorio _repositorioCargo;
+        private readonly ICargoDisciplinaRepositorio _repositorioCargoDisciplina;
 
-        public CriarCargoComandoHandler(ICargoRepositorio repositorio)
+        public CriarCargoComandoHandler(ICargoRepositorio repositorio, ICargoDisciplinaRepositorio repositorioCargoDisciplina)
         {
             _repositorioCargo = repositorio;
+            _repositorioCargoDisciplina = repositorioCargoDisciplina;
         }
 
         public async Task<Resposta<CriarCargoComando>> Handle(CriarCargoComando request, CancellationToken cancellationToken)
@@ -53,7 +54,7 @@ namespace SGH.Dominio.Implementacao.Cargos.Comandos.Criar
                    CodigoCurriculoDisciplina = disciplina.CodigoCurriculoDisciplina.Value
                 };
 
-                await _repositorioCargo.CriarDisciplina(entidade);
+                await _repositorioCargoDisciplina.Criar(entidade);
 
                 disciplina.Codigo = entidade.Codigo;
 
