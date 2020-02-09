@@ -21,9 +21,8 @@ using SGH.Dominio.Core.Extensions;
 using SGH.Api.Filters;
 using SGH.Data.Extensios;
 using SGH.Dominio.Extensions;
-using SGH.Dominio.Core.Model;
-using System.Collections.Generic;
-using SGH.Dominio.Core.Enums;
+using SGH.Api.Testes.Factory;
+using SGH.Api.Testes.Factory.Contratos;
 
 namespace SGH.APi
 {
@@ -59,6 +58,19 @@ namespace SGH.APi
             services.AddDominioCore(_configuration.GetSection("ConfiguracoesEmail"));
             services.AddPersistencia();
             services.AddDominio();
+
+            #region FAKE_DB
+            services.AddScoped<IBancoTesteFactory, BancoTesteFactory>();
+            services.AddScoped<IUsuarioPerfilBancoTeste, UsuarioPerfilBancoTeste>();
+            services.AddScoped<IUsuarioBancoTeste, UsuarioBancoTeste>();
+            services.AddScoped<IProfessorBancoTeste, ProfessorBancoTeste>();
+            services.AddScoped<ITipoDisciplinaBancoTeste, TipoDisciplinaBancoTeste>();
+            services.AddScoped<IDisciplinaBancoTeste, DisciplinaBancoTeste>();
+            services.AddScoped<ICursoBancoTeste, CursoBancoTeste>();
+            services.AddScoped<ICurriculoBancoTeste, CurriculoBancoTeste>();
+            services.AddScoped<ICargoBancoTeste, CargoBancoTeste>();
+
+            #endregion
 
             services.AddCors(o =>
                 o.AddPolicy("MyPolicy", builder =>
@@ -130,156 +142,14 @@ namespace SGH.APi
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
-            var context = app.ApplicationServices.GetService<IContexto>();
-            AdicionarDadosTeste(context);
+            var factoryDb = app.ApplicationServices.GetService<IBancoTesteFactory>();
+            factoryDb.InicializarBanco();
 
             app.UseAuthentication();
             app.UseCors("MyPolicy");
             app.UseMvc();
         }
 
-        private static void AdicionarDadosTeste(IContexto contexto)
-        {
-            var perfis = new List<UsuarioPerfil>
-            {
-              new UsuarioPerfil
-              {
-                  Administrador = true,
-                  Descricao = "Administrador"
-              }
-            };
-
-            contexto.UsuarioPerfil.AddRange(perfis);
-            contexto.SaveChanges();
-
-            var usuarios = new List<Usuario>
-            {
-                new Usuario {
-                   Ativo = true,
-                   Email = "admin@gmail.com",
-                   Login = "admin",
-                   Nome = "administrador",
-                   PerfilCodigo = 1,
-                   Senha = "admin".ToMD5(),
-                   Telefone = "3732153995"
-                },
-                 new Usuario {
-                   Ativo = false,
-                   Email = "inativo@email.com",
-                   Login = "inativo",
-                   Nome = "Inativo",
-                   PerfilCodigo = 1,
-                   Senha = "inativo".ToMD5(),
-                   Telefone = "3732153995"
-                }
-            };
-
-            contexto.Usuario.AddRange(usuarios);
-            contexto.SaveChanges();
-
-            var professores = new List<Professor>
-            {
-                new Professor
-                {
-                    Ativo = true,
-                    Email = "teste@gmail.com",
-                    Matricula = "1629675",
-                    Nome = "Teste",
-                    Telefone = "37991456665"
-                }
-            };
-
-            contexto.Professor.AddRange(professores);
-            contexto.SaveChanges();
-
-            var tiposDisciplinas = new List<DisciplinaTipo>
-            {
-                new DisciplinaTipo
-                {
-                    Descricao = "Eletiva"
-                },
-
-                new DisciplinaTipo
-                {
-                    Descricao = "Optativa"
-                }
-            };
-
-            contexto.DisciplinaTipo.AddRange(tiposDisciplinas);
-            contexto.SaveChanges();
-
-            var disciplinas = new List<Disciplina>
-            {
-                new Disciplina
-                {
-                    CodigoTipo = 1,
-                    Descricao = "Engenharia de software"
-                }
-            };
-
-            contexto.Disciplina.AddRange(disciplinas);
-            contexto.SaveChanges();
-
-            var cursos = new List<Curso>
-            {
-                new Curso
-                {
-                    Descricao = "Engenharia da computação"
-                }
-            };
-
-            contexto.Curso.AddRange(cursos);
-            contexto.SaveChanges();
-
-            var curriculos = new List<Curriculo>
-            {
-                new Curriculo
-                {
-                    Ano = DateTime.Now.Year,
-                    CodigoCurso = 1                   
-                }
-            };
-
-            contexto.Curriculo.AddRange(curriculos);
-            contexto.SaveChanges();
-
-            var disciplinasCurriculo = new List<CurriculoDisciplina>
-            {
-                new CurriculoDisciplina
-                {
-                    CodigoCurriculo = 1,
-                    CodigoDisciplina = 1
-                }
-            };
-
-            contexto.CurriculoDisciplina.AddRange(disciplinasCurriculo);
-            contexto.SaveChanges();
-
-            var cargos = new List<Cargo>
-            {
-                new Cargo
-                {
-                    Ano = DateTime.Now.Year,
-                    CodigoProfessor = 1,
-                    Edital = 1,
-                    Numero = 1,
-                    Semestre = ESemestre.PRIMEIRO
-                }
-            };
-
-            contexto.Cargo.AddRange(cargos);
-            contexto.SaveChanges();
-
-            var disciplinasCargo = new List<CargoDisciplina> {
-                 new CargoDisciplina
-                {
-                   CodigoCargo = 1,
-                   CodigoCurriculoDisciplina = 1
-                }
-            };
-
-            contexto.CargoDisciplina.AddRange(disciplinasCargo);
-            contexto.SaveChangesAsync();
-        }
     }
+        
 }
