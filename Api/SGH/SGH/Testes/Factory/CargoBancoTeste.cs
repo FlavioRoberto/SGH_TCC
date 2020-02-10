@@ -28,6 +28,14 @@ namespace SGH.Api.Testes.Factory
                     Edital = 1,
                     Numero = 1,
                     Semestre = ESemestre.PRIMEIRO
+                },
+                new Cargo
+                {
+                    Ano = 2020,
+                    CodigoProfessor = 2,
+                    Edital = 2,
+                    Numero = 2,
+                    Semestre = ESemestre.SEGUNDO
                 }
             };
 
@@ -39,7 +47,17 @@ namespace SGH.Api.Testes.Factory
                 {
                    CodigoCargo = 1,
                    CodigoCurriculoDisciplina = 1
-                }
+                },
+                 new CargoDisciplina
+                 {
+                   CodigoCargo = 2,
+                   CodigoCurriculoDisciplina = 1
+                 },
+                  new CargoDisciplina
+                 {
+                   CodigoCargo = 2,
+                   CodigoCurriculoDisciplina = 2
+                 }
             };
 
             _contexto.CargoDisciplina.AddRange(disciplinasCargo);

@@ -13,6 +13,7 @@ using SGH.Dominio.ViewModel;
 using SGH.TestesDeIntegracao.Config;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -200,15 +201,97 @@ namespace SGH.TestesDeIntegracao
 
             var response = await RealizarRequisicaoCargo<Paginacao<Cargo>, Paginacao<CargoViewModel>>("listarPaginacao", HttpMethod.Post, consulta);
 
-            response.Total.Should().Be(1);
-
             response.Quantidade.Should().Be(1);
+
+            response.Posicao.Should().Be(1);
 
             response.Entidade.Should().NotBeNull();
 
             response.Entidade.Should().HaveCount(1);
 
             response.Entidade.Should().NotContain(lnq => lnq.Codigo <= 0);
+
+            response.Entidade.Should().Contain(lnq => lnq.Codigo == 1);
+
+        }
+
+        [Trait("Integração", "Cargo")]
+        [Fact(DisplayName = "Realizar consulta paginada de cargo sem dados encontrados")]
+        public async Task Cargo_RealizarExclusão_DeveConsultarPaginadoSemDadosEncontrados()
+        {
+            var consulta = new Paginacao<CargoViewModel>
+            {
+                Posicao = 1,
+                Quantidade = 1,
+                Total = 0,
+                Entidade = new List<CargoViewModel> { 
+                    new CargoViewModel
+                    {
+                        Codigo = 99
+                    }
+                }
+            };
+
+            var response = await RealizarRequisicaoCargo<Paginacao<Cargo>, Paginacao<CargoViewModel>>("listarPaginacao", HttpMethod.Post, consulta);
+
+            response.Quantidade.Should().Be(0);
+
+            response.Posicao.Should().Be(0);
+
+            response.Entidade.Should().NotBeNull();
+
+            response.Entidade.Should().HaveCount(0);
+
+        }
+
+        [Trait("Integração", "Cargo")]
+        [Fact(DisplayName = "Realizar consulta paginada de cargo com filtros")]
+        public async Task Cargo_RealizarExclusão_DeveConsultarPaginadoComFiltros()
+        {
+            var consulta = new Paginacao<CargoViewModel>
+            {
+                Posicao = 1,
+                Quantidade = 1,
+                Total = 0,
+                Entidade = new List<CargoViewModel> {
+                    new CargoViewModel
+                    {
+                        Codigo = 2,
+                        Ano = 2020,
+                        CodigoProfessor = 2,
+                        Edital = 2,
+                        Numero = 2,
+                        Semestre = ESemestre.SEGUNDO
+                    }
+                }
+            };
+
+            var response = await RealizarRequisicaoCargo<Paginacao<Cargo>, Paginacao<CargoViewModel>>("listarPaginacao", HttpMethod.Post, consulta);
+
+            response.Quantidade.Should().Be(1);
+
+            response.Posicao.Should().Be(1);
+
+            response.Entidade.Should().NotBeNull();
+
+            response.Entidade.Should().HaveCount(1);
+
+            response.Entidade.Should().NotContain(lnq => lnq.Codigo <= 0);
+
+            response.Entidade.Should().Contain(lnq => lnq.Codigo == 2);
+
+            response.Entidade.Should().Contain(lnq => lnq.CodigoProfessor == 2);
+
+            response.Entidade.Should().Contain(lnq => lnq.Edital == 2);
+            
+            response.Entidade.Should().Contain(lnq => lnq.Numero == 2);
+
+            response.Entidade.Should().Contain(lnq => lnq.Semestre == ESemestre.SEGUNDO);
+
+            response.Entidade.Should().Contain(lnq => lnq.Ano == 2020);
+
+            response.Entidade.Should().Contain(lnq => lnq.Disciplinas.Count() == 2);
+
 
         }
         #endregion
