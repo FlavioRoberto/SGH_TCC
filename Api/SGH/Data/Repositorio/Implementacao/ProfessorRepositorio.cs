@@ -16,7 +16,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<Paginacao<Professor>> ListarPorPaginacao(Paginacao<Professor> entidadePaginada)
         {
-            var query =_contexto.Professor.AsNoTracking();
+            var query = GetDbSet<Professor>().AsNoTracking();
 
             if (entidadePaginada.Entidade == null)
                 entidadePaginada.Entidade = new List<Professor>();

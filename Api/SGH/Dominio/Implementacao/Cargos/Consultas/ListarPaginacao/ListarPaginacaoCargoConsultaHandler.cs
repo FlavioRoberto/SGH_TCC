@@ -1,0 +1,31 @@
+﻿using AutoMapper;
+using MediatR;
+using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Model;
+using SGH.Dominio.ViewModel;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace SGH.Dominio.Implementacao.Cargos.Consultas.ListarPaginacao
+{
+    public class ListarPaginacaoCargoConsultaHandler : IRequestHandler<ListarPaginacaoCargoConsulta, Paginacao<CargoViewModel>>
+    {
+        private readonly ICargoRepositorio _cargoRepositorio;
+        private readonly IMapper _mapper;
+
+        public ListarPaginacaoCargoConsultaHandler(ICargoRepositorio cargoRepositorio, IMapper mapper)
+        {
+            _cargoRepositorio = cargoRepositorio;
+            _mapper = mapper;
+        }
+
+        public async Task<Paginacao<CargoViewModel>> Handle(ListarPaginacaoCargoConsulta request, CancellationToken cancellationToken)
+        {
+            var cargoPaginadoViewModel = _mapper.Map<Paginacao<Cargo>>(request.CargoPaginado);
+
+            var resultado = await _cargoRepositorio.ListarPorPaginacao(cargoPaginadoViewModel);
+
+            return _mapper.Map<Paginacao<CargoViewModel>>(resultado);
+        }
+    }
+}

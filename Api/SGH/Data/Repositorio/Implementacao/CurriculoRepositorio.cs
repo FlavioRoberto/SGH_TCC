@@ -23,13 +23,13 @@ namespace SGH.Data.Repositorio.Implementacao
             try
             {
 
-                var disciplinasRemover = await _contexto.CurriculoDisciplina
-                                             .AsNoTracking()
-                                             .Where(lnq => lnq.CodigoCurriculo == entidade.Codigo)
-                                             .ToListAsync();
+                var disciplinasRemover = await GetDbSet<CurriculoDisciplina>()
+                                                .AsNoTracking()
+                                                .Where(lnq => lnq.CodigoCurriculo == entidade.Codigo)
+                                                .ToListAsync();
 
-                _contexto.CurriculoDisciplina.RemoveRange(disciplinasRemover);
-                await _contexto.SaveChangesAsync();
+                GetDbSet<CurriculoDisciplina>().RemoveRange(disciplinasRemover);
+                await SaveChangesAsync();
 
                 foreach (var disciplina in entidade.Disciplinas)
                 {
@@ -45,25 +45,25 @@ namespace SGH.Data.Repositorio.Implementacao
                         Credito = disciplina.Credito
                     };
 
-                    _contexto.CurriculoDisciplina.Add(disciplinaAdicionar);
-                    _contexto.SaveChanges();
+                    GetDbSet<CurriculoDisciplina>().Add(disciplinaAdicionar);
+                    await SaveChangesAsync();
 
                     foreach (var preRequisito in preRequisitos)
                     {
                         preRequisito.CodigoDisciplina = preRequisito.CodigoDisciplina;
                         preRequisito.CodigoCurriculoDisciplina = disciplinaAdicionar.Codigo;
-                        _contexto.CurriculoDisciplinaPreRequisito.Add(preRequisito);
-                        _contexto.SaveChanges();
+                        GetDbSet<CurriculoDisciplinaPreRequisito>().Add(preRequisito);
+                        await SaveChangesAsync();
                     };
 
                 }
 
-                var curriculoAtualizar = await _contexto.Curriculo.FirstOrDefaultAsync(lnq => lnq.Codigo == entidade.Codigo);
+                var curriculoAtualizar = await GetDbSet<Curriculo>().FirstOrDefaultAsync(lnq => lnq.Codigo == entidade.Codigo);
                 curriculoAtualizar.Ano = entidade.Ano;
                 curriculoAtualizar.CodigoCurso = entidade.CodigoCurso;
                 curriculoAtualizar.Disciplinas = curriculoAtualizar.Disciplinas.OrderBy(lnq => lnq.Periodo).ToList();
 
-                await _contexto.SaveChangesAsync();
+                await SaveChangesAsync();
 
                 return curriculoAtualizar;
 
@@ -85,10 +85,10 @@ namespace SGH.Data.Repositorio.Implementacao
                     CodigoCurso = entidade.CodigoCurso,
                 };
 
-                _contexto.Curriculo.Add(curriculo);
-                await _contexto.SaveChangesAsync();
+                GetDbSet<Curriculo>().Add(curriculo);
+                await SaveChangesAsync();
 
-                entidade.Disciplinas.ToList().ForEach(curDis =>
+                foreach (var curDis in entidade.Disciplinas)
                 {
                     var curDisSalvar = new CurriculoDisciplina
                     {
@@ -101,8 +101,8 @@ namespace SGH.Data.Repositorio.Implementacao
                         CodigoDisciplina = curDis.CodigoDisciplina,
                     };
 
-                    _contexto.CurriculoDisciplina.Add(curDisSalvar);
-                    _contexto.SaveChanges();
+                    GetDbSet<CurriculoDisciplina>().Add(curDisSalvar);
+                    await SaveChangesAsync();
 
                     var preRequisitors = curDis.CurriculoDisciplinaPreRequisito.Select(curPre =>
                     {
@@ -113,12 +113,11 @@ namespace SGH.Data.Repositorio.Implementacao
                         };
                     }).ToList();
 
-                    _contexto.CurriculoDisciplinaPreRequisito.AddRange(preRequisitors);
-                    _contexto.SaveChanges();
+                    GetDbSet<CurriculoDisciplinaPreRequisito>().AddRange(preRequisitors);
+                    await SaveChangesAsync();
+                }
 
-                });
-
-                var retorno = _contexto.Curriculo
+                var retorno = GetDbSet<Curriculo>()
                                 .Include(lnq => lnq.Curso)
                                 .Include(lnq => lnq.Disciplinas)
                                 .ThenInclude(ce => ce.Disciplina)
@@ -139,22 +138,22 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public override async Task<Curriculo> Consultar(Expression<Func<Curriculo, bool>> query)
         {
-            return await _contexto.Curriculo.Include(lnq => lnq.Curso).Where(query).AsNoTracking().FirstOrDefaultAsync();
+            return await GetDbSet<Curriculo>().Include(lnq => lnq.Curso).Where(query).AsNoTracking().FirstOrDefaultAsync();
         }
 
         public async Task<List<CurriculoDisciplina>> ListarDisciplinas(int codigoCurriculo)
         {
-            return await _contexto.CurriculoDisciplina.Include(lnq=>lnq.Disciplina).Where(lnq => lnq.CodigoCurriculo == codigoCurriculo).AsNoTracking().ToListAsync();
+            return await GetDbSet<CurriculoDisciplina>().Include(lnq => lnq.Disciplina).Where(lnq => lnq.CodigoCurriculo == codigoCurriculo).AsNoTracking().ToListAsync();
         }
 
         public override async Task<List<Curriculo>> Listar(Expression<Func<Curriculo, bool>> query)
         {
-            return await _contexto.Curriculo.Include(lnq => lnq.Curso).Where(query).AsNoTracking().ToListAsync();
+            return await GetDbSet<Curriculo>().Include(lnq => lnq.Curso).Where(query).AsNoTracking().ToListAsync();
         }
 
         public async Task<Paginacao<Curriculo>> ListarPorPaginacao(Paginacao<Curriculo> entidadePaginada)
         {
-            var query = _contexto.Curriculo
+            var query = GetDbSet<Curriculo>()
                                 .Include(lnq => lnq.Curso)
                                 .Include(lnq => lnq.Disciplinas)
                                 .ThenInclude(ce => ce.Disciplina)
@@ -179,15 +178,15 @@ namespace SGH.Data.Repositorio.Implementacao
 
             return await PaginacaoHelper<Curriculo>.Paginar(entidadePaginada, query);
         }
-                
+
         public async Task<int> RetornarQuantidadeDisciplinaCurriculo(int codigoCurriculo)
         {
-            return await _contexto.CurriculoDisciplina.CountAsync(lnq => lnq.CodigoCurriculo == codigoCurriculo);
+            return await GetDbSet<CurriculoDisciplina>().CountAsync(lnq => lnq.CodigoCurriculo == codigoCurriculo);
         }
 
         public async Task<CurriculoDisciplina> ConsultarCurriculoDisciplina(int codigoCurriculoDisciplina)
         {
-            return await _contexto.CurriculoDisciplina.FirstOrDefaultAsync(lnq => lnq.Codigo == codigoCurriculoDisciplina);
+            return await GetDbSet<CurriculoDisciplina>().FirstOrDefaultAsync(lnq => lnq.Codigo == codigoCurriculoDisciplina);
         }
     }
 }

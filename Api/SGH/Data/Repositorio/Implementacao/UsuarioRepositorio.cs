@@ -19,7 +19,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<Paginacao<Usuario>> ListarPorPaginacao(Paginacao<Usuario> entidadePaginada)
         {
-            var query = _contexto.Usuario.AsNoTracking();
+            var query = GetDbSet<Usuario>().AsNoTracking();
 
             if (entidadePaginada.Entidade == null)
                 entidadePaginada.Entidade = new List<Usuario>();
@@ -49,7 +49,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<int> QuantidadeUsuarioAdm()
         {
-            return await _contexto.Usuario
+            return await GetDbSet<Usuario>()
                  .Include(lnq => lnq.Perfil)
                  .AsNoTracking()
                  .CountAsync(lnq => lnq.Perfil.Administrador == true);
@@ -57,7 +57,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<Usuario> RetornarUsuarioPorLoginESenha(string login, string senha)
         {
-            return await _contexto.Usuario
+            return await GetDbSet<Usuario>()
                 .Include(lnq => lnq.Perfil)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(lnq =>
@@ -68,7 +68,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public override async Task<Usuario> Consultar(Expression<Func<Usuario, bool>> query)
         {
-            return await _contexto.Usuario
+            return await GetDbSet<Usuario>()
                     .AsNoTracking()
                     .Include(lnq => lnq.Perfil)
                     .AsQueryable()

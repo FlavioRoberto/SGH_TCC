@@ -1,13 +1,12 @@
 ﻿using MediatR;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Enums;
-using SGH.Dominio.Core.Model;
 using SGH.Dominio.ViewModel;
 using System.Collections.Generic;
 
 namespace SGH.Dominio.Implementacao.Cargos.Comandos.Criar
 {
-    public class CriarCargoComando : IRequest<Resposta<CriarCargoComando>>
+    public class CriarCargoComando : IRequest<Resposta<CargoViewModel>>
     {
         public int? Codigo { get; set; }
         public int Numero { get; set; }

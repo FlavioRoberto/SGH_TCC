@@ -4,13 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SGH.Data.Repositorio.Implementacao
 {
     public class RepositorioBase<T> : IRepositorio<T> where T : class
     {
-        protected IContexto _contexto { get; private set; }
+        private IContexto _contexto { get; set; }
 
         public RepositorioBase(IContexto contexto)
         {
@@ -109,6 +110,16 @@ namespace SGH.Data.Repositorio.Implementacao
         public async Task<bool> Contem(Expression<Func<T, bool>> expressao)
         {
             return await _contexto.Set<T>().CountAsync(expressao) > 0;
+        }
+
+        public DbSet<T> GetDbSet<T>() where T : class
+        {
+            return _contexto.Set<T>();
+        }
+
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await _contexto.SaveChangesAsync(cancellationToken);
         }
     }
 }

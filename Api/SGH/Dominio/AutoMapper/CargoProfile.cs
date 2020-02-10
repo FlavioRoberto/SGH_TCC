@@ -1,0 +1,19 @@
+﻿using AutoMapper;
+using SGH.Dominio.Core.Model;
+using SGH.Dominio.ViewModel;
+
+namespace SGH.Dominio.AutoMapper
+{
+    public class CargoProfile : Profile
+    {
+        public CargoProfile()
+        {
+            CreateMap<CargoViewModel, Cargo>();
+            CreateMap<Cargo, CargoViewModel>();
+            CreateMap<Paginacao<CargoViewModel>, Paginacao<Cargo>>();
+            CreateMap<Paginacao<Cargo>, Paginacao<CargoViewModel>>();
+            CreateMap<CargoDisciplinaViewModel, CargoDisciplina>();
+            CreateMap<CargoDisciplina, CargoDisciplinaViewModel>();
+        }
+    }
+}

@@ -98,7 +98,7 @@ namespace SGH.APi
                             (c.Type == "perfilId" && (c.Value.ToInt() > 0)))));
             });
 
-            services.AddAutoMapper();
+            services.AddAutoMapper(typeof(Startup));
             var assembly = AppDomain.CurrentDomain.Load("SGH.Dominio");
             services.AddMediatR(assembly);
 

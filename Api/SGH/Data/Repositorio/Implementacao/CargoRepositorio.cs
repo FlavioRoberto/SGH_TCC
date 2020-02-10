@@ -1,6 +1,11 @@
-﻿using SGH.Data.Repositorio.Contratos;
+﻿using Microsoft.EntityFrameworkCore;
+using SGH.Data.Repositorio.Contratos;
+using SGH.Data.Repositorio.Helpers;
 using SGH.Dominio.Core.Model;
+using SHG.Data.Contexto;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -30,9 +35,37 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _repositorio.Remover(expressao);
         }
 
-        public Task<Paginacao<Cargo>> ListarPorPaginacao(Paginacao<Cargo> entidadePaginada)
+        public async Task<Paginacao<Cargo>> ListarPorPaginacao(Paginacao<Cargo> entidadePaginada)
         {
-            throw new NotImplementedException();
+            var query = _repositorio.GetDbSet<Cargo>()
+                                    .Include(lnq => lnq.Professor)
+                                    .Include(lnq => lnq.Disciplinas)
+                                    .AsNoTracking();
+
+            if (entidadePaginada.Entidade == null)
+                entidadePaginada.Entidade = new List<Cargo>();
+
+            var entidade = entidadePaginada.Entidade.FirstOrDefault() ?? new Cargo();
+
+            if (entidade.Ano > 0)
+                query = query.Where(lnq => lnq.Ano == entidade.Ano);
+
+            if (entidade.Codigo > 0)
+                query = query.Where(lnq => lnq.Codigo == entidade.Codigo);
+
+            if (entidade.CodigoProfessor > 0)
+                query = query.Where(lnq => lnq.CodigoProfessor == entidade.CodigoProfessor);
+
+            if (entidade.Edital > 0)
+                query = query.Where(lnq => lnq.Edital == entidade.Edital);
+
+            if (entidade.Numero > 0)
+                query = query.Where(lnq => lnq.Numero == entidade.Numero);
+
+            if (entidade.Semestre > 0)
+                query = query.Where(lnq => lnq.Semestre == entidade.Semestre);
+
+            return await PaginacaoHelper<Cargo>.Paginar(entidadePaginada, query);
         }
 
     }

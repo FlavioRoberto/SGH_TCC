@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Contratos;
 using SGH.Dominio.Core;
@@ -11,25 +12,30 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Implementacao.Cargos.Comandos.Criar
 {
-    public class CriarCargoComandoHandler : IRequestHandler<CriarCargoComando,Resposta<CriarCargoComando>>
+    public class CriarCargoComandoHandler : IRequestHandler<CriarCargoComando,Resposta<CargoViewModel>>
     {
         private readonly ICargoRepositorio _repositorioCargo;
         private readonly ICargoDisciplinaRepositorio _repositorioCargoDisciplina;
         private readonly ICriarCargoComandoValidador _validador;
+        private readonly IMapper _mapper;
 
-        public CriarCargoComandoHandler(ICargoRepositorio repositorio, ICargoDisciplinaRepositorio repositorioCargoDisciplina, ICriarCargoComandoValidador validador)
+        public CriarCargoComandoHandler(ICargoRepositorio repositorio, 
+                                        ICargoDisciplinaRepositorio repositorioCargoDisciplina, 
+                                        ICriarCargoComandoValidador validador,
+                                        IMapper mapper)
         {
             _repositorioCargo = repositorio;
             _repositorioCargoDisciplina = repositorioCargoDisciplina;
             _validador = validador;
+            _mapper = mapper;
         }
 
-        public async Task<Resposta<CriarCargoComando>> Handle(CriarCargoComando request, CancellationToken cancellationToken)
+        public async Task<Resposta<CargoViewModel>> Handle(CriarCargoComando request, CancellationToken cancellationToken)
         {
             var erros = _validador.Validar(request);
 
             if (!string.IsNullOrEmpty(erros))
-                return new Resposta<CriarCargoComando>(erros);
+                return new Resposta<CargoViewModel>(erros);
 
             var entidade = new Cargo
             {
@@ -42,11 +48,11 @@ namespace SGH.Dominio.Implementacao.Cargos.Comandos.Criar
 
             var resultado = await _repositorioCargo.Criar(entidade);
 
-            request.Codigo = resultado.Codigo;
+            var viewModel = _mapper.Map<CargoViewModel>(resultado);
 
-            request.Disciplinas = await CriarDisciplinasCargo(request.Disciplinas, entidade.Codigo);
+            viewModel.Disciplinas = await CriarDisciplinasCargo(request.Disciplinas, entidade.Codigo);
 
-            return new Resposta<CriarCargoComando>(request);
+            return new Resposta<CargoViewModel>(viewModel);
         }
 
         private async Task<List<CargoDisciplinaViewModel>> CriarDisciplinasCargo(IEnumerable<CargoDisciplinaViewModel> disciplinas, int codigoCargo)

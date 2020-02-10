@@ -8,6 +8,7 @@ using SGH.Dominio.Core.Extensions;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Criar;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Remover;
+using SGH.Dominio.Implementacao.Cargos.Consultas.ListarPaginacao;
 using SGH.Dominio.ViewModel;
 using SGH.TestesDeIntegracao.Config;
 using System;
@@ -142,6 +143,10 @@ namespace SGH.TestesDeIntegracao
 
             var conteudo = await _testsFixture.RecuperarConteudoRequisicao<bool>(response);
 
+            //deve consultar pra ver se removeu
+
+            Assert.True(false);
+
             conteudo.Should().BeTrue();
         }
 
@@ -177,6 +182,34 @@ namespace SGH.TestesDeIntegracao
             var mensagemComparar = $"O parâmetro código é obrigatório.".RemoverEspacosVazios();
 
             mensagemErro.RemoverEspacosVazios().Should().Be(mensagemComparar);
+        }
+        #endregion
+
+        #region Consulta
+        [Trait("Integração", "Cargo")]
+        [Fact(DisplayName = "Realizar consulta paginada de cargo")]
+        public async Task Cargo_RealizarExclusão_DeveConsultarPaginadoComSucesso()
+        {
+            var consulta = new Paginacao<CargoViewModel>
+            {
+                Posicao = 0,
+                Quantidade = 1,
+                Total = 0,
+                Entidade = new List<CargoViewModel>()
+            };
+
+            var response = await RealizarRequisicaoCargo<Paginacao<Cargo>, Paginacao<CargoViewModel>>("listarPaginacao", HttpMethod.Post, consulta);
+
+            response.Total.Should().Be(1);
+
+            response.Quantidade.Should().Be(1);
+
+            response.Entidade.Should().NotBeNull();
+
+            response.Entidade.Should().HaveCount(1);
+
+            response.Entidade.Should().NotContain(lnq => lnq.Codigo <= 0);
+
         }
         #endregion
 
