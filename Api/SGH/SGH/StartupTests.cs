@@ -23,6 +23,7 @@ using SGH.Data.Extensios;
 using SGH.Dominio.Extensions;
 using SGH.Api.Testes.Factory;
 using SGH.Api.Testes.Factory.Contratos;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace SGH.APi
 {
@@ -49,7 +50,8 @@ namespace SGH.APi
             var connectionString = _configuration["MySqlConnections:ConexaoLocal"];
             services.AddDbContext<MySqlContext>(options =>
             {
-                options.UseInMemoryDatabase(connectionString);
+                options.UseInMemoryDatabase(connectionString)
+                       .ConfigureWarnings(x => x.Ignore(InMemoryEventId.TransactionIgnoredWarning));
             });
 
             services.AddApiVersioning();
@@ -143,13 +145,13 @@ namespace SGH.APi
                 app.UseDeveloperExceptionPage();
 
             var factoryDb = app.ApplicationServices.GetService<IBancoTesteFactory>();
+            
             factoryDb.InicializarBanco();
 
             app.UseAuthentication();
             app.UseCors("MyPolicy");
             app.UseMvc();
         }
-
     }
         
 }

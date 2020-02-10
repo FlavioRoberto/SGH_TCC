@@ -26,7 +26,8 @@ namespace SHG.Data.Mapeamento
             #region relacionamentos
             builder.HasMany(lnq => lnq.Disciplinas)
                 .WithOne(lnq => lnq.DisciplinaTipo)
-                .HasForeignKey(lnq => lnq.CodigoTipo);
+                .HasForeignKey(lnq => lnq.CodigoTipo)
+                .OnDelete(DeleteBehavior.Restrict);
             #endregion
 
             return this;

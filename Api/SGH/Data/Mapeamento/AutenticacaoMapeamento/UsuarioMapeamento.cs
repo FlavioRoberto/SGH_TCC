@@ -54,11 +54,13 @@ namespace SHG.Data.Mapeamento
                 .IsRequired(true)
                 .HasColumnName("usuPrf_Perfil");
 
+            #region Relacionamento
             builder.HasOne(lnq => lnq.Perfil)
                 .WithMany(lnq => lnq.Usuarios)
                 .HasForeignKey(lnq => lnq.PerfilCodigo)
-                .HasConstraintName("FK_Perfil");
-
+                .HasConstraintName("FK_Perfil")
+                .OnDelete(DeleteBehavior.Restrict); 
+            #endregion
 
             builder.ToTable("usuario");
 

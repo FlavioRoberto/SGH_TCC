@@ -5,6 +5,7 @@ using SGH.Dominio.Implementacao;
 using SGH.Dominio.Implementacao.Autenticacao.Comandos.Login;
 using SGH.Dominio.Implementacao.Autenticacao.Comandos.RedefinirSenha;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Criar;
+using SGH.Dominio.Implementacao.Cargos.Comandos.Remover;
 using SGH.Dominio.Implementacao.Curriculos.Comandos.Atualizar;
 using SGH.Dominio.Implementacao.Curriculos.Comandos.Criar;
 using SGH.Dominio.Implementacao.Curriculos.Comandos.Remover;
@@ -48,7 +49,8 @@ namespace SGH.Dominio.Extensions
             services.AddScoped<IRemoverTurnoComandoValidador, RemoverTurnoComandoValidador>();
             services.AddScoped<ICriarCurriculoComandoValidador, CriarCurriculoComandoValidador>();
             services.AddScoped<ICriarCargoComandoValidador, CriarCargoComandoValidador>();
-            
+            services.AddScoped<IRemoverCargoComandoValidador, RemoverCargoComandoValidador>();
+
             return services;
         }
     }

@@ -35,7 +35,8 @@ namespace SHG.Data.Mapeamento
 
             builder.HasOne(lnq => lnq.Curso)
                 .WithMany(lnq => lnq.Curriculos)
-                .HasForeignKey(lnq => lnq.CodigoCurso);
+                .HasForeignKey(lnq => lnq.CodigoCurso)
+                .OnDelete(DeleteBehavior.Restrict);
 
             #endregion
 

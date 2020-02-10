@@ -25,7 +25,8 @@ namespace SHG.Data.Mapeamento
 
             builder.HasOne(lnq => lnq.DisciplinaTipo)
                 .WithMany(lnq => lnq.Disciplinas)
-                .HasForeignKey(lnq => lnq.CodigoTipo);
+                .HasForeignKey(lnq => lnq.CodigoTipo)
+                .OnDelete(DeleteBehavior.Restrict);
 
             #endregion
 

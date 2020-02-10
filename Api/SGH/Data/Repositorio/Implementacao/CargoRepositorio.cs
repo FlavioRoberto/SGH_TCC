@@ -25,6 +25,11 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _repositorio.Contem(expressao);
         }
 
+        public async Task<bool> Remover(Expression<Func<Cargo, bool>> expressao)
+        {
+            return await _repositorio.Remover(expressao);
+        }
+
         public Task<Paginacao<Cargo>> ListarPorPaginacao(Paginacao<Cargo> entidadePaginada)
         {
             throw new NotImplementedException();

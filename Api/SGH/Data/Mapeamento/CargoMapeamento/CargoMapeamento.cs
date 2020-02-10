@@ -2,6 +2,7 @@ using System;
 using SGH.Dominio.Core.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using FluentValidation;
 
 namespace SHG.Data.Mapeamento
 {
@@ -39,7 +40,8 @@ namespace SHG.Data.Mapeamento
             builder.HasOne(lnq => lnq.Professor)
             .WithMany(lnq => lnq.Cargos)
             .HasForeignKey(lnq => lnq.CodigoProfessor)
-            .HasConstraintName("FK_Professor");
+            .HasConstraintName("FK_Professor")
+            .OnDelete(DeleteBehavior.Restrict);
 
             #endregion relacionamentos
 

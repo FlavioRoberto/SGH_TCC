@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Mapeamento;
+using System;
+using System.Threading.Tasks;
 
 namespace SHG.Data.Contexto
 {
@@ -27,6 +29,13 @@ namespace SHG.Data.Contexto
             modelBuilder.Entity<Professor>(b => new ProfessorMapeamento(b).Map());
             modelBuilder.Entity<Cargo>(b => new CargoMapeamento(b).Map());
             modelBuilder.Entity<CargoDisciplina>(b => new CargoDisciplinaMapeamento(b).Map());
+        }
+
+        public async Task IniciarTransacao(Action acao)
+        {
+            await Database.BeginTransactionAsync();
+            acao.Invoke();
+            Database.CommitTransaction();
         }
 
         public DbSet<CurriculoDisciplina> CurriculoDisciplina { get; set; }

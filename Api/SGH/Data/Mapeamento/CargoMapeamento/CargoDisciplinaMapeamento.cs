@@ -29,12 +29,15 @@ namespace SHG.Data.Mapeamento
             builder.HasOne(lnq => lnq.Disciplina)
             .WithMany(lnq => lnq.Cargos)
             .HasForeignKey(lnq => lnq.CodigoCurriculoDisciplina)
-            .HasConstraintName("FK_Cargo_Disciplina");
+            .HasConstraintName("FK_Cargo_Disciplina")
+            .OnDelete(DeleteBehavior.Restrict);
+
 
             builder.HasOne(lnq => lnq.Cargo)
             .WithMany(lnq => lnq.Disciplinas)
-            .HasForeignKey(lnq => lnq.Codigo)
-            .HasConstraintName("FK_Cargo");
+            .HasForeignKey(lnq => lnq.CodigoCargo)
+            .HasConstraintName("FK_Cargo")
+            .OnDelete(DeleteBehavior.Restrict);
 
             #endregion relacionamentos
 

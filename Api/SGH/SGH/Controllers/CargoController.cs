@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Criar;
+using SGH.Dominio.Implementacao.Cargos.Comandos.Remover;
 using System;
 using System.Threading.Tasks;
 
@@ -24,6 +25,31 @@ namespace SGH.Api.Controllers
         {
             try
             {
+                var resultado = await _mediator.Send(comando);
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Authorize("admin")]
+        [Route("remover/{codigo}")]
+        public async Task<IActionResult> Remover(int codigo)
+        {
+            try
+            {
+                var comando = new RemoverCargoComando
+                {
+                    Codigo = codigo
+                };
+
                 var resultado = await _mediator.Send(comando);
 
                 if (resultado.TemErro())

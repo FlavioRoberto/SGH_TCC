@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using SGH.APi;
 using SGH.Dominio.Core;
@@ -6,10 +7,12 @@ using SGH.Dominio.Core.Enums;
 using SGH.Dominio.Core.Extensions;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Criar;
+using SGH.Dominio.Implementacao.Cargos.Comandos.Remover;
 using SGH.Dominio.ViewModel;
 using SGH.TestesDeIntegracao.Config;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
@@ -26,13 +29,15 @@ namespace SGH.TestesDeIntegracao
             _testsFixture = testsFixture;
         }
 
+        #region Criar
+
         [Trait("Integração", "Cargo")]
         [Fact(DisplayName = "Realizar cadastro de cargo sem professor com sucesso")]
         public async Task Cargo_RealizarCadastro_DeveRealizarCadastroSemProfessorComSucesso()
         {
             var comando = GerarComandoCargo();
 
-            var cargo = await RealizarRequisicaoCargo(HttpMethod.Post, comando);
+            var cargo = await RealizarRequisicaoCargo<Cargo, CriarCargoComando>("criar", HttpMethod.Post, comando);
 
             VaidarCargo(cargo);
         }
@@ -47,7 +52,7 @@ namespace SGH.TestesDeIntegracao
 
             comando.Numero = 2;
 
-            var cargo = await RealizarRequisicaoCargo(HttpMethod.Post, comando);
+            var cargo = await RealizarRequisicaoCargo<Cargo, CriarCargoComando>("criar", HttpMethod.Post, comando);
 
             cargo.CodigoProfessor.Should().Be(1);
 
@@ -122,6 +127,59 @@ namespace SGH.TestesDeIntegracao
             mensagemErro.RemoverEspacosVazios().Should().Be(mensagemEsperada);
         }
 
+        #endregion
+
+        #region Remover
+        [Trait("Integração", "Cargo")]
+        [Fact(DisplayName = "Realizar remoção de cargo")]
+        public async Task Cargo_RealizarExclusão_DeveRemoverCargoComSucesso()
+        {
+            int codigoCargo = 1;
+
+            var response = await _testsFixture.Client.DeleteAsync(GetRota($"remover/{codigoCargo}"));
+
+            response.EnsureSuccessStatusCode();
+
+            var conteudo = await _testsFixture.RecuperarConteudoRequisicao<bool>(response);
+
+            conteudo.Should().BeTrue();
+        }
+
+        [Trait("Integração", "Cargo")]
+        [Fact(DisplayName = "Realizar remoção de cargo inexistente")]
+        public async Task Cargo_RealizarExclusão_DeveRemoverCargoInexistente()
+        {
+            int codigoCargo = 99;
+
+            var response = await _testsFixture.Client.DeleteAsync(GetRota($"remover/{codigoCargo}"));
+
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var mensagemErro = await response.Content.ReadAsStringAsync();
+
+            var mensagemComparar = $"Não foi encontrado um cargo com o código {codigoCargo}.".RemoverEspacosVazios();
+
+            mensagemErro.RemoverEspacosVazios().Should().Be(mensagemComparar);
+        }
+
+        [Trait("Integração", "Cargo")]
+        [Fact(DisplayName = "Realizar remoção de cargo sem código informado")]
+        public async Task Cargo_RealizarExclusão_DeveRemoverCargoSemCodigoInformado()
+        {
+            int codigoCargo = 0;
+
+            var response = await _testsFixture.Client.DeleteAsync(GetRota($"remover/{codigoCargo}"));
+
+            response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var mensagemErro = await response.Content.ReadAsStringAsync();
+
+            var mensagemComparar = $"O parâmetro código é obrigatório.".RemoverEspacosVazios();
+
+            mensagemErro.RemoverEspacosVazios().Should().Be(mensagemComparar);
+        }
+        #endregion
+
         private void VaidarCargo(Cargo cargo)
         {
             cargo.Should().NotBeNull();
@@ -141,9 +199,9 @@ namespace SGH.TestesDeIntegracao
             cargo.Disciplinas.Should().NotContain(lnq => lnq.Codigo <= 0 || lnq.CodigoCargo <= 0 || lnq.CodigoCurriculoDisciplina <= 0);
         }
 
-        private async Task<Cargo> RealizarRequisicaoCargo(HttpMethod metodoHttp, CriarCargoComando comando)
+        private async Task<TResposta> RealizarRequisicaoCargo<TResposta, TParametro>(string rota, HttpMethod metodoHttp, TParametro comando)
         {
-            var request = new HttpRequestMessage(metodoHttp, GetRota("criar"))
+            var request = new HttpRequestMessage(metodoHttp, GetRota(rota))
             {
                 Content = _testsFixture.GerarCorpoRequisicao(comando)
             };
@@ -152,7 +210,7 @@ namespace SGH.TestesDeIntegracao
 
             response.EnsureSuccessStatusCode();
 
-            return await _testsFixture.RecuperarConteudoRequisicao<Cargo>(response);
+            return await _testsFixture.RecuperarConteudoRequisicao<TResposta>(response);
         }
 
         private CriarCargoComando GerarComandoCargo()

@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using SGH.Dominio.Core.Model;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,5 +26,6 @@ namespace SHG.Data.Contexto
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
         int SaveChanges();
 
+        Task IniciarTransacao(Action action);
     }
 }

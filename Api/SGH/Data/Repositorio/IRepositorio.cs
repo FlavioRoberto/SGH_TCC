@@ -14,6 +14,5 @@ namespace SGH.Data.Repositorio
         Task<T> Atualizar(T entidade);
         Task<bool> Remover(Expression<Func<T, bool>> query);
         Task<bool> Contem(Expression<Func<T, bool>> expressao);
-
     }
 }

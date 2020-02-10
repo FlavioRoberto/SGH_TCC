@@ -1,5 +1,7 @@
 ﻿using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Model;
+using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace SGH.Data.Repositorio.Implementacao
@@ -16,6 +18,11 @@ namespace SGH.Data.Repositorio.Implementacao
         public Task<CargoDisciplina> Criar(CargoDisciplina entidade)
         {
             return _repositorio.Criar(entidade);
+        }
+
+        public Task<bool> Remover(Expression<Func<CargoDisciplina, bool>> expressao)
+        {
+            return _repositorio.Remover(expressao);
         }
     }
 }

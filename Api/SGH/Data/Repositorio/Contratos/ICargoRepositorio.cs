@@ -9,5 +9,6 @@ namespace SGH.Data.Repositorio.Contratos
     {
         Task<Cargo> Criar(Cargo entidade);
         Task<bool> Contem(Expression<Func<Cargo, bool>> expressao);
+        Task<bool> Remover(Expression<Func<Cargo, bool>> expressao);
     }
 }

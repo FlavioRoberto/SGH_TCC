@@ -1,4 +1,6 @@
-﻿using SGH.Api.Testes.Factory.Contratos;
+﻿using Microsoft.EntityFrameworkCore;
+using SGH.Api.Testes.Factory.Contratos;
+using SHG.Data.Contexto;
 
 namespace SGH.Api.Testes.Factory
 {
