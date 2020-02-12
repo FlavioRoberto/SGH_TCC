@@ -1,6 +1,7 @@
 ﻿using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Model;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -15,14 +16,24 @@ namespace SGH.Data.Repositorio.Implementacao
             _repositorio = repositorio;
         }
 
-        public Task<CargoDisciplina> Criar(CargoDisciplina entidade)
+        public async Task<CargoDisciplina> Atualizar(CargoDisciplina entidade)
         {
-            return _repositorio.Criar(entidade);
+            return await _repositorio.Atualizar(entidade);
         }
 
-        public Task<bool> Remover(Expression<Func<CargoDisciplina, bool>> expressao)
+        public async Task<CargoDisciplina> Criar(CargoDisciplina entidade)
         {
-            return _repositorio.Remover(expressao);
+            return await _repositorio.Criar(entidade);
+        }
+
+        public async Task<List<CargoDisciplina>> Listar(Expression<Func<CargoDisciplina, bool>> query)
+        {
+            return await _repositorio.Listar(query);
+        }
+
+        public async Task<bool> Remover(Expression<Func<CargoDisciplina, bool>> expressao)
+        {
+            return await _repositorio.Remover(expressao);
         }
     }
 }

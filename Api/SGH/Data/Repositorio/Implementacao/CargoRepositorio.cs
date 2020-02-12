@@ -68,5 +68,9 @@ namespace SGH.Data.Repositorio.Implementacao
             return await PaginacaoHelper<Cargo>.Paginar(entidadePaginada, query);
         }
 
+        public async Task<Cargo> Atualizar(Cargo entidade)
+        {
+            return await _repositorio.Atualizar(entidade);
+        }
     }
 }

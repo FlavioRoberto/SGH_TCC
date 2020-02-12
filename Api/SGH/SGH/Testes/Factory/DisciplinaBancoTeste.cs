@@ -27,6 +27,11 @@ namespace SGH.Api.Testes.Factory
                 {
                     CodigoTipo = 1,
                     Descricao = "Programação orientada a objetos"
+                },
+                 new Disciplina
+                {
+                    CodigoTipo = 2,
+                    Descricao = "Programação para dispositivos móveis"
                 }
             };
 

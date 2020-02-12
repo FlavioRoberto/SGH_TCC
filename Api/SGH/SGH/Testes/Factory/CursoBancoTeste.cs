@@ -26,18 +26,6 @@ namespace SGH.Api.Testes.Factory
 
             _contexto.Curso.AddRange(cursos);
             _contexto.SaveChanges();
-
-            var disciplinasCurriculo = new List<CurriculoDisciplina>
-            {
-                new CurriculoDisciplina
-                {
-                    CodigoCurriculo = 1,
-                    CodigoDisciplina = 1
-                }
-            };
-
-            _contexto.CurriculoDisciplina.AddRange(disciplinasCurriculo);
-            _contexto.SaveChanges();
         }
     }
 }

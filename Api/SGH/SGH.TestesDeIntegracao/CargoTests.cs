@@ -6,6 +6,7 @@ using SGH.Dominio.Core;
 using SGH.Dominio.Core.Enums;
 using SGH.Dominio.Core.Extensions;
 using SGH.Dominio.Core.Model;
+using SGH.Dominio.Implementacao.Cargos.Comandos.Atualizar;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Criar;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Remover;
 using SGH.Dominio.Implementacao.Cargos.Consultas.ListarPaginacao;
@@ -39,9 +40,9 @@ namespace SGH.TestesDeIntegracao
         {
             var comando = GerarComandoCargo();
 
-            var cargo = await RealizarRequisicaoCargo<Cargo, CriarCargoComando>("criar", HttpMethod.Post, comando);
+            var cargo = await RealizarRequisicaoCargo<CargoViewModel, CriarCargoComando>("criar", HttpMethod.Post, comando);
 
-            VaidarCargo(cargo);
+            ValidarCargo(cargo);
         }
 
         [Trait("Integração", "Cargo")]
@@ -54,11 +55,11 @@ namespace SGH.TestesDeIntegracao
 
             comando.Numero = 2;
 
-            var cargo = await RealizarRequisicaoCargo<Cargo, CriarCargoComando>("criar", HttpMethod.Post, comando);
+            var cargo = await RealizarRequisicaoCargo<CargoViewModel, CriarCargoComando>("criar", HttpMethod.Post, comando);
 
             cargo.CodigoProfessor.Should().Be(1);
 
-            VaidarCargo(cargo);
+            ValidarCargo(cargo);
         }
 
         [Trait("Integração", "Cargo")]
@@ -144,10 +145,6 @@ namespace SGH.TestesDeIntegracao
 
             var conteudo = await _testsFixture.RecuperarConteudoRequisicao<bool>(response);
 
-            //deve consultar pra ver se removeu
-
-            Assert.True(false);
-
             conteudo.Should().BeTrue();
         }
 
@@ -199,7 +196,7 @@ namespace SGH.TestesDeIntegracao
                 Entidade = new List<CargoViewModel>()
             };
 
-            var response = await RealizarRequisicaoCargo<Paginacao<Cargo>, Paginacao<CargoViewModel>>("listarPaginacao", HttpMethod.Post, consulta);
+            var response = await RealizarRequisicaoCargo<Paginacao<CargoViewModel>, Paginacao<CargoViewModel>>("listarPaginacao", HttpMethod.Post, consulta);
 
             response.Quantidade.Should().Be(1);
 
@@ -294,9 +291,66 @@ namespace SGH.TestesDeIntegracao
 
 
         }
+
+        [Trait("Integração", "Cargo")]
+        [Fact(DisplayName = "Realizar atualização de cargo sem professor com sucesso")]
+        public async Task Cargo_RealizarCadastro_DeveRealizarAtualizacaoSemProfessorComSucesso()
+        {
+            var disciplinaManter = new CargoDisciplinaViewModel
+            {
+                Codigo = 4,
+                CodigoCargo = 3,
+                CodigoCurriculoDisciplina = 1
+            };
+
+            var disciplinaAdicionar = new CargoDisciplinaViewModel
+            {
+                CodigoCargo = 3,
+                CodigoCurriculoDisciplina = 3
+            };
+
+            var disciplinaAtualizar = new CargoDisciplinaViewModel
+            {
+                Codigo = 6,
+                CodigoCargo = 3,
+                CodigoCurriculoDisciplina = 1
+            };
+            
+            var comando = new AtualizarCargoComando
+            {
+                Ano = 2020,
+                Codigo = 3,
+                Edital = 99,
+                Numero = 99,
+                Semestre = ESemestre.SEGUNDO
+            };
+
+            var disciplinasCargo = new List<CargoDisciplinaViewModel>();
+
+            disciplinasCargo.Add(disciplinaManter);
+            disciplinasCargo.Add(disciplinaAdicionar);
+            disciplinasCargo.Add(disciplinaAtualizar);
+
+            comando.Disciplinas = disciplinasCargo;
+
+            var cargo = await RealizarRequisicaoCargo<CargoViewModel, AtualizarCargoComando>("atualizar", HttpMethod.Put, comando);
+
+            ValidarCargo(cargo);
+
+            cargo.Ano.Should().Be(comando.Ano);
+            cargo.Codigo.Should().Be(comando.Codigo);
+            cargo.Edital.Should().Be(comando.Edital);
+            cargo.Numero.Should().Be(comando.Numero);
+            cargo.Semestre.Should().Be(comando.Semestre);
+            cargo.CodigoProfessor.Should().BeNull();
+            cargo.Disciplinas.Should().NotContain(lnq => lnq.CodigoCargo != comando.Codigo);
+            cargo.Disciplinas.Should().Contain(lnq => lnq.CodigoCurriculoDisciplina == 1 && lnq.Codigo == 4);
+            cargo.Disciplinas.Should().Contain(lnq => lnq.CodigoCurriculoDisciplina == 1 && lnq.Codigo == 6);
+            cargo.Disciplinas.Should().NotContain(lnq => lnq.CodigoCurriculoDisciplina != 1 && lnq.CodigoCurriculoDisciplina != 3);
+        }
         #endregion
 
-        private void VaidarCargo(Cargo cargo)
+        private void ValidarCargo(CargoViewModel cargo)
         {
             cargo.Should().NotBeNull();
 

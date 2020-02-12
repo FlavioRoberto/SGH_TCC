@@ -24,7 +24,7 @@ namespace SGH.TestesDeUnidade
         }
 
         [Fact(DisplayName = "Atualizar usuário - Deve atualizar o usuário válido")]
-        [Trait("Categoria", "Usuário")]
+        [Trait("Unitários", "Usuário")]
         public async Task Usuario_Atualizar_AtualizarUsuarioValido()
         {
             var usuarios = _usuarioTestsFixture.GerarUsuariosValidos(1, true);
@@ -50,7 +50,7 @@ namespace SGH.TestesDeUnidade
 
 
         [Fact(DisplayName = "Atualizar usuário - Deve atualizar o usuário código igual a 0.")]
-        [Trait("Categoria", "Usuário")]
+        [Trait("Unitários", "Usuário")]
         public async Task Usuario_Atualizar_AtualizarUsuarioCodigoInvalido()
         {
             var usuario = _usuarioTestsFixture.GerarUsuarioInvalido();
@@ -62,7 +62,7 @@ namespace SGH.TestesDeUnidade
         }
 
         [Fact(DisplayName = "Atualizar usuário - Deve atualizar o usuário código não encontrado.")]
-        [Trait("Categoria", "Usuário")]
+        [Trait("Unitários", "Usuário")]
         public async Task Usuario_Atualizar_AtualizarUsuarioInvalido()
         {
             var usuario = _usuarioTestsFixture.GerarUsuarioInvalido();

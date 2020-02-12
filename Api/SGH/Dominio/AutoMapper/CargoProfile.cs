@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SGH.Dominio.Core.Model;
+using SGH.Dominio.Implementacao.Cargos.Comandos.Atualizar;
 using SGH.Dominio.ViewModel;
 
 namespace SGH.Dominio.AutoMapper
@@ -14,6 +15,9 @@ namespace SGH.Dominio.AutoMapper
             CreateMap<Paginacao<Cargo>, Paginacao<CargoViewModel>>();
             CreateMap<CargoDisciplinaViewModel, CargoDisciplina>();
             CreateMap<CargoDisciplina, CargoDisciplinaViewModel>();
+            CreateMap<Cargo, AtualizarCargoComando>();
+            CreateMap<AtualizarCargoComando, Cargo>();
+
         }
     }
 }

@@ -27,7 +27,7 @@ namespace SGH.TestesDeUnidade
         }
      
         [Fact(DisplayName = "Criar usuário - Deve cadastrar o usuário válido")]
-        [Trait("Categoria", "Usuário")]
+        [Trait("Unitários", "Usuário")]
         public async Task Usuario_Criar_CadastrarUsuarioValido()
         {
             var usuario = _usuarioTestsFixture.GerarUsuarioValido();
@@ -59,7 +59,7 @@ namespace SGH.TestesDeUnidade
         }
 
         [Fact(DisplayName = "Criar usuário - Deve cadastrar o usuário inválido")]
-        [Trait("Categoria", "Usuário")]
+        [Trait("Unitários", "Usuário")]
         public async Task Usuario_Criar_CadastrarUsuarioInvalido()
         {
             var usuario = _usuarioTestsFixture.GerarUsuarioInvalido();

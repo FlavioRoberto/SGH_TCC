@@ -29,6 +29,27 @@ namespace SGH.Api.Testes.Factory
             _contexto.Curriculo.AddRange(curriculos);
             _contexto.SaveChanges();
 
+            var disciplinasCurriculo = new List<CurriculoDisciplina>
+            {
+                new CurriculoDisciplina
+                {
+                    CodigoCurriculo = 1,
+                    CodigoDisciplina = 1
+                },
+                new CurriculoDisciplina
+                {
+                    CodigoCurriculo = 1,
+                    CodigoDisciplina = 2
+                },
+                new CurriculoDisciplina
+                {
+                    CodigoCurriculo = 1,
+                    CodigoDisciplina = 3
+                },
+            };
+
+            _contexto.CurriculoDisciplina.AddRange(disciplinasCurriculo);
+            _contexto.SaveChanges();
         }
     }
 }

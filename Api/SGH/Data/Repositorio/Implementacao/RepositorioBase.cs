@@ -109,7 +109,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<bool> Contem(Expression<Func<T, bool>> expressao)
         {
-            return await _contexto.Set<T>().CountAsync(expressao) > 0;
+            return await _contexto.Set<T>().AsNoTracking().CountAsync(expressao) > 0;
         }
 
         public DbSet<T> GetDbSet<T>() where T : class
