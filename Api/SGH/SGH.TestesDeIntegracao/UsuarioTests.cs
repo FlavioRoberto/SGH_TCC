@@ -19,74 +19,7 @@ namespace SGH.TestesDeIntegracao
         {
             _testsFixture = testsFixture;
         }
-        
-
-        [Fact(DisplayName = "Realizar login com sucesso")]
-        [Trait("Integração", "Usuário")]
-        public async Task Usuario_RealizarCadastro_DeveRealizarLoginComSucesso()
-        {
-            var comando = new LoginComando
-            {
-                Login = "admin",
-                Senha = "admin"
-            };
-
-            var response = await _testsFixture.Client.PostAsync("/api/usuario/autenticar", _testsFixture.GerarCorpoRequisicao(comando));
-
-            response.EnsureSuccessStatusCode();
-
-            var token = await response.Content.ReadAsStringAsync();
-
-            Assert.NotEmpty(token);
-        }
-
-        [Fact(DisplayName = "Realizar login inválido")]
-        [Trait("Integração", "Usuário")]
-        public async Task Usuario_RealizarCadastro_DeveRealizarLoginInválido()
-        {
-            var comando = new LoginComando();           
-
-            var response = await _testsFixture.Client.PostAsync("/api/usuario/autenticar", _testsFixture.GerarCorpoRequisicao(comando));
-
-            var mensagem = @"O campo de login não pode ser vazio.
-                             O campo de senha não pode ser vazio.";
-
-            await _testsFixture.TestarRequisicaoInvalida(response, mensagem);
-        }
-
-        [Fact(DisplayName = "Realizar login usuário ou senha inválidos")]
-        [Trait("Integração", "Usuário")]
-        public async Task Usuario_RealizarCadastro_DeveRealizarLoginUsuarioOuSenhaInválido()
-        {
-            var comando = new LoginComando { 
-                Login = "admin",
-                Senha = "123"
-            };
-
-            var response = await _testsFixture.Client.PostAsync("/api/usuario/autenticar", _testsFixture.GerarCorpoRequisicao(comando));
-
-            var mensagem = @"Usuário e/ou senha inválidos!";
-
-            await _testsFixture.TestarRequisicaoInvalida(response, mensagem);
-        }
-
-        [Fact(DisplayName = "Realizar login usuário inativo")]
-        [Trait("Integração", "Usuário")]
-        public async Task Usuario_RealizarCadastro_DeveRealizarLoginUsuarioInativo()
-        {
-            var comando = new LoginComando
-            {
-                Login = "inativo",
-                Senha = "inativo"
-            };
-
-            var response = await _testsFixture.Client.PostAsync("/api/usuario/autenticar", _testsFixture.GerarCorpoRequisicao(comando));
-
-            var mensagem = @"Não foi possível logar no sistema, o usuário informado está inativo!";
-
-            await _testsFixture.TestarRequisicaoInvalida(response, mensagem);
-        }
-
+       
         [Fact(DisplayName = "Realizar cadastro com sucesso")]
         [Trait("Integração", "Usuário")]
         public async Task Usuario_RealizarCadastro_DeveExecutarComSucesso()
@@ -145,6 +78,73 @@ namespace SGH.TestesDeIntegracao
 
             await TestarCadastroUsuarioInvalido(mensagemErro, comando);
 
+        }
+
+        [Fact(DisplayName = "Realizar login com sucesso")]
+        [Trait("Integração", "Usuário")]
+        public async Task Usuario_RealizarCadastro_DeveRealizarLoginComSucesso()
+        {
+            var comando = new LoginComando
+            {
+                Login = "admin",
+                Senha = "admin"
+            };
+
+            var response = await _testsFixture.Client.PostAsync("/api/usuario/autenticar", _testsFixture.GerarCorpoRequisicao(comando));
+
+            response.EnsureSuccessStatusCode();
+
+            var token = await response.Content.ReadAsStringAsync();
+
+            Assert.NotEmpty(token);
+        }
+
+        [Fact(DisplayName = "Realizar login inválido")]
+        [Trait("Integração", "Usuário")]
+        public async Task Usuario_RealizarCadastro_DeveRealizarLoginInválido()
+        {
+            var comando = new LoginComando();
+
+            var response = await _testsFixture.Client.PostAsync("/api/usuario/autenticar", _testsFixture.GerarCorpoRequisicao(comando));
+
+            var mensagem = @"O campo de login não pode ser vazio.
+                             O campo de senha não pode ser vazio.";
+
+            await _testsFixture.TestarRequisicaoInvalida(response, mensagem);
+        }
+
+        [Fact(DisplayName = "Realizar login usuário ou senha inválidos")]
+        [Trait("Integração", "Usuário")]
+        public async Task Usuario_RealizarCadastro_DeveRealizarLoginUsuarioOuSenhaInválido()
+        {
+            var comando = new LoginComando
+            {
+                Login = "admin",
+                Senha = "123"
+            };
+
+            var response = await _testsFixture.Client.PostAsync("/api/usuario/autenticar", _testsFixture.GerarCorpoRequisicao(comando));
+
+            var mensagem = @"Usuário e/ou senha inválidos!";
+
+            await _testsFixture.TestarRequisicaoInvalida(response, mensagem);
+        }
+
+        [Fact(DisplayName = "Realizar login usuário inativo")]
+        [Trait("Integração", "Usuário")]
+        public async Task Usuario_RealizarCadastro_DeveRealizarLoginUsuarioInativo()
+        {
+            var comando = new LoginComando
+            {
+                Login = "inativo",
+                Senha = "inativo"
+            };
+
+            var response = await _testsFixture.Client.PostAsync("/api/usuario/autenticar", _testsFixture.GerarCorpoRequisicao(comando));
+
+            var mensagem = @"Não foi possível logar no sistema, o usuário informado está inativo!";
+
+            await _testsFixture.TestarRequisicaoInvalida(response, mensagem);
         }
 
         private async Task TestarCadastroUsuarioInvalido(string mensagem, CriarUsuarioComando comando)

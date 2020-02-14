@@ -80,8 +80,7 @@ namespace SGH.TestesDeIntegracao
                                      O campo edital é obrigatório.
                                      O campo número é obrigatório.
                                      O campo semestre é obrigatório.
-                                     Para realizar o cadastro é necessário informar pelo menos uma disciplina.
-                                     Não foi encontrado um professor com o código {comando.CodigoProfessor}"
+                                     Não foi encontrado um professor com o código {comando.CodigoProfessor}."
                                    .RemoverEspacosVazios();
 
             mensagemErro.RemoverEspacosVazios().Should().Be(mensagemEsperada);
@@ -100,31 +99,6 @@ namespace SGH.TestesDeIntegracao
             var mensagemErro = await response.Content.ReadAsStringAsync();
 
             var mensagemEsperada = $@"Já existe um cargo com os mesmos valores para os campos semestre, ano, edital e número."
-                                   .RemoverEspacosVazios();
-
-            mensagemErro.RemoverEspacosVazios().Should().Be(mensagemEsperada);
-        }
-
-        [Trait("Integração", "Cargo")]
-        [Fact(DisplayName = "Realizar cadastro de cargo com disciplina não cadastrada")]
-        public async Task Cargo_RealizarCadastro_DeveRetornarMensagemCargoDisciplinaNaoCadastrada()
-        {
-            var comando = GerarComandoCargo();
-            comando.Edital = 3;
-            comando.Disciplinas = new List<CargoDisciplinaViewModel>
-            {
-                new CargoDisciplinaViewModel
-                {
-                    CodigoCargo = 1,
-                    CodigoCurriculoDisciplina = 99
-                }
-            };
-
-            var response = await _testsFixture.Client.PostAsync(GetRota("criar"), _testsFixture.GerarCorpoRequisicao(comando));
-
-            var mensagemErro = await response.Content.ReadAsStringAsync();
-
-            var mensagemEsperada = $@"Currículo não encontrado para alguma disciplina informada."
                                    .RemoverEspacosVazios();
 
             mensagemErro.RemoverEspacosVazios().Should().Be(mensagemEsperada);
@@ -289,33 +263,70 @@ namespace SGH.TestesDeIntegracao
 
             response.Entidade.Should().Contain(lnq => lnq.Disciplinas.Count() == 2);
 
+            var disciplinas = response.Entidade.FirstOrDefault().Disciplinas;
+            
+            disciplinas.Should().NotContain(lnq => lnq.CodigoCargo != 2);
+
+            disciplinas.Should().NotContain(lnq => lnq.Codigo <= 0);
+        }
+
+        [Trait("Integração", "Cargo")]
+        [Fact(DisplayName = "Realizar atualização de cargo inválido")]
+        public async Task Cargo_RealizarAtualizacaoCargoInvalido_DeveRetornarMensagensDeErro()
+        {
+            var comando = new AtualizarCargoComando();
+            comando.CodigoProfessor = 99;
+            comando.Codigo = 99;
+
+            var mensagemEsperada = $@"O campo ano é obrigatório.
+                                     O campo edital é obrigatório.
+                                     O campo número é obrigatório.
+                                     O campo semestre é obrigatório.
+                                     Não foi encontrado um professor com o código {comando.Codigo}.
+                                     Não foi encontrado um cargo com o código {comando.Codigo}."
+                                    .RemoverEspacosVazios();
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("atualizar"), comando);
+
+            var mensagemErroResposta = await resposta.Content.ReadAsStringAsync();
+
+            resposta.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            mensagemErroResposta.RemoverEspacosVazios().Should().Be(mensagemEsperada);
+
+        }
+
+        [Trait("Integração", "Cargo")]
+        [Fact(DisplayName = "Realizar atualização de cargo ja existente")]
+        public async Task Cargo_RealizarAtualizacaoCargoJaExistente_DeveRetornarMensagensDeErro()
+        {
+            var comando = new AtualizarCargoComando
+            {
+                Codigo = 2,
+                Ano = DateTime.Now.Year,
+                CodigoProfessor = 1,
+                Edital = 1,
+                Numero = 1,
+                Semestre = ESemestre.PRIMEIRO
+            };
+
+            var mensagemEsperada = $@"Já existe um cargo com os mesmos valores para os campos semestre, ano, edital e número."
+                                    .RemoverEspacosVazios();
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("atualizar"), comando);
+
+            var mensagemErroResposta = await resposta.Content.ReadAsStringAsync();
+
+            resposta.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            mensagemErroResposta.RemoverEspacosVazios().Should().Be(mensagemEsperada);
 
         }
 
         [Trait("Integração", "Cargo")]
         [Fact(DisplayName = "Realizar atualização de cargo sem professor com sucesso")]
-        public async Task Cargo_RealizarCadastro_DeveRealizarAtualizacaoSemProfessorComSucesso()
+        public async Task Cargo_RealizarAtualizacao_DeveRealizarAtualizacaoSemProfessorComSucesso()
         {
-            var disciplinaManter = new CargoDisciplinaViewModel
-            {
-                Codigo = 4,
-                CodigoCargo = 3,
-                CodigoCurriculoDisciplina = 1
-            };
-
-            var disciplinaAdicionar = new CargoDisciplinaViewModel
-            {
-                CodigoCargo = 3,
-                CodigoCurriculoDisciplina = 3
-            };
-
-            var disciplinaAtualizar = new CargoDisciplinaViewModel
-            {
-                Codigo = 6,
-                CodigoCargo = 3,
-                CodigoCurriculoDisciplina = 1
-            };
-            
             var comando = new AtualizarCargoComando
             {
                 Ano = 2020,
@@ -324,14 +335,6 @@ namespace SGH.TestesDeIntegracao
                 Numero = 99,
                 Semestre = ESemestre.SEGUNDO
             };
-
-            var disciplinasCargo = new List<CargoDisciplinaViewModel>();
-
-            disciplinasCargo.Add(disciplinaManter);
-            disciplinasCargo.Add(disciplinaAdicionar);
-            disciplinasCargo.Add(disciplinaAtualizar);
-
-            comando.Disciplinas = disciplinasCargo;
 
             var cargo = await RealizarRequisicaoCargo<CargoViewModel, AtualizarCargoComando>("atualizar", HttpMethod.Put, comando);
 
@@ -343,11 +346,8 @@ namespace SGH.TestesDeIntegracao
             cargo.Numero.Should().Be(comando.Numero);
             cargo.Semestre.Should().Be(comando.Semestre);
             cargo.CodigoProfessor.Should().BeNull();
-            cargo.Disciplinas.Should().NotContain(lnq => lnq.CodigoCargo != comando.Codigo);
-            cargo.Disciplinas.Should().Contain(lnq => lnq.CodigoCurriculoDisciplina == 1 && lnq.Codigo == 4);
-            cargo.Disciplinas.Should().Contain(lnq => lnq.CodigoCurriculoDisciplina == 1 && lnq.Codigo == 6);
-            cargo.Disciplinas.Should().NotContain(lnq => lnq.CodigoCurriculoDisciplina != 1 && lnq.CodigoCurriculoDisciplina != 3);
         }
+
         #endregion
 
         private void ValidarCargo(CargoViewModel cargo)
@@ -364,9 +364,6 @@ namespace SGH.TestesDeIntegracao
 
             cargo.Edital.Should().BeGreaterThan(0);
 
-            cargo.Disciplinas.Should().NotBeEmpty();
-
-            cargo.Disciplinas.Should().NotContain(lnq => lnq.Codigo <= 0 || lnq.CodigoCargo <= 0 || lnq.CodigoCurriculoDisciplina <= 0);
         }
 
         private async Task<TResposta> RealizarRequisicaoCargo<TResposta, TParametro>(string rota, HttpMethod metodoHttp, TParametro comando)
@@ -385,20 +382,12 @@ namespace SGH.TestesDeIntegracao
 
         private CriarCargoComando GerarComandoCargo()
         {
-            var disciplinas = new List<CargoDisciplinaViewModel>
-            {
-                new CargoDisciplinaViewModel {
-                    CodigoCurriculoDisciplina = 1
-                }
-            };
-
             return new CriarCargoComando
             {
                 Ano = DateTime.Now.Year,
                 Edital = 2,
                 Numero = 1,
                 Semestre = ESemestre.PRIMEIRO,
-                Disciplinas = disciplinas
             };
         }
 

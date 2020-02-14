@@ -6,6 +6,7 @@ using SGH.Dominio.Contratos;
 using SGH.Dominio.Implementacao;
 using SGH.Dominio.Implementacao.Autenticacao.Comandos.Login;
 using SGH.Dominio.Implementacao.Autenticacao.Comandos.RedefinirSenha;
+using SGH.Dominio.Implementacao.Cargos.Comandos.Atualizar;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Criar;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Remover;
 using SGH.Dominio.Implementacao.Curriculos.Comandos.Atualizar;
@@ -52,6 +53,7 @@ namespace SGH.Dominio.Extensions
             services.AddScoped<ICriarCurriculoComandoValidador, CriarCurriculoComandoValidador>();
             services.AddScoped<ICriarCargoComandoValidador, CriarCargoComandoValidador>();
             services.AddScoped<IRemoverCargoComandoValidador, RemoverCargoComandoValidador>();
+            services.AddScoped<IAtualizarCargoComandoValidador, AtualizarCargoComandoValidador>();
 
             #region AutoMapper
             services.AddAutoMapperConfig();
