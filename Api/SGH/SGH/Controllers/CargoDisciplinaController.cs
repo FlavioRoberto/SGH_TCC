@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/cargo/disciplinas")]
     public class CargoDisciplinaController : ControllerBase
     {
         private readonly IMediator _mediator;

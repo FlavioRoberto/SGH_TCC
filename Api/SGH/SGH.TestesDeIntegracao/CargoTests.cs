@@ -1,15 +1,10 @@
 ﻿using FluentAssertions;
-using MediatR;
-using Microsoft.AspNetCore.Http;
 using SGH.APi;
-using SGH.Dominio.Core;
 using SGH.Dominio.Core.Enums;
 using SGH.Dominio.Core.Extensions;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Atualizar;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Criar;
-using SGH.Dominio.Implementacao.Cargos.Comandos.Remover;
-using SGH.Dominio.Implementacao.Cargos.Consultas.ListarPaginacao;
 using SGH.Dominio.ViewModel;
 using SGH.TestesDeIntegracao.Config;
 using System;
