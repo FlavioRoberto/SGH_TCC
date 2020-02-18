@@ -6,5 +6,7 @@ namespace SGH.Dominio.Implementacao.CargosDisciplinas.Comandos.Criar
 {
     public class CriarCargoDisciplinaComando : IRequest<Resposta<CargoDisciplinaViewModel>>
     {
+        public int CodigoCargo { get; set; }
+        public int CodigoCurriculoDisciplina { get; set; }
     }
 }

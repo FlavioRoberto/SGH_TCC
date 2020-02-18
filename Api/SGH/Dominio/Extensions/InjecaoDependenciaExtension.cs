@@ -1,5 +1,4 @@
 ﻿using Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha;
-using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using SGH.Dominio.AutoMapper;
 using SGH.Dominio.Contratos;
@@ -9,6 +8,7 @@ using SGH.Dominio.Implementacao.Autenticacao.Comandos.RedefinirSenha;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Atualizar;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Criar;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Remover;
+using SGH.Dominio.Implementacao.CargosDisciplinas.Comandos.Criar;
 using SGH.Dominio.Implementacao.Curriculos.Comandos.Atualizar;
 using SGH.Dominio.Implementacao.Curriculos.Comandos.Criar;
 using SGH.Dominio.Implementacao.Curriculos.Comandos.Remover;
@@ -54,6 +54,7 @@ namespace SGH.Dominio.Extensions
             services.AddScoped<ICriarCargoComandoValidador, CriarCargoComandoValidador>();
             services.AddScoped<IRemoverCargoComandoValidador, RemoverCargoComandoValidador>();
             services.AddScoped<IAtualizarCargoComandoValidador, AtualizarCargoComandoValidador>();
+            services.AddScoped<ICriarCargoDisciplinaComandoValidador, CriarCargoDisciplinaComandoValidador>();
 
             #region AutoMapper
             services.AddAutoMapperConfig();

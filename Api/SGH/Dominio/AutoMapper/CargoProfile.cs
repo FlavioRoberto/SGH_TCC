@@ -14,8 +14,6 @@ namespace SGH.Dominio.AutoMapper
             CreateMap<Cargo, CargoViewModel>();
             CreateMap<Paginacao<CargoViewModel>, Paginacao<Cargo>>();
             CreateMap<Paginacao<Cargo>, Paginacao<CargoViewModel>>();
-            CreateMap<CargoDisciplinaViewModel, CargoDisciplina>();
-            CreateMap<CargoDisciplina, CargoDisciplinaViewModel>();
             CreateMap<Cargo, AtualizarCargoComando>();
             CreateMap<AtualizarCargoComando, Cargo>();
             CreateMap<Cargo, CriarCargoComando>();

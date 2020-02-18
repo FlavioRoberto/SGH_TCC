@@ -21,6 +21,11 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _repositorio.Atualizar(entidade);
         }
 
+        public Task<bool> Contem(Expression<Func<CargoDisciplina, bool>> expressao)
+        {
+            return _repositorio.Contem(expressao);
+        }
+
         public async Task<CargoDisciplina> Criar(CargoDisciplina entidade)
         {
             return await _repositorio.Criar(entidade);
