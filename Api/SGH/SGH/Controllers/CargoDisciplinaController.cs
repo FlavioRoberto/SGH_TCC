@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGH.Dominio.Implementacao.CargosDisciplinas.Comandos.Criar;
+using SGH.Dominio.Implementacao.CargosDisciplinas.Comandos.Remover;
 using System;
 using System.Threading.Tasks;
 
@@ -30,10 +31,37 @@ namespace SGH.Api.Controllers
 
                 return Ok(resposta.GetResultado());
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return BadRequest(e.Message);
             }
         }
+
+        [HttpDelete]
+        [Authorize("admin")]
+        [Route("{codigo}")]
+        public async Task<IActionResult> Remover(int codigo)
+        {
+            try
+            {
+                var comando = new RemoverCargoDisciplinaComando
+                {
+                    Codigo = codigo
+                };
+
+                var resultado = await _mediator.Send(comando);
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
     }
 }

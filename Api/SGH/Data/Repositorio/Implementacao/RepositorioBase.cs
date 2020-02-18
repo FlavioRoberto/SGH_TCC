@@ -97,8 +97,7 @@ namespace SGH.Data.Repositorio.Implementacao
                 }
                 else
                 {
-                    return false;
-                    throw new Exception("Não foi encontrado uma pessoa com o código informado!");
+                    throw new Exception("Não foi encontrado a entidade com o código informado!");
                 }
             }
             catch (Exception e)

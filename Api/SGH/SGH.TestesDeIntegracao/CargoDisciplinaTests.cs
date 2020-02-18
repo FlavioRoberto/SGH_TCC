@@ -2,6 +2,7 @@
 using SGH.APi;
 using SGH.Dominio.Core.Extensions;
 using SGH.Dominio.Implementacao.CargosDisciplinas.Comandos.Criar;
+using SGH.Dominio.Implementacao.Disciplinas.Comandos.Remover;
 using SGH.Dominio.ViewModel;
 using SGH.TestesDeIntegracao.Config;
 using System.Net;
@@ -26,7 +27,7 @@ namespace SGH.TestesDeIntegracao
         public async Task DisciplinaCargo_RealizarCadastro_DeveRealizarCadastroComSucesso()
         {
             var comando = new CriarCargoDisciplinaComando { 
-               CodigoCargo = 1,
+               CodigoCargo = 2,
                CodigoCurriculoDisciplina = 3
             };
 
@@ -100,7 +101,7 @@ namespace SGH.TestesDeIntegracao
         {
             var comando = new CriarCargoDisciplinaComando
             {
-                CodigoCargo = 1,
+                CodigoCargo = 2,
                 CodigoCurriculoDisciplina = 1
             };
 
@@ -114,6 +115,51 @@ namespace SGH.TestesDeIntegracao
             var mensagemErroRequest = await resposta.Content.ReadAsStringAsync();
 
             mensagemErroRequest.RemoverEspacosVazios().Should().Be(mensagemErroEsperada);
+
+        }
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Realizar remoção de disciplina com sucesso.")]
+        public async Task DisciplinaCargo_Remover_DeveRemoverComSucesso()
+        {
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"7"));
+
+            resposta.EnsureSuccessStatusCode();  
+        }
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Realizar remoção de disciplina com código igual a 0.")]
+        public async Task DisciplinaCargo_Remover_DeveRetornarMensagemCodigoIgualZero()
+        {
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"0"));
+
+            var mensagemEsperada = "O campo código não pode ser menor ou igual a 0."
+                                   .RemoverEspacosVazios();
+
+            resposta.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var mensagemErro = await resposta.Content.ReadAsStringAsync();
+
+            mensagemErro.RemoverEspacosVazios().Should().Be(mensagemEsperada);
+
+        }
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Realizar remoção de disciplina inexistente.")]
+        public async Task DisciplinaCargo_Remover_DeveRetornarMensagemDisciplinaInexistente()
+        {
+            int codigo = 99;
+
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"{codigo}"));
+
+            var mensagemEsperada = $"Não foi encontrada uma disciplina com o código {codigo}."
+                                   .RemoverEspacosVazios();
+
+            resposta.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var mensagemErro = await resposta.Content.ReadAsStringAsync();
+
+            mensagemErro.RemoverEspacosVazios().Should().Be(mensagemEsperada);
 
         }
 

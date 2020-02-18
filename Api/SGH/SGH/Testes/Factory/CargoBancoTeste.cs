@@ -52,34 +52,39 @@ namespace SGH.Api.Testes.Factory
 
             var disciplinasCargo = new List<CargoDisciplina> {
                  new CargoDisciplina
-                {
-                   CodigoCargo = 1,
-                   CodigoCurriculoDisciplina = 1
-                },
-                 new CargoDisciplina
                  {
-                   CodigoCargo = 2,
-                   CodigoCurriculoDisciplina = 1
-                 },
-                  new CargoDisciplina
-                 {
-                   CodigoCargo = 2,
-                   CodigoCurriculoDisciplina = 2
-                 },
-                  new CargoDisciplina
-                 {
-                   CodigoCargo = 3,
-                   CodigoCurriculoDisciplina = 1
-                 },
-                  new CargoDisciplina
-                 {
-                   CodigoCargo = 3,
-                   CodigoCurriculoDisciplina = 2
+                    CodigoCargo = 1,
+                    CodigoCurriculoDisciplina = 1
                  },
                  new CargoDisciplina
                  {
-                   CodigoCargo = 3,
-                   CodigoCurriculoDisciplina = 2
+                    CodigoCargo = 2,
+                    CodigoCurriculoDisciplina = 1
+                 },
+                  new CargoDisciplina
+                 {
+                    CodigoCargo = 2,
+                    CodigoCurriculoDisciplina = 2
+                 },
+                  new CargoDisciplina
+                 {
+                    CodigoCargo = 3,
+                    CodigoCurriculoDisciplina = 1
+                 },
+                  new CargoDisciplina
+                 {
+                    CodigoCargo = 3,
+                    CodigoCurriculoDisciplina = 2
+                 },
+                 new CargoDisciplina
+                 {
+                    CodigoCargo = 3,
+                    CodigoCurriculoDisciplina = 2
+                 },
+                 new CargoDisciplina //disciplina a remover
+                 {
+                    CodigoCargo = 3,
+                    CodigoCurriculoDisciplina = 2
                  }
             };
 
