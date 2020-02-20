@@ -190,6 +190,42 @@ namespace SGH.TestesDeIntegracao
 
         }
 
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Realizar consulta de disciplinas do cargo com código 0")]
+        public async Task DisciplinaCargo_ConsultarDisciplinas_DeveRetornarMensagemCodigoCargoZero()
+        {
+            int codigo = 0;
+
+            var resposta = await _testsFixture.Client.GetAsync(GetRota($"{codigo}"));
+
+            var mensagemExperada = "O campo código não pode ter valor menor ou igual a 0."
+                                   .RemoverEspacosVazios();
+            
+            resposta.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var erro = await resposta.Content.ReadAsStringAsync();
+
+            erro.RemoverEspacosVazios().Should().Be(mensagemExperada);
+        }
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Realizar consulta de disciplinas do cargo inexistente")]
+        public async Task DisciplinaCargo_ConsultarDisciplinas_DeveRetornarMensagemCargoInexistente()
+        {
+            int codigo = 99;
+
+            var resposta = await _testsFixture.Client.GetAsync(GetRota($"{codigo}"));
+
+            var mensagemExperada = $"Não foi encontrado um cargo com código {codigo}."
+                                   .RemoverEspacosVazios();
+
+            resposta.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var erro = await resposta.Content.ReadAsStringAsync();
+
+            erro.RemoverEspacosVazios().Should().Be(mensagemExperada);
+        }
+
         private string GetRota(string rota = "")
         {
             return $"api/cargo/disciplinas/{rota}";
