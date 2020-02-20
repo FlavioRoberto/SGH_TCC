@@ -21,6 +21,14 @@ namespace SGH.Api.Testes.Factory
                 new Curso
                 {
                     Descricao = "Engenharia da computação"
+                },
+                new Curso
+                {
+                    Descricao = "Engenharia civil"
+                },
+                new Curso
+                {
+                    Descricao = "Engenharia de produção"
                 }
             };
 

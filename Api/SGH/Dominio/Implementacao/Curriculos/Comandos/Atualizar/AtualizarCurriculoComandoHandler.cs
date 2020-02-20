@@ -31,10 +31,13 @@ namespace SGH.Dominio.Implementacao.Curriculos.Comandos.Atualizar
             if (!string.IsNullOrEmpty(erros))
                 return new Resposta<Curriculo>(erros);
 
-            var entidade = request.ConverterParaCurriculo();
+            var entidade = _mapper.Map<Curriculo>(request);
 
             var curriculo = await _repositorio.Atualizar(entidade);
-            curriculo.Disciplinas = curriculo.Disciplinas.OrderBy(lnq => lnq.Periodo).ToList();
+
+            if (curriculo.Disciplinas != null && curriculo.Disciplinas.Any())
+                curriculo.Disciplinas = curriculo.Disciplinas.OrderBy(lnq => lnq.Periodo).ToList();
+
             return new Resposta<Curriculo>(curriculo);
         }
     }

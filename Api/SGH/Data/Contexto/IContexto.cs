@@ -26,6 +26,8 @@ namespace SHG.Data.Contexto
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
         int SaveChanges();
 
-        Task IniciarTransacao(Action action);
+        Task IniciarTransacao();
+
+        void FecharTransacao();
     }
 }

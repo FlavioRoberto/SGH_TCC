@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using SGH.Data.Repositorio.Contratos;
@@ -26,7 +27,7 @@ namespace SGH.Dominio.Implementacao.Curriculos.Comandos.Remover
             if (!string.IsNullOrEmpty(erros))
                 return new Resposta<bool>(erros);
 
-            var resultado = await _repositorio.Remover(lnq => lnq.Codigo == request.CodigoCurriculo);
+            var resultado = await _repositorio.Remover(Convert.ToInt32(request.CodigoCurriculo));
 
             return new Resposta<bool>(resultado);
         }

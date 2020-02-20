@@ -25,7 +25,9 @@ namespace SGH.Dominio.Implementacao.Cargos.Consultas.ListarPaginacao
 
             var resultado = await _cargoRepositorio.ListarPorPaginacao(cargoPaginadoViewModel);
 
-            return _mapper.Map<Paginacao<CargoViewModel>>(resultado);
+            var entidadeMapeada = _mapper.Map<Paginacao<CargoViewModel>>(resultado);
+
+            return entidadeMapeada;
         }
     }
 }

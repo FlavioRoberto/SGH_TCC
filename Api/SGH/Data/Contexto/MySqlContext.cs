@@ -29,14 +29,7 @@ namespace SHG.Data.Contexto
             modelBuilder.Entity<Professor>(b => new ProfessorMapeamento(b).Map());
             modelBuilder.Entity<Cargo>(b => new CargoMapeamento(b).Map());
             modelBuilder.Entity<CargoDisciplina>(b => new CargoDisciplinaMapeamento(b).Map());
-        }
-
-        public async Task IniciarTransacao(Action acao)
-        {
-            await Database.BeginTransactionAsync();
-            acao.Invoke();
-            Database.CommitTransaction();
-        }
+        }       
 
         public DbSet<CurriculoDisciplina> CurriculoDisciplina { get; set; }
         public DbSet<CurriculoDisciplinaPreRequisito> CurriculoDisciplinaPreRequisito { get; set; }
@@ -50,5 +43,15 @@ namespace SHG.Data.Contexto
         public DbSet<Professor> Professor { get; set; }
         public DbSet<Cargo> Cargo { get; set; }
         public DbSet<CargoDisciplina> CargoDisciplina { get; set; }
+
+        public async Task IniciarTransacao()
+        {
+            await Database.BeginTransactionAsync();
+        }
+
+        public void FecharTransacao()
+        {
+            Database.CommitTransaction();
+        }
     }
 }

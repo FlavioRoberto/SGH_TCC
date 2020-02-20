@@ -5,6 +5,7 @@ using SGH.Dominio.Implementacao.CargosDisciplinas.Comandos.Criar;
 using SGH.Dominio.Implementacao.Disciplinas.Comandos.Remover;
 using SGH.Dominio.ViewModel;
 using SGH.TestesDeIntegracao.Config;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -160,6 +161,32 @@ namespace SGH.TestesDeIntegracao
             var mensagemErro = await resposta.Content.ReadAsStringAsync();
 
             mensagemErro.RemoverEspacosVazios().Should().Be(mensagemEsperada);
+
+        }
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Realizar consulta de disciplinas do cargo")]
+        public async Task DisciplinaCargo_ConsultarDisciplinas_DeveRetornarDisciplinasCargoComSucesso()
+        {
+            int codigo = 4;
+
+            var resposta = await _testsFixture.Client.GetAsync(GetRota($"{codigo}"));
+
+            var anoAtual = DateTime.Now.Year;
+
+            resposta.EnsureSuccessStatusCode();
+
+            var conteudo = await _testsFixture.RecuperarConteudoRequisicao<CargoDisciplinaViewModel[]>(resposta);
+
+            conteudo.Should().NotContain(lnq => lnq.CodigoCargo != codigo);
+
+            conteudo.Should().HaveCount(3);
+
+            conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia da computação - {anoAtual}"));
+
+            conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia civil - {anoAtual + 1}"));
+
+            conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia de produção - {anoAtual + 2}"));
 
         }
 

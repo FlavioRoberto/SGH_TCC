@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGH.Dominio.Implementacao.CargosDisciplinas.Comandos.Criar;
 using SGH.Dominio.Implementacao.CargosDisciplinas.Comandos.Remover;
+using SGH.Dominio.Implementacao.CargosDisciplinas.Consulta.ListarTodas;
 using System;
 using System.Threading.Tasks;
 
@@ -55,6 +56,29 @@ namespace SGH.Api.Controllers
                     return BadRequest(resultado.GetErros());
 
                 return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
+        [HttpGet]
+        [Authorize("admin")]
+        [Route("{codigoCargo}")]
+        public async Task<IActionResult> ListarDisciplinasCargo(int codigoCargo)
+        {
+            try
+            {
+                var comando = new ListarTodasDisciplinasCargoConsulta
+                {
+                    CodigoCargo = codigoCargo
+                };
+
+                var resultado = await _mediator.Send(comando);
+
+                return Ok(resultado);
             }
             catch (Exception e)
             {

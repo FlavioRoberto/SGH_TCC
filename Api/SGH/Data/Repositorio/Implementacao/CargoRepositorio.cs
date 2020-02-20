@@ -39,7 +39,6 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             var query = _repositorio.GetDbSet<Cargo>()
                                     .Include(lnq => lnq.Professor)
-                                    .Include(lnq => lnq.Disciplinas)
                                     .AsNoTracking();
 
             if (entidadePaginada.Entidade == null)

@@ -32,6 +32,16 @@ namespace SGH.Api.Testes.Factory
                 {
                     CodigoTipo = 2,
                     Descricao = "Programação para dispositivos móveis"
+                },
+                 new Disciplina
+                {
+                    CodigoTipo = 1,
+                    Descricao = "Concreto armado"
+                },
+                new Disciplina
+                {
+                    CodigoTipo = 1,
+                    Descricao = "Cálculo I"
                 }
             };
 

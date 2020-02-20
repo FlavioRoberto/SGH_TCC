@@ -23,13 +23,9 @@ namespace SGH.Dominio.Implementacao.Curriculos.Comandos.Remover
 
         private async Task<bool> ValidarCurriculoExistente(long Id, CancellationToken cancellationToken)
         {
-            var curriculo = await _repositorio.Listar(lnq => lnq.Codigo == Id);
-
-            if (curriculo == null)
-                return false;
-
-            return true;
-        }
+            var resultado = await _repositorio.Contem(lnq => lnq.Codigo == Id);
+            return !resultado;
+          }
 
     }
 }

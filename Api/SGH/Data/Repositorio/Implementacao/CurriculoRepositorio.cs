@@ -11,25 +11,22 @@ using System.Threading.Tasks;
 
 namespace SGH.Data.Repositorio.Implementacao
 {
-    public class CurriculoRepositorio : RepositorioBase<Curriculo>, ICurriculoRepositorio
+    public class CurriculoRepositorio : ICurriculoRepositorio
     {
+        private readonly IContexto _contexto;
 
-        public CurriculoRepositorio(IContexto contexto) : base(contexto)
+        public CurriculoRepositorio(IContexto contexto) 
         {
+            _contexto = contexto;
         }
 
-        public override async Task<Curriculo> Atualizar(Curriculo entidade)
+        public async Task<Curriculo> Atualizar(Curriculo entidade)
         {
             try
             {
+                await _contexto.IniciarTransacao();
 
-                var disciplinasRemover = await GetDbSet<CurriculoDisciplina>()
-                                                .AsNoTracking()
-                                                .Where(lnq => lnq.CodigoCurriculo == entidade.Codigo)
-                                                .ToListAsync();
-
-                GetDbSet<CurriculoDisciplina>().RemoveRange(disciplinasRemover);
-                await SaveChangesAsync();
+                await RemoverDisciplinas(entidade.Codigo);
 
                 foreach (var disciplina in entidade.Disciplinas)
                 {
@@ -45,25 +42,29 @@ namespace SGH.Data.Repositorio.Implementacao
                         Credito = disciplina.Credito
                     };
 
-                    GetDbSet<CurriculoDisciplina>().Add(disciplinaAdicionar);
-                    await SaveChangesAsync();
+                    _contexto.CurriculoDisciplina.Add(disciplinaAdicionar);
+                    await _contexto.SaveChangesAsync();
 
                     foreach (var preRequisito in preRequisitos)
                     {
                         preRequisito.CodigoDisciplina = preRequisito.CodigoDisciplina;
                         preRequisito.CodigoCurriculoDisciplina = disciplinaAdicionar.Codigo;
-                        GetDbSet<CurriculoDisciplinaPreRequisito>().Add(preRequisito);
-                        await SaveChangesAsync();
+                        _contexto.CurriculoDisciplinaPreRequisito.Add(preRequisito);
+                        await _contexto.SaveChangesAsync();
                     };
-
+                    
                 }
 
-                var curriculoAtualizar = await GetDbSet<Curriculo>().FirstOrDefaultAsync(lnq => lnq.Codigo == entidade.Codigo);
+                var curriculoAtualizar = await _contexto.Curriculo.FirstOrDefaultAsync(lnq => lnq.Codigo == entidade.Codigo);
                 curriculoAtualizar.Ano = entidade.Ano;
                 curriculoAtualizar.CodigoCurso = entidade.CodigoCurso;
-                curriculoAtualizar.Disciplinas = curriculoAtualizar.Disciplinas.OrderBy(lnq => lnq.Periodo).ToList();
 
-                await SaveChangesAsync();
+                if (curriculoAtualizar.Disciplinas != null && curriculoAtualizar.Disciplinas.Any())
+                    curriculoAtualizar.Disciplinas = curriculoAtualizar.Disciplinas.OrderBy(lnq => lnq.Periodo).ToList();
+
+                await _contexto.SaveChangesAsync();
+
+                _contexto.FecharTransacao();
 
                 return curriculoAtualizar;
 
@@ -74,10 +75,12 @@ namespace SGH.Data.Repositorio.Implementacao
             }
         }
 
-        public override async Task<Curriculo> Criar(Curriculo entidade)
+        public async Task<Curriculo> Criar(Curriculo entidade)
         {
             try
             {
+                await _contexto.IniciarTransacao();
+                                
                 Curriculo curriculo = new Curriculo
                 {
                     Codigo = entidade.Codigo,
@@ -85,8 +88,8 @@ namespace SGH.Data.Repositorio.Implementacao
                     CodigoCurso = entidade.CodigoCurso,
                 };
 
-                GetDbSet<Curriculo>().Add(curriculo);
-                await SaveChangesAsync();
+                _contexto.Curriculo.Add(curriculo);
+                await _contexto.SaveChangesAsync();
 
                 foreach (var curDis in entidade.Disciplinas)
                 {
@@ -101,23 +104,28 @@ namespace SGH.Data.Repositorio.Implementacao
                         CodigoDisciplina = curDis.CodigoDisciplina,
                     };
 
-                    GetDbSet<CurriculoDisciplina>().Add(curDisSalvar);
-                    await SaveChangesAsync();
+                    _contexto.CurriculoDisciplina.Add(curDisSalvar);
+                    await _contexto.SaveChangesAsync();
 
-                    var preRequisitors = curDis.CurriculoDisciplinaPreRequisito.Select(curPre =>
+                    if (curDis.CurriculoDisciplinaPreRequisito != null && curDis.CurriculoDisciplinaPreRequisito.Any())
                     {
-                        return new CurriculoDisciplinaPreRequisito
+                        var preRequisitors = curDis.CurriculoDisciplinaPreRequisito.Select(curPre =>
                         {
-                            CodigoCurriculoDisciplina = curDisSalvar.Codigo,
-                            CodigoDisciplina = curPre.CodigoDisciplina
-                        };
-                    }).ToList();
+                            return new CurriculoDisciplinaPreRequisito
+                            {
+                                CodigoCurriculoDisciplina = curDisSalvar.Codigo,
+                                CodigoDisciplina = curPre.CodigoDisciplina
+                            };
+                        }).ToList();
 
-                    GetDbSet<CurriculoDisciplinaPreRequisito>().AddRange(preRequisitors);
-                    await SaveChangesAsync();
+                        _contexto.CurriculoDisciplinaPreRequisito.AddRange(preRequisitors);
+                        await _contexto.SaveChangesAsync();
+                    }
                 }
 
-                var retorno = GetDbSet<Curriculo>()
+                _contexto.FecharTransacao();
+
+                var retorno = _contexto.Curriculo
                                 .Include(lnq => lnq.Curso)
                                 .Include(lnq => lnq.Disciplinas)
                                 .ThenInclude(ce => ce.Disciplina)
@@ -136,24 +144,14 @@ namespace SGH.Data.Repositorio.Implementacao
             }
         }
 
-        public override async Task<Curriculo> Consultar(Expression<Func<Curriculo, bool>> query)
-        {
-            return await GetDbSet<Curriculo>().Include(lnq => lnq.Curso).Where(query).AsNoTracking().FirstOrDefaultAsync();
-        }
-
         public async Task<List<CurriculoDisciplina>> ListarDisciplinas(int codigoCurriculo)
         {
-            return await GetDbSet<CurriculoDisciplina>().Include(lnq => lnq.Disciplina).Where(lnq => lnq.CodigoCurriculo == codigoCurriculo).AsNoTracking().ToListAsync();
-        }
-
-        public override async Task<List<Curriculo>> Listar(Expression<Func<Curriculo, bool>> query)
-        {
-            return await GetDbSet<Curriculo>().Include(lnq => lnq.Curso).Where(query).AsNoTracking().ToListAsync();
+            return await _contexto.CurriculoDisciplina.Include(lnq => lnq.Disciplina).Where(lnq => lnq.CodigoCurriculo == codigoCurriculo).AsNoTracking().ToListAsync();
         }
 
         public async Task<Paginacao<Curriculo>> ListarPorPaginacao(Paginacao<Curriculo> entidadePaginada)
         {
-            var query = GetDbSet<Curriculo>()
+            var query = _contexto.Curriculo
                                 .Include(lnq => lnq.Curso)
                                 .Include(lnq => lnq.Disciplinas)
                                 .ThenInclude(ce => ce.Disciplina)
@@ -181,12 +179,64 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<int> RetornarQuantidadeDisciplinaCurriculo(int codigoCurriculo)
         {
-            return await GetDbSet<CurriculoDisciplina>().CountAsync(lnq => lnq.CodigoCurriculo == codigoCurriculo);
+            return await _contexto.CurriculoDisciplina.CountAsync(lnq => lnq.CodigoCurriculo == codigoCurriculo);
         }
 
         public async Task<CurriculoDisciplina> ConsultarCurriculoDisciplina(int codigoCurriculoDisciplina)
         {
-            return await GetDbSet<CurriculoDisciplina>().FirstOrDefaultAsync(lnq => lnq.Codigo == codigoCurriculoDisciplina);
+            return await _contexto.CurriculoDisciplina.FirstOrDefaultAsync(lnq => lnq.Codigo == codigoCurriculoDisciplina);
+        }
+
+        public async Task<bool> Remover(int codigoCurriculo)
+        {
+            await _contexto.IniciarTransacao();
+          
+            await RemoverDisciplinas(codigoCurriculo);
+
+            var curriculoRemover = await _contexto.Curriculo.AsNoTracking().FirstOrDefaultAsync(lnq => lnq.Codigo == codigoCurriculo);
+
+            _contexto.Curriculo.Remove(curriculoRemover);
+
+            await _contexto.SaveChangesAsync();
+
+            _contexto.FecharTransacao();
+
+            return true;
+        }
+
+        private async Task RemoverDisciplinas(int codigoCurriculo)
+        {
+            var disciplinasRemover = await _contexto.CurriculoDisciplina
+                                            .Include(lnq => lnq.CurriculoDisciplinaPreRequisito)
+                                            .AsNoTracking()
+                                            .Where(lnq => lnq.CodigoCurriculo == codigoCurriculo)
+                                            .ToListAsync();
+
+            var disciplinaPreRequisitoRemover = new List<CurriculoDisciplinaPreRequisito>();
+
+            disciplinasRemover.ForEach(disciplina => {
+                if (disciplina.CurriculoDisciplinaPreRequisito != null)
+                    disciplinaPreRequisitoRemover.AddRange(disciplina.CurriculoDisciplinaPreRequisito);
+            });
+
+            if (disciplinaPreRequisitoRemover != null)
+            {
+                _contexto.CurriculoDisciplinaPreRequisito.RemoveRange(disciplinaPreRequisitoRemover);
+                await _contexto.SaveChangesAsync();
+            }
+
+            _contexto.CurriculoDisciplina.RemoveRange(disciplinasRemover);
+            await _contexto.SaveChangesAsync();
+        }
+
+        public async Task<bool> Contem(Expression<Func<Curriculo, bool>> expressao)
+        {
+            return await _contexto.Curriculo.CountAsync(expressao) > 0;
+        }
+
+        public async Task<List<Curriculo>> ListarTodos()
+        {
+            return await _contexto.Curriculo.AsNoTracking().Include(lnq => lnq.Curso).ToListAsync();
         }
     }
 }

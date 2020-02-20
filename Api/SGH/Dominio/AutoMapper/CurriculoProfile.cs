@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using SGH.Dominio.ViewModel;
 using SGH.Dominio.Core.Model;
+using SGH.Dominio.Implementacao.Curriculos.Comandos.Criar;
+using SGH.Dominio.Implementacao.Curriculos.Comandos.Atualizar;
 
 namespace SGH.Dominio.AutoMapper
 {
@@ -34,6 +36,14 @@ namespace SGH.Dominio.AutoMapper
             CreateMap<Paginacao<Curriculo>, Paginacao<CurriculoViewModel>>();
 
             CreateMap<Paginacao<CurriculoViewModel>, Paginacao<Curriculo>>();
+
+            CreateMap<Curriculo, CriarCurriculoComando>();
+
+            CreateMap<CriarCurriculoComando, Curriculo>();
+
+            CreateMap<Curriculo, AtualizarCurriculoComando>();
+
+            CreateMap<AtualizarCurriculoComando, Curriculo>();
 
         }
     }

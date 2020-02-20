@@ -23,6 +23,16 @@ namespace SGH.Api.Testes.Factory
                 {
                     Ano = DateTime.Now.Year,
                     CodigoCurso = 1
+                },
+                 new Curriculo
+                {
+                    Ano = DateTime.Now.Year + 1,
+                    CodigoCurso = 2 //ENGENHARIA CIVIL
+                },
+                  new Curriculo
+                {
+                    Ano = DateTime.Now.Year + 2,
+                    CodigoCurso = 3 //ENGENHARIA DE PRODUCAO
                 }
             };
 
@@ -46,6 +56,21 @@ namespace SGH.Api.Testes.Factory
                     CodigoCurriculo = 1,
                     CodigoDisciplina = 3
                 },
+                new CurriculoDisciplina
+                {
+                    CodigoCurriculo = 1, //Engenharia da Computação
+                    CodigoDisciplina = 3
+                },
+                new CurriculoDisciplina
+                {
+                    CodigoCurriculo = 2, //Engenharia Civil
+                    CodigoDisciplina = 4
+                },
+                new CurriculoDisciplina
+                {
+                    CodigoCurriculo = 3, //engenharia de produção
+                    CodigoDisciplina = 5
+                }
             };
 
             _contexto.CurriculoDisciplina.AddRange(disciplinasCurriculo);

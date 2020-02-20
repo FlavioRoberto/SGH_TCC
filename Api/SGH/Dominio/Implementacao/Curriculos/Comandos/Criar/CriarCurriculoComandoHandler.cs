@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using MediatR;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Contratos;
@@ -13,11 +14,13 @@ namespace SGH.Dominio.Implementacao.Curriculos.Comandos.Criar
     {
         private readonly ICurriculoRepositorio _repositorio;
         private readonly ICriarCurriculoComandoValidador _validador;
+        private readonly IMapper _mapper;
 
-        public CriarCurriculoComandoHandler(ICurriculoRepositorio repositorio, ICriarCurriculoComandoValidador validador)
+        public CriarCurriculoComandoHandler(ICurriculoRepositorio repositorio, ICriarCurriculoComandoValidador validador, IMapper mapper)
         {
             _repositorio = repositorio;
             _validador = validador;
+            _mapper = mapper;
         }
 
         public async Task<Resposta<Curriculo>> Handle(CriarCurriculoComando request, CancellationToken cancellationToken)
@@ -27,7 +30,7 @@ namespace SGH.Dominio.Implementacao.Curriculos.Comandos.Criar
             if (!string.IsNullOrEmpty(erros))
                 return new Resposta<Curriculo>(erros);
 
-            var entidade = request.ConverterParaCurriculo();
+            var entidade = _mapper.Map<Curriculo>(request);
 
             var resultado = await _repositorio.Criar(entidade);
 

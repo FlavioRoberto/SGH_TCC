@@ -11,6 +11,7 @@ using SGH.Dominio.Implementacao.Curriculos.Consultas.ListarDisciplinas;
 using SGH.Dominio.Implementacao.Curriculos.Consultas.ListarPaginacao;
 using System;
 using System.Threading.Tasks;
+using SGH.Dominio.Implementacao.Curriculos.Consultas.ListarTodos;
 
 namespace SGH.Api.Controllers
 {
@@ -38,6 +39,26 @@ namespace SGH.Api.Controllers
                 {
                     CodigoCurriculo = curriculoId
                 });
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet]
+        [Authorize("admin")]
+        [Route("listarTodos")]
+        public async Task<IActionResult> ListarTodos(int curriculoId)
+        {
+            try
+            {
+                var resultado = await _mediator.Send(new ListarTodosCurriculosConsulta());              
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());

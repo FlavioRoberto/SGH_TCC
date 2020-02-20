@@ -232,7 +232,7 @@ namespace SGH.TestesDeIntegracao
                 }
             };
 
-            var response = await RealizarRequisicaoCargo<Paginacao<Cargo>, Paginacao<CargoViewModel>>("listarPaginacao", HttpMethod.Post, consulta);
+            var response = await RealizarRequisicaoCargo<Paginacao<CargoViewModel>, Paginacao<CargoViewModel>>("listarPaginacao", HttpMethod.Post, consulta);
 
             response.Quantidade.Should().Be(1);
 
@@ -256,13 +256,6 @@ namespace SGH.TestesDeIntegracao
 
             response.Entidade.Should().Contain(lnq => lnq.Ano == 2020);
 
-            response.Entidade.Should().Contain(lnq => lnq.Disciplinas.Count() == 2);
-
-            var disciplinas = response.Entidade.FirstOrDefault().Disciplinas;
-            
-            disciplinas.Should().NotContain(lnq => lnq.CodigoCargo != 2);
-
-            disciplinas.Should().NotContain(lnq => lnq.Codigo <= 0);
         }
 
         [Trait("Integração", "Cargo")]

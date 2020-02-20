@@ -42,7 +42,8 @@ namespace SGH.APi
         public void ConfigureServices(IServiceCollection services)
         {
             var connectionString = _configuration["MySqlConnections:ConexaoLocal"];
-                      services.AddDbContext<MySqlContext>(options =>
+            
+            services.AddDbContext<MySqlContext>(options =>
             {
                 options.UseMySQL(connectionString);
             });

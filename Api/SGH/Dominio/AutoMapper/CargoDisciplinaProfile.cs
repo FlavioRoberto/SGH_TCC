@@ -10,7 +10,9 @@ namespace SGH.Dominio.AutoMapper
         public CargoDisciplinaProfile()
         {
             CreateMap<CargoDisciplinaViewModel, CargoDisciplina>();
-            CreateMap<CargoDisciplina, CargoDisciplinaViewModel>();
+            CreateMap<CargoDisciplina, CargoDisciplinaViewModel>()
+                .ForMember(dto => dto.disciplinaDescricao, opt => opt.MapFrom(c => c.Disciplina.Disciplina.Descricao))
+                .ForMember(dto => dto.cursoDescricao, opt => opt.MapFrom(c => c.Disciplina.Curriculo.Curso.Descricao));
             CreateMap<CargoDisciplina, CriarCargoDisciplinaComando>();
             CreateMap<CriarCargoDisciplinaComando, CargoDisciplina>();
         }

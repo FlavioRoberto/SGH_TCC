@@ -34,11 +34,12 @@ namespace SGH.Dominio.Implementacao.Cargos.Comandos.Remover
 
             var resultado = false;
 
-            await _contexto.IniciarTransacao(() =>
-            {
-                _cargoDisciplinaRepositorio.Remover(lnq => lnq.CodigoCargo == request.Codigo).Wait();
-                resultado =  _cargoRepositorio.Remover(lnq => lnq.Codigo == request.Codigo).Result;
-            });
+            await _contexto.IniciarTransacao();
+
+            _cargoDisciplinaRepositorio.Remover(lnq => lnq.CodigoCargo == request.Codigo).Wait();
+            resultado = _cargoRepositorio.Remover(lnq => lnq.Codigo == request.Codigo).Result;
+
+            _contexto.FecharTransacao();
 
             return new Resposta<bool>(resultado);
         }

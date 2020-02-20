@@ -44,6 +44,13 @@ namespace SGH.Api.Testes.Factory
                     Edital = 2,
                     Numero = 2,
                     Semestre = ESemestre.SEGUNDO
+                },
+                new Cargo //cargo para consulta codigo 4
+                {
+                    Ano = 2020,
+                    CodigoProfessor = 2,
+                    Edital = 13,
+                    Semestre = ESemestre.PRIMEIRO
                 }
             };
 
@@ -85,6 +92,21 @@ namespace SGH.Api.Testes.Factory
                  {
                     CodigoCargo = 3,
                     CodigoCurriculoDisciplina = 2
+                 },
+                  new CargoDisciplina
+                 {
+                    CodigoCargo = 4,
+                    CodigoCurriculoDisciplina = 4
+                 },
+                   new CargoDisciplina 
+                 {
+                    CodigoCargo = 4,
+                    CodigoCurriculoDisciplina = 5
+                 },
+                    new CargoDisciplina 
+                 {
+                    CodigoCargo = 4,
+                    CodigoCurriculoDisciplina = 6
                  }
             };
 

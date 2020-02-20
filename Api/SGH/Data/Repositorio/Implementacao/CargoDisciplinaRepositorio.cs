@@ -1,4 +1,5 @@
-﻿using SGH.Data.Repositorio.Contratos;
+﻿using Microsoft.EntityFrameworkCore;
+using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Model;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,27 @@ namespace SGH.Data.Repositorio.Implementacao
         public async Task<bool> Remover(Expression<Func<CargoDisciplina, bool>> expressao)
         {
             return await _repositorio.Remover(expressao);
+        }
+
+        public async Task<Curriculo> RetornarCurriculoDisciplina(int codigoCurriculoDisciplina)
+        {
+            var curriculoDisciplina = await _repositorio.GetDbSet<CurriculoDisciplina>()
+                .Include(lnq => lnq.Curriculo)
+                .ThenInclude(lnq => lnq.Curso)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(lnq => lnq.Codigo == codigoCurriculoDisciplina);
+
+            return curriculoDisciplina.Curriculo;
+        }
+
+        public async Task<Disciplina> RetornarDisciplina(int codigoCurriculoDisciplina)
+        {
+            var curriculoDisciplina = await _repositorio.GetDbSet<CurriculoDisciplina>()
+                .Include(lnq => lnq.Disciplina)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(lnq => lnq.Codigo == codigoCurriculoDisciplina);
+
+            return curriculoDisciplina.Disciplina;
         }
     }
 }

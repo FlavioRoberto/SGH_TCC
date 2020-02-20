@@ -11,7 +11,7 @@ namespace SGH.Data.Repositorio.Implementacao
 {
     public class RepositorioBase<T> : IRepositorio<T> where T : class
     {
-        private IContexto _contexto { get; set; }
+        protected IContexto _contexto { get; set; }
 
         public RepositorioBase(IContexto contexto)
         {

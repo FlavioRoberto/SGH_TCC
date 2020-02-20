@@ -13,5 +13,7 @@ namespace SGH.Data.Repositorio.Contratos
         Task<List<CargoDisciplina>> Listar(Expression<Func<CargoDisciplina, bool>> query);
         Task<CargoDisciplina> Atualizar(CargoDisciplina entidade);
         Task<bool> Contem(Expression<Func<CargoDisciplina, bool>> expressao);
+        Task<Disciplina> RetornarDisciplina(int codigoCurriculoDisciplina);
+        Task<Curriculo> RetornarCurriculoDisciplina(int codigoCurriculoDisciplina);
     }
 }
