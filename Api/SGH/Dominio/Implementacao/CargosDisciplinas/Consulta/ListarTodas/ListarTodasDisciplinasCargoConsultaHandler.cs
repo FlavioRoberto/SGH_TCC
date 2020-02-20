@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
 using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Contratos;
+using SGH.Dominio.Core;
+using SGH.Dominio.Core.Extensions;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.ViewModel;
 using System.Collections.Generic;
@@ -9,19 +12,26 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Implementacao.CargosDisciplinas.Consulta.ListarTodas
 {
-    public class ListarTodasDisciplinasCargoConsultaHandler : IRequestHandler<ListarTodasDisciplinasCargoConsulta, List<CargoDisciplinaViewModel>>
+    public class ListarTodasDisciplinasCargoConsultaHandler : IRequestHandler<ListarTodasDisciplinasCargoConsulta, Resposta<List<CargoDisciplinaViewModel>>>
     {
         private readonly ICargoDisciplinaRepositorio _repositorio;
         private readonly IMapper _mapper;
+        private readonly IListarTodasDisciplinasCargoConsultaValidador _validador;
 
-        public ListarTodasDisciplinasCargoConsultaHandler(ICargoDisciplinaRepositorio repositorio, IMapper mapper)
+        public ListarTodasDisciplinasCargoConsultaHandler(ICargoDisciplinaRepositorio repositorio, IMapper mapper, IListarTodasDisciplinasCargoConsultaValidador validador)
         {
             _repositorio = repositorio;
             _mapper = mapper;
+            _validador = validador;
         }
 
-        public async Task<List<CargoDisciplinaViewModel>> Handle(ListarTodasDisciplinasCargoConsulta request, CancellationToken cancellationToken)
+        public async Task<Resposta<List<CargoDisciplinaViewModel>>> Handle(ListarTodasDisciplinasCargoConsulta request, CancellationToken cancellationToken)
         {
+            var erro = _validador.Validar(request);
+
+            if (!string.IsNullOrEmpty(erro))
+                return new Resposta<List<CargoDisciplinaViewModel>>(erro);
+
             var resultado = await _repositorio.Listar(lnq => lnq.CodigoCargo == request.CodigoCargo);
 
             var disciplinasCurriculo = new List<CargoDisciplinaViewModel>();
@@ -44,7 +54,7 @@ namespace SGH.Dominio.Implementacao.CargosDisciplinas.Consulta.ListarTodas
                 disciplinasCurriculo.Add(cargoDisciplinaViewModel);
             }
 
-            return disciplinasCurriculo;
+            return new Resposta<List<CargoDisciplinaViewModel>>(disciplinasCurriculo);
 
         }
     }

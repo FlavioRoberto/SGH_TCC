@@ -78,7 +78,10 @@ namespace SGH.Api.Controllers
 
                 var resultado = await _mediator.Send(comando);
 
-                return Ok(resultado);
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
             }
             catch (Exception e)
             {

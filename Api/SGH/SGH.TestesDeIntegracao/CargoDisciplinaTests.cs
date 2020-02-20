@@ -188,6 +188,10 @@ namespace SGH.TestesDeIntegracao
 
             conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia de produção - {anoAtual + 2}"));
 
+            //adicionar validacao da descricao da disciplina retornada
+
+            Assert.True(false);
+
         }
 
         [Trait("Integração", "Disciplina Cargo")]
