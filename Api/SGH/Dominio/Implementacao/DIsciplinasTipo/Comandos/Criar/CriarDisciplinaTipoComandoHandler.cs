@@ -5,7 +5,7 @@ using SGH.Dominio.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.DIsciplinasTipoServico.Comandos.Criar
+namespace SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Comandos.Criar
 {
     public class CriarDisciplinaTipoComandoHandler : IRequestHandler<CriarDisciplinaTipoComando, Resposta<DisciplinaTipo>>
     {

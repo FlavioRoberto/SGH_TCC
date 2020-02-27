@@ -5,15 +5,15 @@ using System.Threading.Tasks;
 using MediatR;
 using SGH.Dominio.ViewModel;
 using SGH.Dominio.Core;
-using Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Implementacao.Usuarios.Consultas.ListarPaginacao;
+using SGH.Dominio.Services.Implementacao.Usuarios.Consultas.ListarPaginacao;
 using AutoMapper;
-using SGH.Dominio.Implementacao.Usuarios.Comandos.Criar;
-using SGH.Dominio.Implementacao.Usuarios.Comandos.Atualizar;
-using SGH.Dominio.Implementacao.Usuarios.Comandos.Remover;
-using SGH.Dominio.Implementacao.Autenticacao.Comandos.Login;
-using SGH.Dominio.Implementacao.Autenticacao.Comandos.RedefinirSenha;
+using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Atualizar;
+using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Remover;
+using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login;
+using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.RedefinirSenha;
+using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.AtualizarSenha;
 
 namespace Api.Controllers.Autenticacao
 {

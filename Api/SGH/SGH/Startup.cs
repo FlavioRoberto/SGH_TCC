@@ -20,7 +20,7 @@ using SHG.Data.Contexto;
 using SGH.Dominio.Core.Store;
 using SGH.Dominio.Core.Extensions;
 using SGH.Data.Extensios;
-using SGH.Dominio.Extensions;
+using SGH.Dominio.Services.Extensions;
 using SGH.Dominio.Shared.Extensions;
 
 namespace SGH.APi

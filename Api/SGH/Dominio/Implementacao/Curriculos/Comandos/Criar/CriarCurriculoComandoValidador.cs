@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using SHG.Data.Contexto;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Curriculos.Comandos.Criar
+namespace SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Criar
 {
     public class CriarCurriculoComandoValidador : AbstractValidator<CriarCurriculoComando>, ICriarCurriculoComandoValidador
     {

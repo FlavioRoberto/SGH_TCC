@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Implementacao.Cargos.Comandos.Atualizar;
-using SGH.Dominio.Implementacao.Cargos.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Cargos.Comandos.Atualizar;
+using SGH.Dominio.Services.Implementacao.Cargos.Comandos.Criar;
 using SGH.Dominio.ViewModel;
 
-namespace SGH.Dominio.AutoMapper
+namespace SGH.Dominio.Services.AutoMapper
 {
     public class CargoProfile : Profile
     {

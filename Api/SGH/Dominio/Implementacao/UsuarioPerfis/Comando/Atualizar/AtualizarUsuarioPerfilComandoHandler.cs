@@ -5,7 +5,7 @@ using SGH.Dominio.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.UsuarioPerfis.Comando.Atualizar
+namespace SGH.Dominio.Services.Implementacao.UsuarioPerfis.Comando.Atualizar
 {
     public class AtualizarUsuarioPerfilComandoHandler : IRequestHandler<AtualizarUsuarioPerfilComando, Resposta<UsuarioPerfil>>
     {

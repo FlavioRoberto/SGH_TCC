@@ -3,9 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 
-namespace SGH.Dominio.Implementacao.Disciplinas.Comandos.Remover
+namespace SGH.Dominio.Services.Implementacao.Disciplinas.Comandos.Remover
 {
     public class RemoverDisciplinaComandoValidador : AbstractValidator<RemoverDisciplinaComando>, IRemoverDisciplinaComandoValidador
     {

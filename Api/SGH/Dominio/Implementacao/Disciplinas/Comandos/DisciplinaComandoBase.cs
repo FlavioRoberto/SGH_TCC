@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SGH.Dominio.Implementacao.Disciplinas.Comandos
+namespace SGH.Dominio.Services.Implementacao.Disciplinas.Comandos
 {
     public class DisciplinaComandoBase
     {

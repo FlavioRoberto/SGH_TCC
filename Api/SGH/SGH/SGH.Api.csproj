@@ -30,7 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Data\SGH.Data.csproj" />
-    <ProjectReference Include="..\Dominio\SGH.Dominio.csproj" />
+    <ProjectReference Include="..\Dominio\SGH.Dominio.Services.csproj" />
     <ProjectReference Include="..\Servicos\SGH.Dominio.Core.csproj" />
     <ProjectReference Include="..\SGH.Dominio.Shared\SGH.Dominio.Shared.csproj" />
   </ItemGroup>

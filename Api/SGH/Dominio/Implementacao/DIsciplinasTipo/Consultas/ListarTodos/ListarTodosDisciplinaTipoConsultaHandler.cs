@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.DIsciplinasTipoServico.Consultas.ListarTodos
+namespace SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Consultas.ListarTodos
 {
     public class ListarTodosDisciplinaTipoConsultaHandler : IRequestHandler<ListarTodosDisciplinaTipoConsulta, List<DisciplinaTipo>>
     {

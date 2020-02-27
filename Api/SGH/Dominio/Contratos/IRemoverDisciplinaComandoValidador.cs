@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using SGH.Dominio.Implementacao.Disciplinas.Comandos.Remover;
+using SGH.Dominio.Services.Implementacao.Disciplinas.Comandos.Remover;
 
-namespace SGH.Dominio.Contratos
+namespace SGH.Dominio.Services.Contratos
 {
     public interface IRemoverDisciplinaComandoValidador : IValidator
     { }

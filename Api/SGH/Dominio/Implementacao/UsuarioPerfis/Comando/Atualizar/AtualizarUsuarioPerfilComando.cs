@@ -2,7 +2,7 @@
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 
-namespace SGH.Dominio.Implementacao.UsuarioPerfis.Comando.Atualizar
+namespace SGH.Dominio.Services.Implementacao.UsuarioPerfis.Comando.Atualizar
 {
     public class AtualizarUsuarioPerfilComando : IRequest<Resposta<UsuarioPerfil>>
     {

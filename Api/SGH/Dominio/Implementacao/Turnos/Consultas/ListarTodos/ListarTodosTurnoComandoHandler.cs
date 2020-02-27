@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Turnos.Consultas.ListarTodos
+namespace SGH.Dominio.Services.Implementacao.Turnos.Consultas.ListarTodos
 {
     public class ListarTodosTurnoComandoHandler : IRequestHandler<ListarTodosTurnoConsulta, ICollection<Turno>>
     {

@@ -4,13 +4,13 @@ using MediatR;
 using System.Threading;
 using SGH.Dominio.Core;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core.Email;
-using SGH.Dominio.Extensions;
-using SGH.Dominio.Helpers;
+using SGH.Dominio.Services.Extensions;
+using SGH.Dominio.Services.Helpers;
 using SGH.Dominio.Shared.Extensions;
 
-namespace SGH.Dominio.Implementacao.Autenticacao.Comandos.RedefinirSenha
+namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.RedefinirSenha
 {
     public class RedefinirSenhaComandoHandler : IRequestHandler<RedefinirSenhaComando, Resposta<string>>
     {

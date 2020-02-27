@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using System.Threading;
 using System.Threading.Tasks;
 using SGH.Dominio.Shared.Extensions;
 
-namespace SGH.Dominio.Implementacao.Usuarios.Comandos
+namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos
 {
     public abstract class UsuarioComandoValidador<T> : AbstractValidator<T> where T : IUsuarioComando
     {

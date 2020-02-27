@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Remover
+namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Remover
 {
     public class RemoverUsuarioComandoValidador : AbstractValidator<RemoverUsuarioComando>, IRemoverUsuarioComandoValidador
     {

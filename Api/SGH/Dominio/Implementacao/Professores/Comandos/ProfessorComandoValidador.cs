@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 
-namespace SGH.Dominio.Implementacao.Professores.Comandos
+namespace SGH.Dominio.Services.Implementacao.Professores.Comandos
 {
     public abstract class ProfessorComandoValidador<T> : AbstractValidator<T> where T : IProfessorComando
     {

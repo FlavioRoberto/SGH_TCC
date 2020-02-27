@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using SGH.Dominio.Core;
 
-namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Remover
+namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Remover
 {
     public class RemoverUsuarioComando : IRequest<Resposta<bool>>
     {

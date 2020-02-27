@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using SGH.APi;
-using SGH.Dominio.Implementacao.Autenticacao.Comandos.Login;
+using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login;
 using SGH.Dominio.Shared.Extensions;
 using System.Net;
 using System.Net.Http;

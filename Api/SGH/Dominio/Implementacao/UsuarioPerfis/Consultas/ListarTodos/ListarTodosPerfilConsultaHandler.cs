@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.UsuarioPerfis.Consultas.ListarTodos
+namespace SGH.Dominio.Services.Implementacao.UsuarioPerfis.Consultas.ListarTodos
 {
     public class ListarTodosPerfilConsultaHandler : IRequestHandler<ListarTodosPerfilConsulta, List<UsuarioPerfil>>
     {

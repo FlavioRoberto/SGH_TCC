@@ -1,13 +1,13 @@
 ﻿using MediatR;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core;
-using SGH.Dominio.Extensions;
+using SGH.Dominio.Services.Extensions;
 using SGH.Dominio.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Professores.Comandos.Criar
+namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Criar
 {
     public class CriarProfessorComandoHandler : IRequestHandler<CriarProfessorComando, Resposta<Professor>>
     {

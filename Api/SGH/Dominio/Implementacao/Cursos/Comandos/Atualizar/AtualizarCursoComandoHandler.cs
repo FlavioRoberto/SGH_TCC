@@ -6,7 +6,7 @@ using SHG.Data.Contexto;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Cursos.Comandos.Atualizar
+namespace SGH.Dominio.Services.Implementacao.Cursos.Comandos.Atualizar
 {
     public class AtualizarCursoComandoHandler : IRequestHandler<AtualizarCursoComando, Resposta<Curso>>
     {

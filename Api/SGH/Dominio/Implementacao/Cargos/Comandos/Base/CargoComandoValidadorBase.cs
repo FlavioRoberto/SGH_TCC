@@ -3,7 +3,7 @@ using SGH.Data.Repositorio.Contratos;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Cargos.Comandos.Base
+namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Base
 {
     public abstract class CargoComandoValidadorBase<T> : AbstractValidator<T> where T : ICargoComando
     {

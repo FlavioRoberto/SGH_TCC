@@ -3,7 +3,7 @@ using Moq;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Shared.Extensions;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Implementacao.Usuarios.Comandos.Atualizar;
+using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Atualizar;
 using System;
 using System.Linq;
 using System.Linq.Expressions;

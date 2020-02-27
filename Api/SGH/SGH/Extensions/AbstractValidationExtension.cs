@@ -2,7 +2,7 @@
 using System;
 using MediatR;
 
-namespace SGH.Dominio.Extensions
+namespace SGH.Dominio.Services.Extensions
 {
     public static class AbstractValidationExtension
     {

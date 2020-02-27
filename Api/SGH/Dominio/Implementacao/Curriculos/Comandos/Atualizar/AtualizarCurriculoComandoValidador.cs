@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 
-namespace SGH.Dominio.Implementacao.Curriculos.Comandos.Atualizar
+namespace SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Atualizar
 {
     public class AtualizarCurriculoComandoValidador : AbstractValidator<AtualizarCurriculoComando>, IAtualizarCurriculoComandoValidador
     {

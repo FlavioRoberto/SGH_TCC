@@ -5,12 +5,12 @@ using System;
 using System.Threading.Tasks;
 using SGH.Dominio.ViewModel;
 using MediatR;
-using SGH.Dominio.Implementacao.DIsciplinasTipoServico.Consultas.ListarTodos;
+using SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Consultas.ListarTodos;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Implementacao.DIsciplinasTipoServico.Consultas.ListarPaginacao;
-using SGH.Dominio.Implementacao.DIsciplinasTipoServico.Comandos.Criar;
-using SGH.Dominio.Implementacao.DIsciplinasTipoServico.Comandos.Atualizar;
-using SGH.Dominio.Implementacao.DIsciplinasTipoServico.Comandos.Remover;
+using SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Consultas.ListarPaginacao;
+using SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Comandos.Atualizar;
+using SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Comandos.Remover;
 
 namespace SGH.Api.Controllers
 {

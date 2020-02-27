@@ -7,7 +7,7 @@ using SGH.Dominio.ViewModel;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Curriculos.Consultas.ListarPaginacao
+namespace SGH.Dominio.Services.Implementacao.Curriculos.Consultas.ListarPaginacao
 {
     public class ListarPaginacaoCurriculoConsultaHandler : IRequestHandler<ListarPaginacaoCurriculoConsulta, Paginacao<CurriculoViewModel>>
     {

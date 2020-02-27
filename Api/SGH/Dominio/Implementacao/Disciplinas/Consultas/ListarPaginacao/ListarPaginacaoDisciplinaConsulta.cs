@@ -2,7 +2,7 @@
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 
-namespace SGH.Dominio.Implementacao.Disciplinas.Consultas.ListarPaginacao
+namespace SGH.Dominio.Services.Implementacao.Disciplinas.Consultas.ListarPaginacao
 {
     public class ListarPaginacaoDisciplinaConsulta : IRequest<Paginacao<Disciplina>>
     {

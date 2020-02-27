@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGH.Data", "Data\SGH.Data.c
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGH.Dominio.Core", "Servicos\SGH.Dominio.Core.csproj", "{7A303318-1D2B-42E0-BE34-1245F3C9C1EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGH.Dominio", "Dominio\SGH.Dominio.csproj", "{08C1AD22-079A-4A92-A0A1-09359BC389EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGH.Dominio.Services", "Dominio\SGH.Dominio.Services.csproj", "{08C1AD22-079A-4A92-A0A1-09359BC389EF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Servicos", "1 - Servicos", "{EB3E9026-EC15-4B8E-B3F6-0E4DBCC452D4}"
 EndProject

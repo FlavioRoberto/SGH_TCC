@@ -1,6 +1,6 @@
 ﻿using SGH.Dominio.Core.Enums;
 
-namespace SGH.Dominio.Implementacao.Cargos.Comandos.Base
+namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Base
 {
     public interface ICargoComando
     {

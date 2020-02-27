@@ -2,7 +2,7 @@
 using SGH.Dominio.ViewModel;
 using SGH.Dominio.Core.Model;
 
-namespace SGH.Dominio.AutoMapper
+namespace SGH.Dominio.Services.AutoMapper
 {
     public class DisciplinaProfile : Profile
     {

@@ -6,12 +6,12 @@ using SGH.Dominio.Core;
 using SGH.Dominio.ViewModel;
 using MediatR;
 using AutoMapper;
-using SGH.Dominio.Implementacao.Cursos.Consultas.ListarTodos;
+using SGH.Dominio.Services.Implementacao.Cursos.Consultas.ListarTodos;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Implementacao.Cursos.Consultas.ListarPaginacao;
-using SGH.Dominio.Implementacao.Cursos.Comandos.Criar;
-using SGH.Dominio.Implementacao.Cursos.Comandos.Atualizar;
-using SGH.Dominio.Implementacao.Cursos.Comandos.Remover;
+using SGH.Dominio.Services.Implementacao.Cursos.Consultas.ListarPaginacao;
+using SGH.Dominio.Services.Implementacao.Cursos.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Cursos.Comandos.Atualizar;
+using SGH.Dominio.Services.Implementacao.Cursos.Comandos.Remover;
 
 namespace SGH.Api.Controllers
 {

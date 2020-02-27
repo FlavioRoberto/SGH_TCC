@@ -5,7 +5,7 @@ using SGH.Dominio.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Cursos.Comandos.Criar
+namespace SGH.Dominio.Services.Implementacao.Cursos.Comandos.Criar
 {
     public class CriarCursoComandoHandler : IRequestHandler<CriarCursoComando, Resposta<Curso>>
     {

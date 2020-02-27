@@ -3,11 +3,11 @@ using MediatR;
 using System.Threading;
 using SGH.Dominio.Core;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Shared.Extensions;
-using SGH.Dominio.Extensions;
+using SGH.Dominio.Services.Extensions;
 
-namespace Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha
+namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.AtualizarSenha
 {
     public class AtualizarSenhaComandoHandler : IRequestHandler<AtualizarSenhaComando, Resposta<string>>
     {

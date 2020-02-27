@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using SGH.Dominio.Core.Model;
 
-namespace SGH.Dominio.Implementacao.Turnos.Consultas.ListarPorCodigo
+namespace SGH.Dominio.Services.Implementacao.Turnos.Consultas.ListarPorCodigo
 {
     public class ListarPorCodigoTurnoConsulta : IRequest<Turno>
     {

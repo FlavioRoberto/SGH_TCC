@@ -2,10 +2,10 @@
 using System.Threading.Tasks;
 using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core.Model;
 
-namespace SGH.Dominio.Implementacao.Autenticacao.Comandos.Login
+namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login
 {
     public class LoginComandoValidator : AbstractValidator<LoginComando>, ILoginComandoValidator
     {

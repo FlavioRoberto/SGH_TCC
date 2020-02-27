@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using System.Security.Claims;
 
-namespace SGH.Dominio.Implementacao
+namespace SGH.Dominio.Services.Implementacao
 {
     public class UsuarioResolverService : IUsuarioResolverService
     {

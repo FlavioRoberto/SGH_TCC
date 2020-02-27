@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using SGH.Dominio.Core;
 
-namespace SGH.Dominio.Implementacao.Turnos.Comandos.Remover
+namespace SGH.Dominio.Services.Implementacao.Turnos.Comandos.Remover
 {
     public class RemoverTurnoComando : IRequest<Resposta<bool>>
     {

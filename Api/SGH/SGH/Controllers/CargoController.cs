@@ -2,10 +2,10 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Implementacao.Cargos.Comandos.Atualizar;
-using SGH.Dominio.Implementacao.Cargos.Comandos.Criar;
-using SGH.Dominio.Implementacao.Cargos.Comandos.Remover;
-using SGH.Dominio.Implementacao.Cargos.Consultas.ListarPaginacao;
+using SGH.Dominio.Services.Implementacao.Cargos.Comandos.Atualizar;
+using SGH.Dominio.Services.Implementacao.Cargos.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Cargos.Comandos.Remover;
+using SGH.Dominio.Services.Implementacao.Cargos.Consultas.ListarPaginacao;
 using SGH.Dominio.ViewModel;
 using System;
 using System.Threading.Tasks;

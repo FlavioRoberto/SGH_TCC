@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.CargosDisciplinas.Consulta.ListarTodas
+namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Consulta.ListarTodas
 {
     public class ListarTodasDisciplinasCargoConsultaValidador : AbstractValidator<ListarTodasDisciplinasCargoConsulta>, IListarTodasDisciplinasCargoConsultaValidador
     {

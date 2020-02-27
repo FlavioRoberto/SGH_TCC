@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dominio\SGH.Dominio.csproj" />
+    <ProjectReference Include="..\Dominio\SGH.Dominio.Services.csproj" />
     <ProjectReference Include="..\SGH\SGH.Api.csproj" />
   </ItemGroup>
 

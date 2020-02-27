@@ -1,9 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SGH.Dominio.Implementacao.CargosDisciplinas.Comandos.Criar;
-using SGH.Dominio.Implementacao.CargosDisciplinas.Comandos.Remover;
-using SGH.Dominio.Implementacao.CargosDisciplinas.Consulta.ListarTodas;
+using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Remover;
+using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Consulta.ListarTodas;
 using System;
 using System.Threading.Tasks;
 

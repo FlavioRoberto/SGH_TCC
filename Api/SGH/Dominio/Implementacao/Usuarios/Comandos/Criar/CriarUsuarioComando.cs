@@ -1,9 +1,9 @@
 ﻿using MediatR;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 
-namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Criar
+namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar
 {
     public class CriarUsuarioComando : IRequest<Resposta<Usuario>>, IUsuarioComando
     {

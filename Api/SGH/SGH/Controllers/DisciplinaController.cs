@@ -3,16 +3,16 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using MediatR;
-using SGH.Dominio.Implementacao.Disciplinas.Consultas.ListarTodas;
+using SGH.Dominio.Services.Implementacao.Disciplinas.Consultas.ListarTodas;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Implementacao.Disciplinas.Consultas.ListarPorDescricao;
+using SGH.Dominio.Services.Implementacao.Disciplinas.Consultas.ListarPorDescricao;
 using SGH.Dominio.ViewModel;
-using SGH.Dominio.Implementacao.Disciplinas.Consultas.ListarPaginacao;
+using SGH.Dominio.Services.Implementacao.Disciplinas.Consultas.ListarPaginacao;
 using AutoMapper;
-using SGH.Dominio.Implementacao.Disciplinas.Comandos.Criar;
-using SGH.Dominio.Implementacao.Disciplinas.Comandos.Atualizar;
-using SGH.Dominio.Implementacao.Disciplinas.Comandos.Remover;
+using SGH.Dominio.Services.Implementacao.Disciplinas.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Disciplinas.Comandos.Atualizar;
+using SGH.Dominio.Services.Implementacao.Disciplinas.Comandos.Remover;
 
 namespace SGH.Api.Controllers
 {

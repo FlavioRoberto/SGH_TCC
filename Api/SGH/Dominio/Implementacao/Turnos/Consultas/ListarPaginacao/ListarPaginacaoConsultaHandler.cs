@@ -4,7 +4,7 @@ using SGH.Dominio.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Turnos.Consultas.ListarPaginacao
+namespace SGH.Dominio.Services.Implementacao.Turnos.Consultas.ListarPaginacao
 {
     public class ListarPaginacaoConsultaHandler : IRequestHandler<ListarPaginacaoTurnoConsulta, Paginacao<Turno>>
     {

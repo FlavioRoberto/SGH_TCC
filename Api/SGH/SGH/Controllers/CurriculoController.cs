@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGH.Dominio.ViewModel;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Implementacao.Curriculos.Comandos.Atualizar;
-using SGH.Dominio.Implementacao.Curriculos.Comandos.Criar;
-using SGH.Dominio.Implementacao.Curriculos.Comandos.Remover;
-using SGH.Dominio.Implementacao.Curriculos.Consultas.ListarDisciplinas;
-using SGH.Dominio.Implementacao.Curriculos.Consultas.ListarPaginacao;
+using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Atualizar;
+using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Remover;
+using SGH.Dominio.Services.Implementacao.Curriculos.Consultas.ListarDisciplinas;
+using SGH.Dominio.Services.Implementacao.Curriculos.Consultas.ListarPaginacao;
 using System;
 using System.Threading.Tasks;
-using SGH.Dominio.Implementacao.Curriculos.Consultas.ListarTodos;
+using SGH.Dominio.Services.Implementacao.Curriculos.Consultas.ListarTodos;
 
 namespace SGH.Api.Controllers
 {

@@ -1,8 +1,7 @@
 ﻿using MediatR;
 using SGH.Dominio.Core;
 
-namespace Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha
-{
+namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.AtualizarSenha { 
     public class AtualizarSenhaComando : IRequest<Resposta<string>>
     {
         public string Senha { get; set; }

@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
 using MediatR;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core;
-using SGH.Dominio.Extensions;
+using SGH.Dominio.Services.Extensions;
 using SGH.Dominio.Core.Model;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Curriculos.Comandos.Atualizar
+namespace SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Atualizar
 {
     public class AtualizarCurriculoComandoHandler : IRequestHandler<AtualizarCurriculoComando, Resposta<Curriculo>>
     {

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using MediatR;
-using SGH.Dominio.Implementacao.UsuarioPerfis.Consultas.ListarTodos;
+using SGH.Dominio.Services.Implementacao.UsuarioPerfis.Consultas.ListarTodos;
 
 namespace SGH.Api.Controllers
 {

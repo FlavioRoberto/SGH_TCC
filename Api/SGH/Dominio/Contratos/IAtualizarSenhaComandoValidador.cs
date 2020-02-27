@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace SGH.Dominio.Contratos
+namespace SGH.Dominio.Services.Contratos
 {
     public interface IAtualizarSenhaComandoValidador : IValidator
     {

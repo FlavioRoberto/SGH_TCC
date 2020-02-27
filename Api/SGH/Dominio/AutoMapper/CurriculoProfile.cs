@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using SGH.Dominio.ViewModel;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Implementacao.Curriculos.Comandos.Criar;
-using SGH.Dominio.Implementacao.Curriculos.Comandos.Atualizar;
+using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Atualizar;
 
-namespace SGH.Dominio.AutoMapper
+namespace SGH.Dominio.Services.AutoMapper
 {
     public class CurriculoProfile : Profile
     {

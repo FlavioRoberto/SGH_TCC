@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using AutoMapper;
 using MediatR;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core;
-using SGH.Dominio.Extensions;
+using SGH.Dominio.Services.Extensions;
 using SGH.Dominio.Core.Model;
 
-namespace SGH.Dominio.Implementacao.Curriculos.Comandos.Criar
+namespace SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Criar
 {
     public class CriarCurriculoComandoHandler : IRequestHandler<CriarCurriculoComando, Resposta<Curriculo>>
     {

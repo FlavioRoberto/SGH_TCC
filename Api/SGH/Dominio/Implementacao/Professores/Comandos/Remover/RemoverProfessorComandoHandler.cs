@@ -1,12 +1,12 @@
 ﻿using MediatR;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core;
-using SGH.Dominio.Extensions;
+using SGH.Dominio.Services.Extensions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Professores.Comandos.Remover
+namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Remover
 {
     public class RemoverProfessorComandoHandler : IRequestHandler<RemoverProfessorComando, Resposta<bool>>
     {

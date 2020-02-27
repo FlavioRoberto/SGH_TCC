@@ -5,7 +5,7 @@ using SGH.Dominio.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.DIsciplinasTipoServico.Comandos.Atualizar
+namespace SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Comandos.Atualizar
 {
     public class AtualizarDisciplinaTipoComandoHandler : IRequestHandler<AtualizarDisciplinaTipoComando, Resposta<DisciplinaTipo>>
     {

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace SGH.Dominio.AutoMapper
+namespace SGH.Dominio.Services.AutoMapper
 {
     public static class AutoMapperService
     {

@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Turnos.Comandos.Remover
+namespace SGH.Dominio.Services.Implementacao.Turnos.Comandos.Remover
 {
     public class RemoverTurnoComandoValidador : AbstractValidator<RemoverTurnoComando>, IRemoverTurnoComandoValidador
     {

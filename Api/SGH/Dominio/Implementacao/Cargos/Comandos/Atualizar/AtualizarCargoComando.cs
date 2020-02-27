@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Enums;
-using SGH.Dominio.Implementacao.Cargos.Comandos.Base;
+using SGH.Dominio.Services.Implementacao.Cargos.Comandos.Base;
 using SGH.Dominio.ViewModel;
 
-namespace SGH.Dominio.Implementacao.Cargos.Comandos.Atualizar
+namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Atualizar
 {
     public class AtualizarCargoComando : IRequest<Resposta<CargoViewModel>>, ICargoComando
     {

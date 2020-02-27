@@ -2,8 +2,8 @@
 using Bogus.DataSets;
 using SGH.APi;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Implementacao.Autenticacao.Comandos.Login;
-using SGH.Dominio.Implementacao.Usuarios.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login;
+using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar;
 using SGH.TestesDeIntegracao.Config;
 using System.Threading.Tasks;
 using Xunit;

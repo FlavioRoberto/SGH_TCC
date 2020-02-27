@@ -3,11 +3,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core;
-using SGH.Dominio.Extensions;
+using SGH.Dominio.Services.Extensions;
 
-namespace SGH.Dominio.Implementacao.Curriculos.Comandos.Remover
+namespace SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Remover
 {
     public class RemoverCurriculoComandoHandler : IRequestHandler<RemoverCurriculoComando, Resposta<bool>>
     {

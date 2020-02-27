@@ -2,7 +2,7 @@
 using SGH.Dominio.ViewModel;
 using System.Collections.Generic;
 
-namespace SGH.Dominio.Implementacao.Curriculos.Comandos
+namespace SGH.Dominio.Services.Implementacao.Curriculos.Comandos
 {
     public class CurriculoComandoBase
     {

@@ -2,7 +2,7 @@
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 
-namespace SGH.Dominio.Implementacao.Cursos.Comandos.Atualizar
+namespace SGH.Dominio.Services.Implementacao.Cursos.Comandos.Atualizar
 {
     public class AtualizarCursoComando : IRequest<Resposta<Curso>>
     {

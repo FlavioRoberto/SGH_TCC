@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
-using SGH.Dominio.Implementacao.Cargos.Comandos.Base;
+using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Services.Implementacao.Cargos.Comandos.Base;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Cargos.Comandos.Atualizar
+namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Atualizar
 {
     public class AtualizarCargoComandoValidador : CargoComandoValidadorBase<AtualizarCargoComando>, IAtualizarCargoComandoValidador
     {

@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using SGH.Dominio.ViewModel;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Implementacao.Professores.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Professores.Comandos.Criar;
 
-namespace SGH.Dominio.AutoMapper
+namespace SGH.Dominio.Services.AutoMapper
 {
     public class ProfessorProfile : Profile
     {

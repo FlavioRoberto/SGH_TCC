@@ -2,7 +2,7 @@
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 
-namespace SGH.Dominio.Implementacao.UsuarioPerfis.Comando.Criar
+namespace SGH.Dominio.Services.Implementacao.UsuarioPerfis.Comando.Criar
 {
     public class CriarUsuarioPerfilComando: IRequest<Resposta<UsuarioPerfil>>
     {

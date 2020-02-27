@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using SGH.Dominio.Core;
 
-namespace SGH.Dominio.Implementacao.Cargos.Comandos.Remover
+namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Remover
 {
     public class RemoverCargoComando : IRequest<Resposta<bool>> 
     {

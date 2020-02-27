@@ -6,7 +6,7 @@ using SGH.Dominio.ViewModel;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Cargos.Consultas.ListarPaginacao
+namespace SGH.Dominio.Services.Implementacao.Cargos.Consultas.ListarPaginacao
 {
     public class ListarPaginacaoCargoConsultaHandler : IRequestHandler<ListarPaginacaoCargoConsulta, Paginacao<CargoViewModel>>
     {

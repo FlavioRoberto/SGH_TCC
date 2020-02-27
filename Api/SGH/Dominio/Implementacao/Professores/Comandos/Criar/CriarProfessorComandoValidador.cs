@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Professores.Comandos.Criar
+namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Criar
 {
     public class CriarProfessorComandoValidador : ProfessorComandoValidador<CriarProfessorComando>, ICriarProfessorComandoValidador
     {

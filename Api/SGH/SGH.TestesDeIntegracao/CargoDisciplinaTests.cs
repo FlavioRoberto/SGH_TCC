@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using SGH.APi;
 using SGH.Dominio.Shared.Extensions;
-using SGH.Dominio.Implementacao.CargosDisciplinas.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Criar;
 using SGH.Dominio.ViewModel;
 using SGH.TestesDeIntegracao.Config;
 using System;

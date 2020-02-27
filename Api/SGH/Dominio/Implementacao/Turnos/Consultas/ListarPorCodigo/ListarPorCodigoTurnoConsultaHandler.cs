@@ -4,7 +4,7 @@ using SGH.Dominio.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Turnos.Consultas.ListarPorCodigo
+namespace SGH.Dominio.Services.Implementacao.Turnos.Consultas.ListarPorCodigo
 {
     public class ListarPorCodigoTurnoConsultaHandler : IRequestHandler<ListarPorCodigoTurnoConsulta, Turno>
     {

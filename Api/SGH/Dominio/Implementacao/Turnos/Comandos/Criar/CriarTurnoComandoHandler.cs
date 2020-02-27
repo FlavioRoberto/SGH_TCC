@@ -5,7 +5,7 @@ using SGH.Dominio.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Turnos.Comandos.Criar
+namespace SGH.Dominio.Services.Implementacao.Turnos.Comandos.Criar
 {
     public class CriarTurnoComandoHandler : IRequestHandler<CriarTurnoComando, Resposta<Turno>>
     {

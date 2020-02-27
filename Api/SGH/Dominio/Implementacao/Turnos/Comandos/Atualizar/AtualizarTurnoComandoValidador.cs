@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Contratos;
+using SGH.Dominio.Services.Contratos;
 
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Implementacao.Turnos.Comandos.Atualizar
+namespace SGH.Dominio.Services.Implementacao.Turnos.Comandos.Atualizar
 {
     public class AtualizarTurnoComandoValidador : AbstractValidator<AtualizarTurnoComando>, IAtualizarTurnoComandoValidador
     {

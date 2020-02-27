@@ -1,4 +1,4 @@
-﻿namespace SGH.Dominio.Contratos
+﻿namespace SGH.Dominio.Services.Contratos
 {
     public interface IUsuarioComando
     {
