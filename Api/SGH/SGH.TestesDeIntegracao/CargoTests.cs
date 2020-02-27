@@ -273,7 +273,7 @@ namespace SGH.TestesDeIntegracao
                                      Não foi encontrado um cargo com o código {comando.Codigo}."
                                     .RemoverEspacosVazios();
 
-            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("atualizar"), comando);
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
 
             var mensagemErroResposta = await resposta.Content.ReadAsStringAsync();
 
@@ -300,7 +300,7 @@ namespace SGH.TestesDeIntegracao
             var mensagemEsperada = $@"Já existe um cargo com os mesmos valores para os campos semestre, ano, edital e número."
                                     .RemoverEspacosVazios();
 
-            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("atualizar"), comando);
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
 
             var mensagemErroResposta = await resposta.Content.ReadAsStringAsync();
 
@@ -323,7 +323,7 @@ namespace SGH.TestesDeIntegracao
                 Semestre = ESemestre.SEGUNDO
             };
 
-            var cargo = await RealizarRequisicaoCargo<CargoViewModel, AtualizarCargoComando>("atualizar", HttpMethod.Put, comando);
+            var cargo = await RealizarRequisicaoCargo<CargoViewModel, AtualizarCargoComando>("editar", HttpMethod.Put, comando);
 
             ValidarCargo(cargo);
 
