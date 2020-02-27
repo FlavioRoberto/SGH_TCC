@@ -4,10 +4,11 @@ using MediatR;
 using System.Threading;
 using SGH.Dominio.Core;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Core.Email;
 using SGH.Dominio.Contratos;
-using SGH.Dominio.Core.Extensions;
-using SGH.Dominio.Core.Helpers;
+using SGH.Dominio.Core.Email;
+using SGH.Dominio.Extensions;
+using SGH.Dominio.Helpers;
+using SGH.Dominio.Shared.Extensions;
 
 namespace SGH.Dominio.Implementacao.Autenticacao.Comandos.RedefinirSenha
 {

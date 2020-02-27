@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Contratos;
-using SGH.Dominio.Core.Extensions;
+using SGH.Dominio.Shared.Extensions;
 using SGH.Dominio.Core.Model;
 
 namespace Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha

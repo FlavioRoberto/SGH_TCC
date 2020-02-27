@@ -27,7 +27,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGH.TestesDeUnidade", "SGH.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.2 - Testes de integração", "4.2 - Testes de integração", "{12F8F66F-1FF0-4194-9D3B-C9B18B2D6990}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGH.TestesDeIntegracao", "SGH.TestesDeIntegracao\SGH.TestesDeIntegracao.csproj", "{C56B74A1-5BCA-484F-BBFF-63B801BA5708}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGH.TestesDeIntegracao", "SGH.TestesDeIntegracao\SGH.TestesDeIntegracao.csproj", "{C56B74A1-5BCA-484F-BBFF-63B801BA5708}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGH.Dominio.Shared", "SGH.Dominio.Shared\SGH.Dominio.Shared.csproj", "{E28DFA06-84AA-4A0C-AD31-EA7B3D410F2B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{C56B74A1-5BCA-484F-BBFF-63B801BA5708}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C56B74A1-5BCA-484F-BBFF-63B801BA5708}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C56B74A1-5BCA-484F-BBFF-63B801BA5708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E28DFA06-84AA-4A0C-AD31-EA7B3D410F2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E28DFA06-84AA-4A0C-AD31-EA7B3D410F2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E28DFA06-84AA-4A0C-AD31-EA7B3D410F2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E28DFA06-84AA-4A0C-AD31-EA7B3D410F2B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -76,6 +82,7 @@ Global
 		{11871B87-87FD-4730-AABA-AAB4291EB4BD} = {EDD6AEA7-60FB-433B-8223-C1E93666D787}
 		{12F8F66F-1FF0-4194-9D3B-C9B18B2D6990} = {C64B0D0F-60A2-4394-B7F9-4BDD5ECE0802}
 		{C56B74A1-5BCA-484F-BBFF-63B801BA5708} = {12F8F66F-1FF0-4194-9D3B-C9B18B2D6990}
+		{E28DFA06-84AA-4A0C-AD31-EA7B3D410F2B} = {A38DE793-9A59-4C1F-957B-7DA0D0002E67}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DCD7CEF0-F189-4F93-BDE1-A18EC987BC43}

@@ -18,11 +18,11 @@ using System;
 using SHG.Data.Contexto;
 using SGH.Dominio.Core.Store;
 using SGH.Dominio.Core.Extensions;
-using SGH.Api.Filters;
 using SGH.Data.Extensios;
 using SGH.Dominio.Extensions;
 using SGH.Api.Testes.Factory;
 using SGH.Api.Testes.Factory.Contratos;
+using SGH.Dominio.Shared.Extensions;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace SGH.APi
@@ -128,7 +128,6 @@ namespace SGH.APi
                                  .RequireAuthenticatedUser()
                                  .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
-                config.Filters.Add(typeof(FiltroExcecaoAtributo));
             })
              .AddJsonOptions(options =>
              {

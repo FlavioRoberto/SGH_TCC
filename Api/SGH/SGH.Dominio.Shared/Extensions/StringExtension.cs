@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SGH.Dominio.Core.Extensions
+namespace SGH.Dominio.Shared.Extensions
 {
     public static class StringExtension
     {

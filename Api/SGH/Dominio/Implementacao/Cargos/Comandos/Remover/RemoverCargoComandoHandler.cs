@@ -7,6 +7,7 @@ using SHG.Data.Contexto;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using SGH.Dominio.Extensions;
 
 namespace SGH.Dominio.Implementacao.Cargos.Comandos.Remover
 {

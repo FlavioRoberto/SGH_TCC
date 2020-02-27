@@ -1,5 +1,5 @@
 ﻿using SGH.Api.Testes.Factory.Contratos;
-using SGH.Dominio.Core.Extensions;
+using SGH.Dominio.Shared.Extensions;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Contexto;
 using System.Collections.Generic;

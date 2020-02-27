@@ -4,7 +4,8 @@ using System.Threading;
 using SGH.Dominio.Core;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Contratos;
-using SGH.Dominio.Core.Extensions;
+using SGH.Dominio.Shared.Extensions;
+using SGH.Dominio.Extensions;
 
 namespace Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha
 {
@@ -20,7 +21,6 @@ namespace Aplicacao.Implementacao.Autenticacao.Comandos.AtualizarSenha
             _usuarioResolverService = usuarioResolverService;
             _validador = validador;
         }
-
 
         public async Task<Resposta<string>> Handle(AtualizarSenhaComando request, CancellationToken cancellationToken)
         {

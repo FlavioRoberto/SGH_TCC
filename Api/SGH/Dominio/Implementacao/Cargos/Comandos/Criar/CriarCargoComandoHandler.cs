@@ -3,7 +3,7 @@ using MediatR;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Contratos;
 using SGH.Dominio.Core;
-using SGH.Dominio.Core.Extensions;
+using SGH.Dominio.Extensions;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.ViewModel;
 using System.Threading;

@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Moq;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Core.Extensions;
+using SGH.Dominio.Shared.Extensions;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Implementacao.Usuarios.Comandos.Atualizar;
 using System;

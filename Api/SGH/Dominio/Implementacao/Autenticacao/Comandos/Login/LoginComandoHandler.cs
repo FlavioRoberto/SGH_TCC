@@ -2,9 +2,10 @@
 using MediatR;
 using System.Threading;
 using SGH.Dominio.Core;
+using SGH.Dominio.Core.Extensions;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Contratos;
-using SGH.Dominio.Core.Extensions;
+using SGH.Dominio.Extensions;
 
 namespace SGH.Dominio.Implementacao.Autenticacao.Comandos.Login
 {
@@ -28,7 +29,7 @@ namespace SGH.Dominio.Implementacao.Autenticacao.Comandos.Login
 
             var usuario = await _repositorio.RetornarUsuarioPorLoginESenha(request.Login, request.Senha);
 
-            string token = TokenGeradorHelper.Gerar(usuario);
+            string token = TokenExtension.Gerar(usuario);
 
             return new Resposta<string>(token, "");
         }

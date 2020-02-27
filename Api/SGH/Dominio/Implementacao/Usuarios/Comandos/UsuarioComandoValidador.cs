@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Contratos;
-using SGH.Dominio.Core.Extensions;
 using System.Threading;
 using System.Threading.Tasks;
+using SGH.Dominio.Shared.Extensions;
 
 namespace SGH.Dominio.Implementacao.Usuarios.Comandos
 {

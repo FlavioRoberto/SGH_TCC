@@ -3,11 +3,12 @@ using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Contratos;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Email;
-using SGH.Dominio.Core.Extensions;
-using SGH.Dominio.Core.Helpers;
 using SGH.Dominio.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
+using SGH.Dominio.Extensions;
+using SGH.Dominio.Shared.Extensions;
+using SGH.Dominio.Helpers;
 
 namespace SGH.Dominio.Implementacao.Usuarios.Comandos.Criar
 {

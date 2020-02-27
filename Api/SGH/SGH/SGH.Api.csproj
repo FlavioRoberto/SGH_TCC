@@ -32,6 +32,7 @@
     <ProjectReference Include="..\Data\SGH.Data.csproj" />
     <ProjectReference Include="..\Dominio\SGH.Dominio.csproj" />
     <ProjectReference Include="..\Servicos\SGH.Dominio.Core.csproj" />
+    <ProjectReference Include="..\SGH.Dominio.Shared\SGH.Dominio.Shared.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1development_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

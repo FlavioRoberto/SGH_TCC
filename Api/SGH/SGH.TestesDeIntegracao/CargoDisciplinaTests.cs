@@ -1,8 +1,7 @@
 ﻿using FluentAssertions;
 using SGH.APi;
-using SGH.Dominio.Core.Extensions;
+using SGH.Dominio.Shared.Extensions;
 using SGH.Dominio.Implementacao.CargosDisciplinas.Comandos.Criar;
-using SGH.Dominio.Implementacao.Disciplinas.Comandos.Remover;
 using SGH.Dominio.ViewModel;
 using SGH.TestesDeIntegracao.Config;
 using System;

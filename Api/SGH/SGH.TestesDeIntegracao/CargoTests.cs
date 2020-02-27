@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using SGH.APi;
 using SGH.Dominio.Core.Enums;
-using SGH.Dominio.Core.Extensions;
+using SGH.Dominio.Shared.Extensions;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Atualizar;
 using SGH.Dominio.Implementacao.Cargos.Comandos.Criar;
@@ -9,7 +9,6 @@ using SGH.Dominio.ViewModel;
 using SGH.TestesDeIntegracao.Config;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;

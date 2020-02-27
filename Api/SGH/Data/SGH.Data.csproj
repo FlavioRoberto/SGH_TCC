@@ -90,6 +90,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Servicos\SGH.Dominio.Core.csproj" />
+    <ProjectReference Include="..\SGH.Dominio.Shared\SGH.Dominio.Shared.csproj" />
   </ItemGroup>
 
 </Project>

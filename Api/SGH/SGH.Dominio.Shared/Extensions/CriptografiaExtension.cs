@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace SGH.Dominio.Core.Extensions
+namespace SGH.Dominio.Shared.Extensions
 {
     public static class CriptografiaExtension
     {

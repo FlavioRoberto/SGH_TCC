@@ -8,7 +8,7 @@ using System.Text;
 
 namespace SGH.Dominio.Core.Extensions
 {
-    public static class TokenGeradorHelper
+    public static class TokenExtension
     {
         public static string Gerar(Usuario usuario)
         {

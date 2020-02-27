@@ -19,9 +19,9 @@ using System;
 using SHG.Data.Contexto;
 using SGH.Dominio.Core.Store;
 using SGH.Dominio.Core.Extensions;
-using SGH.Api.Filters;
 using SGH.Data.Extensios;
 using SGH.Dominio.Extensions;
+using SGH.Dominio.Shared.Extensions;
 
 namespace SGH.APi
 {
@@ -109,7 +109,6 @@ namespace SGH.APi
                                   .RequireAuthenticatedUser()
                                   .Build();
                  config.Filters.Add(new AuthorizeFilter(policy));
-                 config.Filters.Add(typeof(FiltroExcecaoAtributo));
              })
              .AddJsonOptions(options =>
              {
