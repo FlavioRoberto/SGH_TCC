@@ -8,5 +8,6 @@ namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Criar
     {
         public int CodigoCargo { get; set; }
         public int CodigoCurriculoDisciplina { get; set; }
+        public int CodigoTurno { get; set; }
     }
 }

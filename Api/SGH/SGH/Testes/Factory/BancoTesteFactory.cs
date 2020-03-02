@@ -14,6 +14,7 @@ namespace SGH.Api.Testes.Factory
         private readonly ICursoBancoTeste _cursoTeste;
         private readonly ICurriculoBancoTeste _curriculoTeste;
         private readonly ICargoBancoTeste _cargoTeste;
+        private readonly ITurnoBancoTeste _turnoTeste;
 
         public BancoTesteFactory(IUsuarioPerfilBancoTeste usuarioPerfil, 
                                  IUsuarioBancoTeste usuario,
@@ -22,7 +23,8 @@ namespace SGH.Api.Testes.Factory
                                  IDisciplinaBancoTeste disciplinaBancoTeste,
                                  ICursoBancoTeste cursoTeste,
                                  ICurriculoBancoTeste curriculoTeste,
-                                 ICargoBancoTeste cargoTeste)
+                                 ICargoBancoTeste cargoTeste,
+                                 ITurnoBancoTeste turnoTeste)
         {
             _usuarioPerfil = usuarioPerfil;
             _usuario = usuario;
@@ -32,6 +34,7 @@ namespace SGH.Api.Testes.Factory
             _cursoTeste = cursoTeste;
             _curriculoTeste = curriculoTeste;
             _cargoTeste = cargoTeste;
+            _turnoTeste = turnoTeste;
         }
                
         public void InicializarBanco()
@@ -43,6 +46,7 @@ namespace SGH.Api.Testes.Factory
             _disciplinaTeste.InicializarBanco();
             _cursoTeste.InicializarBanco();
             _curriculoTeste.InicializarBanco();
+            _turnoTeste.InicializarBanco();
             _cargoTeste.InicializarBanco();
         }
     }

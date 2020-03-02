@@ -26,9 +26,11 @@ namespace SGH.TestesDeIntegracao
         [Fact(DisplayName = "Realizar cadastro de disciplina do cargo com sucesso")]
         public async Task DisciplinaCargo_RealizarCadastro_DeveRealizarCadastroComSucesso()
         {
-            var comando = new CriarCargoDisciplinaComando { 
-               CodigoCargo = 2,
-               CodigoCurriculoDisciplina = 3
+            var comando = new CriarCargoDisciplinaComando
+            {
+                CodigoCargo = 2,
+                CodigoCurriculoDisciplina = 3,
+                CodigoTurno = 1
             };
 
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota(), comando);
@@ -53,13 +55,15 @@ namespace SGH.TestesDeIntegracao
             var comando = new CriarCargoDisciplinaComando
             {
                 CodigoCargo = 0,
-                CodigoCurriculoDisciplina = 0
+                CodigoCurriculoDisciplina = 0,
+                CodigoTurno = 0
             };
 
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota(), comando);
 
             var mensagemErroEsperada = @"O campo código do cargo não pode ser menor ou igual a 0.
-                                         O campo código da disciplina do currículo não pode ser menor ou igual a 0."
+                                         O campo código da disciplina do currículo não pode ser menor ou igual a 0.
+                                         O campo código do turno não pode ser menor ou igual a 0."
                                         .RemoverEspacosVazios();
 
             resposta.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -78,13 +82,15 @@ namespace SGH.TestesDeIntegracao
             var comando = new CriarCargoDisciplinaComando
             {
                 CodigoCargo = 99,
-                CodigoCurriculoDisciplina = 99
+                CodigoCurriculoDisciplina = 99,
+                CodigoTurno = 99
             };
 
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota(), comando);
 
             var mensagemErroEsperada = $@"Não foi encontrado um cargo de código {comando.CodigoCargo}.
-                                          Não foi encontrado a disciplina de currículo com código {comando.CodigoCurriculoDisciplina}."
+                                          Não foi encontrado a disciplina de currículo com código {comando.CodigoCurriculoDisciplina}.
+                                          Não foi encontrado um turno com código {comando.CodigoTurno}."
                                          .RemoverEspacosVazios();
 
             resposta.StatusCode.Should().Be(HttpStatusCode.BadRequest);
@@ -102,7 +108,8 @@ namespace SGH.TestesDeIntegracao
             var comando = new CriarCargoDisciplinaComando
             {
                 CodigoCargo = 2,
-                CodigoCurriculoDisciplina = 1
+                CodigoCurriculoDisciplina = 1,
+                CodigoTurno = 1
             };
 
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota(), comando);
@@ -181,16 +188,14 @@ namespace SGH.TestesDeIntegracao
 
             conteudo.Should().HaveCount(3);
 
-            conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia da computação - {anoAtual}"));
+            conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia da computação - {anoAtual}") && 
+                                      lnq.disciplinaDescricao.Equals("Programação para dispositivos móveis"));
 
-            conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia civil - {anoAtual + 1}"));
+            conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia civil - {anoAtual + 1}") &&
+                                      lnq.disciplinaDescricao.Equals("Concreto armado"));
 
-            conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia de produção - {anoAtual + 2}"));
-
-            //adicionar validacao da descricao da disciplina retornada
-
-            Assert.True(false);
-
+            conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia de produção - {anoAtual + 2}") && 
+                                      lnq.disciplinaDescricao.Equals("Cálculo I"));
         }
 
         [Trait("Integração", "Disciplina Cargo")]

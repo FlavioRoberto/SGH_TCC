@@ -6,6 +6,9 @@ namespace SGH.Dominio.Core.Model
 
         public int CodigoCargo { get; set; }
 
+        public int CodigoTurno { get; set; }
+
+        public virtual Turno Turno { get; set; }
         public virtual CurriculoDisciplina Disciplina { get; set; }
         public virtual Cargo Cargo { get; set; } 
     }
