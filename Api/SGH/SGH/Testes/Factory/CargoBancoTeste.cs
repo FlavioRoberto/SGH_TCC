@@ -61,52 +61,62 @@ namespace SGH.Api.Testes.Factory
                  new CargoDisciplina
                  {
                     CodigoCargo = 1,
-                    CodigoCurriculoDisciplina = 1
+                    CodigoCurriculoDisciplina = 1,
+                    CodigoTurno = 1
                  },
                  new CargoDisciplina
                  {
                     CodigoCargo = 2,
-                    CodigoCurriculoDisciplina = 1
+                    CodigoCurriculoDisciplina = 1,
+                    CodigoTurno = 2
                  },
                   new CargoDisciplina
                  {
                     CodigoCargo = 2,
-                    CodigoCurriculoDisciplina = 2
+                    CodigoCurriculoDisciplina = 2,
+                    CodigoTurno = 3
                  },
                   new CargoDisciplina
                  {
                     CodigoCargo = 3,
-                    CodigoCurriculoDisciplina = 1
+                    CodigoCurriculoDisciplina = 1,
+                    CodigoTurno = 1
                  },
                   new CargoDisciplina
                  {
                     CodigoCargo = 3,
-                    CodigoCurriculoDisciplina = 2
+                    CodigoCurriculoDisciplina = 2,
+                    CodigoTurno = 2
                  },
                  new CargoDisciplina
                  {
                     CodigoCargo = 3,
-                    CodigoCurriculoDisciplina = 2
+                    CodigoCurriculoDisciplina = 2,
+                    CodigoTurno = 3
                  },
                  new CargoDisciplina //disciplina a remover
                  {
                     CodigoCargo = 3,
-                    CodigoCurriculoDisciplina = 2
+                    CodigoCurriculoDisciplina = 2,
+                    CodigoTurno = 1
                  },
                   new CargoDisciplina
                  {
                     CodigoCargo = 4,
-                    CodigoCurriculoDisciplina = 4
+                    CodigoCurriculoDisciplina = 4,
+                    CodigoTurno = 2
                  },
                    new CargoDisciplina 
                  {
                     CodigoCargo = 4,
-                    CodigoCurriculoDisciplina = 5
+                    CodigoCurriculoDisciplina = 5,
+                    CodigoTurno = 3
                  },
                     new CargoDisciplina 
                  {
                     CodigoCargo = 4,
-                    CodigoCurriculoDisciplina = 6
+                    CodigoCurriculoDisciplina = 6,
+                    CodigoTurno = 1
                  }
             };
 

@@ -9,5 +9,6 @@ namespace SGH.Dominio.ViewModel
         public int? CodigoCurriculoDisciplina { get; set; }
         public  string disciplinaDescricao { get; set; }
         public string cursoDescricao { get; set; }
+        public string turnoDescricao { get; set; }
     }
 }

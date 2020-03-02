@@ -189,13 +189,17 @@ namespace SGH.TestesDeIntegracao
             conteudo.Should().HaveCount(3);
 
             conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia da computação - {anoAtual}") && 
-                                      lnq.disciplinaDescricao.Equals("Programação para dispositivos móveis"));
+                                      lnq.disciplinaDescricao.Equals("Programação para dispositivos móveis") &&
+                                      lnq.turnoDescricao.Equals("Vespertino"));
 
             conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia civil - {anoAtual + 1}") &&
-                                      lnq.disciplinaDescricao.Equals("Concreto armado"));
+                                      lnq.disciplinaDescricao.Equals("Concreto armado") &&
+                                      lnq.turnoDescricao.Equals("Noturno"));
 
             conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia de produção - {anoAtual + 2}") && 
-                                      lnq.disciplinaDescricao.Equals("Cálculo I"));
+                                      lnq.disciplinaDescricao.Equals("Cálculo I") &&
+                                      lnq.turnoDescricao.Equals("Matutino"));
+
         }
 
         [Trait("Integração", "Disciplina Cargo")]

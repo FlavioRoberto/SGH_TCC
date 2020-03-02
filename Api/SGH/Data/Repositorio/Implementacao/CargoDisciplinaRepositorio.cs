@@ -3,6 +3,7 @@ using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -34,7 +35,11 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<List<CargoDisciplina>> Listar(Expression<Func<CargoDisciplina, bool>> query)
         {
-            return await _repositorio.Listar(query);
+            return await _repositorio.GetDbSet<CargoDisciplina>()
+                                     .Include(lnq => lnq.Turno)
+                                     .AsNoTracking()
+                                     .Where(query)
+                                     .ToListAsync();
         }
 
         public async Task<bool> Remover(Expression<Func<CargoDisciplina, bool>> expressao)

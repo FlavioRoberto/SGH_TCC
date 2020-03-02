@@ -22,6 +22,14 @@ namespace SGH.Api.Testes.Factory
                 new Turno
                 {
                     Descricao = "Matutino"
+                },
+                new Turno
+                {
+                    Descricao = "Vespertino"
+                },
+                new Turno
+                {
+                    Descricao = "Noturno"
                 }
             };
 
