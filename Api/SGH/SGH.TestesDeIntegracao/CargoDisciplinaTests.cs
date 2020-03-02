@@ -109,7 +109,7 @@ namespace SGH.TestesDeIntegracao
             {
                 CodigoCargo = 2,
                 CodigoCurriculoDisciplina = 1,
-                CodigoTurno = 1
+                CodigoTurno = 2
             };
 
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota(), comando);

@@ -41,7 +41,9 @@ namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Criar
 
         private async Task<bool> ValidarSeCargoDisciplinaJaAdicionado(CriarCargoDisciplinaComando comando, CancellationToken arg2)
         {
-            var resultado = await _cargoDisciplinaRepositorio.Contem(lnq => lnq.CodigoCargo == comando.CodigoCargo && lnq.CodigoCurriculoDisciplina == comando.CodigoCurriculoDisciplina);
+            var resultado = await _cargoDisciplinaRepositorio.Contem(lnq => lnq.CodigoCargo == comando.CodigoCargo &&
+                                                                     lnq.CodigoCurriculoDisciplina == comando.CodigoCurriculoDisciplina &&
+                                                                     lnq.CodigoTurno == comando.CodigoTurno);
             return !resultado;
         }
 
