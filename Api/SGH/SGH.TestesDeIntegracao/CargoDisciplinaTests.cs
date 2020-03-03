@@ -30,7 +30,8 @@ namespace SGH.TestesDeIntegracao
             {
                 CodigoCargo = 2,
                 CodigoCurriculoDisciplina = 3,
-                CodigoTurno = 1
+                CodigoTurno = 1,
+                Descricao = "Descrição disciplina"
             };
 
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota(), comando);
@@ -44,6 +45,8 @@ namespace SGH.TestesDeIntegracao
             dadosResposta.CodigoCargo.Should().Be(comando.CodigoCargo);
 
             dadosResposta.CodigoCurriculoDisciplina.Should().Be(comando.CodigoCurriculoDisciplina);
+
+            dadosResposta.Descricao.Should().Be(comando.Descricao);
 
         }
 
@@ -188,17 +191,17 @@ namespace SGH.TestesDeIntegracao
 
             conteudo.Should().HaveCount(3);
 
-            conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia da computação - {anoAtual}") && 
-                                      lnq.disciplinaDescricao.Equals("Programação para dispositivos móveis") &&
-                                      lnq.turnoDescricao.Equals("Vespertino"));
+            conteudo.Should().Contain(lnq => lnq.CursoDescricao.Equals($"Engenharia da computação - {anoAtual}") && 
+                                      lnq.Descricao.Equals("Substituindo nome disciplina no cargo") &&
+                                      lnq.TurnoDescricao.Equals("Vespertino"));
 
-            conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia civil - {anoAtual + 1}") &&
-                                      lnq.disciplinaDescricao.Equals("Concreto armado") &&
-                                      lnq.turnoDescricao.Equals("Noturno"));
+            conteudo.Should().Contain(lnq => lnq.CursoDescricao.Equals($"Engenharia civil - {anoAtual + 1}") &&
+                                      lnq.Descricao.Equals("Concreto armado") &&
+                                      lnq.TurnoDescricao.Equals("Noturno"));
 
-            conteudo.Should().Contain(lnq => lnq.cursoDescricao.Equals($"Engenharia de produção - {anoAtual + 2}") && 
-                                      lnq.disciplinaDescricao.Equals("Cálculo I") &&
-                                      lnq.turnoDescricao.Equals("Matutino"));
+            conteudo.Should().Contain(lnq => lnq.CursoDescricao.Equals($"Engenharia de produção - {anoAtual + 2}") && 
+                                      lnq.Descricao.Equals("Cálculo I") &&
+                                      lnq.TurnoDescricao.Equals("Matutino"));
 
         }
 

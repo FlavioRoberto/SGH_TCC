@@ -46,9 +46,9 @@ namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Consulta.ListarTo
                     Codigo = cargoDisciplina.Codigo,
                     CodigoCargo = cargoDisciplina.CodigoCargo,
                     CodigoCurriculoDisciplina = cargoDisciplina.CodigoCurriculoDisciplina,
-                    cursoDescricao = $"{curriculoDisciplina.Curso.Descricao} - {curriculoDisciplina.Ano}",
-                    disciplinaDescricao = disciplina.Descricao,
-                    turnoDescricao = cargoDisciplina.Turno.Descricao
+                    CursoDescricao = $"{curriculoDisciplina.Curso.Descricao} - {curriculoDisciplina.Ano}",
+                    TurnoDescricao = cargoDisciplina.Turno.Descricao,
+                    Descricao = cargoDisciplina.Descricao ?? disciplina.Descricao
                 };
 
                 disciplinasCurriculo.Add(cargoDisciplinaViewModel);

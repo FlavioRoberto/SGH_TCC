@@ -25,6 +25,9 @@ namespace SHG.Data.Mapeamento
             builder.Property(lnq => lnq.CodigoTurno)
                    .HasColumnName("cardis_turno");
 
+            builder.Property(lnq => lnq.Descricao)
+                   .HasColumnName("cardis_descricao");
+
             #endregion propriedades
 
             #region relacionamentos

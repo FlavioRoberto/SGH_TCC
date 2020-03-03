@@ -104,7 +104,8 @@ namespace SGH.Api.Testes.Factory
                  {
                     CodigoCargo = 4,
                     CodigoCurriculoDisciplina = 4,
-                    CodigoTurno = 2
+                    CodigoTurno = 2,
+                    Descricao = "Substituindo nome disciplina no cargo"
                  },
                    new CargoDisciplina 
                  {
