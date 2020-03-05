@@ -54,12 +54,13 @@ namespace SGH.Dominio.Core.Email
                     smtp.UseDefaultCredentials = false;
                     smtp.Credentials = new NetworkCredential(_configuracoes.Email, _configuracoes.Senha);
                     smtp.EnableSsl = true;
+                    smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                     smtp.Send(mail);
                 }
             }
             catch (SmtpException ex)
             {
-                throw new Exception("Não foi possível enviar o e-mail para o usuário, verifique se o e-mail e a senha do aplicativo são válidas.", ex);
+                throw new Exception($"Não foi possível enviar o e-mail para o usuário, verifique se o e-mail e a senha do aplicativo são válidas. Detalhes: {ex.Message}", ex);
             }
             catch(Exception e)
             {

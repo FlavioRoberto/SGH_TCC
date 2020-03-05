@@ -47,7 +47,7 @@ namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar
 
             usuario.Senha = senha.ToMD5();
 
-            await EnviarEmailConfirmacaoCadastro(usuario);
+            await EnviarEmailConfirmacaoCadastro(usuario.Email, usuario.Login, senha);
 
             var usuarioCadastrado = await _repositorio.Criar(usuario);
 
@@ -55,13 +55,13 @@ namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar
 
         }
 
-        public async Task EnviarEmailConfirmacaoCadastro(Usuario usuario)
+        public async Task EnviarEmailConfirmacaoCadastro(string email, string login, string senha)
         {
-            var mensagem = GerarEmailMensagem(usuario.Login, usuario.Senha);
+            var mensagem = GerarEmailMensagem(login, senha);
 
             var assunto = GerarEmailAssunto();
 
-            await _emailService.Enviar(usuario.Email, assunto, mensagem);
+            await _emailService.Enviar(email, assunto, mensagem);
         }
 
         public string GerarEmailAssunto()

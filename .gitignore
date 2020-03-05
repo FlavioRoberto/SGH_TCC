@@ -388,3 +388,4 @@ testem.log
 .DS_Store
 Thumbs.db
 Api/SGH/SGH/appsettings.Development.json
+Api/SGH/SGH/appsettings.json

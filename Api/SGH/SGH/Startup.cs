@@ -123,7 +123,7 @@ namespace SGH.APi
         {
             UpdateDatabase(app);
 
-            if (env.IsDevelopment())
+            //if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
             app.UseAuthentication();
