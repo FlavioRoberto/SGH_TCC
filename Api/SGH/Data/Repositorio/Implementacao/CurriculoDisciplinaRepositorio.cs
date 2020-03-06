@@ -42,5 +42,10 @@ namespace SGH.Data.Repositorio.Implementacao
                                      .Where(expressao)
                                      .ToListAsync();
         }
+
+        public async Task<bool> Remover(Expression<Func<CurriculoDisciplina, bool>> query)
+        {
+            return await _repositorio.Remover(query);
+        }
     }
 }

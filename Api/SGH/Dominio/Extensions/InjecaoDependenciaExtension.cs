@@ -16,6 +16,7 @@ using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Curriculos.Consultas.ListarDisciplinas;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Cursos.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Disciplinas.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Comandos.Remover;
@@ -61,6 +62,7 @@ namespace SGH.Dominio.Services.Extensions
             services.AddScoped<IRemoverCargoDisciplinaComandoValidador, RemoverCargoDisciplinaComandoValidador>();
             services.AddScoped<IListarTodasDisciplinasCargoConsultaValidador, ListarTodasDisciplinasCargoConsultaValidador>();
             services.AddScoped<ICriarCurriculoDisciplinaComandoValidador, CriarCurriculoDisciplinaComandoValidador>();
+            services.AddScoped<IRemoverCurriculoDisciplinaComandoValidador, RemoverCurriculoDisciplinaComandoValidador>();
             #region AutoMapper
             services.AddAutoMapperConfig();
             #endregion

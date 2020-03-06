@@ -9,7 +9,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
 using SGH.Dominio.Shared.Extensions;
-
+using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Remover;
 
 namespace SGH.TestesDeIntegracao
 {
@@ -84,6 +84,48 @@ namespace SGH.TestesDeIntegracao
                                        .RemoverEspacosVazios();
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
+        }
+
+        [Trait("Integração", "Disciplina currículo")]
+        [Fact(DisplayName = "Realizar remoção de disciplina do currículo com sucesso")]
+        public async Task DisciplinaCurriculo_RealizarRemocao_DeveRemoverComSucesso()
+        {
+            var codigoDisciplina = 7;
+
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"{codigoDisciplina}"));
+
+            resposta.EnsureSuccessStatusCode();
+
+        }
+
+        [Trait("Integração", "Disciplina currículo")]
+        [Fact(DisplayName = "Realizar remoção de disciplina do currículo inexistente")]
+        public async Task DisciplinaCurriculo_RealizarRemocao_DeveRetornarMensagemDisciplinaNaoExiste()
+        {
+            var codigoDisciplina = 99;
+
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"{codigoDisciplina}"));
+
+            var mensagemErroEsperada = $@"Não foi encontrado uma disciplina do currículo com código {codigoDisciplina}."
+                                        .RemoverEspacosVazios();
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
+
+        }
+
+        [Trait("Integração", "Disciplina currículo")]
+        [Fact(DisplayName = "Realizar remoção de disciplina do currículo com cargo vinculado")]
+        public async Task DisciplinaCurriculo_RealizarRemocao_DeveRetornarMensagemDisciplinaCargoVinculado()
+        {
+            var codigoDisciplina = 1;
+
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"{codigoDisciplina}"));
+
+            var mensagemErroEsperada = "Não foi possível remover a disciplina pois ela está vinculada em algum cargo."
+                                       .RemoverEspacosVazios();
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
+
         }
 
         private string GetRota(string rota = "")

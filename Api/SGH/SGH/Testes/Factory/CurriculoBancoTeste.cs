@@ -70,6 +70,11 @@ namespace SGH.Api.Testes.Factory
                 {
                     CodigoCurriculo = 3, //engenharia de produção
                     CodigoDisciplina = 5
+                },
+                new CurriculoDisciplina
+                {
+                    CodigoCurriculo = 1, //disciplina a remover
+                    CodigoDisciplina = 5
                 }
             };
 
