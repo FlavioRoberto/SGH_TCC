@@ -5,15 +5,13 @@ namespace SGH.Dominio.ViewModel
 {
     public class CurriculoDisciplinaViewModel
     {
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public int Codigo { get; set; }
+        public int? Codigo { get; set; }
 
         public int Periodo { get; set; }
 
         public int CodigoDisciplina { get; set; }
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public int CodigoCurriculo { get; set; }
+        public int? CodigoCurriculo { get; set; }
 
         public int AulasSemanaisTeorica { get; set; }
 

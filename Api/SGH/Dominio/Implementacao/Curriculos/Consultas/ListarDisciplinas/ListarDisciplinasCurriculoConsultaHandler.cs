@@ -12,10 +12,10 @@ namespace SGH.Dominio.Services.Implementacao.Curriculos.Consultas.ListarDiscipli
 {
     public class ListarDisciplinasCurriculoConsultaHandler : IRequestHandler<ListarDisciplinasCurriculoConsulta, Resposta<List<CurriculoDisciplina>>>
     {
-        private readonly ICurriculoRepositorio _repositorio;
+        private readonly ICurriculoDisciplinaRepositorio _repositorio;
         private readonly IListarDisciplinaCurriculoConsultaValidador _validador;
 
-        public ListarDisciplinasCurriculoConsultaHandler(ICurriculoRepositorio repositorio, IListarDisciplinaCurriculoConsultaValidador validador)
+        public ListarDisciplinasCurriculoConsultaHandler(ICurriculoDisciplinaRepositorio repositorio, IListarDisciplinaCurriculoConsultaValidador validador)
         {
             _repositorio = repositorio;
             _validador = validador;
@@ -28,7 +28,7 @@ namespace SGH.Dominio.Services.Implementacao.Curriculos.Consultas.ListarDiscipli
             if (!string.IsNullOrEmpty(erros))
                 return new Resposta<List<CurriculoDisciplina>>(erros);
 
-            var disciplinas = await _repositorio.ListarDisciplinas(request.CodigoCurriculo);
+            var disciplinas = await _repositorio.Listar(lnq => lnq.CodigoCurriculo == request.CodigoCurriculo);
 
             return new Resposta<List<CurriculoDisciplina>>(disciplinas);
         }

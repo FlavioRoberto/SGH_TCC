@@ -12,16 +12,19 @@ namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Criar
         private readonly ICurriculoRepositorio _curriculoRepositorio;
         private readonly ICargoRepositorio _cargoRepositorio;
         private readonly ITurnoRepositorio _turnoRepositorio;
+        private readonly ICurriculoDisciplinaRepositorio _curriculoDisciplinaRepositorio;
 
         public CriarCargoDisciplinaComandoValidador(ICargoDisciplinaRepositorio cargoDisciplinaRepositorio, 
                                                     ICurriculoRepositorio curriculoRepositorio, 
                                                     ICargoRepositorio cargoRepositorio,
-                                                    ITurnoRepositorio turnoRepositorio)
+                                                    ITurnoRepositorio turnoRepositorio,
+                                                    ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio)
         {
             _cargoDisciplinaRepositorio = cargoDisciplinaRepositorio;
             _curriculoRepositorio = curriculoRepositorio;
             _cargoRepositorio = cargoRepositorio;
             _turnoRepositorio = turnoRepositorio;
+            _curriculoDisciplinaRepositorio = curriculoDisciplinaRepositorio;
 
             RuleFor(lnq => lnq.CodigoCargo).NotEmpty().WithMessage("O campo código do cargo não pode ser menor ou igual a 0.");
             RuleFor(lnq => lnq.CodigoCurriculoDisciplina).NotEmpty().WithMessage("O campo código da disciplina do currículo não pode ser menor ou igual a 0.");
@@ -49,7 +52,7 @@ namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Criar
 
         private async Task<bool> ValidarSeCurriculoDisciplinaExiste(int codigoCurriculoDisciplina, CancellationToken arg2)
         {
-            var curriculoDisciplina = await _curriculoRepositorio.ConsultarCurriculoDisciplina(codigoCurriculoDisciplina);
+            var curriculoDisciplina = await _curriculoDisciplinaRepositorio.Consultar(lnq => lnq.Codigo == codigoCurriculoDisciplina);
             return curriculoDisciplina != null;
         }
 

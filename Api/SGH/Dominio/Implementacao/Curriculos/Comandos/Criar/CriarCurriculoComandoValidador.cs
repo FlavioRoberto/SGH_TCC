@@ -1,8 +1,6 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Services.Contratos;
-using SHG.Data.Contexto;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,7 +15,6 @@ namespace SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Criar
             _repositorio = repositorio;
             RuleFor(lnq => lnq.CodigoCurso).NotEmpty().WithMessage("Código do curso não foi informado.");
             RuleFor(lnq => lnq.Ano).NotEmpty().WithMessage("Ano não foi informado.");
-            RuleFor(lnq => lnq.Disciplinas).NotEmpty().WithMessage("Disciplinas não foram informadas.");
             RuleFor(lnq => lnq).MustAsync(ValidarCurriculoExistent).WithMessage("Já existe um currículo cadastrado com os dados informados!");
         }
 

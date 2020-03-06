@@ -10,6 +10,5 @@ namespace SGH.Dominio.Services.Implementacao.Curriculos.Comandos
         public int CodigoCurso { get; set; }
         public int Ano { get; set; }
         public virtual CursoViewModel Curso { get; set; }
-        public virtual IEnumerable<CurriculoDisciplinaViewModel> Disciplinas { get; set; }
     }
 }
