@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.Testing;
+﻿using FluentAssertions;
+using Microsoft.AspNetCore.Mvc.Testing;
 using Newtonsoft.Json;
 using SGH.APi;
 using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login;
@@ -48,6 +49,15 @@ namespace SGH.TestesDeIntegracao.Config
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             
             return client;
+        }
+
+        internal async Task TestarRequisicaoComErro(HttpResponseMessage resposta, string mensagemErroEsperada)
+        {
+            resposta.StatusCode.Should().Be(HttpStatusCode.BadRequest);
+
+            var mensagemErroRequest = await resposta.Content.ReadAsStringAsync();
+
+            mensagemErroRequest.RemoverEspacosVazios().Should().Be(mensagemErroEsperada);
         }
 
         internal HttpContent GerarCorpoRequisicao<T>(T conteudo)
