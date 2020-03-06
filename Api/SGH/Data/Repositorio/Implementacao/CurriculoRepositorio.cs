@@ -38,8 +38,7 @@ namespace SGH.Data.Repositorio.Implementacao
                         AulasSemanaisTeorica = disciplina.AulasSemanaisTeorica,
                         CodigoCurriculo = entidade.Codigo,
                         CodigoDisciplina = disciplina.CodigoDisciplina,
-                        Periodo = disciplina.Periodo,
-                        Credito = disciplina.Credito
+                        Periodo = disciplina.Periodo
                     };
 
                     _contexto.CurriculoDisciplina.Add(disciplinaAdicionar);
@@ -100,7 +99,6 @@ namespace SGH.Data.Repositorio.Implementacao
                         AulasSemanaisTeorica = curDis.AulasSemanaisTeorica,
                         Codigo = curDis.Codigo,
                         Periodo = curDis.Periodo,
-                        Credito = curDis.Credito,
                         CodigoDisciplina = curDis.CodigoDisciplina,
                     };
 

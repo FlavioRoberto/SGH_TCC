@@ -19,8 +19,6 @@ namespace SGH.Dominio.ViewModel
 
         public int AulasSemanaisPratica { get; set; }
 
-        public int Credito { get; set; }
-
         public DisciplinaViewModel Disciplina { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

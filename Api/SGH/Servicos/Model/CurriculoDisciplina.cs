@@ -9,7 +9,6 @@ namespace SGH.Dominio.Core.Model
         public int Periodo { get; set; }
         public int AulasSemanaisTeorica { get; set; }
         public int AulasSemanaisPratica { get; set; }
-        public int Credito { get; set; }
 
         public virtual Disciplina Disciplina { get; set; }
         public virtual Curriculo Curriculo { get; set; }

@@ -36,9 +36,6 @@ namespace SHG.Data.Mapeamento
             builder.Property(lnq => lnq.AulasSemanaisTeorica)
                 .HasColumnName("curdis_quantidade_aulas_semanais_teorica");
 
-            builder.Property(lnq => lnq.Credito)
-                .HasColumnName("curdis_credito");
-
             #endregion
 
             builder.ToTable("curriculo_disciplina");
