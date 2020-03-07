@@ -7,7 +7,6 @@ using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Remover;
-using SGH.Dominio.Services.Implementacao.Curriculos.Consultas.ListarDisciplinas;
 using SGH.Dominio.Services.Implementacao.Curriculos.Consultas.ListarPaginacao;
 using System;
 using System.Threading.Tasks;
@@ -26,29 +25,6 @@ namespace SGH.Api.Controllers
         {
             _mediator = mediator;
             _mapper = mapper;
-        }
-
-        [HttpGet]
-        [Authorize("admin")]
-        [Route("{curriculoId}/disciplinas")]
-        public async Task<IActionResult> ListarDisciplinas(int curriculoId)
-        {
-            try
-            {
-                var resultado = await _mediator.Send(new ListarDisciplinasCurriculoConsulta
-                {
-                    CodigoCurriculo = curriculoId
-                });
-
-                if (resultado.TemErro())
-                    return BadRequest(resultado.GetErros());
-
-                return Ok(resultado.GetResultado());
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
         }
 
         [HttpGet]

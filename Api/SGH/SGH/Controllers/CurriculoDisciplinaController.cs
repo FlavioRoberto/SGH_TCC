@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Remover;
+using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Consultas.ListarDisciplinas;
 using System;
 using System.Threading.Tasks;
 
@@ -16,6 +17,29 @@ namespace SGH.Api.Controllers
         public CurriculoDisciplinaController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        [Authorize("admin")]
+        [Route("{curriculoId}")]
+        public async Task<IActionResult> ListarDisciplinas(int curriculoId)
+        {
+            try
+            {
+                var resultado = await _mediator.Send(new ListarDisciplinasCurriculoConsulta
+                {
+                    CodigoCurriculo = curriculoId
+                });
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]

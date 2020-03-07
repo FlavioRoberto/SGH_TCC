@@ -14,9 +14,9 @@ using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Consulta.ListarTodas;
 using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Remover;
-using SGH.Dominio.Services.Implementacao.Curriculos.Consultas.ListarDisciplinas;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Remover;
+using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Consultas.ListarDisciplinas;
 using SGH.Dominio.Services.Implementacao.Cursos.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Disciplinas.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Comandos.Remover;
@@ -40,7 +40,6 @@ namespace SGH.Dominio.Services.Extensions
             services.AddScoped<IAtualizarCurriculoComandoValidador, AtualizarCurriculoComandoValidador>();
             services.AddScoped<ICriarUsuarioComandoValidador, CriarUsuarioComandoValidador>();
             services.AddScoped<IAtualizarUsuarioComandoValidador, AtualizarUsuarioComandoValidador>();            
-            services.AddScoped<IListarDisciplinaCurriculoConsultaValidador, ListarDisciplinaCurriculoConsultaValidador>();
             services.AddScoped<ILoginComandoValidator, LoginComandoValidator>();
             services.AddScoped<IRedefinirSenhaComandoValidador, RedefinirSenhaComandoValidador>();
             services.AddScoped<IRemoverCurriculoComandoValidador, RemoverCurriculoComandoValidador>();
@@ -63,6 +62,7 @@ namespace SGH.Dominio.Services.Extensions
             services.AddScoped<IListarTodasDisciplinasCargoConsultaValidador, ListarTodasDisciplinasCargoConsultaValidador>();
             services.AddScoped<ICriarCurriculoDisciplinaComandoValidador, CriarCurriculoDisciplinaComandoValidador>();
             services.AddScoped<IRemoverCurriculoDisciplinaComandoValidador, RemoverCurriculoDisciplinaComandoValidador>();
+            services.AddScoped<IListarDisciplinaCurriculoConsultaValidador, ListarDisciplinaCurriculoConsultaValidador>();
             #region AutoMapper
             services.AddAutoMapperConfig();
             #endregion
