@@ -120,5 +120,15 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             return await _contexto.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task IniciarTransacao()
+        {
+           await _contexto.IniciarTransacao();
+        }
+
+        public void FecharTransacao()
+        {
+            _contexto.FecharTransacao();
+        }
     }
 }

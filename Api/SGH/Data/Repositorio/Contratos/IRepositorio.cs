@@ -18,6 +18,7 @@ namespace SGH.Data.Repositorio
         Task<bool> Contem(Expression<Func<T, bool>> expressao);
         DbSet<TData> GetDbSet<TData>() where TData : class;
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
-
+        Task IniciarTransacao();
+        void FecharTransacao();
     }
 }

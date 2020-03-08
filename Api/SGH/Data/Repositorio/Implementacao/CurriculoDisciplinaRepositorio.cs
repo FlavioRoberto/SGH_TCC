@@ -32,20 +32,40 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<CurriculoDisciplina> Criar(CurriculoDisciplina entidade)
         {
-            return await _repositorio.Criar(entidade);
+            var curriculoDisciplina = await _repositorio.Criar(entidade);
+            return curriculoDisciplina;
         }
 
         public async Task<List<CurriculoDisciplina>> Listar(Expression<Func<CurriculoDisciplina, bool>> expressao)
         {
             return await _repositorio.GetDbSet<CurriculoDisciplina>()
                                      .Include(lnq => lnq.Disciplina)
+                                     .Include(lnq => lnq.CurriculoDisciplinaPreRequisito)
+                                     .ThenInclude(lnq => lnq.Disciplina)
                                      .Where(expressao)
                                      .ToListAsync();
         }
 
-        public async Task<bool> Remover(Expression<Func<CurriculoDisciplina, bool>> query)
+        public async Task<bool> Remover(int codigo)
         {
-            return await _repositorio.Remover(query);
+            await _repositorio.IniciarTransacao();
+
+            await RemoverPrerequisitosCurriculoDisciplina(codigo);
+
+            var resultado = await _repositorio.Remover(lnq => lnq.Codigo == codigo);
+
+            _repositorio.FecharTransacao();
+
+            return resultado;
+        }
+
+        private async Task RemoverPrerequisitosCurriculoDisciplina(int codigo)
+        {
+            var preRequisitos = await _repositorio.GetDbSet<CurriculoDisciplinaPreRequisito>()
+                                                  .Where(lnq => lnq.CodigoCurriculoDisciplina == codigo)
+                                                  .ToListAsync();
+
+            _repositorio.GetDbSet<CurriculoDisciplinaPreRequisito>().RemoveRange(preRequisitos);
         }
     }
 }

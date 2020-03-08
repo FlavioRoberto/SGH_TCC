@@ -12,7 +12,7 @@ namespace SGH.Data.Repositorio.Contratos
         Task<List<CurriculoDisciplina>> Listar(Expression<Func<CurriculoDisciplina, bool>> expressao);
         Task<bool> Contem(Expression<Func<CurriculoDisciplina, bool>> expressao);
         Task<CurriculoDisciplina> Criar(CurriculoDisciplina entidade);
-        Task<bool> Remover(Expression<Func<CurriculoDisciplina, bool>> query);
+        Task<bool> Remover(int codigo);
 
     }
 }

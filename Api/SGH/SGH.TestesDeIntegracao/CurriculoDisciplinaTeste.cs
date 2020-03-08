@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using Xunit;
 using SGH.Dominio.Shared.Extensions;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Remover;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SGH.TestesDeIntegracao
 {
@@ -33,7 +35,7 @@ namespace SGH.TestesDeIntegracao
                 AulasSemanaisTeorica = 2,
                 CodigoCurriculo = 1,
                 CodigoDisciplina = 1,
-                Periodo = (int) EPeriodo.PRIMEIRO
+                Periodo = (int)EPeriodo.PRIMEIRO
             };
 
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota(), comando);
@@ -43,7 +45,7 @@ namespace SGH.TestesDeIntegracao
             var dadosResposta = await _testsFixture.RecuperarConteudoRequisicao<CurriculoDisciplinaViewModel>(resposta);
 
             dadosResposta.Codigo.Should().BeGreaterThan(0);
-            
+
         }
 
         [Trait("Integração", "Disciplina currículo")]
@@ -126,6 +128,44 @@ namespace SGH.TestesDeIntegracao
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
 
+        }
+
+        [Trait("Integração", "Disciplina currículo")]
+        [Fact(DisplayName = "Realizar consulta de disciplinas do currículo com código 0")]
+        public async Task DisciplinaCargo_ConsultarDisciplinas_DeveRetornarMensagemCodigoCargoZero()
+        {
+            int codigo = 0;
+
+            var resposta = await _testsFixture.Client.GetAsync(GetRota($"{codigo}"));
+
+            var mensagemExperada = "O campo código do currículo não pode ter valor menor ou igual a 0."
+                                   .RemoverEspacosVazios();
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemExperada);
+        }
+
+        [Trait("Integração", "Disciplina currículo")]
+        [Fact(DisplayName = "Realizar consulta de disciplinas do currículo")]
+        public async Task DisciplinaCargo_ConsultarDisciplinas_DeveRetornarAsDisciplinasDoCurriculo()
+        {
+            int codigo = 4;
+
+            var resposta = await _testsFixture.Client.GetAsync(GetRota($"{codigo}"));
+
+            resposta.EnsureSuccessStatusCode();
+
+            var disciplinasCurriculo = await _testsFixture.RecuperarConteudoRequisicao<List<CurriculoDisciplinaViewModel>>(resposta);
+
+            var preRequisitos = disciplinasCurriculo.FirstOrDefault().PreRequisitos;
+
+            disciplinasCurriculo.Should().HaveCount(2);
+
+            disciplinasCurriculo.Should().NotContain(lnq => lnq.CodigoCurriculo != codigo &&
+                                 (lnq.Codigo != 9 && lnq.Codigo != 10));
+
+            preRequisitos.Should().HaveCount(2);
+
+            preRequisitos.Should().NotContain(lnq => lnq.Codigo != 2 && lnq.Codigo != 1);
         }
 
         private string GetRota(string rota = "")

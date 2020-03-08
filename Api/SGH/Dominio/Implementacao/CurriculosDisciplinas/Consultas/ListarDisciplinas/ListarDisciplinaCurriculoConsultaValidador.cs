@@ -15,7 +15,7 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Consultas.Lis
         {
             _repositorio = repositorio;
 
-            RuleFor(lnq => lnq.CodigoCurriculo).NotEmpty().WithMessage("O código do currículo não foi informado.");
+            RuleFor(lnq => lnq.CodigoCurriculo).NotEmpty().WithMessage("O campo código do currículo não pode ter valor menor ou igual a 0.");
         }
     }
 }

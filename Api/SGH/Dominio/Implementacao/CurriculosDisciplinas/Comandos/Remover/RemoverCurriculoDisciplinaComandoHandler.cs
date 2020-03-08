@@ -26,7 +26,7 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Remo
             if (!string.IsNullOrEmpty(erros))
                 return new Resposta<bool>(erros);
 
-            var resultado = await _curriculoDisciplinaRepositorio.Remover(lnq => lnq.Codigo == request.Codigo);
+            var resultado = await _curriculoDisciplinaRepositorio.Remover(request.Codigo);
 
             return new Resposta<bool>(resultado);
 

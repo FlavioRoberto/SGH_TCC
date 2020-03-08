@@ -6,6 +6,8 @@ using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Services.Extensions;
 using SGH.Dominio.ViewModel;
+using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -35,11 +37,31 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Cria
 
             var entidade = _mapper.Map<CurriculoDisciplina>(request);
 
+            entidade.CurriculoDisciplinaPreRequisito = AdicionarPreRequisitors(request.PreRequisitos);
+
             var resultado = await _curriculoDisciplinaRepositorio.Criar(entidade);
 
             var viewModel = _mapper.Map<CurriculoDisciplinaViewModel>(resultado);
 
             return new Resposta<CurriculoDisciplinaViewModel>(viewModel);
+        }
+
+        private IEnumerable<CurriculoDisciplinaPreRequisito> AdicionarPreRequisitors(IEnumerable<DisciplinaViewModel> preRequisitos)
+        {
+            //var disciplinasPreRequisitos = new List<CurriculoDisciplinaPreRequisito>();
+
+            //foreach(var preRequisito in preRequisitos)
+            //{
+            //    disciplinasPreRequisitos.Add(new CurriculoDisciplinaPreRequisito
+            //    {
+            //        CodigoDisciplina = preRequisito.Codigo.Value
+            //    });
+            //}
+
+            //return disciplinasPreRequisitos;
+
+            var disciplinas = _mapper.Map<List<CurriculoDisciplinaPreRequisito>>(preRequisitos);
+            return disciplinas;
         }
     }
 }
