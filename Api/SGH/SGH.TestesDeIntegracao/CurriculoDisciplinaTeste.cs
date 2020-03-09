@@ -12,6 +12,7 @@ using SGH.Dominio.Shared.Extensions;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Remover;
 using System.Collections.Generic;
 using System.Linq;
+using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Editar;
 
 namespace SGH.TestesDeIntegracao
 {
@@ -166,6 +167,47 @@ namespace SGH.TestesDeIntegracao
             preRequisitos.Should().HaveCount(2);
 
             preRequisitos.Should().NotContain(lnq => lnq.Codigo != 2 && lnq.Codigo != 1);
+        }
+
+        [Trait("Integração", "Disciplina currículo")]
+        [Fact(DisplayName = "Realizar edição de disciplina com campos inválidos")]
+        public async Task DisciplinaCurriculo_RealizarEdicao_DeveRetornarMensagemDeErroCamposObrigatorios()
+        {
+            var comando = new EditarCurriculoDisciplinaComando();
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota(), comando);
+
+            var mensagemErroEsperada = $@"O campo período é obrigatório.
+                                        O campo código da disciplina é obrigatório.
+                                        O campo código do currículo é obrigatório.
+                                        O campo aulas semanais teóricas é obrigatório.
+                                        O campo aulas semanais práticas é obrigatório."
+                                       .RemoverEspacosVazios();
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
+        }
+
+        [Trait("Integração", "Disciplina currículo")]
+        [Fact(DisplayName = "Realizar edição de disciplina com disciplina e curriculo inválido")]
+        public async Task DisciplinaCurriculo_RealizarEdicao_DeveRetornarMensagemDeErroDisciplinaECurriculoNaoEncontrado()
+        {
+            var comando = new EditarCurriculoDisciplinaComando
+            {
+                Codigo = 1,
+                AulasSemanaisPratica = 4,
+                AulasSemanaisTeorica = 4,
+                CodigoCurriculo = 99,
+                CodigoDisciplina = 99,
+                Periodo = (int)EPeriodo.NONO
+            };
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota(), comando);
+
+            var mensagemErroEsperada = $@"Não foi encontrado uma disciplina com o código {comando.CodigoDisciplina}.
+                                       Não foi encontrado um currículo com o código {comando.CodigoCurriculo}."
+                                       .RemoverEspacosVazios();
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
         }
 
         private string GetRota(string rota = "")

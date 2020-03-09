@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Editar;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Consultas.ListarDisciplinas;
 using System;
@@ -45,6 +46,25 @@ namespace SGH.Api.Controllers
         [HttpPost]
         [Authorize("admin")]
         public async Task<IActionResult> Criar([FromBody] CriarCurriculoDisciplinaComando comando)
+        {
+            try
+            {
+                var resposta = await _mediator.Send(comando);
+
+                if (resposta.TemErro())
+                    return BadRequest(resposta.GetErros());
+
+                return Ok(resposta.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut]
+        [Authorize("admin")]
+        public async Task<IActionResult> Editar([FromBody] EditarCurriculoDisciplinaComando comando)
         {
             try
             {

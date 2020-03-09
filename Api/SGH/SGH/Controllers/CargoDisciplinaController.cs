@@ -19,6 +19,32 @@ namespace SGH.Api.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet]
+        [Authorize("admin")]
+        [Route("{codigoCargo}")]
+        public async Task<IActionResult> ListarDisciplinasCargo(int codigoCargo)
+        {
+            try
+            {
+                var comando = new ListarTodasDisciplinasCargoConsulta
+                {
+                    CodigoCargo = codigoCargo
+                };
+
+                var resultado = await _mediator.Send(comando);
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
         [HttpPost]
         [Authorize("admin")]
         public async Task<IActionResult> Criar([FromBody] CriarCargoDisciplinaComando comando)
@@ -63,32 +89,6 @@ namespace SGH.Api.Controllers
             }
 
         }
-
-        [HttpGet]
-        [Authorize("admin")]
-        [Route("{codigoCargo}")]
-        public async Task<IActionResult> ListarDisciplinasCargo(int codigoCargo)
-        {
-            try
-            {
-                var comando = new ListarTodasDisciplinasCargoConsulta
-                {
-                    CodigoCargo = codigoCargo
-                };
-
-                var resultado = await _mediator.Send(comando);
-
-                if (resultado.TemErro())
-                    return BadRequest(resultado.GetErros());
-
-                return Ok(resultado.GetResultado());
-            }
-            catch (Exception e)
-            {
-                return BadRequest(e.Message);
-            }
-
-        }
-
+        
     }
 }
