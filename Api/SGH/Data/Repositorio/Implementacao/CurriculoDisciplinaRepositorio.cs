@@ -32,8 +32,34 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<CurriculoDisciplina> Criar(CurriculoDisciplina entidade)
         {
-            var curriculoDisciplina = await _repositorio.Criar(entidade);
-            return curriculoDisciplina;
+            return await _repositorio.Criar(entidade);
+        }
+
+        public async Task<CurriculoDisciplina> Atualizar(CurriculoDisciplina entidade)
+        {
+            var preRequisitos = await AtualizarPreRequisitos(entidade.Codigo, entidade.CurriculoDisciplinaPreRequisito.ToList());
+            entidade.CurriculoDisciplinaPreRequisito = null;
+            entidade = await _repositorio.Atualizar(entidade);
+            return entidade;
+        }
+
+        private async Task<List<CurriculoDisciplinaPreRequisito>> AtualizarPreRequisitos(int codigoCurriculoDisciplina, List<CurriculoDisciplinaPreRequisito> curriculoDisciplinaPreRequisito)
+        {
+            var disciplinasBancoPreRequisito = await _repositorio.GetDbSet<CurriculoDisciplinaPreRequisito>()
+                                                     .AsNoTracking()
+                                                     .Where(lnq => lnq.CodigoCurriculoDisciplina == codigoCurriculoDisciplina)
+                                                     .ToListAsync();
+
+            _repositorio.GetDbSet<CurriculoDisciplinaPreRequisito>().RemoveRange(disciplinasBancoPreRequisito);
+
+            await _repositorio.SaveChangesAsync();
+
+            _repositorio.GetDbSet<CurriculoDisciplinaPreRequisito>().AddRange(curriculoDisciplinaPreRequisito);
+
+            await _repositorio.SaveChangesAsync();
+
+            return curriculoDisciplinaPreRequisito;
+
         }
 
         public async Task<List<CurriculoDisciplina>> Listar(Expression<Func<CurriculoDisciplina, bool>> expressao)

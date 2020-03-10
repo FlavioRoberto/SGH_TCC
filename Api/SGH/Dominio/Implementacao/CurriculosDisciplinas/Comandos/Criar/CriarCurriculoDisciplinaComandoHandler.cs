@@ -5,6 +5,7 @@ using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Services.Extensions;
+using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Base;
 using SGH.Dominio.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -13,19 +14,17 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Criar
 {
-    public class CriarCurriculoDisciplinaComandoHandler : IRequestHandler<CriarCurriculoDisciplinaComando, Resposta<CurriculoDisciplinaViewModel>>
+    public class CriarCurriculoDisciplinaComandoHandler : CurriculoDisciplinaComandoHandlerBase, IRequestHandler<CriarCurriculoDisciplinaComando, Resposta<CurriculoDisciplinaViewModel>>
     {
         private readonly ICriarCurriculoDisciplinaComandoValidador _validador;
         private readonly ICurriculoDisciplinaRepositorio _curriculoDisciplinaRepositorio;
-        private readonly IMapper _mapper;
 
         public CriarCurriculoDisciplinaComandoHandler(ICriarCurriculoDisciplinaComandoValidador validor,
                                                       ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio,
-                                                      IMapper mapper)
+                                                      IMapper mapper) : base(mapper)
         {
             _validador = validor;
             _curriculoDisciplinaRepositorio = curriculoDisciplinaRepositorio;
-            _mapper = mapper;
         }
 
         public async Task<Resposta<CurriculoDisciplinaViewModel>> Handle(CriarCurriculoDisciplinaComando request, CancellationToken cancellationToken)
@@ -46,22 +45,5 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Cria
             return new Resposta<CurriculoDisciplinaViewModel>(viewModel);
         }
 
-        private IEnumerable<CurriculoDisciplinaPreRequisito> AdicionarPreRequisitors(IEnumerable<DisciplinaViewModel> preRequisitos)
-        {
-            //var disciplinasPreRequisitos = new List<CurriculoDisciplinaPreRequisito>();
-
-            //foreach(var preRequisito in preRequisitos)
-            //{
-            //    disciplinasPreRequisitos.Add(new CurriculoDisciplinaPreRequisito
-            //    {
-            //        CodigoDisciplina = preRequisito.Codigo.Value
-            //    });
-            //}
-
-            //return disciplinasPreRequisitos;
-
-            var disciplinas = _mapper.Map<List<CurriculoDisciplinaPreRequisito>>(preRequisitos);
-            return disciplinas;
-        }
     }
 }

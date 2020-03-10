@@ -13,6 +13,7 @@ using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Remover;
 using System.Collections.Generic;
 using System.Linq;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Editar;
+using SGH.Dominio.Services.ViewModel;
 
 namespace SGH.TestesDeIntegracao
 {
@@ -166,7 +167,7 @@ namespace SGH.TestesDeIntegracao
 
             preRequisitos.Should().HaveCount(2);
 
-            preRequisitos.Should().NotContain(lnq => lnq.Codigo != 2 && lnq.Codigo != 1);
+            preRequisitos.Should().NotContain(lnq => lnq.CodigoDisciplina != 2 && lnq.CodigoDisciplina != 1);
         }
 
         [Trait("Integração", "Disciplina currículo")]
@@ -208,6 +209,49 @@ namespace SGH.TestesDeIntegracao
                                        .RemoverEspacosVazios();
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
+        }
+
+        [Trait("Integração", "Disciplina currículo")]
+        [Fact(DisplayName = "Realizar edição de disciplina do currículo com sucesso")]
+        public async Task DisciplinaCurriculo_RealizarEdicao_DeveRealizarAtualizarComSucesso()
+        {
+            var comando = new EditarCurriculoDisciplinaComando
+            {
+                Codigo = 1,
+                AulasSemanaisPratica = 3,
+                AulasSemanaisTeorica = 2,
+                CodigoCurriculo = 1,
+                CodigoDisciplina = 1,
+                Periodo = (int)EPeriodo.PRIMEIRO,
+                PreRequisitos = new List<DisciplinCurriculoPreRequisitoaViewModel>
+                {
+                    new DisciplinCurriculoPreRequisitoaViewModel
+                    {
+                        CodigoCurriculoDisciplina = 1,
+                        CodigoDisciplina = 1,
+                        CodigoTipo = 1,
+                        DescricaoDisciplina = "Teste de pre requisito"
+                    }
+                }
+            };
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota(), comando);
+
+            resposta.EnsureSuccessStatusCode();
+
+            var dadosResposta = await _testsFixture.RecuperarConteudoRequisicao<CurriculoDisciplinaViewModel>(resposta);
+
+            dadosResposta.Codigo.Should().BeGreaterThan(0);
+
+            dadosResposta.CodigoCurriculo.Should().Be(comando.CodigoCurriculo);
+
+            dadosResposta.PreRequisitos.Should().HaveCount(1);
+
+            dadosResposta.PreRequisitos.Should().NotContain(lnq => lnq.CodigoCurriculoDisciplina != 1 &&
+                                                            lnq.CodigoDisciplina != 1 &&
+                                                            lnq.CodigoTipo != 1 &&
+                                                            lnq.DescricaoDisciplina != "Teste de pre requisito");
+
         }
 
         private string GetRota(string rota = "")

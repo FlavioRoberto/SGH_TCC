@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SGH.Dominio.Services.ViewModel;
 using System.Collections.Generic;
 
 namespace SGH.Dominio.ViewModel
@@ -20,7 +21,7 @@ namespace SGH.Dominio.ViewModel
         public DisciplinaViewModel Disciplina { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public IEnumerable<DisciplinaViewModel> PreRequisitos { get; set; }
+        public IEnumerable<DisciplinCurriculoPreRequisitoaViewModel> PreRequisitos { get; set; }
 
     }
 }

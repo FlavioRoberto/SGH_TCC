@@ -1,20 +1,25 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core;
+using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Services.Extensions;
+using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Base;
 using SGH.Dominio.ViewModel;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Editar
 {
-    public class EditarCurriculoDisciplinaComandoHandler : IRequestHandler<EditarCurriculoDisciplinaComando, Resposta<CurriculoDisciplinaViewModel>>
+    public class EditarCurriculoDisciplinaComandoHandler : CurriculoDisciplinaComandoHandlerBase, IRequestHandler<EditarCurriculoDisciplinaComando, Resposta<CurriculoDisciplinaViewModel>>
     {
         private readonly IEditarCurriculoDisciplinaComandoValidador _validador;
         private readonly ICurriculoDisciplinaRepositorio _curriculoDisciplinaRepositorio;
 
-        public EditarCurriculoDisciplinaComandoHandler(IEditarCurriculoDisciplinaComandoValidador validador, ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio)
+        public EditarCurriculoDisciplinaComandoHandler(IEditarCurriculoDisciplinaComandoValidador validador, 
+                                                       ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio,
+                                                       IMapper mapper) : base(mapper)
         {
             _validador = validador;
             _curriculoDisciplinaRepositorio = curriculoDisciplinaRepositorio;
@@ -24,12 +29,18 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Edit
         {
             var erro = _validador.Validar(request);
 
-            if (string.IsNullOrEmpty(erro))
+            if (!string.IsNullOrEmpty(erro))
                 return new Resposta<CurriculoDisciplinaViewModel>(erro);
 
-            var entidade;
+            var disciplina = _mapper.Map<CurriculoDisciplina>(request);
 
-            var resultado = await _curriculoDisciplinaRepositorio.Editar();
+            disciplina.CurriculoDisciplinaPreRequisito = AdicionarPreRequisitors(request.PreRequisitos);
+
+            disciplina = await _curriculoDisciplinaRepositorio.Atualizar(disciplina);
+
+            var disciplianViewModel = _mapper.Map<CurriculoDisciplinaViewModel>(disciplina);
+
+            return new Resposta<CurriculoDisciplinaViewModel>(disciplianViewModel);
         }
     }
 }

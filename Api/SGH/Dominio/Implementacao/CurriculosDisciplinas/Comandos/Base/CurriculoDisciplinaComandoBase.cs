@@ -1,4 +1,5 @@
-﻿using SGH.Dominio.ViewModel;
+﻿using SGH.Dominio.Services.ViewModel;
+using SGH.Dominio.ViewModel;
 using System.Collections.Generic;
 
 namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Base
@@ -15,6 +16,6 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Base
 
         public int AulasSemanaisPratica { get; set; }
 
-        public IEnumerable<DisciplinaViewModel> PreRequisitos { get; set; }
+        public IEnumerable<DisciplinCurriculoPreRequisitoaViewModel> PreRequisitos { get; set; }
     }
 }
