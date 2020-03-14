@@ -13,9 +13,9 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Edit
     {
         public EditarCurriculoDisciplinaComandoValidador(ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio, IDisciplinaRepositorio disciplinaRepositorio) : base(curriculoDisciplinaRepositorio, disciplinaRepositorio)
         {
-            RuleFor(lnq => lnq.Codigo).NotEmpty().WithMessage("O campo código é obrigatório");
+            RuleFor(lnq => lnq.Codigo).NotEmpty().WithMessage("O campo código da disciplina do currículo é obrigatório");
 
-            When(lnq => lnq.PreRequisitos.Any(), () =>
+            When(lnq => lnq.PreRequisitos != null && lnq.PreRequisitos.Any(), () =>
             {
                 RuleFor(lnq => lnq.PreRequisitos).Must(ValidarSeCodigoDisciplinaCurriculoFoiInformado).WithMessage("Não foi informado o campo código da disciplina do currículo para algum pré-requisito.");
                 RuleFor(lnq => lnq).Must(ValidarSePreRequisitosSaoDaDisciplina).WithMessage("Existem pré-requisitos com o código de disciplina do currículo diferente do selecionado.");

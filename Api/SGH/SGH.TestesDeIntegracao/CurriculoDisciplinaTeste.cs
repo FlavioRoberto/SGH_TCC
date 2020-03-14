@@ -55,6 +55,8 @@ namespace SGH.TestesDeIntegracao
         public async Task DisciplinaCurriculo_RealizarCadastro_DeveRetornarMensagemDeErroCamposObrigatorios()
         {
             var comando = new CriarCurriculoDisciplinaComando();
+            comando.AulasSemanaisPratica = -1;
+            comando.AulasSemanaisTeorica = -1;
 
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota(), comando);
 
@@ -175,6 +177,8 @@ namespace SGH.TestesDeIntegracao
         public async Task DisciplinaCurriculo_RealizarEdicao_DeveRetornarMensagemDeErroCamposObrigatorios()
         {
             var comando = new EditarCurriculoDisciplinaComando();
+            comando.AulasSemanaisPratica = -1;
+            comando.AulasSemanaisTeorica = -1;
 
             var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota(), comando);
 
@@ -182,7 +186,8 @@ namespace SGH.TestesDeIntegracao
                                         O campo código da disciplina é obrigatório.
                                         O campo código do currículo é obrigatório.
                                         O campo aulas semanais teóricas é obrigatório.
-                                        O campo aulas semanais práticas é obrigatório."
+                                        O campo aulas semanais práticas é obrigatório.
+                                        O campo código da disciplina do currículo é obrigatório"
                                        .RemoverEspacosVazios();
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
@@ -206,6 +211,37 @@ namespace SGH.TestesDeIntegracao
 
             var mensagemErroEsperada = $@"Não foi encontrado uma disciplina com o código {comando.CodigoDisciplina}.
                                        Não foi encontrado um currículo com o código {comando.CodigoCurriculo}."
+                                       .RemoverEspacosVazios();
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
+        }
+
+        [Trait("Integração", "Disciplina currículo")]
+        [Fact(DisplayName = "Realizar edição de disciplina com pré-requisitos sem código da disciplina do currículo")]
+        public async Task DisciplinaCurriculo_RealizarEdicao_DeveRetornarMensagemCodigoDisciplinaPreRequisitoNaoInformado()
+        {
+            var comando = new EditarCurriculoDisciplinaComando
+            {
+                Codigo = 1,
+                AulasSemanaisPratica = 3,
+                AulasSemanaisTeorica = 2,
+                CodigoCurriculo = 1,
+                CodigoDisciplina = 1,
+                Periodo = (int)EPeriodo.PRIMEIRO,
+                PreRequisitos = new List<DisciplinCurriculoPreRequisitoaViewModel>
+                {
+                    new DisciplinCurriculoPreRequisitoaViewModel
+                    {
+                        CodigoTipo = 1,
+                        CodigoDisciplina = 1                            
+                    }
+                }
+            };
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota(), comando);
+
+            var mensagemErroEsperada = $@"Não foi informado o campo código da disciplina do currículo para algum pré-requisito.
+                                          Existem pré-requisitos com o código de disciplina do currículo diferente do selecionado."
                                        .RemoverEspacosVazios();
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
