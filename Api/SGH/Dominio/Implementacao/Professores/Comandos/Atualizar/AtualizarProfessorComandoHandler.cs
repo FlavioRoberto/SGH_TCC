@@ -6,15 +6,16 @@ using SGH.Dominio.Services.Extensions;
 using SGH.Dominio.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
+using SGH.Dominio.Services.Implementacao.Professores.Comandos.Remover;
 
 namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Atualizar
 {
     public class AtualizarProfessorComandoHandler : IRequestHandler<AtualizarProfessorComando, Resposta<Professor>>
     {
         private readonly IProfessorRepositorio _repositorio;
-        private readonly IAtualizarProfessorComandoValidador _validador;
+        private readonly IValidador<AtualizarProfessorComando> _validador;
 
-        public AtualizarProfessorComandoHandler(IProfessorRepositorio repositorio, IAtualizarProfessorComandoValidador validador)
+        public AtualizarProfessorComandoHandler(IProfessorRepositorio repositorio, IValidador<AtualizarProfessorComando> validador)
         {
             _repositorio = repositorio;
             _validador = validador;

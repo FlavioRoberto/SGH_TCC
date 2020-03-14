@@ -7,7 +7,7 @@ using SGH.Dominio.Core.Model;
 
 namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login
 {
-    public class LoginComandoValidator : AbstractValidator<LoginComando>, ILoginComandoValidator
+    public class LoginComandoValidator : AbstractValidator<LoginComando>, IValidador<LoginComando>
     {
         private readonly IUsuarioRepositorio _repositorio;
         private Usuario _usuario;

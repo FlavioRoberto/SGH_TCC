@@ -16,9 +16,9 @@ namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Remover
         private readonly IContexto _contexto;
         private readonly ICargoRepositorio _cargoRepositorio;
         private readonly ICargoDisciplinaRepositorio _cargoDisciplinaRepositorio;
-        private readonly IRemoverCargoComandoValidador _validador;
+        private readonly IValidador<RemoverCargoComando> _validador;
 
-        public RemoverCargoComandoHandler(IContexto contexto, ICargoRepositorio cargoRepositorio, ICargoDisciplinaRepositorio cargoDisciplinaRepositorio, IRemoverCargoComandoValidador validador)
+        public RemoverCargoComandoHandler(IContexto contexto, ICargoRepositorio cargoRepositorio, ICargoDisciplinaRepositorio cargoDisciplinaRepositorio, IValidador<RemoverCargoComando> validador)
         {
             _contexto = contexto;
             _cargoRepositorio = cargoRepositorio;

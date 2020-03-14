@@ -8,7 +8,7 @@ using SGH.Dominio.Core.Model;
 
 namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.AtualizarSenha
 {
-    public class AtualizarSenhaComandoValidador : AbstractValidator<AtualizarSenhaComando>, IAtualizarSenhaComandoValidador
+    public class AtualizarSenhaComandoValidador : AbstractValidator<AtualizarSenhaComando>, IValidador<AtualizarSenhaComando>
     {
         private readonly IUsuarioRepositorio _repositorio;
         private readonly IUsuarioResolverService _usuarioResolverService;

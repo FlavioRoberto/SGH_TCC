@@ -1,12 +1,13 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Remover;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Cursos.Comandos.Remover
 {
-    public class RemoverCursoComandoValidador : AbstractValidator<RemoverCursoComando>, IRemoverCursoComandoValidador
+    public class RemoverCursoComandoValidador : AbstractValidator<RemoverCursoComando>, IValidador<RemoverCursoComando>
     {
 
         private readonly ICursoRepositorio _repositorio;

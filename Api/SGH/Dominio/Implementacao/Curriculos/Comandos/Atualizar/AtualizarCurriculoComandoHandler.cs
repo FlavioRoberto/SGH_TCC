@@ -15,9 +15,9 @@ namespace SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Atualizar
     {
         private ICurriculoRepositorio _repositorio;
         private IMapper _mapper;
-        private IAtualizarCurriculoComandoValidador _validador;
+        private IValidador<AtualizarCurriculoComando> _validador;
 
-        public AtualizarCurriculoComandoHandler(ICurriculoRepositorio curriculoRepositorio, IMapper mapper, IAtualizarCurriculoComandoValidador validador)
+        public AtualizarCurriculoComandoHandler(ICurriculoRepositorio curriculoRepositorio, IMapper mapper, IValidador<AtualizarCurriculoComando> validador)
         {
             _repositorio = curriculoRepositorio;
             _mapper = mapper;

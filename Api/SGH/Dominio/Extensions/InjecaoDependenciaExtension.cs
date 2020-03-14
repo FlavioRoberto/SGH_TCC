@@ -5,6 +5,7 @@ using SGH.Dominio.Services.Implementacao;
 using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.AtualizarSenha;
 using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login;
 using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.RedefinirSenha;
+using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Cargos.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Cargos.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Cargos.Comandos.Remover;
@@ -36,36 +37,36 @@ namespace SGH.Dominio.Services.Extensions
     {
         public static IServiceCollection AddDominio(this IServiceCollection services)
         {
-            services.AddScoped<IAtualizarCurriculoComandoValidador, AtualizarCurriculoComandoValidador>();
-            services.AddScoped<IAtualizarSenhaComandoValidador, AtualizarSenhaComandoValidador>();
-            services.AddScoped<IAtualizarCurriculoComandoValidador, AtualizarCurriculoComandoValidador>();
-            services.AddScoped<ICriarUsuarioComandoValidador, CriarUsuarioComandoValidador>();
-            services.AddScoped<IAtualizarUsuarioComandoValidador, AtualizarUsuarioComandoValidador>();            
-            services.AddScoped<ILoginComandoValidator, LoginComandoValidator>();
-            services.AddScoped<IRedefinirSenhaComandoValidador, RedefinirSenhaComandoValidador>();
-            services.AddScoped<IRemoverCurriculoComandoValidador, RemoverCurriculoComandoValidador>();
-            services.AddScoped<IRemoverDisciplinaComandoValidador, RemoverDisciplinaComandoValidador>();
-            services.AddScoped<IRemoverDisciplinaTipoComandoValidador, RemoverDisciplinaTipoComandoValidador>();
-            services.AddScoped<IRemoverUsuarioComandoValidador, RemoverUsuarioComandoValidador>();
+            services.AddScoped<IValidador<AtualizarCurriculoComando>, AtualizarCurriculoComandoValidador>();
+            services.AddScoped<IValidador<AtualizarSenhaComando>, AtualizarSenhaComandoValidador>();
+            services.AddScoped<IValidador<CriarUsuarioComando>, CriarUsuarioComandoValidador>();
+            services.AddScoped<IValidador<AtualizarUsuarioComando>, AtualizarUsuarioComandoValidador>();            
+            services.AddScoped<IValidador<LoginComando>, LoginComandoValidator>();
+            services.AddScoped<IValidador<RedefinirSenhaComando>, RedefinirSenhaComandoValidador>();
+            services.AddScoped<IValidador<RemoverCurriculoComando>, RemoverCurriculoComandoValidador>();
+            services.AddScoped<IValidador<RemoverDisciplinaComando>, RemoverDisciplinaComandoValidador>();
+            services.AddScoped<IValidador<RemoverDisciplinaTipoComando>, RemoverDisciplinaTipoComandoValidador>();
+            services.AddScoped<IValidador<RemoverUsuarioComando>, RemoverUsuarioComandoValidador>();
             services.AddTransient<IUsuarioResolverService, UsuarioResolverService>();
-            services.AddScoped<IRemoverCursoComandoValidador, RemoverCursoComandoValidador>();
-            services.AddScoped<ICriarProfessorComandoValidador, CriarProfessorComandoValidador>();
-            services.AddScoped<IAtualizarProfessorComandoValidador, AtualizarProfessorComandoValidador>();
-            services.AddScoped<IRemoverProfessorComandoValidador, RemoverProfessorComandoValidador>();
-            services.AddScoped<IAtualizarTurnoComandoValidador, AtualizarTurnoComandoValidador>();
-            services.AddScoped<IRemoverTurnoComandoValidador, RemoverTurnoComandoValidador>();
-            services.AddScoped<ICriarCurriculoComandoValidador, CriarCurriculoComandoValidador>();
-            services.AddScoped<ICriarCargoComandoValidador, CriarCargoComandoValidador>();
-            services.AddScoped<IRemoverCargoComandoValidador, RemoverCargoComandoValidador>();
-            services.AddScoped<IAtualizarCargoComandoValidador, AtualizarCargoComandoValidador>();
-            services.AddScoped<ICriarCargoDisciplinaComandoValidador, CriarCargoDisciplinaComandoValidador>();
-            services.AddScoped<IRemoverCargoDisciplinaComandoValidador, RemoverCargoDisciplinaComandoValidador>();
-            services.AddScoped<IListarTodasDisciplinasCargoConsultaValidador, ListarTodasDisciplinasCargoConsultaValidador>();
-            services.AddScoped<ICriarCurriculoDisciplinaComandoValidador, CriarCurriculoDisciplinaComandoValidador>();
-            services.AddScoped<IRemoverCurriculoDisciplinaComandoValidador, RemoverCurriculoDisciplinaComandoValidador>();
-            services.AddScoped<IListarDisciplinaCurriculoConsultaValidador, ListarDisciplinaCurriculoConsultaValidador>();
-            services.AddScoped<IEditarCurriculoDisciplinaComandoValidador, EditarCurriculoDisciplinaComandoValidador>();
-                        
+            services.AddScoped<IValidador<RemoverCursoComando>, RemoverCursoComandoValidador>();
+            services.AddScoped<IValidador<CriarProfessorComando>, CriarProfessorComandoValidador>();
+            services.AddScoped<IValidador<AtualizarProfessorComando>, AtualizarProfessorComandoValidador>();
+            services.AddScoped<IValidador<RemoverProfessorComando>, RemoverProfessorComandoValidador>();
+            services.AddScoped<IValidador<AtualizarTurnoComando>, AtualizarTurnoComandoValidador>();
+            services.AddScoped<IValidador<RemoverTurnoComando>, RemoverTurnoComandoValidador>();
+            services.AddScoped<IValidador<CriarCurriculoComando>, CriarCurriculoComandoValidador>();
+            services.AddScoped<IValidador<CriarCargoComando>, CriarCargoComandoValidador>();
+            services.AddScoped<IValidador<RemoverCargoComando>, RemoverCargoComandoValidador>();
+            services.AddScoped<IValidador<AtualizarCargoComando>, AtualizarCargoComandoValidador>();
+            services.AddScoped<IValidador<CriarCargoDisciplinaComando>, CriarCargoDisciplinaComandoValidador>();
+            services.AddScoped<IValidador<RemoverCargoDisciplinaComando>, RemoverCargoDisciplinaComandoValidador>();
+            services.AddScoped<IValidador<ListarTodasDisciplinasCargoConsulta>, ListarTodasDisciplinasCargoConsultaValidador>();
+            services.AddScoped<IValidador<CriarCurriculoDisciplinaComando>, CriarCurriculoDisciplinaComandoValidador>();
+            services.AddScoped<IValidador<RemoverCurriculoDisciplinaComando>, RemoverCurriculoDisciplinaComandoValidador>();
+            services.AddScoped<IValidador<ListarDisciplinasCurriculoConsulta>, ListarDisciplinaCurriculoConsultaValidador>();
+            services.AddScoped<IValidador<EditarCurriculoDisciplinaComando>, EditarCurriculoDisciplinaComandoValidador>();
+            services.AddScoped<IValidador<CriarBlocoComando>, CriarBlocoComandoValidador>();
+
             #region AutoMapper
             services.AddAutoMapperConfig();
             #endregion

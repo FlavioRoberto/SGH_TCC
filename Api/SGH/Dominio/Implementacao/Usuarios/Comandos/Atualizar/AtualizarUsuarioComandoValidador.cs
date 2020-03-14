@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Atualizar
 {
-    public class AtualizarUsuarioComandoValidador : AbstractValidator<AtualizarUsuarioComando>, IAtualizarUsuarioComandoValidador
+    public class AtualizarUsuarioComandoValidador : AbstractValidator<AtualizarUsuarioComando>, IValidador<AtualizarUsuarioComando>
     {
         private readonly IUsuarioRepositorio _usuarioRepositorio;
 

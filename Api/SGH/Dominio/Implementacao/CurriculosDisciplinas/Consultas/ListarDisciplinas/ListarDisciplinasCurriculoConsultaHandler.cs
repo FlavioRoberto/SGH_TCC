@@ -15,11 +15,11 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Consultas.Lis
     public class ListarDisciplinasCurriculoConsultaHandler : IRequestHandler<ListarDisciplinasCurriculoConsulta, Resposta<List<CurriculoDisciplinaViewModel>>>
     {
         private readonly ICurriculoDisciplinaRepositorio _repositorio;
-        private readonly IListarDisciplinaCurriculoConsultaValidador _validador;
+        private readonly IValidador<ListarDisciplinasCurriculoConsulta> _validador;
         private readonly IMapper _mapper;
 
-        public ListarDisciplinasCurriculoConsultaHandler(ICurriculoDisciplinaRepositorio repositorio, 
-                                                         IListarDisciplinaCurriculoConsultaValidador validador,
+        public ListarDisciplinasCurriculoConsultaHandler(ICurriculoDisciplinaRepositorio repositorio,
+                                                         IValidador<ListarDisciplinasCurriculoConsulta> validador,
                                                          IMapper mapper)
         {
             _repositorio = repositorio;

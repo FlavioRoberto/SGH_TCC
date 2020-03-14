@@ -13,10 +13,10 @@ namespace SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Criar
     public class CriarCurriculoComandoHandler : IRequestHandler<CriarCurriculoComando, Resposta<Curriculo>>
     {
         private readonly ICurriculoRepositorio _repositorio;
-        private readonly ICriarCurriculoComandoValidador _validador;
+        private readonly IValidador<CriarCurriculoComando> _validador;
         private readonly IMapper _mapper;
 
-        public CriarCurriculoComandoHandler(ICurriculoRepositorio repositorio, ICriarCurriculoComandoValidador validador, IMapper mapper)
+        public CriarCurriculoComandoHandler(ICurriculoRepositorio repositorio, IValidador<CriarCurriculoComando> validador, IMapper mapper)
         {
             _repositorio = repositorio;
             _validador = validador;

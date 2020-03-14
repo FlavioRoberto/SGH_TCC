@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Editar
 {
-    public class EditarCurriculoDisciplinaComandoValidador : CurriculoDisciplinaComandoBaseValidador<EditarCurriculoDisciplinaComando>, IEditarCurriculoDisciplinaComandoValidador
+    public class EditarCurriculoDisciplinaComandoValidador : CurriculoDisciplinaComandoBaseValidador<EditarCurriculoDisciplinaComando>, IValidador<EditarCurriculoDisciplinaComando>
     {
         public EditarCurriculoDisciplinaComandoValidador(ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio, IDisciplinaRepositorio disciplinaRepositorio) : base(curriculoDisciplinaRepositorio, disciplinaRepositorio)
         {

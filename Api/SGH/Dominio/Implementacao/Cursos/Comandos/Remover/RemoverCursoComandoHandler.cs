@@ -11,9 +11,9 @@ namespace SGH.Dominio.Services.Implementacao.Cursos.Comandos.Remover
     public class RemoverCursoComandoHandler : IRequestHandler<RemoverCursoComando, Resposta<bool>>
     {
         private readonly ICursoRepositorio _repositorio;
-        private readonly IRemoverCursoComandoValidador _validador;
+        private readonly IValidador<RemoverCursoComando> _validador;
 
-        public RemoverCursoComandoHandler(ICursoRepositorio repositorio, IRemoverCursoComandoValidador validador)
+        public RemoverCursoComandoHandler(ICursoRepositorio repositorio, IValidador<RemoverCursoComando> validador)
         {
             _repositorio = repositorio;
             _validador = validador;

@@ -12,9 +12,9 @@ namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Atualizar
     public class AtualizarUsuarioComandoHandler : IRequestHandler<AtualizarUsuarioComando, Resposta<Usuario>>
     {
         private readonly IUsuarioRepositorio _repositorio;
-        private readonly IAtualizarUsuarioComandoValidador _validador;
+        private readonly IValidador<AtualizarUsuarioComando> _validador;
 
-        public AtualizarUsuarioComandoHandler(IUsuarioRepositorio repositorio, IAtualizarUsuarioComandoValidador validador)
+        public AtualizarUsuarioComandoHandler(IUsuarioRepositorio repositorio, IValidador<AtualizarUsuarioComando> validador)
         {
             _repositorio = repositorio;
             _validador = validador;

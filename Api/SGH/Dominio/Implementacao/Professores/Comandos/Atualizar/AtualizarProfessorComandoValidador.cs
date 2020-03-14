@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Atualizar
 {
-    public class AtualizarProfessorComandoValidador : ProfessorComandoValidador<AtualizarProfessorComando>, IAtualizarProfessorComandoValidador
+    public class AtualizarProfessorComandoValidador : ProfessorComandoValidador<AtualizarProfessorComando>, IValidador<AtualizarProfessorComando>
     {
         public AtualizarProfessorComandoValidador(IProfessorRepositorio repositorio) : base(repositorio)
         {

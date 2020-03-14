@@ -2,7 +2,7 @@
 
 namespace SGH.Dominio.Services.Contratos
 {
-    public interface IRemoverDisciplinaTipoComandoValidador : IValidator
+    public interface IValidador<T> : IValidator<T>
     {
     }
 }

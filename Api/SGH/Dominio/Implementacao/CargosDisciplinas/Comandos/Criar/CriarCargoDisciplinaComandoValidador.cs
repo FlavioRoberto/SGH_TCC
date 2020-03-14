@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Criar
 {
-    public class CriarCargoDisciplinaComandoValidador : AbstractValidator<CriarCargoDisciplinaComando>, ICriarCargoDisciplinaComandoValidador
+    public class CriarCargoDisciplinaComandoValidador : AbstractValidator<CriarCargoDisciplinaComando>, IValidador<CriarCargoDisciplinaComando>
     {
         private readonly ICargoDisciplinaRepositorio _cargoDisciplinaRepositorio;
         private readonly ICurriculoRepositorio _curriculoRepositorio;

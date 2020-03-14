@@ -16,10 +16,10 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Cria
 {
     public class CriarCurriculoDisciplinaComandoHandler : CurriculoDisciplinaComandoHandlerBase, IRequestHandler<CriarCurriculoDisciplinaComando, Resposta<CurriculoDisciplinaViewModel>>
     {
-        private readonly ICriarCurriculoDisciplinaComandoValidador _validador;
+        private readonly IValidador<CriarCurriculoDisciplinaComando> _validador;
         private readonly ICurriculoDisciplinaRepositorio _curriculoDisciplinaRepositorio;
 
-        public CriarCurriculoDisciplinaComandoHandler(ICriarCurriculoDisciplinaComandoValidador validor,
+        public CriarCurriculoDisciplinaComandoHandler(IValidador<CriarCurriculoDisciplinaComando> validor,
                                                       ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio,
                                                       IMapper mapper) : base(mapper)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Criar
 {
-    public class CriarCurriculoDisciplinaComandoValidador : CurriculoDisciplinaComandoBaseValidador<CriarCurriculoDisciplinaComando>, ICriarCurriculoDisciplinaComandoValidador
+    public class CriarCurriculoDisciplinaComandoValidador : CurriculoDisciplinaComandoBaseValidador<CriarCurriculoDisciplinaComando>, IValidador<CriarCurriculoDisciplinaComando>
     {
         public CriarCurriculoDisciplinaComandoValidador(ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio, IDisciplinaRepositorio disciplinaRepositorio) : base(curriculoDisciplinaRepositorio, disciplinaRepositorio)
         {

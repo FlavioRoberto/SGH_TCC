@@ -7,7 +7,7 @@ using SGH.Dominio.Services.Contratos;
 
 namespace SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Remover
 {
-    public class RemoverCurriculoComandoValidador : AbstractValidator<RemoverCurriculoComando>, IRemoverCurriculoComandoValidador
+    public class RemoverCurriculoComandoValidador : AbstractValidator<RemoverCurriculoComando>, IValidador<RemoverCurriculoComando>
     {
         private readonly ICurriculoRepositorio _repositorio;
 

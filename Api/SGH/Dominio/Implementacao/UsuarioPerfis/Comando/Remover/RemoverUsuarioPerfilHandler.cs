@@ -11,9 +11,9 @@ namespace SGH.Dominio.Services.Implementacao.UsuarioPerfis.Comando.Remover
     public class RemoverUsuarioPerfilHandler : IRequestHandler<RemoverUsuarioPerfilComando, Resposta<bool>>
     {
         private readonly IUsuarioPerfilRepositorio _repositorio;
-        private readonly IRemoverUsuarioPerfilComandoValidador _validador;
+        private readonly IValidador<RemoverUsuarioPerfilComando> _validador;
 
-        public RemoverUsuarioPerfilHandler(IUsuarioPerfilRepositorio repositorio, IRemoverUsuarioPerfilComandoValidador validador)
+        public RemoverUsuarioPerfilHandler(IUsuarioPerfilRepositorio repositorio, IValidador<RemoverUsuarioPerfilComando> validador)
         {
             _repositorio = repositorio;
             _validador = validador;

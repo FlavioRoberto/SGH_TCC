@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Turnos.Comandos.Atualizar
 {
-    public class AtualizarTurnoComandoValidador : AbstractValidator<AtualizarTurnoComando>, IAtualizarTurnoComandoValidador
+    public class AtualizarTurnoComandoValidador : AbstractValidator<AtualizarTurnoComando>, IValidador<AtualizarTurnoComando>
     {
         private readonly ITurnoRepositorio _repositorio;
 

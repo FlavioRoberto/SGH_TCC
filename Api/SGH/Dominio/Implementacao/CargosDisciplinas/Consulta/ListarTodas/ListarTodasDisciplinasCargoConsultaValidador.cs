@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Consulta.ListarTodas
 {
-    public class ListarTodasDisciplinasCargoConsultaValidador : AbstractValidator<ListarTodasDisciplinasCargoConsulta>, IListarTodasDisciplinasCargoConsultaValidador
+    public class ListarTodasDisciplinasCargoConsultaValidador : AbstractValidator<ListarTodasDisciplinasCargoConsulta>, IValidador<ListarTodasDisciplinasCargoConsulta>
     {
         private readonly ICargoRepositorio _cargoRepositorio;
 

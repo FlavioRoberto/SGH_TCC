@@ -14,10 +14,10 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Edit
 {
     public class EditarCurriculoDisciplinaComandoHandler : CurriculoDisciplinaComandoHandlerBase, IRequestHandler<EditarCurriculoDisciplinaComando, Resposta<CurriculoDisciplinaViewModel>>
     {
-        private readonly IEditarCurriculoDisciplinaComandoValidador _validador;
+        private readonly IValidador<EditarCurriculoDisciplinaComando> _validador;
         private readonly ICurriculoDisciplinaRepositorio _curriculoDisciplinaRepositorio;
 
-        public EditarCurriculoDisciplinaComandoHandler(IEditarCurriculoDisciplinaComandoValidador validador, 
+        public EditarCurriculoDisciplinaComandoHandler(IValidador<EditarCurriculoDisciplinaComando> validador, 
                                                        ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio,
                                                        IMapper mapper) : base(mapper)
         {

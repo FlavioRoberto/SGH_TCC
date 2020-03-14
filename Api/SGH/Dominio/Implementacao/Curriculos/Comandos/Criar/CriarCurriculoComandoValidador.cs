@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Criar
 {
-    public class CriarCurriculoComandoValidador : AbstractValidator<CriarCurriculoComando>, ICriarCurriculoComandoValidador
+    public class CriarCurriculoComandoValidador : AbstractValidator<CriarCurriculoComando>, IValidador<CriarCurriculoComando>
     {
         private readonly ICurriculoRepositorio _repositorio;
 

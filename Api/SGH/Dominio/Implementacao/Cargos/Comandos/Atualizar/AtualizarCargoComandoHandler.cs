@@ -15,9 +15,9 @@ namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Atualizar
     {
         private readonly ICargoRepositorio _cargoRepositorio;
         private readonly IMapper _mapper;
-        private readonly IAtualizarCargoComandoValidador _validador;
+        private readonly IValidador<AtualizarCargoComando> _validador;
 
-        public AtualizarCargoComandoHandler(ICargoRepositorio cargoRepositorio, IMapper mapper, IAtualizarCargoComandoValidador validador)
+        public AtualizarCargoComandoHandler(ICargoRepositorio cargoRepositorio, IMapper mapper, IValidador<AtualizarCargoComando> validador)
         {
             _cargoRepositorio = cargoRepositorio;
             _mapper = mapper;

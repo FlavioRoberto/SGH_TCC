@@ -11,9 +11,9 @@ namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Remover
     public class RemoverCargoDisciplinaComandoHandler : IRequestHandler<RemoverCargoDisciplinaComando, Resposta<bool>>
     {
         private readonly ICargoDisciplinaRepositorio _cargoDisciplinaRepositorio;
-        private readonly IRemoverCargoDisciplinaComandoValidador _validador;
+        private readonly IValidador<RemoverCargoDisciplinaComando> _validador;
 
-        public RemoverCargoDisciplinaComandoHandler(ICargoDisciplinaRepositorio cargoDisciplinaRepositorio, IRemoverCargoDisciplinaComandoValidador validador)
+        public RemoverCargoDisciplinaComandoHandler(ICargoDisciplinaRepositorio cargoDisciplinaRepositorio, IValidador<RemoverCargoDisciplinaComando> validador)
         {
             _cargoDisciplinaRepositorio = cargoDisciplinaRepositorio;
             _validador = validador;

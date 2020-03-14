@@ -15,9 +15,9 @@ namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Consulta.ListarTo
     {
         private readonly ICargoDisciplinaRepositorio _repositorio;
         private readonly IMapper _mapper;
-        private readonly IListarTodasDisciplinasCargoConsultaValidador _validador;
+        private readonly IValidador<ListarTodasDisciplinasCargoConsulta> _validador;
 
-        public ListarTodasDisciplinasCargoConsultaHandler(ICargoDisciplinaRepositorio repositorio, IMapper mapper, IListarTodasDisciplinasCargoConsultaValidador validador)
+        public ListarTodasDisciplinasCargoConsultaHandler(ICargoDisciplinaRepositorio repositorio, IMapper mapper, IValidador<ListarTodasDisciplinasCargoConsulta> validador)
         {
             _repositorio = repositorio;
             _mapper = mapper;

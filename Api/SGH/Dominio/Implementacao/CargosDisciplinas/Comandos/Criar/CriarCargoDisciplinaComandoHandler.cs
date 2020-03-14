@@ -15,9 +15,9 @@ namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Criar
     {
         private readonly ICargoDisciplinaRepositorio _repositorio;
         private readonly IMapper _mapper;
-        private readonly ICriarCargoDisciplinaComandoValidador _validador;
+        private readonly IValidador<CriarCargoDisciplinaComando> _validador;
 
-        public CriarCargoDisciplinaComandoHandler(ICargoDisciplinaRepositorio cargoDisciplinaRepositorio, IMapper mapper, ICriarCargoDisciplinaComandoValidador validador)
+        public CriarCargoDisciplinaComandoHandler(ICargoDisciplinaRepositorio cargoDisciplinaRepositorio, IMapper mapper, IValidador<CriarCargoDisciplinaComando> validador)
         {
             _repositorio = cargoDisciplinaRepositorio;
             _mapper = mapper;

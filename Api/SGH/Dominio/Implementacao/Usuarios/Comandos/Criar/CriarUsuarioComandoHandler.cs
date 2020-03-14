@@ -15,10 +15,10 @@ namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar
     public class CriarUsuarioComandoHandler : IRequestHandler<CriarUsuarioComando, Resposta<Usuario>>
     {
         private readonly IUsuarioRepositorio _repositorio;
-        private readonly ICriarUsuarioComandoValidador _validador;
+        private readonly IValidador<CriarUsuarioComando> _validador;
         private readonly IEmailService _emailService;
                
-        public CriarUsuarioComandoHandler(IUsuarioRepositorio repositorio, ICriarUsuarioComandoValidador validador, IEmailService emailService)
+        public CriarUsuarioComandoHandler(IUsuarioRepositorio repositorio, IValidador<CriarUsuarioComando> validador, IEmailService emailService)
         {
             _repositorio = repositorio;
             _validador = validador;

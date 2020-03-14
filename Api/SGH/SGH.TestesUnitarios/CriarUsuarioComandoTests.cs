@@ -38,7 +38,7 @@ namespace SGH.TestesDeUnidade
 
             var handler = mocker.CreateInstance<CriarUsuarioComandoHandler>();
 
-            mocker.GetMock<ICriarUsuarioComandoValidador>().Setup(c => c.Validate(comando)).Returns(new ValidationResult());
+            mocker.GetMock<IValidador<CriarUsuarioComando>>().Setup(c => c.Validate(comando)).Returns(new ValidationResult());
 
             mocker.GetMock<IUsuarioRepositorio>().Setup(c => c.Criar(usuario)).Returns(Task.FromResult(usuario));
 

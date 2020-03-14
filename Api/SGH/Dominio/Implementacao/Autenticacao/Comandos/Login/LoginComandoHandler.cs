@@ -12,9 +12,9 @@ namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login
     public class LoginComandoHandler : IRequestHandler<LoginComando, Resposta<string>>
     {
         private readonly IUsuarioRepositorio _repositorio;
-        private readonly ILoginComandoValidator _validador;
+        private readonly IValidador<LoginComando> _validador;
 
-        public LoginComandoHandler(IUsuarioRepositorio repositorio, ILoginComandoValidator validator)
+        public LoginComandoHandler(IUsuarioRepositorio repositorio, IValidador<LoginComando> validator)
         {
             _repositorio = repositorio;
             _validador = validator;

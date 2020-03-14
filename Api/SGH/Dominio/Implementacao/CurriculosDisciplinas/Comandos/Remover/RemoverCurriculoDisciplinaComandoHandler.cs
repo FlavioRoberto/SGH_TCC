@@ -10,10 +10,10 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Remo
 {
     public class RemoverCurriculoDisciplinaComandoHandler : IRequestHandler<RemoverCurriculoDisciplinaComando, Resposta<bool>>
     {
-        private readonly IRemoverCurriculoDisciplinaComandoValidador _validador;
+        private readonly IValidador<RemoverCurriculoDisciplinaComando> _validador;
         private readonly ICurriculoDisciplinaRepositorio _curriculoDisciplinaRepositorio;
 
-        public RemoverCurriculoDisciplinaComandoHandler(IRemoverCurriculoDisciplinaComandoValidador validador, ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio)
+        public RemoverCurriculoDisciplinaComandoHandler(IValidador<RemoverCurriculoDisciplinaComando> validador, ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio)
         {
             _validador = validador;
             _curriculoDisciplinaRepositorio = curriculoDisciplinaRepositorio;

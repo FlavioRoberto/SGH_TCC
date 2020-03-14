@@ -17,9 +17,9 @@ namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.RedefinirSenh
         private readonly IUsuarioRepositorio _repositorio;
         private readonly IMapper _mapper;
         private readonly IEmailService _emailService;
-        private readonly IRedefinirSenhaComandoValidador _validador;
+        private readonly IValidador<RedefinirSenhaComando> _validador;
 
-        public RedefinirSenhaComandoHandler(IUsuarioRepositorio repositorio, IMapper mapper, IEmailService emailService, IRedefinirSenhaComandoValidador validador)
+        public RedefinirSenhaComandoHandler(IUsuarioRepositorio repositorio, IMapper mapper, IEmailService emailService, IValidador<RedefinirSenhaComando> validador)
         {
             _repositorio = repositorio;
             _mapper = mapper;
@@ -37,7 +37,7 @@ namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.RedefinirSenh
 
             var email = request.Email;
             var usuario = await _repositorio.Consultar(lnq => lnq.Email.Equals(email));
-            
+
             string senha = SenhaHelper.Gerar();
             usuario.Senha = senha.ToMD5();
             await _repositorio.Atualizar(usuario);

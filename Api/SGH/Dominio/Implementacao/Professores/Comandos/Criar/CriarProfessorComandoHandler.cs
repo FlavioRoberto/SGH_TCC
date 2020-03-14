@@ -12,9 +12,9 @@ namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Criar
     public class CriarProfessorComandoHandler : IRequestHandler<CriarProfessorComando, Resposta<Professor>>
     {
         private readonly IProfessorRepositorio _repositorio;
-        private readonly ICriarProfessorComandoValidador _validador;
+        private readonly IValidador<CriarProfessorComando> _validador;
 
-        public CriarProfessorComandoHandler(IProfessorRepositorio repositorio, ICriarProfessorComandoValidador validador)
+        public CriarProfessorComandoHandler(IProfessorRepositorio repositorio, IValidador<CriarProfessorComando> validador)
         {
             _repositorio = repositorio;
             _validador = validador;

@@ -14,11 +14,11 @@ namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Criar
     public class CriarCargoComandoHandler : IRequestHandler<CriarCargoComando,Resposta<CargoViewModel>>
     {
         private readonly ICargoRepositorio _repositorioCargo;
-        private readonly ICriarCargoComandoValidador _validador;
+        private readonly IValidador<CriarCargoComando> _validador;
         private readonly IMapper _mapper;
 
-        public CriarCargoComandoHandler(ICargoRepositorio repositorio, 
-                                        ICriarCargoComandoValidador validador,
+        public CriarCargoComandoHandler(ICargoRepositorio repositorio,
+                                        IValidador<CriarCargoComando> validador,
                                         IMapper mapper)
         {
             _repositorioCargo = repositorio;

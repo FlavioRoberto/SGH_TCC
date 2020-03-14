@@ -11,9 +11,9 @@ namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Remover
     public class RemoverProfessorComandoHandler : IRequestHandler<RemoverProfessorComando, Resposta<bool>>
     {
         private IProfessorRepositorio _repositorio;
-        private IRemoverProfessorComandoValidador _validador;
+        private IValidador<RemoverProfessorComando> _validador;
 
-        public RemoverProfessorComandoHandler(IProfessorRepositorio repositorio, IRemoverProfessorComandoValidador validador)
+        public RemoverProfessorComandoHandler(IProfessorRepositorio repositorio, IValidador<RemoverProfessorComando> validador)
         {
             _repositorio = repositorio;
             _validador = validador;

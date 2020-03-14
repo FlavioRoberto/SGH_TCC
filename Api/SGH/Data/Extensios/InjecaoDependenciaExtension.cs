@@ -28,6 +28,8 @@ namespace SGH.Data.Extensios
             services.AddScoped<ICurriculoDisciplinaRepositorio, CurriculoDisciplinaRepositorio>();
             services.AddScoped<IRepositorio<Curriculo>, RepositorioBase<Curriculo>>();
             services.AddScoped<IRepositorio<CurriculoDisciplina>, RepositorioBase<CurriculoDisciplina>>();
+            services.AddScoped<IRepositorio<Bloco>, RepositorioBase<Bloco>>();
+            services.AddScoped<IBlocoRepositorio, BlocoRepositorio>();
 
             return services;
         }

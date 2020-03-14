@@ -5,6 +5,7 @@ using SGH.Dominio.Core;
 using SGH.Dominio.Services.Extensions;
 using System.Threading;
 using System.Threading.Tasks;
+using SGH.Dominio.Services.Implementacao.Professores.Comandos.Remover;
 
 namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Remover
 {
@@ -12,9 +13,9 @@ namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Remover
     {
        
         private readonly IUsuarioRepositorio _repositorio;
-        private readonly IRemoverUsuarioComandoValidador _validador;
+        private readonly IValidador<RemoverUsuarioComando> _validador;
 
-        public RemoverUsuarioComandoHandler(IUsuarioRepositorio repositorio, IRemoverUsuarioComandoValidador validador)
+        public RemoverUsuarioComandoHandler(IUsuarioRepositorio repositorio, IValidador<RemoverUsuarioComando> validador)
         {
             _repositorio = repositorio;
             _validador = validador;

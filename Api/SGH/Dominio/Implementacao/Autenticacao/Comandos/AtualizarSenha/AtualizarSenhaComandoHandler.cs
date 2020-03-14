@@ -13,9 +13,9 @@ namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.AtualizarSenh
     {
         private readonly IUsuarioRepositorio _repositorio;
         private readonly IUsuarioResolverService _usuarioResolverService;
-        private readonly IAtualizarSenhaComandoValidador _validador;
+        private readonly IValidador<AtualizarSenhaComando> _validador;
 
-        public AtualizarSenhaComandoHandler(IUsuarioRepositorio repositorio, IUsuarioResolverService usuarioResolverService, IAtualizarSenhaComandoValidador validador)
+        public AtualizarSenhaComandoHandler(IUsuarioRepositorio repositorio, IUsuarioResolverService usuarioResolverService, IValidador<AtualizarSenhaComando> validador)
         {
             _repositorio = repositorio;
             _usuarioResolverService = usuarioResolverService;

@@ -12,9 +12,9 @@ namespace SGH.Dominio.Services.Implementacao.Turnos.Comandos.Atualizar
     public class AtualizarTurnoComandoHandler : IRequestHandler<AtualizarTurnoComando, Resposta<Turno>>
     {
         private readonly ITurnoRepositorio _repositorio;
-        private readonly IAtualizarTurnoComandoValidador _validador;
+        private readonly IValidador<AtualizarTurnoComando> _validador;
 
-        public AtualizarTurnoComandoHandler(ITurnoRepositorio repositorio, IAtualizarTurnoComandoValidador validador)
+        public AtualizarTurnoComandoHandler(ITurnoRepositorio repositorio, IValidador<AtualizarTurnoComando> validador)
         {
             _repositorio = repositorio;
             _validador = validador;

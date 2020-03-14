@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Criar
 {
-    public class CriarProfessorComandoValidador : ProfessorComandoValidador<CriarProfessorComando>, ICriarProfessorComandoValidador
+    public class CriarProfessorComandoValidador : ProfessorComandoValidador<CriarProfessorComando>, IValidador<CriarProfessorComando>
     {
         public CriarProfessorComandoValidador(IProfessorRepositorio repositorio) : base(repositorio)
         {

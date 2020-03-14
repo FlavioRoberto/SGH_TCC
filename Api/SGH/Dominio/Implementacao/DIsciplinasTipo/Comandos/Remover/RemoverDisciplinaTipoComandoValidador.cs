@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Comandos.Remover
 {
-    public class RemoverDisciplinaTipoComandoValidador : AbstractValidator<RemoverDisciplinaTipoComando>, IRemoverDisciplinaTipoComandoValidador
+    public class RemoverDisciplinaTipoComandoValidador : AbstractValidator<RemoverDisciplinaTipoComando>, IValidador<RemoverDisciplinaTipoComando>
     {
         private readonly IDisciplinaTipoRepositorio _repositorio;
 
