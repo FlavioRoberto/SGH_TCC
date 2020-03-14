@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Infrastructure;
 using SGH.Dominio.Core.Model;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,12 +20,13 @@ namespace SHG.Data.Contexto
         DbSet<Cargo> Cargo { get; set; }
         DbSet<CargoDisciplina> CargoDisciplina { get; set; }
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
+        DbSet<Bloco> Bloco { get; set; }
+        DbSet<Sala> Sala { get; set; }
+
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken));
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
         int SaveChanges();
-
         Task IniciarTransacao();
-
         void FecharTransacao();
     }
 }
