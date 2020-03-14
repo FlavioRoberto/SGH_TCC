@@ -28,6 +28,28 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Disciplina currículo")]
+        [Fact(DisplayName = "Realizar cadastro de disciplina já existente no currículo")]
+        public async Task DisciplinaCurriculo_RealizarCadastro_DeveRetornarMensagemDisciplinaJaAdicionadaNoCurriculo()
+        {
+            var comando = new CriarCurriculoDisciplinaComando
+            {
+                AulasSemanaisPratica = 3,
+                AulasSemanaisTeorica = 2,
+                CodigoCurriculo = 1,
+                CodigoDisciplina = 1,
+                Periodo = (int)EPeriodo.PRIMEIRO
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota(), comando);
+
+            var mensagemErroEsperada = "Disciplina já adicionada neste currículo."
+                                       .RemoverEspacosVazios();
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
+
+        }
+
+        [Trait("Integração", "Disciplina currículo")]
         [Fact(DisplayName = "Realizar cadastro de disciplina do currículo com sucesso")]
         public async Task DisciplinaCurriculo_RealizarCadastro_DeveRealizarCadastroComSucesso()
         {
@@ -36,7 +58,7 @@ namespace SGH.TestesDeIntegracao
                 AulasSemanaisPratica = 3,
                 AulasSemanaisTeorica = 2,
                 CodigoCurriculo = 1,
-                CodigoDisciplina = 1,
+                CodigoDisciplina = 4,
                 Periodo = (int)EPeriodo.PRIMEIRO
             };
 
@@ -245,6 +267,29 @@ namespace SGH.TestesDeIntegracao
                                        .RemoverEspacosVazios();
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
+        }
+
+        [Trait("Integração", "Disciplina currículo")]
+        [Fact(DisplayName = "Realizar edição de disciplina já existente no currículo")]
+        public async Task DisciplinaCurriculo_RealizarEdicao_DeveRetornarMensagemDisciplinaJaAdicionadaNoCurriculo()
+        {
+            var comando = new EditarCurriculoDisciplinaComando
+            {
+                Codigo = 2,
+                AulasSemanaisPratica = 8,
+                AulasSemanaisTeorica = 2,
+                CodigoCurriculo = 1,
+                CodigoDisciplina = 1,
+                Periodo = (int)EPeriodo.PRIMEIRO
+            };
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota(), comando);
+
+            var mensagemErroEsperada = "Disciplina já adicionada neste currículo."
+                                       .RemoverEspacosVazios();
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
+
         }
 
         [Trait("Integração", "Disciplina currículo")]

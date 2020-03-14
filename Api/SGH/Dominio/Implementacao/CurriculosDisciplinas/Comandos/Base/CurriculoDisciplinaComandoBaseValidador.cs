@@ -9,8 +9,8 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Base
 {
     public abstract class CurriculoDisciplinaComandoBaseValidador<T> : AbstractValidator<T> where T : CurriculoDisciplinaComandoBase
     {
-        private readonly ICurriculoDisciplinaRepositorio _curriculoDisciplinaRepositorio;
-        private readonly IDisciplinaRepositorio _disciplinaRepositorio;
+        protected readonly ICurriculoDisciplinaRepositorio _curriculoDisciplinaRepositorio;
+        protected readonly IDisciplinaRepositorio _disciplinaRepositorio;
 
         public CurriculoDisciplinaComandoBaseValidador(ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio, IDisciplinaRepositorio disciplinaRepositorio)
         {
