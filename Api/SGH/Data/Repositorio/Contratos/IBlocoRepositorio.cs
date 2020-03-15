@@ -1,4 +1,6 @@
 ﻿using SGH.Dominio.Core.Model;
+using System;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace SGH.Data.Repositorio.Contratos
@@ -6,5 +8,7 @@ namespace SGH.Data.Repositorio.Contratos
     public interface IBlocoRepositorio
     {
         Task<Bloco> Criar(Bloco entidade);
+        Task<Bloco> Atualizar(Bloco blocoEntidade);
+        Task<bool> Contem(Expression<Func<Bloco, bool>> expressao);
     }
 }

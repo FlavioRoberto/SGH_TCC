@@ -1,12 +1,11 @@
 ﻿using SGH.Api.Testes.Factory.Contratos;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Contexto;
-using System;
 using System.Collections.Generic;
 
 namespace SGH.Api.Testes.Factory
 {
-    public class UsuarioPerfilBancoTeste : IUsuarioPerfilBancoTeste
+    public class UsuarioPerfilBancoTeste : IBancoTeste<UsuarioPerfil>
     {
         private IContexto _contexto;
 

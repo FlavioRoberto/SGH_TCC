@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Criar;
 using System;
 using System.Threading.Tasks;
@@ -37,25 +38,25 @@ namespace SGH.Api.Controllers
             }
         }
 
-        //[HttpPut]
-        //[Authorize("admin")]
-        //[Route("editar")]
-        //public async Task<IActionResult> Atualizar([FromBody] AtualizarBlocoComando comando)
-        //{
-        //    try
-        //    {
-        //        var resultado = await _mediator.Send(comando);
+        [HttpPut]
+        [Authorize("admin")]
+        [Route("editar")]
+        public async Task<IActionResult> Atualizar([FromBody] AtualizarBlocoComando comando)
+        {
+            try
+            {
+                var resultado = await _mediator.Send(comando);
 
-        //        if (resultado.TemErro())
-        //            return BadRequest(resultado.GetErros());
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
 
-        //        return Ok(resultado.GetResultado());
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return BadRequest(e.Message);
-        //    }
-        //}
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
         //[HttpDelete]
         //[Authorize("admin")]

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SGH.Api.Testes.Factory
 {
-    public class CurriculoBancoTeste : ICurriculoBancoTeste
+    public class CurriculoBancoTeste : IBancoTeste<Curriculo>
     {
         private readonly IContexto _contexto;
 

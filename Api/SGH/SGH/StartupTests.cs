@@ -24,6 +24,7 @@ using SGH.Api.Testes.Factory;
 using SGH.Api.Testes.Factory.Contratos;
 using SGH.Dominio.Shared.Extensions;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using SGH.Dominio.Core.Model;
 
 namespace SGH.APi
 {
@@ -63,15 +64,16 @@ namespace SGH.APi
 
             #region FAKE_DB
             services.AddScoped<IBancoTesteFactory, BancoTesteFactory>();
-            services.AddScoped<IUsuarioPerfilBancoTeste, UsuarioPerfilBancoTeste>();
-            services.AddScoped<IUsuarioBancoTeste, UsuarioBancoTeste>();
-            services.AddScoped<IProfessorBancoTeste, ProfessorBancoTeste>();
-            services.AddScoped<ITipoDisciplinaBancoTeste, TipoDisciplinaBancoTeste>();
-            services.AddScoped<IDisciplinaBancoTeste, DisciplinaBancoTeste>();
-            services.AddScoped<ICursoBancoTeste, CursoBancoTeste>();
-            services.AddScoped<ICurriculoBancoTeste, CurriculoBancoTeste>();
-            services.AddScoped<ICargoBancoTeste, CargoBancoTeste>();
-            services.AddScoped<ITurnoBancoTeste, TurnoBancoTeste>();
+            services.AddScoped<IBancoTeste<UsuarioPerfil>, UsuarioPerfilBancoTeste>();
+            services.AddScoped<IBancoTeste<Usuario>, UsuarioBancoTeste>();
+            services.AddScoped<IBancoTeste<Professor>, ProfessorBancoTeste>();
+            services.AddScoped<IBancoTeste<DisciplinaTipo>, TipoDisciplinaBancoTeste>();
+            services.AddScoped<IBancoTeste<Disciplina>, DisciplinaBancoTeste>();
+            services.AddScoped<IBancoTeste<Curso>, CursoBancoTeste>();
+            services.AddScoped<IBancoTeste<Curriculo>, CurriculoBancoTeste>();
+            services.AddScoped<IBancoTeste<Cargo>, CargoBancoTeste>();
+            services.AddScoped<IBancoTeste<Turno>, TurnoBancoTeste>();
+            services.AddScoped<IBancoTeste<Bloco>, BlocoBancoTeste>();
             #endregion
 
             services.AddCors(o =>

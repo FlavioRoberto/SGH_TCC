@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SGH.Dominio.Core.Model;
+using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Criar;
 using SGH.Dominio.Services.ViewModel;
 
@@ -14,7 +15,10 @@ namespace SGH.Dominio.Services.AutoMapper
 
             CreateMap<Bloco, CriarBlocoComando>();
             CreateMap<CriarBlocoComando, Bloco>();
-                       
+
+            CreateMap<Bloco, AtualizarBlocoComando>();
+            CreateMap<AtualizarBlocoComando, Bloco>();
+
         }
     }
 }
