@@ -24,6 +24,10 @@ namespace SGH.Api.Testes.Factory
                 new Bloco
                 {
                     Descricao = "Bloco a remover"
+                },
+                new Bloco
+                {
+                    Descricao = "Bloco vinculado em salas"
                 }
             };
 

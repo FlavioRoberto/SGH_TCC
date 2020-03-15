@@ -163,6 +163,26 @@ namespace SGH.TestesDeIntegracao
 
         }
 
+
+        [Trait("Integração", "Bloco")]
+        [Fact(DisplayName = "Realizar remoção de bloco vinculado a salas")]
+        public async Task Bloco_RealizarRemocao_DeveRetornarMensagemBlocoVinculadoASalas()
+        {
+            var comando = new RemoverBlocoComando
+            {
+                Codigo = 3
+            };
+
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"remover/{comando.Codigo}"));
+
+            var mensagemEsperada = $"Não foi possível remover o bloco de código {comando.Codigo}, pois ele está vinculado em salas."
+                                  .RemoverEspacosVazios();
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
+
+        }
+
+
         private string GetRota(string rota = "")
         {
             return $"api/bloco/{rota}";

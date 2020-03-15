@@ -74,6 +74,7 @@ namespace SGH.APi
             services.AddScoped<IBancoTeste<Cargo>, CargoBancoTeste>();
             services.AddScoped<IBancoTeste<Turno>, TurnoBancoTeste>();
             services.AddScoped<IBancoTeste<Bloco>, BlocoBancoTeste>();
+            services.AddScoped<IBancoTeste<Sala>, SalaBancoTeste>();
             #endregion
 
             services.AddCors(o =>
