@@ -19,6 +19,7 @@ namespace SGH.Dominio.Services.AutoMapper
                 config.AddProfile<UsuarioProfile>();
                 config.AddProfile<CargoDisciplinaProfile>();
                 config.AddProfile<CurriculoDisciplinaProfile>();
+                config.AddProfile<BlocoProfile>();
             });
 
             IMapper mapper = autoMapperConfig.CreateMapper();
