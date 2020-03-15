@@ -20,6 +20,10 @@ namespace SGH.Api.Testes.Factory
                 new Bloco
                 {
                     Descricao = "Bloco 1"
+                },
+                new Bloco
+                {
+                    Descricao = "Bloco a remover"
                 }
             };
 

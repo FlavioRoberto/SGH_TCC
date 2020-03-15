@@ -10,5 +10,7 @@ namespace SGH.Data.Repositorio.Contratos
         Task<Bloco> Criar(Bloco entidade);
         Task<Bloco> Atualizar(Bloco blocoEntidade);
         Task<bool> Contem(Expression<Func<Bloco, bool>> expressao);
+        Task<bool> Remover(Expression<Func<Bloco, bool>> expressao);
+
     }
 }

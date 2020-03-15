@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Xunit;
 using SGH.Dominio.Shared.Extensions;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Atualizar;
+using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Remover;
 
 namespace SGH.TestesDeIntegracao
 {
@@ -97,7 +98,8 @@ namespace SGH.TestesDeIntegracao
         [Fact(DisplayName = "Realizar edição de bloco inexistente")]
         public async Task Bloco_RealizarEdicao_DeveRetornarMensagemBlocoInexistente()
         {
-            var comando = new AtualizarBlocoComando { 
+            var comando = new AtualizarBlocoComando
+            {
                 Codigo = 99,
                 Descricao = "Teste edição sem código"
             };
@@ -106,6 +108,56 @@ namespace SGH.TestesDeIntegracao
 
             var mensagemEsperada = $@"Não foi encontrado um bloco com o código {comando.Codigo}."
                                    .RemoverEspacosVazios();
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
+
+        }
+
+        [Trait("Integração", "Bloco")]
+        [Fact(DisplayName = "Realizar remoção de bloco com sucesso")]
+        public async Task Bloco_RealizarRemocao_DeveRemoverComSucesso()
+        {
+            var comando = new RemoverBlocoComando
+            {
+                Codigo = 2
+            };
+
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"remover/{comando.Codigo}"));
+
+            resposta.EnsureSuccessStatusCode();
+
+            var conteudo = await _testsFixture.RecuperarConteudoRequisicao<bool>(resposta);
+
+            conteudo.Should().BeTrue();
+
+        }
+
+        [Trait("Integração", "Bloco")]
+        [Fact(DisplayName = "Realizar remoção de bloco com código não informado")]
+        public async Task Bloco_RealizarRemocao_DeveRetornarMensagemCodigoNaoInformado()
+        {
+            var comando = new RemoverBlocoComando();
+
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"remover/{comando.Codigo}"));
+
+            var mensagemEsperada = "O código do bloco não foi informado.".RemoverEspacosVazios();
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
+
+        }
+
+        [Trait("Integração", "Bloco")]
+        [Fact(DisplayName = "Realizar remoção de bloco inexistente")]
+        public async Task Bloco_RealizarRemocao_DeveRetornarMensagemBlocoInexistente()
+        {
+            var comando = new RemoverBlocoComando
+            {
+                Codigo = 99
+            };
+
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"remover/{comando.Codigo}"));
+
+            var mensagemEsperada = $"Não foi encontrado um bloco com o código {comando.Codigo}.".RemoverEspacosVazios();
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
 

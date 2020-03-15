@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Remover;
 using System;
 using System.Threading.Tasks;
 
@@ -58,30 +59,30 @@ namespace SGH.Api.Controllers
             }
         }
 
-        //[HttpDelete]
-        //[Authorize("admin")]
-        //[Route("remover/{codigo}")]
-        //public async Task<IActionResult> Remover(int codigo)
-        //{
-        //    try
-        //    {
-        //        var comando = new RemoverBlocoComando
-        //        {
-        //            Codigo = codigo
-        //        };
+        [HttpDelete]
+        [Authorize("admin")]
+        [Route("remover/{codigo}")]
+        public async Task<IActionResult> Remover(int codigo)
+        {
+            try
+            {
+                var comando = new RemoverBlocoComando
+                {
+                    Codigo = codigo
+                };
 
-        //        var resultado = await _mediator.Send(comando);
+                var resultado = await _mediator.Send(comando);
 
-        //        if (resultado.TemErro())
-        //            return BadRequest(resultado.GetErros());
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
 
-        //        return Ok(resultado.GetResultado());
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return BadRequest(e.Message);
-        //    }
-        //}
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
         //[HttpPost]
         //[Authorize("admin")]

@@ -29,5 +29,10 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             return await _repositorioBase.Criar(entidade);
         }
+
+        public async Task<bool> Remover(Expression<Func<Bloco, bool>> expressao)
+        {
+            return await _repositorioBase.Remover(expressao);
+        }
     }
 }

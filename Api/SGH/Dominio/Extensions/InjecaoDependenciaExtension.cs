@@ -7,6 +7,7 @@ using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login;
 using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.RedefinirSenha;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Cargos.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Cargos.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Cargos.Comandos.Remover;
@@ -68,7 +69,8 @@ namespace SGH.Dominio.Services.Extensions
             services.AddScoped<IValidador<EditarCurriculoDisciplinaComando>, EditarCurriculoDisciplinaComandoValidador>();
             services.AddScoped<IValidador<CriarBlocoComando>, CriarBlocoComandoValidador>();
             services.AddScoped<IValidador<AtualizarBlocoComando>, AtualizarBlocoComandoValidador>();
-
+            services.AddScoped<IValidador<RemoverBlocoComando>, RemoverBlocoComandoValidador>();
+            
             #region AutoMapper
             services.AddAutoMapperConfig();
             #endregion
