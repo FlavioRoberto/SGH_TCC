@@ -1,9 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Remover;
+using SGH.Dominio.Services.Implementacao.Blocos.Consultas.ListarPaginacao;
+using SGH.Dominio.Services.ViewModel;
 using System;
 using System.Threading.Tasks;
 
@@ -84,27 +87,27 @@ namespace SGH.Api.Controllers
             }
         }
 
-        //[HttpPost]
-        //[Authorize("admin")]
-        //[Route("listarPaginacao")]
-        //public async Task<IActionResult> ListarPorPaginacao([FromBody] Paginacao<BlocoViewModel> entidadePaginada)
-        //{
-        //    try
-        //    {
-        //        var consulta = new ListarPaginacaoBlocoConsulta
-        //        {
-        //            CargoPaginado = entidadePaginada
-        //        };
+        [HttpPost]
+        [Authorize("admin")]
+        [Route("listarPaginacao")]
+        public async Task<IActionResult> ListarPorPaginacao([FromBody] Paginacao<BlocoViewModel> entidadePaginada)
+        {
+            try
+            {
+                var consulta = new ListarPaginacaoBlocoConsulta
+                {
+                    BlocoPaginado = entidadePaginada
+                };
 
-        //        var resultado = await _mediator.Send(consulta);
+                var resultado = await _mediator.Send(consulta);
 
-        //        return Ok(resultado);
-        //    }
-        //    catch (Exception e)
-        //    {
-        //        return BadRequest(e.Message);
-        //    }
-        //}
+                return Ok(resultado);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
 
     }
 }

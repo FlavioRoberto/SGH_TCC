@@ -11,6 +11,7 @@ namespace SGH.Data.Repositorio.Contratos
         Task<Bloco> Atualizar(Bloco blocoEntidade);
         Task<bool> Contem(Expression<Func<Bloco, bool>> expressao);
         Task<bool> Remover(Expression<Func<Bloco, bool>> expressao);
+        Task<Paginacao<Bloco>> ListarPorPaginacao(Paginacao<Bloco> entidadePaginada);
 
     }
 }

@@ -9,6 +9,8 @@ using Xunit;
 using SGH.Dominio.Shared.Extensions;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Remover;
+using SGH.Dominio.Core.Model;
+using System.Collections.Generic;
 
 namespace SGH.TestesDeIntegracao
 {
@@ -179,6 +181,107 @@ namespace SGH.TestesDeIntegracao
                                   .RemoverEspacosVazios();
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
+
+        }
+
+        [Trait("Integração", "Bloco")]
+        [Fact(DisplayName = "Realizar consulta paginada de bloco")]
+        public async Task Bloco_RealizarConsultaPaginada_DeveConsultarPaginadoComSucesso()
+        {
+            var consulta = new Paginacao<BlocoViewModel>
+            {
+                Posicao = 0,
+                Quantidade = 1,
+                Total = 0,
+                Entidade = new List<BlocoViewModel>()
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("listarPaginacao"), consulta);
+
+            var conteudo = await _testsFixture.RecuperarConteudoRequisicao<Paginacao<BlocoViewModel>>(resposta);
+
+            conteudo.Quantidade.Should().Be(1);
+
+            conteudo.Posicao.Should().Be(1);
+
+            conteudo.Total.Should().Be(3);
+
+            conteudo.Entidade.Should().NotBeNull();
+
+            conteudo.Entidade.Should().HaveCount(1);
+
+            conteudo.Entidade.Should().NotContain(lnq => lnq.Codigo <= 0);
+
+            conteudo.Entidade.Should().Contain(lnq => lnq.Codigo == 1);
+
+        }
+
+        [Trait("Integração", "Bloco")]
+        [Fact(DisplayName = "Realizar consulta paginada de bloco sem dados encontrados")]
+        public async Task Bloco_RealizarConsultaPaginada_DeveConsultarPaginadoSemDadosEncontrados()
+        {
+            var consulta = new Paginacao<BlocoViewModel>
+            {
+                Posicao = 1,
+                Quantidade = 1,
+                Total = 0,
+                Entidade = new List<BlocoViewModel> {
+                    new BlocoViewModel
+                    {
+                        Codigo = 99
+                    }
+                }
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("listarPaginacao"), consulta);
+
+            var conteudo = await _testsFixture.RecuperarConteudoRequisicao<Paginacao<BlocoViewModel>>(resposta);
+
+            conteudo.Quantidade.Should().Be(0);
+
+            conteudo.Posicao.Should().Be(0);
+
+            conteudo.Entidade.Should().NotBeNull();
+
+            conteudo.Entidade.Should().HaveCount(0);
+
+        }
+
+        [Trait("Integração", "Bloco")]
+        [Fact(DisplayName = "Realizar consulta paginada de bloco com filtros")]
+        public async Task Bloco_RealizarConsultaPaginada__DeveConsultarPaginadoComFiltros()
+        {
+            var consulta = new Paginacao<BlocoViewModel>
+            {
+                Posicao = 1,
+                Quantidade = 1,
+                Total = 0,
+                Entidade = new List<BlocoViewModel> {
+                    new BlocoViewModel
+                    {
+                        Codigo = 4,
+                        Descricao = "Bloco paginado"
+                    }
+                }
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("listarPaginacao"), consulta);
+
+            var conteudo = await _testsFixture.RecuperarConteudoRequisicao<Paginacao<BlocoViewModel>>(resposta);
+
+            conteudo.Quantidade.Should().Be(1);
+
+            conteudo.Posicao.Should().Be(1);
+
+            conteudo.Entidade.Should().NotBeNull();
+
+            conteudo.Entidade.Should().HaveCount(1);
+
+            conteudo.Entidade.Should().NotContain(lnq => lnq.Codigo <= 0);
+
+            conteudo.Entidade.Should().Contain(lnq => lnq.Codigo == 4);
+
+            conteudo.Entidade.Should().Contain(lnq => lnq.Descricao.Equals("Bloco paginado"));
 
         }
 

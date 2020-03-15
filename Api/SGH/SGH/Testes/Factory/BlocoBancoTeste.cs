@@ -28,6 +28,10 @@ namespace SGH.Api.Testes.Factory
                 new Bloco
                 {
                     Descricao = "Bloco vinculado em salas"
+                },
+                new Bloco
+                {
+                    Descricao = "Bloco paginado"
                 }
             };
 

@@ -19,6 +19,9 @@ namespace SGH.Dominio.Services.AutoMapper
             CreateMap<Bloco, AtualizarBlocoComando>();
             CreateMap<AtualizarBlocoComando, Bloco>();
 
+            CreateMap<Paginacao<Bloco>, Paginacao<BlocoViewModel>>();
+            CreateMap<Paginacao<BlocoViewModel>, Paginacao<Bloco>>();
+
         }
     }
 }
