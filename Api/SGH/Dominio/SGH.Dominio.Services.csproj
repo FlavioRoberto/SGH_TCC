@@ -24,4 +24,9 @@
     <ProjectReference Include="..\SGH.Dominio.Shared\SGH.Dominio.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Implementacao\Salas\Comandos\" />
+    <Folder Include="Implementacao\Salas\Consultas\" />
+  </ItemGroup>
+
 </Project>
