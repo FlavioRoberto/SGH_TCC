@@ -18,5 +18,10 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             return await _repositorioBase.Contem(expressao);
         }
+
+        public async Task<Sala> Criar(Sala salaEntidade)
+        {
+            return await _repositorioBase.Criar(salaEntidade);
+        }
     }
 }
