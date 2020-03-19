@@ -8,5 +8,6 @@ namespace SGH.Data.Repositorio.Contratos
     public interface ISalaRepositorio
     {
         Task<bool> Contem(Expression<Func<Sala, bool>> expressao);
+        Task<Sala> Criar(Sala salaEntidade);
     }
 }
