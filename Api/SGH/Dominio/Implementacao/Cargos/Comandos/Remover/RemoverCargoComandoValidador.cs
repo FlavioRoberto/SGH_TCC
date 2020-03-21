@@ -16,15 +16,14 @@ namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Remover
 
             RuleFor(lnq => lnq.Codigo).NotEmpty().WithMessage("O parâmetro código é obrigatório.");
 
-            When(lnq => lnq.Codigo > 0, () =>
+            When(lnq => lnq.Codigo > 0, () => 
                 RuleFor(lnq => lnq.Codigo).MustAsync(ValidarSeCargoExiste).WithMessage(c => $"Não foi encontrado um cargo com o código {c.Codigo}.")
             );
         }
 
         private async Task<bool> ValidarSeCargoExiste(int codigo, CancellationToken cancellationToken)
         {
-            var resultado = await _cargoRepositorio.Contem(lnq => lnq.Codigo == codigo);
-            return resultado;
+            return await _cargoRepositorio.Contem(lnq => lnq.Codigo == codigo);
         }
     }
 }

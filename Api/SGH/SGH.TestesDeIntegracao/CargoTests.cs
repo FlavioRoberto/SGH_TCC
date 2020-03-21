@@ -107,7 +107,7 @@ namespace SGH.TestesDeIntegracao
         {
             int codigoCargo = 1;
 
-            var response = await _testsFixture.Client.DeleteAsync(GetRota($"remover/{codigoCargo}"));
+            var response = await _testsFixture.Client.DeleteAsync(GetRota($"remover?codigo={codigoCargo}"));
 
             response.EnsureSuccessStatusCode();
 
@@ -122,7 +122,7 @@ namespace SGH.TestesDeIntegracao
         {
             int codigoCargo = 99;
 
-            var response = await _testsFixture.Client.DeleteAsync(GetRota($"remover/{codigoCargo}"));
+            var response = await _testsFixture.Client.DeleteAsync(GetRota($"remover?codigo={codigoCargo}"));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 
@@ -139,7 +139,7 @@ namespace SGH.TestesDeIntegracao
         {
             int codigoCargo = 0;
 
-            var response = await _testsFixture.Client.DeleteAsync(GetRota($"remover/{codigoCargo}"));
+            var response = await _testsFixture.Client.DeleteAsync(GetRota($"remover?codigo={codigoCargo}"));
 
             response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
 

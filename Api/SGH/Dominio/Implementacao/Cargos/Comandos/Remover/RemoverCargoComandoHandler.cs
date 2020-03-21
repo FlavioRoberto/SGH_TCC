@@ -37,7 +37,11 @@ namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Remover
 
             await _contexto.IniciarTransacao();
 
-            _cargoDisciplinaRepositorio.Remover(lnq => lnq.CodigoCargo == request.Codigo).Wait();
+            var disciplinas = await _cargoDisciplinaRepositorio.Listar(lnq => lnq.CodigoCargo == request.Codigo);
+
+            foreach(var disciplina in disciplinas)
+               await _cargoDisciplinaRepositorio.Remover(lnq => lnq.Codigo == disciplina.Codigo);
+            
             resultado = _cargoRepositorio.Remover(lnq => lnq.Codigo == request.Codigo).Result;
 
             _contexto.FecharTransacao();
