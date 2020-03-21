@@ -52,7 +52,7 @@ namespace SGH.Data.Repositorio.Implementacao
             return await PaginacaoHelper<Curriculo>.Paginar(entidadePaginada, query);
         }
 
-        public async Task<int> RetornarQuantidadeDisciplinaCurriculo(int codigoCurriculo)
+        public async Task<int> RetornarQuantidadeDisciplinaCurriculo(long codigoCurriculo)
         {
             return await _repositorio.GetDbSet<CurriculoDisciplina>().CountAsync(lnq => lnq.CodigoCurriculo == codigoCurriculo);
         }

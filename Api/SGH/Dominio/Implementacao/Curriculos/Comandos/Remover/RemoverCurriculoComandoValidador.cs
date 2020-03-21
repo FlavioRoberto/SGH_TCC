@@ -14,18 +14,24 @@ namespace SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Remover
         public RemoverCurriculoComandoValidador(ICurriculoRepositorio repositorio)
         {
             _repositorio = repositorio;
-        }
 
-        public RemoverCurriculoComandoValidador()
-        {
             RuleFor(lnq => lnq.CodigoCurriculo).MustAsync(ValidarCurriculoExistente).WithMessage(comando => $"Não foi possível remover o currículo: Currículos com código {comando.CodigoCurriculo} não encontrado!");
+            When(lnq => lnq.CodigoCurriculo > 0, () =>
+            {
+                RuleFor(lnq => lnq.CodigoCurriculo).MustAsync(VerificarSeCurriculoTemDisciplina).WithMessage("Não foi possível remover esse currículo pois tem disciplinas vinculadas a ele.");
+            });
         }
 
         private async Task<bool> ValidarCurriculoExistente(long Id, CancellationToken cancellationToken)
         {
-            var resultado = await _repositorio.Contem(lnq => lnq.Codigo == Id);
-            return !resultado;
-          }
+            return await _repositorio.Contem(lnq => lnq.Codigo == Id);
+        }
+
+        private async Task<bool> VerificarSeCurriculoTemDisciplina(long codigoCurriculo, CancellationToken arg2)
+        {
+            var quantidade = await _repositorio.RetornarQuantidadeDisciplinaCurriculo(codigoCurriculo);
+            return quantidade > 0 ? false : true;
+        }
 
     }
 }

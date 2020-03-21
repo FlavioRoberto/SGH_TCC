@@ -8,7 +8,7 @@ namespace SGH.Data.Repositorio.Contratos
 {
     public interface ICurriculoRepositorio : IRepositorioPaginacao<Curriculo>
     {
-        Task<int> RetornarQuantidadeDisciplinaCurriculo(int codigoCurriculo);
+        Task<int> RetornarQuantidadeDisciplinaCurriculo(long codigoCurriculo);
         Task<bool> Remover(int codigoCurriculo);
         Task<Curriculo> Atualizar(Curriculo entidade);
         Task<Curriculo> Criar(Curriculo entidade);

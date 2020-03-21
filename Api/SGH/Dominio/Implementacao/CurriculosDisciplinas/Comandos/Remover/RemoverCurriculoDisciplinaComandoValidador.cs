@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.Contratos;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Remo
     {
         private readonly ICargoDisciplinaRepositorio _cargoDisciplinaRepositorio;
         private readonly ICurriculoDisciplinaRepositorio _curriculoDisciplinaRepositorio;
+        private CargoDisciplina _cargo;
 
         public RemoverCurriculoDisciplinaComandoValidador(ICargoDisciplinaRepositorio cargoDisciplinaRepositorio, ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio)
         {
@@ -21,14 +23,14 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Remo
             When(lnq => lnq.Codigo > 0, () =>
             {
                 RuleFor(lnq => lnq.Codigo).MustAsync(ValidarSeDisciplinaExiste).WithMessage(c => $"Não foi encontrado uma disciplina do currículo com código {c.Codigo}.");
-                RuleFor(lnq => lnq.Codigo).MustAsync(ValidarSeDisciplinaVinculadaEmCargo).WithMessage(c => $"Não foi possível remover a disciplina pois ela está vinculada em algum cargo.");
+                RuleFor(lnq => lnq.Codigo).MustAsync(ValidarSeDisciplinaVinculadaEmCargo).WithMessage(c => $"Não foi possível remover a disciplina pois ela está vinculada ao cargo de código {_cargo.CodigoCargo}.");
             });
         }
 
         private async Task<bool> ValidarSeDisciplinaVinculadaEmCargo(int codigo, CancellationToken arg2)
         {
-            var resultado = await _cargoDisciplinaRepositorio.Contem(lnq => lnq.CodigoCurriculoDisciplina == codigo);
-            return !resultado;
+            _cargo = await _cargoDisciplinaRepositorio.Consultar(lnq => lnq.CodigoCurriculoDisciplina == codigo);
+            return _cargo == null ? true : false;
         }
 
         private async Task<bool> ValidarSeDisciplinaExiste(int codigo, CancellationToken arg2)
