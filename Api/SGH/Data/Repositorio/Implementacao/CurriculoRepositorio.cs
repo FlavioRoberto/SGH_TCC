@@ -71,5 +71,10 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             return await _repositorio.GetDbSet<Curriculo>().AsNoTracking().Include(lnq => lnq.Curso).ToListAsync();
         }
+
+        public async Task<Curriculo> Consultar(Expression<Func<Curriculo, bool>> expressao)
+        {
+            return await _repositorio.Consultar(expressao);
+        }
     }
 }

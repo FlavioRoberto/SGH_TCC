@@ -57,7 +57,7 @@ namespace SGH.TestesDeIntegracao.Config
 
             var mensagemErroRequest = await resposta.Content.ReadAsStringAsync();
 
-            mensagemErroRequest.RemoverEspacosVazios().Should().Be(mensagemErroEsperada);
+            mensagemErroRequest.RemoverEspacosVazios().Should().Be(mensagemErroEsperada.RemoverEspacosVazios());
         }
 
         internal HttpContent GerarCorpoRequisicao<T>(T conteudo)
