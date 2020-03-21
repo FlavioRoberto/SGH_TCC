@@ -10,11 +10,11 @@ namespace SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Comandos.Rem
 {
     public class RemoverDisciplinaTipoComandoHandler : IRequestHandler<RemoverDisciplinaTipoComando, Resposta<bool>>
     {
-        private readonly IDisciplinaRepositorio _repositorio;
+        private readonly IDisciplinaTipoRepositorio _repositorio;
         private readonly IValidador<RemoverDisciplinaTipoComando> _validador;
 
 
-        public RemoverDisciplinaTipoComandoHandler(IDisciplinaRepositorio repositorio, IValidador<RemoverDisciplinaTipoComando> validador)
+        public RemoverDisciplinaTipoComandoHandler(IDisciplinaTipoRepositorio repositorio, IValidador<RemoverDisciplinaTipoComando> validador)
         {
             _repositorio = repositorio;
             _validador = validador;

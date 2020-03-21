@@ -1,8 +1,5 @@
 ﻿using SGH.APi;
 using SGH.TestesDeIntegracao.Config;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -22,7 +19,7 @@ namespace SGH.TestesDeIntegracao
         [Fact(DisplayName = "Remover - Deve retornar mensagem de turno vinculado a disciplina de cargo")]
         public async Task Turno_RealizarRemocao_DeveRetornarMensagemTurnoVinculadoDisciplinaCargo()
         {
-            var codigoCargo = 1;
+            var codigoCargo = 2;
 
             var codigoTurno = 1;
 
