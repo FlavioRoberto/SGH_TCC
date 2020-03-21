@@ -93,5 +93,12 @@ namespace SGH.Data.Repositorio.Implementacao
 
             _repositorio.GetDbSet<CurriculoDisciplinaPreRequisito>().RemoveRange(preRequisitos);
         }
+
+        public async Task<CurriculoDisciplinaPreRequisito> ConsultarPreRequisito(long codigoDisciplina)
+        {
+            return await _repositorio.GetDbSet<CurriculoDisciplinaPreRequisito>()
+                                     .Include(lnq => lnq.Disciplina)
+                                     .FirstOrDefaultAsync(lnq => lnq.CodigoDisciplina == codigoDisciplina);
+        }
     }
 }

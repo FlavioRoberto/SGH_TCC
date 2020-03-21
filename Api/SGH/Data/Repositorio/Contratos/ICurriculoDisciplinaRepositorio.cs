@@ -14,6 +14,6 @@ namespace SGH.Data.Repositorio.Contratos
         Task<CurriculoDisciplina> Criar(CurriculoDisciplina entidade);
         Task<CurriculoDisciplina> Atualizar(CurriculoDisciplina entidade);
         Task<bool> Remover(int codigo);
-
+        Task<CurriculoDisciplinaPreRequisito> ConsultarPreRequisito(long codigoDisciplina);
     }
 }
