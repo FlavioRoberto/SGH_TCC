@@ -64,8 +64,8 @@ namespace SGH.Api.Controllers
 
         [HttpDelete]
         [Authorize("admin")]
-        [Route("remover/{codigo}")]
-        public async Task<IActionResult> Remover(int codigo)
+        [Route("remover")]
+        public async Task<IActionResult> Remover([FromQuery] int codigo)
         {
             try
             {
