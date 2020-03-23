@@ -235,16 +235,7 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("listarPaginacao"), consulta);
 
-            var conteudo = await _testsFixture.RecuperarConteudoRequisicao<Paginacao<BlocoViewModel>>(resposta);
-
-            conteudo.Quantidade.Should().Be(0);
-
-            conteudo.Posicao.Should().Be(0);
-
-            conteudo.Entidade.Should().NotBeNull();
-
-            conteudo.Entidade.Should().HaveCount(0);
-
+            await _testsFixture.TestarRequisicaoComErro(resposta, "Nenhum bloco encontrado.");
         }
 
         [Trait("Integração", "Bloco")]

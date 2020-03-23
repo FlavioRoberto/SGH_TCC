@@ -44,8 +44,8 @@ namespace SGH.Data.Repositorio.Implementacao
             if (entidadePaginada.Entidade == null)
                 entidadePaginada.Entidade = new List<Cargo>();
 
-            var entidade = entidadePaginada.Entidade.FirstOrDefault();
-            
+            var entidade = entidadePaginada.Entidade.FirstOrDefault() ?? new Cargo();
+
             if (entidade.Ano > 0)
                 query = query.Where(lnq => lnq.Ano == entidade.Ano);
 

@@ -104,7 +104,7 @@ namespace SGH.Api.Controllers
                 if (resultado.Entidade != null && resultado.Entidade.Count > 0)
                     return Ok(resultado);
 
-                return BadRequest("Nenhum cargo encontrado.");
+                return BadRequest("Nenhum bloco encontrado.");
 
             }
             catch (Exception e)

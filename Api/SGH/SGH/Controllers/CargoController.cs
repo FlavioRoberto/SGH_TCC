@@ -101,7 +101,10 @@ namespace SGH.Api.Controllers
 
                 var resultado = await _mediator.Send(consulta);
 
-                return Ok(resultado);
+                if (resultado.Entidade != null && resultado.Entidade.Count > 0)
+                    return Ok(resultado);
+
+                return BadRequest("Nenhum cargo encontrado.");
             }
             catch (Exception e)
             {

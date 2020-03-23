@@ -197,15 +197,9 @@ namespace SGH.TestesDeIntegracao
                 }
             };
 
-            var response = await RealizarRequisicaoCargo<Paginacao<Cargo>, Paginacao<CargoViewModel>>("listarPaginacao", HttpMethod.Post, consulta);
+            var response = await _testsFixture.Client.PostAsJsonAsync(GetRota("listarPaginacao"), consulta);
 
-            response.Quantidade.Should().Be(0);
-
-            response.Posicao.Should().Be(0);
-
-            response.Entidade.Should().NotBeNull();
-
-            response.Entidade.Should().HaveCount(0);
+            await _testsFixture.TestarRequisicaoComErro(response, "Nenhum cargo encontrado.");
 
         }
 

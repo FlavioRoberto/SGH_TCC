@@ -27,6 +27,7 @@ using SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Comandos.Remover
 using SGH.Dominio.Services.Implementacao.Professores.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Professores.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Professores.Comandos.Remover;
+using SGH.Dominio.Services.Implementacao.Salas.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Turnos.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Turnos.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Atualizar;
@@ -70,7 +71,8 @@ namespace SGH.Dominio.Services.Extensions
             services.AddScoped<IValidador<CriarBlocoComando>, CriarBlocoComandoValidador>();
             services.AddScoped<IValidador<AtualizarBlocoComando>, AtualizarBlocoComandoValidador>();
             services.AddScoped<IValidador<RemoverBlocoComando>, RemoverBlocoComandoValidador>();
-            
+            services.AddScoped<IValidador<CriarSalaComando>, CriarSalaComandoValidador>();
+
             #region AutoMapper
             services.AddAutoMapperConfig();
             #endregion
