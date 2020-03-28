@@ -167,6 +167,34 @@ namespace SGH.TestesDeIntegracao
             dadosResposta.Numero.Should().Be(comando.Numero);
         }
 
+        [Trait("Integração", "Sala")]
+        [Fact(DisplayName = "Remover - Deve retornar mensagem sala não encontrada.")]
+        public async Task Sala_RealizarRemocao_DeveRetornarMensagemDeSalaNaoEncontrada()
+        {
+            int codigoSala = 99;
+
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"remover?codigo={codigoSala}"));
+
+            var mensagemEsperada = $@"Não foi encontrado uma sala com o código {codigoSala}.";
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
+        }
+
+        [Trait("Integração", "Sala")]
+        [Fact(DisplayName = "Remover - Deve remover a sala com sucesso.")]
+        public async Task Sala_RealizarRemocao_DeveRemoverSalaComSucesso()
+        {
+            int codigoSala = 3;
+
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"remover?codigo={codigoSala}"));
+
+            resposta.EnsureSuccessStatusCode();
+
+            var dadosResposta = await _testsFixture.RecuperarConteudoRequisicao<bool>(resposta);
+
+            dadosResposta.Should().BeTrue();
+        }
+
         private string GetRota(string rota = "")
         {
             return $"api/sala/{rota}";

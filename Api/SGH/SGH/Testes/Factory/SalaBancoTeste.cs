@@ -31,6 +31,13 @@ namespace SGH.Api.Testes.Factory
                     Descricao = "Sala a atualizar",
                     Laboratorio = true,
                     Numero = 1
+                },
+                new Sala
+                {
+                    CodigoBloco = 3,
+                    Descricao = "Sala remover",
+                    Laboratorio = true,
+                    Numero = 1
                 }
             };
 

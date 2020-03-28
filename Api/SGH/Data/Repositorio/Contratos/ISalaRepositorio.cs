@@ -10,5 +10,7 @@ namespace SGH.Data.Repositorio.Contratos
         Task<bool> Contem(Expression<Func<Sala, bool>> expressao);
         Task<Sala> Criar(Sala salaEntidade);
         Task<Sala> Atualizar(Sala sala);
+        Task<bool> Remover(Expression<Func<Sala, bool>> expressao);
+
     }
 }

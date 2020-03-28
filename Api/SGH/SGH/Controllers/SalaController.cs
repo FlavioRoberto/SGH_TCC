@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGH.Dominio.Services.Implementacao.Salas.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Salas.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Salas.Comandos.Remover;
 using System;
 using System.Threading.Tasks;
 
@@ -46,6 +47,29 @@ namespace SGH.Api.Controllers
             try
             {
                 var resultado = await _mediator.Send(comando);
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Authorize("admin")]
+        [Route("Remover")]
+        public async Task<IActionResult> Remover([FromQuery] int codigo)
+        {
+            try
+            {
+                var resultado = await _mediator.Send(new RemoverSalaComando
+                {
+                    Codigo = codigo
+                });
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
