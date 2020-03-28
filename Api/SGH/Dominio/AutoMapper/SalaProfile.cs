@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SGH.Dominio.Core.Model;
+using SGH.Dominio.Services.Implementacao.Salas.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Salas.Comandos.Criar;
 using SGH.Dominio.Services.ViewModel;
 
@@ -14,6 +15,10 @@ namespace SGH.Dominio.Services.AutoMapper
 
             CreateMap<Sala, CriarSalaComando>();
             CreateMap<CriarSalaComando, Sala>();
+
+            CreateMap<Sala, AtualizarSalaComando>();
+            CreateMap<AtualizarSalaComando, Sala>();
+            
         }
     }
 }

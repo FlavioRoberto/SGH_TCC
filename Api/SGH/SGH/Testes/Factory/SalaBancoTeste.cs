@@ -24,6 +24,13 @@ namespace SGH.Api.Testes.Factory
                     Descricao = "Sala com bloco vinculado",
                     Laboratorio = true,
                     Numero = 1
+                },
+                new Sala
+                {
+                    CodigoBloco = 3,
+                    Descricao = "Sala a atualizar",
+                    Laboratorio = true,
+                    Numero = 1
                 }
             };
 

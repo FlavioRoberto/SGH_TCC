@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SGH.Dominio.Services.Implementacao.Salas.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Salas.Comandos.Criar;
 using System;
 using System.Threading.Tasks;
@@ -21,6 +22,26 @@ namespace SGH.Api.Controllers
         [Authorize("admin")]
         [Route("criar")]
         public async Task<IActionResult> Criar([FromBody] CriarSalaComando comando)
+        {
+            try
+            {
+                var resultado = await _mediator.Send(comando);
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut]
+        [Authorize("admin")]
+        [Route("atualizar")]
+        public async Task<IActionResult> Atualizar([FromBody] AtualizarSalaComando comando)
         {
             try
             {
