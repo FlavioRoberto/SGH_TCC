@@ -6,6 +6,7 @@ using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Blocos.Consultas.ListarPaginacao;
+using SGH.Dominio.Services.Implementacao.Blocos.Consultas.ListarTodos;
 using SGH.Dominio.Services.ViewModel;
 using System;
 using System.Threading.Tasks;
@@ -20,6 +21,15 @@ namespace SGH.Api.Controllers
         public BlocoController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        [Authorize("admin")]
+        [Route("listarTodos")]
+        public async Task<IActionResult> ListarTodos()
+        {
+            var resultado = await _mediator.Send(new ListarTodosBlocoConsulta());
+            return Ok(resultado);
         }
 
         [HttpPost]

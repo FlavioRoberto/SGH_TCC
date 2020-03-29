@@ -53,6 +53,11 @@ namespace SGH.Data.Repositorio.Implementacao
             return await PaginacaoHelper<Bloco>.Paginar(entidadePaginada, query);
         }
 
+        public async Task<List<Bloco>> ListarTodos()
+        {
+            return await _repositorioBase.ListarTodos();
+        }
+
         public async Task<bool> Remover(Expression<Func<Bloco, bool>> expressao)
         {
             return await _repositorioBase.Remover(expressao);

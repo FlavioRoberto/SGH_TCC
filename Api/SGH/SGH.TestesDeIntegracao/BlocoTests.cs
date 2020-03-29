@@ -25,7 +25,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Bloco")]
-        [Fact(DisplayName = "Realizar cadastro de bloco com sucesso")]
+        [Fact(DisplayName = "Cadastro - Deve realizar cadastro de bloco com sucesso")]
         public async Task Bloco_RealizarCadastro_DeveRealizarCadastroComSucesso()
         {
             var comando = new CriarBlocoComando
@@ -46,7 +46,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Bloco")]
-        [Fact(DisplayName = "Realizar cadastro de bloco sem mensagem de descrição")]
+        [Fact(DisplayName = "Cadastro - Deve realizar cadastro de bloco sem mensagem de descrição")]
         public async Task Bloco_RealizarCadastro_DeveRetornarMensagemDescricaoObrigatoria()
         {
             var comando = new CriarBlocoComando();
@@ -60,7 +60,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Bloco")]
-        [Fact(DisplayName = "Realizar edição de bloco com sucesso")]
+        [Fact(DisplayName = "Atualização - Deve realizar edição de bloco com sucesso")]
         public async Task Bloco_RealizarEdicao_DeveRealizarCadastroComSucesso()
         {
             var comando = new AtualizarBlocoComando
@@ -82,7 +82,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Bloco")]
-        [Fact(DisplayName = "Realizar edição de bloco sem mensagem de descrição")]
+        [Fact(DisplayName = "Atualização - Deve realizar edição de bloco sem mensagem de descrição")]
         public async Task Bloco_RealizarEdicao_DeveRetornarMensagemDescricaoObrigatoria()
         {
             var comando = new AtualizarBlocoComando();
@@ -97,7 +97,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Bloco")]
-        [Fact(DisplayName = "Realizar edição de bloco inexistente")]
+        [Fact(DisplayName = "Atualização - Deve realizar edição de bloco inexistente")]
         public async Task Bloco_RealizarEdicao_DeveRetornarMensagemBlocoInexistente()
         {
             var comando = new AtualizarBlocoComando
@@ -116,7 +116,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Bloco")]
-        [Fact(DisplayName = "Realizar remoção de bloco com sucesso")]
+        [Fact(DisplayName = "Remoção - Deve realizar remoção de bloco com sucesso")]
         public async Task Bloco_RealizarRemocao_DeveRemoverComSucesso()
         {
             var comando = new RemoverBlocoComando
@@ -135,7 +135,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Bloco")]
-        [Fact(DisplayName = "Realizar remoção de bloco com código não informado")]
+        [Fact(DisplayName = "Remoção - Deve realizar remoção de bloco com código não informado")]
         public async Task Bloco_RealizarRemocao_DeveRetornarMensagemCodigoNaoInformado()
         {
             var comando = new RemoverBlocoComando();
@@ -149,7 +149,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Bloco")]
-        [Fact(DisplayName = "Realizar remoção de bloco inexistente")]
+        [Fact(DisplayName = "Remoção - Deve realizar remoção de bloco inexistente")]
         public async Task Bloco_RealizarRemocao_DeveRetornarMensagemBlocoInexistente()
         {
             var comando = new RemoverBlocoComando
@@ -167,7 +167,7 @@ namespace SGH.TestesDeIntegracao
 
 
         [Trait("Integração", "Bloco")]
-        [Fact(DisplayName = "Realizar remoção de bloco vinculado a salas")]
+        [Fact(DisplayName = "Remoção - Deve realizar remoção de bloco vinculado a salas")]
         public async Task Bloco_RealizarRemocao_DeveRetornarMensagemBlocoVinculadoASalas()
         {
             var comando = new RemoverBlocoComando
@@ -185,7 +185,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Bloco")]
-        [Fact(DisplayName = "Realizar consulta paginada de bloco")]
+        [Fact(DisplayName = "Listar Paginação - Deve realizar consulta paginada de bloco")]
         public async Task Bloco_RealizarConsultaPaginada_DeveConsultarPaginadoComSucesso()
         {
             var consulta = new Paginacao<BlocoViewModel>
@@ -217,7 +217,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Bloco")]
-        [Fact(DisplayName = "Realizar consulta paginada de bloco sem dados encontrados")]
+        [Fact(DisplayName = "Listar Paginação - Deve realizar consulta paginada de bloco sem dados encontrados")]
         public async Task Bloco_RealizarConsultaPaginada_DeveConsultarPaginadoSemDadosEncontrados()
         {
             var consulta = new Paginacao<BlocoViewModel>
@@ -239,7 +239,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Bloco")]
-        [Fact(DisplayName = "Realizar consulta paginada de bloco com filtros")]
+        [Fact(DisplayName = "Listar Paginação - Deve realizar consulta paginada de bloco com filtros")]
         public async Task Bloco_RealizarConsultaPaginada__DeveConsultarPaginadoComFiltros()
         {
             var consulta = new Paginacao<BlocoViewModel>
@@ -276,6 +276,20 @@ namespace SGH.TestesDeIntegracao
 
         }
 
+        [Trait("Integração", "Bloco")]
+        [Fact(DisplayName = "Listar todos - Deve listar todos os blocos")]
+        public async Task Bloco_ListarTodos_DeveRetornarTodosOsBlocos()
+        {
+            var resposta = await _testsFixture.Client.GetAsync(GetRota("listarTodos"));
+
+            resposta.EnsureSuccessStatusCode();
+
+            var conteudo = await _testsFixture.RecuperarConteudoRequisicao<List<BlocoViewModel>>(resposta);
+
+            conteudo.Should().HaveCountGreaterThan(0);
+
+            conteudo.Should().NotContain(lnq => lnq.Codigo <= 0);
+        }
 
         private string GetRota(string rota = "")
         {

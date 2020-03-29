@@ -1,5 +1,6 @@
 ﻿using SGH.Dominio.Core.Model;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -12,6 +13,6 @@ namespace SGH.Data.Repositorio.Contratos
         Task<bool> Contem(Expression<Func<Bloco, bool>> expressao);
         Task<bool> Remover(Expression<Func<Bloco, bool>> expressao);
         Task<Paginacao<Bloco>> ListarPorPaginacao(Paginacao<Bloco> entidadePaginada);
-
+        Task<List<Bloco>> ListarTodos();
     }
 }
