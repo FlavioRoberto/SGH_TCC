@@ -90,7 +90,7 @@ namespace SGH.TestesDeIntegracao
         {
             var comando = new AtualizarSalaComando();
 
-            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("atualizar"), comando);
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
 
             var mensagemEsperada = @"O campo descrição é obrigatório.
                                      O campo número é obrigatório.
@@ -114,7 +114,7 @@ namespace SGH.TestesDeIntegracao
                 Numero = 101
             };
 
-            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("atualizar"), comando);
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
 
             var mensagemEsperada = $@"Não foi encontrado um bloco com o código {comando.CodigoBloco}.";
 
@@ -134,7 +134,7 @@ namespace SGH.TestesDeIntegracao
                 Numero = 101
             };
 
-            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("atualizar"), comando);
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
 
             var mensagemEsperada = $@"Não foi encontrada uma sala com o código {comando.Codigo}.";
 
@@ -154,7 +154,7 @@ namespace SGH.TestesDeIntegracao
                 Numero = 102
             };
 
-            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("atualizar"), comando);
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
 
             resposta.EnsureSuccessStatusCode();
 

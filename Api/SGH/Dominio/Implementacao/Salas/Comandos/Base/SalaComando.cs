@@ -6,7 +6,7 @@
 
         public string Descricao { get; set; }
 
-        public bool Laboratorio { get; set; }
+        public bool? Laboratorio { get; set; }
 
         public int CodigoBloco { get; set; }
     }

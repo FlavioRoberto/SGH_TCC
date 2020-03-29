@@ -9,7 +9,7 @@ using SHG.Data.Contexto;
 namespace SGH.Data.Migrations
 {
     [DbContext(typeof(MySqlContext))]
-    [Migration("20200314223938_Versao 6.00")]
+    [Migration("20200329181640_Versao 6.00")]
     partial class Versao600
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,13 +99,9 @@ namespace SGH.Data.Migrations
                     b.Property<int>("CodigoCurso")
                         .HasColumnName("curric_curso");
 
-                    b.Property<int?>("TurnoCodigo");
-
                     b.HasKey("Codigo");
 
                     b.HasIndex("CodigoCurso");
-
-                    b.HasIndex("TurnoCodigo");
 
                     b.ToTable("curriculo");
                 });
@@ -248,7 +244,7 @@ namespace SGH.Data.Migrations
                     b.Property<string>("Descricao")
                         .HasColumnName("sala_descricao");
 
-                    b.Property<bool>("Laboratorio")
+                    b.Property<int>("Laboratorio")
                         .HasColumnName("sala_laboratorio");
 
                     b.Property<int>("Numero")
@@ -381,10 +377,6 @@ namespace SGH.Data.Migrations
                         .WithMany("Curriculos")
                         .HasForeignKey("CodigoCurso")
                         .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("SGH.Dominio.Core.Model.Turno")
-                        .WithMany("Curriculos")
-                        .HasForeignKey("TurnoCodigo");
                 });
 
             modelBuilder.Entity("SGH.Dominio.Core.Model.CurriculoDisciplina", b =>

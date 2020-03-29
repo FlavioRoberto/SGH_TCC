@@ -2,15 +2,15 @@
 {
     public class SalaViewModel
     {
-        public int Codigo { get; set; }
+        public int? Codigo { get; set; }
 
-        public int Numero { get; set; }
+        public int? Numero { get; set; }
 
         public string Descricao { get; set; }
 
-        public bool Laboratorio { get; set; }
+        public bool? Laboratorio { get; set; }
 
-        public int CodigoBloco { get; set; }
+        public int? CodigoBloco { get; set; }
 
     }
 }

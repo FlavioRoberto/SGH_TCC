@@ -6,6 +6,18 @@ namespace SGH.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_curriculo_turno_TurnoCodigo",
+                table: "curriculo");
+
+            migrationBuilder.DropIndex(
+                name: "IX_curriculo_TurnoCodigo",
+                table: "curriculo");
+
+            migrationBuilder.DropColumn(
+                name: "TurnoCodigo",
+                table: "curriculo");
+
             migrationBuilder.CreateTable(
                 name: "bloco",
                 columns: table => new
@@ -27,7 +39,7 @@ namespace SGH.Data.Migrations
                         .Annotation("MySQL:AutoIncrement", true),
                     sala_numero = table.Column<int>(nullable: false),
                     sala_descricao = table.Column<string>(nullable: true),
-                    sala_laboratorio = table.Column<short>(nullable: false),
+                    sala_laboratorio = table.Column<int>(nullable: false),
                     sala_bloco = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -54,6 +66,24 @@ namespace SGH.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "bloco");
+
+            migrationBuilder.AddColumn<int>(
+                name: "TurnoCodigo",
+                table: "curriculo",
+                nullable: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_curriculo_TurnoCodigo",
+                table: "curriculo",
+                column: "TurnoCodigo");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_curriculo_turno_TurnoCodigo",
+                table: "curriculo",
+                column: "TurnoCodigo",
+                principalTable: "turno",
+                principalColumn: "turno_codigo",
+                onDelete: ReferentialAction.Restrict);
         }
     }
 }

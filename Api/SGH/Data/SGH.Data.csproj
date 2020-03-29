@@ -81,6 +81,10 @@
     <Compile Remove="Migrations\20200210151012_Versao 1.00.Designer.cs" />
     <Compile Remove="Migrations\20200210151418_Versao 1.00.cs" />
     <Compile Remove="Migrations\20200210151418_Versao 1.00.Designer.cs" />
+    <Compile Remove="Migrations\20200329181404_Versao 7.00.cs" />
+    <Compile Remove="Migrations\20200329181404_Versao 7.00.Designer.cs" />
+    <Compile Remove="Migrations\20200329181521_Versao 7.00.cs" />
+    <Compile Remove="Migrations\20200329181521_Versao 7.00.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

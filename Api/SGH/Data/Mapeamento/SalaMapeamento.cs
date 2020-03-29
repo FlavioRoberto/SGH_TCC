@@ -26,7 +26,8 @@ namespace SGH.Data.Mapeamento
                    .HasColumnName("sala_descricao");
 
             builder.Property(lnq => lnq.Laboratorio)
-                    .HasColumnName("sala_laboratorio");
+                   .HasConversion<int>()
+                   .HasColumnName("sala_laboratorio");
 
             builder.Property(lnq => lnq.Numero)
                    .HasColumnName("sala_numero");

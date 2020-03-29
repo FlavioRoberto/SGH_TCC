@@ -71,7 +71,7 @@ namespace SGH.Api.Controllers
 
         [HttpPut]
         [Authorize("admin")]
-        [Route("atualizar")]
+        [Route("editar")]
         public async Task<IActionResult> Atualizar([FromBody] AtualizarSalaComando comando)
         {
             try
