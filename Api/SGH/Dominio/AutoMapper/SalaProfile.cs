@@ -18,7 +18,10 @@ namespace SGH.Dominio.Services.AutoMapper
 
             CreateMap<Sala, AtualizarSalaComando>();
             CreateMap<AtualizarSalaComando, Sala>();
-            
+
+            CreateMap<Paginacao<SalaViewModel>, Paginacao<Sala>>();
+            CreateMap<Paginacao<Sala>, Paginacao<SalaViewModel>>();
+
         }
     }
 }

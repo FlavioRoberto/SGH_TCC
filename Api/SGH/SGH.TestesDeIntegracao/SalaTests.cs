@@ -1,9 +1,11 @@
 ﻿using FluentAssertions;
 using SGH.APi;
+using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.Implementacao.Salas.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Salas.Comandos.Criar;
 using SGH.Dominio.Services.ViewModel;
 using SGH.TestesDeIntegracao.Config;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
@@ -193,6 +195,60 @@ namespace SGH.TestesDeIntegracao
             var dadosResposta = await _testsFixture.RecuperarConteudoRequisicao<bool>(resposta);
 
             dadosResposta.Should().BeTrue();
+        }
+
+        [Trait("Integração", "Sala")]
+        [Fact(DisplayName = "Realizar consulta paginada de sala")]
+        public async Task Sala_RealizarConsultaPaginada_DeveConsultarPaginadoComSucesso()
+        {
+            var consulta = new Paginacao<SalaViewModel>
+            {
+                Posicao = 0,
+                Quantidade = 1,
+                Total = 0,
+                Entidade = new List<SalaViewModel>()
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("listarPaginacao"), consulta);
+
+            var conteudo = await _testsFixture.RecuperarConteudoRequisicao<Paginacao<SalaViewModel>>(resposta);
+
+            conteudo.Quantidade.Should().Be(1);
+
+            conteudo.Posicao.Should().Be(1);
+
+            conteudo.Total.Should().Be(3);
+
+            conteudo.Entidade.Should().NotBeNull();
+
+            conteudo.Entidade.Should().HaveCount(1);
+
+            conteudo.Entidade.Should().NotContain(lnq => lnq.Codigo <= 0);
+
+            conteudo.Entidade.Should().Contain(lnq => lnq.Codigo == 1);
+
+        }
+
+        [Trait("Integração", "Sala")]
+        [Fact(DisplayName = "Realizar consulta paginada de sala sem dados encontrados")]
+        public async Task Bloco_RealizarConsultaPaginada_DeveConsultarPaginadoSemDadosEncontrados()
+        {
+            var consulta = new Paginacao<SalaViewModel>
+            {
+                Posicao = 1,
+                Quantidade = 1,
+                Total = 0,
+                Entidade = new List<SalaViewModel> {
+                    new SalaViewModel
+                    {
+                        Codigo = 99
+                    }
+                }
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("listarPaginacao"), consulta);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, "Nenhuma sala encontrada.");
         }
 
         private string GetRota(string rota = "")
