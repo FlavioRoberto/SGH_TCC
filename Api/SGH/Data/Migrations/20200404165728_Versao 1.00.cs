@@ -7,6 +7,19 @@ namespace SGH.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "bloco",
+                columns: table => new
+                {
+                    bloco_codigo = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    bloco_descricao = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_bloco", x => x.bloco_codigo);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "curso",
                 columns: table => new
                 {
@@ -77,6 +90,48 @@ namespace SGH.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "sala",
+                columns: table => new
+                {
+                    sala_codigo = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    sala_numero = table.Column<int>(nullable: false),
+                    sala_descricao = table.Column<string>(nullable: true),
+                    sala_laboratorio = table.Column<int>(nullable: false),
+                    sala_bloco = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_sala", x => x.sala_codigo);
+                    table.ForeignKey(
+                        name: "FK_sala_bloco_sala_bloco",
+                        column: x => x.sala_bloco,
+                        principalTable: "bloco",
+                        principalColumn: "bloco_codigo",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "curriculo",
+                columns: table => new
+                {
+                    curric_codigo = table.Column<int>(nullable: false)
+                        .Annotation("MySQL:AutoIncrement", true),
+                    curric_curso = table.Column<int>(nullable: false),
+                    curric_ano = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_curriculo", x => x.curric_codigo);
+                    table.ForeignKey(
+                        name: "FK_curriculo_curso_curric_curso",
+                        column: x => x.curric_curso,
+                        principalTable: "curso",
+                        principalColumn: "curso_codigo",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "disciplina",
                 columns: table => new
                 {
@@ -120,33 +175,6 @@ namespace SGH.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "curriculo",
-                columns: table => new
-                {
-                    curric_codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
-                    curric_curso = table.Column<int>(nullable: false),
-                    curric_ano = table.Column<int>(nullable: false),
-                    TurnoCodigo = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_curriculo", x => x.curric_codigo);
-                    table.ForeignKey(
-                        name: "FK_curriculo_curso_curric_curso",
-                        column: x => x.curric_curso,
-                        principalTable: "curso",
-                        principalColumn: "curso_codigo",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_curriculo_turno_TurnoCodigo",
-                        column: x => x.TurnoCodigo,
-                        principalTable: "turno",
-                        principalColumn: "turno_codigo",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "usuario",
                 columns: table => new
                 {
@@ -182,8 +210,7 @@ namespace SGH.Data.Migrations
                     curdis_curriculo = table.Column<int>(nullable: false),
                     curdis_periodo = table.Column<int>(nullable: false),
                     curdis_quantidade_aulas_semanais_teorica = table.Column<int>(nullable: false),
-                    curdis_quantidade_aulas_semanal_pratica = table.Column<int>(nullable: false),
-                    curdis_credito = table.Column<int>(nullable: false)
+                    curdis_quantidade_aulas_semanal_pratica = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -203,17 +230,19 @@ namespace SGH.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CargoDisciplina",
+                name: "cargo_disciplina",
                 columns: table => new
                 {
                     Codigo = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
                     cardis_disciplina = table.Column<int>(nullable: false),
-                    cardis_cargo = table.Column<int>(nullable: false)
+                    cardis_cargo = table.Column<int>(nullable: false),
+                    cardis_turno = table.Column<int>(nullable: false),
+                    cardis_descricao = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CargoDisciplina", x => x.Codigo);
+                    table.PrimaryKey("PK_cargo_disciplina", x => x.Codigo);
                     table.ForeignKey(
                         name: "FK_Cargo",
                         column: x => x.cardis_cargo,
@@ -225,6 +254,12 @@ namespace SGH.Data.Migrations
                         column: x => x.cardis_disciplina,
                         principalTable: "curriculo_disciplina",
                         principalColumn: "curdis_codigo",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "Fk_Turno",
+                        column: x => x.cardis_turno,
+                        principalTable: "turno",
+                        principalColumn: "turno_codigo",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -258,24 +293,24 @@ namespace SGH.Data.Migrations
                 column: "cargo_professor");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CargoDisciplina_cardis_cargo",
-                table: "CargoDisciplina",
+                name: "IX_cargo_disciplina_cardis_cargo",
+                table: "cargo_disciplina",
                 column: "cardis_cargo");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CargoDisciplina_cardis_disciplina",
-                table: "CargoDisciplina",
+                name: "IX_cargo_disciplina_cardis_disciplina",
+                table: "cargo_disciplina",
                 column: "cardis_disciplina");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_cargo_disciplina_cardis_turno",
+                table: "cargo_disciplina",
+                column: "cardis_turno");
 
             migrationBuilder.CreateIndex(
                 name: "IX_curriculo_curric_curso",
                 table: "curriculo",
                 column: "curric_curso");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_curriculo_TurnoCodigo",
-                table: "curriculo",
-                column: "TurnoCodigo");
 
             migrationBuilder.CreateIndex(
                 name: "IX_curriculo_disciplina_curdis_curriculo",
@@ -298,6 +333,11 @@ namespace SGH.Data.Migrations
                 column: "dis_tipo");
 
             migrationBuilder.CreateIndex(
+                name: "IX_sala_sala_bloco",
+                table: "sala",
+                column: "sala_bloco");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_usuario_usuPrf_Perfil",
                 table: "usuario",
                 column: "usuPrf_Perfil");
@@ -306,10 +346,13 @@ namespace SGH.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CargoDisciplina");
+                name: "cargo_disciplina");
 
             migrationBuilder.DropTable(
                 name: "curriculo_disciplina_pre_requisito");
+
+            migrationBuilder.DropTable(
+                name: "sala");
 
             migrationBuilder.DropTable(
                 name: "usuario");
@@ -318,7 +361,13 @@ namespace SGH.Data.Migrations
                 name: "Cargo");
 
             migrationBuilder.DropTable(
+                name: "turno");
+
+            migrationBuilder.DropTable(
                 name: "curriculo_disciplina");
+
+            migrationBuilder.DropTable(
+                name: "bloco");
 
             migrationBuilder.DropTable(
                 name: "Usuario_Perfil");
@@ -334,9 +383,6 @@ namespace SGH.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "curso");
-
-            migrationBuilder.DropTable(
-                name: "turno");
 
             migrationBuilder.DropTable(
                 name: "disciplina_tipo");

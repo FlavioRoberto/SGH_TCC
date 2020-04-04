@@ -81,10 +81,28 @@
     <Compile Remove="Migrations\20200210151012_Versao 1.00.Designer.cs" />
     <Compile Remove="Migrations\20200210151418_Versao 1.00.cs" />
     <Compile Remove="Migrations\20200210151418_Versao 1.00.Designer.cs" />
+    <Compile Remove="Migrations\20200210151626_Versao 1.00.cs" />
+    <Compile Remove="Migrations\20200210151626_Versao 1.00.Designer.cs" />
+    <Compile Remove="Migrations\20200218184234_Versao 2.00.cs" />
+    <Compile Remove="Migrations\20200218184234_Versao 2.00.Designer.cs" />
+    <Compile Remove="Migrations\20200302183623_Versao 3.00.cs" />
+    <Compile Remove="Migrations\20200302183623_Versao 3.00.Designer.cs" />
+    <Compile Remove="Migrations\20200303161357_Versao 4.00.cs" />
+    <Compile Remove="Migrations\20200303161357_Versao 4.00.Designer.cs" />
+    <Compile Remove="Migrations\20200306205822_Versao 5.00.cs" />
+    <Compile Remove="Migrations\20200306205822_Versao 5.00.Designer.cs" />
     <Compile Remove="Migrations\20200329181404_Versao 7.00.cs" />
     <Compile Remove="Migrations\20200329181404_Versao 7.00.Designer.cs" />
     <Compile Remove="Migrations\20200329181521_Versao 7.00.cs" />
     <Compile Remove="Migrations\20200329181521_Versao 7.00.Designer.cs" />
+    <Compile Remove="Migrations\20200329181640_Versao 6.00.cs" />
+    <Compile Remove="Migrations\20200329181640_Versao 6.00.Designer.cs" />
+    <Compile Remove="Migrations\20200404165204_Versao 3.00.cs" />
+    <Compile Remove="Migrations\20200404165204_Versao 3.00.Designer.cs" />
+    <Compile Remove="Migrations\20200404165250_Versao 3.00.cs" />
+    <Compile Remove="Migrations\20200404165250_Versao 3.00.Designer.cs" />
+    <Compile Remove="Migrations\20200404165507_Versao 3.00.cs" />
+    <Compile Remove="Migrations\20200404165507_Versao 3.00.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

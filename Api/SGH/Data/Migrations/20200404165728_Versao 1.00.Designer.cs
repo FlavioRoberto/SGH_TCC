@@ -9,8 +9,8 @@ using SHG.Data.Contexto;
 namespace SGH.Data.Migrations
 {
     [DbContext(typeof(MySqlContext))]
-    [Migration("20200329181640_Versao 6.00")]
-    partial class Versao600
+    [Migration("20200404165728_Versao 1.00")]
+    partial class Versao100
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
