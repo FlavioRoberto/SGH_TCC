@@ -49,7 +49,7 @@ namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.RedefinirSenh
 
             await _emailService.Enviar(usuario.Email, "Redefinição de senha no SGH", mensagem);
 
-            return new Resposta<string>("Senha redefinida com sucesso! Foi enviado um e-mail com seus dados de acesso.");
+            return new Resposta<string>("Senha redefinida com sucesso! Foi enviado um e-mail com seus dados de acesso.", "");
         }
     }
 }
