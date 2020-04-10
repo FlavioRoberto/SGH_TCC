@@ -9,7 +9,10 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Cria
 {
     public class CriarCurriculoDisciplinaComandoValidador : CurriculoDisciplinaComandoBaseValidador<CriarCurriculoDisciplinaComando>, IValidador<CriarCurriculoDisciplinaComando>
     {
-        public CriarCurriculoDisciplinaComandoValidador(ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio, IDisciplinaRepositorio disciplinaRepositorio) : base(curriculoDisciplinaRepositorio, disciplinaRepositorio)
+        public CriarCurriculoDisciplinaComandoValidador(ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio,
+                                                        IDisciplinaRepositorio disciplinaRepositorio,
+                                                        ICurriculoRepositorio curriculoRepositorio) :
+                                                        base(curriculoDisciplinaRepositorio, disciplinaRepositorio, curriculoRepositorio)
         {
             RuleFor(lnq => lnq).MustAsync(ValidarSeDisciplinaCurriculoJaAdicionada).WithMessage(c => $"Disciplina já adicionada neste currículo.");
         }

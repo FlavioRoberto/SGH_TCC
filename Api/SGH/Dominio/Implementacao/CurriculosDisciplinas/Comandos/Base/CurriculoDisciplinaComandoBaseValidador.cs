@@ -11,11 +11,15 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Base
     {
         protected readonly ICurriculoDisciplinaRepositorio _curriculoDisciplinaRepositorio;
         protected readonly IDisciplinaRepositorio _disciplinaRepositorio;
+        protected readonly ICurriculoRepositorio _curriculoRepositorio;
 
-        public CurriculoDisciplinaComandoBaseValidador(ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio, IDisciplinaRepositorio disciplinaRepositorio)
+        public CurriculoDisciplinaComandoBaseValidador(ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio, 
+                                                       IDisciplinaRepositorio disciplinaRepositorio,
+                                                       ICurriculoRepositorio curriculoRepositorio)
         {
             _curriculoDisciplinaRepositorio = curriculoDisciplinaRepositorio;
             _disciplinaRepositorio = disciplinaRepositorio;
+            _curriculoRepositorio = curriculoRepositorio;
 
             RuleFor(lnq => lnq.Periodo).NotEmpty().WithMessage("O campo período é obrigatório.");
             RuleFor(lnq => lnq.CodigoDisciplina).NotEmpty().WithMessage("O campo código da disciplina é obrigatório.");
@@ -37,9 +41,9 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Base
 
         }
         
-        private async Task<bool> ValidarSeCurriculoExiste(int codigoDisciplina, CancellationToken arg2)
+        private async Task<bool> ValidarSeCurriculoExiste(int codigoCurriculo, CancellationToken arg2)
         {
-            return await _curriculoDisciplinaRepositorio.Contem(lnq => lnq.Codigo == codigoDisciplina);
+            return await _curriculoRepositorio.Contem(lnq => lnq.Codigo == codigoCurriculo);
         }
 
         private async Task<bool> ValidarSeDisciplinaExiste(int codigoDisciplina, CancellationToken arg2)

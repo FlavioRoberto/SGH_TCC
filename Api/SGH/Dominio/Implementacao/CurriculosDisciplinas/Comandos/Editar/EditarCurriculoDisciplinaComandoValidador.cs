@@ -3,7 +3,6 @@ using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Base;
 using SGH.Dominio.Services.ViewModel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -13,7 +12,10 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Edit
 {
     public class EditarCurriculoDisciplinaComandoValidador : CurriculoDisciplinaComandoBaseValidador<EditarCurriculoDisciplinaComando>, IValidador<EditarCurriculoDisciplinaComando>
     {
-        public EditarCurriculoDisciplinaComandoValidador(ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio, IDisciplinaRepositorio disciplinaRepositorio) : base(curriculoDisciplinaRepositorio, disciplinaRepositorio)
+        public EditarCurriculoDisciplinaComandoValidador(ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio,
+                                                         IDisciplinaRepositorio disciplinaRepositorio,
+                                                         ICurriculoRepositorio curriculoRepositorio) :
+                                                         base(curriculoDisciplinaRepositorio, disciplinaRepositorio, curriculoRepositorio)
         {
             RuleFor(lnq => lnq.Codigo).NotEmpty().WithMessage("O campo código da disciplina do currículo é obrigatório");
 
@@ -32,8 +34,8 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Edit
 
         private async Task<bool> ValidarSeDisciplinaCurriculoJaAdicionada(EditarCurriculoDisciplinaComando comando, CancellationToken arg2)
         {
-            var resultado = await _curriculoDisciplinaRepositorio.Contem(lnq => lnq.CodigoDisciplina == comando.CodigoDisciplina && 
-                                                                                lnq.CodigoCurriculo == comando.CodigoCurriculo && 
+            var resultado = await _curriculoDisciplinaRepositorio.Contem(lnq => lnq.CodigoDisciplina == comando.CodigoDisciplina &&
+                                                                                lnq.CodigoCurriculo == comando.CodigoCurriculo &&
                                                                                 lnq.Codigo != comando.Codigo);
             return !resultado;
         }
