@@ -12,6 +12,8 @@ namespace SGH.Dominio.Core.Model
 
         public string Descricao { get; set; }
 
-        public virtual List<CargoDisciplina> DisciplinasCargo { get; set; }
+        public virtual IEnumerable<CargoDisciplina> DisciplinasCargo { get; set; }
+        public virtual IEnumerable<HorarioAula> HorariosAula { get; set; }
+
     }
 }

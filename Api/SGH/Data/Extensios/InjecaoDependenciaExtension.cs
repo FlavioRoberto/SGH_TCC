@@ -32,6 +32,8 @@ namespace SGH.Data.Extensios
             services.AddScoped<IBlocoRepositorio, BlocoRepositorio>();
             services.AddScoped<ISalaRepositorio, SalaRepositorio>();
             services.AddScoped<IRepositorio<Sala>, RepositorioBase<Sala>>();
+            services.AddScoped<IHorarioAulaRepositorio, HorarioAulaRepositorio>();
+            services.AddScoped<IRepositorio<HorarioAula>, RepositorioBase<HorarioAula>>();
 
             return services;
         }

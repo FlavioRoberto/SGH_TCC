@@ -21,6 +21,7 @@ namespace SGH.Dominio.Services.AutoMapper
                 config.AddProfile<CurriculoDisciplinaProfile>();
                 config.AddProfile<BlocoProfile>();
                 config.AddProfile<SalaProfile>();
+                config.AddProfile<HorarioAulaProfile>();
             });
 
             IMapper mapper = autoMapperConfig.CreateMapper();
