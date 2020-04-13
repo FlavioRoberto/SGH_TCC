@@ -2,8 +2,10 @@
 using SGH.APi;
 using SGH.Dominio.Core.Enums;
 using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Horarios.Consultas.Listar;
 using SGH.Dominio.Services.ViewModel;
 using SGH.TestesDeIntegracao.Config;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
@@ -171,6 +173,73 @@ namespace SGH.TestesDeIntegracao
             dadosResposta.Semestre.Should().Be(comando.Semestre);
 
             dadosResposta.Periodo.Should().Be(comando.Periodo);
+        }
+
+
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "ListarHorarios - Deve retornar todos horarios")]
+        public async Task HorarioAula_RealizarCadastro_DeveRetornarTodosHorarios()
+        {
+            var consulta = new ListarHorarioAulaConsulta();
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("listar"), consulta);
+
+            resposta.EnsureSuccessStatusCode();
+
+            var conteudo = await _testsFixture.RecuperarConteudoRequisicao<List<HorarioAulaViewModel>>(resposta);
+
+            conteudo.Should().NotBeEmpty();
+
+            conteudo.Should().HaveCount(3);
+        }
+
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "ListarHorarios - Deve retornar horario filtrado")]
+        public async Task HorarioAula_RealizarCadastro_DeveRetornarHorarioFiltrado()
+        {
+            var consulta = new ListarHorarioAulaConsulta
+            {
+                Ano = 2020,
+                CodigoCurriculo = 1,
+                Periodo = EPeriodo.PRIMEIRO,
+                Semestre = ESemestre.PRIMEIRO
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("listar"), consulta);
+
+            resposta.EnsureSuccessStatusCode();
+
+            var conteudo = await _testsFixture.RecuperarConteudoRequisicao<List<HorarioAulaViewModel>>(resposta);
+
+            conteudo.Should().NotBeEmpty();
+
+            conteudo.Should().HaveCount(1);
+
+            conteudo.Should().NotContain(lnq => lnq.Ano != consulta.Ano);
+
+            conteudo.Should().NotContain(lnq => lnq.CodigoCurriculo != consulta.CodigoCurriculo);
+
+            conteudo.Should().NotContain(lnq => lnq.Periodo != consulta.Periodo);
+
+            conteudo.Should().NotContain(lnq => lnq.Semestre != consulta.Semestre);
+        }
+
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "ListarHorarios - Deve retornar horarios vazios")]
+        public async Task HorarioAula_RealizarCadastro_DeveRetornarHorariosVazios()
+        {
+            var consulta = new ListarHorarioAulaConsulta
+            {
+                Ano = 2033
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("listar"), consulta);
+
+            resposta.EnsureSuccessStatusCode();
+
+            var conteudo = await _testsFixture.RecuperarConteudoRequisicao<List<HorarioAulaViewModel>>(resposta);
+
+            conteudo.Should().BeEmpty();
         }
 
         private string GetRota(string rota = "")

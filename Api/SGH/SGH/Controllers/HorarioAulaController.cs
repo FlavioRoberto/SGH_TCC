@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Horarios.Consultas.Listar;
 using System;
 using System.Threading.Tasks;
 
@@ -30,6 +31,23 @@ namespace SGH.Api.Controllers
                     return BadRequest(resultado.GetErros());
 
                 return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Authorize("admin")]
+        [Route("listar")]
+        public async Task<IActionResult> Listar([FromBody] ListarHorarioAulaConsulta consulta)
+        {
+            try
+            {
+                var resultado = await _mediator.Send(consulta);
+
+                return Ok(resultado);
             }
             catch (Exception e)
             {

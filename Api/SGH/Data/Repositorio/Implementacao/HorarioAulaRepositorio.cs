@@ -1,5 +1,8 @@
-﻿using SGH.Data.Repositorio.Contratos;
+﻿using Microsoft.EntityFrameworkCore;
+using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Model;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SGH.Data.Repositorio.Implementacao
@@ -16,6 +19,28 @@ namespace SGH.Data.Repositorio.Implementacao
         public async Task<HorarioAula> Criar(HorarioAula entidade)
         {
             return await _repositorio.Criar(entidade);
+        }
+
+        public async Task<List<HorarioAula>> Listar(ListarHorarioFiltro filtro)
+        {
+            var query = _repositorio.GetDbSet<HorarioAula>().AsNoTracking();
+
+            if (filtro.Ano.HasValue)
+                query = query.Where(lnq => lnq.Ano == filtro.Ano);
+
+            if (filtro.CodigoCurriculo.HasValue)
+                query = query.Where(lnq => lnq.CodigoCurriculo == filtro.CodigoCurriculo);
+          
+            if (filtro.Periodo.HasValue)
+                query = query.Where(lnq => lnq.Periodo == filtro.Periodo);
+          
+            if (filtro.Semestre.HasValue)
+                query = query.Where(lnq => lnq.Semestre == filtro.Semestre);
+
+            return await query.OrderByDescending(lnq => lnq.Ano)
+                              .ThenByDescending(lnq => lnq.Periodo)
+                              .ThenBy(lnq => lnq.CodigoCurriculo)
+                              .ToListAsync();
         }
     }
 }

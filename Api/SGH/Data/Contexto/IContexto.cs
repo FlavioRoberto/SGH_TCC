@@ -22,6 +22,7 @@ namespace SHG.Data.Contexto
         DbSet<TEntity> Set<TEntity>() where TEntity : class;
         DbSet<Bloco> Bloco { get; set; }
         DbSet<Sala> Sala { get; set; }
+        DbSet<HorarioAula> HorarioAula { get; set; }
 
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken));
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));

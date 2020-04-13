@@ -49,7 +49,7 @@ namespace SHG.Data.Contexto
         public DbSet<CargoDisciplina> CargoDisciplina { get; set; }
         public DbSet<Bloco> Bloco { get; set; }
         public DbSet<Sala> Sala { get; set; }
-
+        public DbSet<HorarioAula> HorarioAula { get; set; }
 
         public async Task IniciarTransacao()
         {
