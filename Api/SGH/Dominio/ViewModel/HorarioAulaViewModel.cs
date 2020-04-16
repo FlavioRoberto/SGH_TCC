@@ -1,4 +1,5 @@
 ﻿using SGH.Dominio.Core.Enums;
+using SGH.Dominio.Core.Model;
 
 namespace SGH.Dominio.Services.ViewModel
 {
@@ -10,5 +11,7 @@ namespace SGH.Dominio.Services.ViewModel
         public EPeriodo Periodo { get; set; }
         public int CodigoTurno { get; set; }
         public int CodigoCurriculo { get; set; }
+        public Curriculo Curriculo { get; set; }
+        public Turno Turno { get; set; }
     }
 }

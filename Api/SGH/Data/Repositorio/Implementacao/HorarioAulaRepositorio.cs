@@ -37,7 +37,10 @@ namespace SGH.Data.Repositorio.Implementacao
             if (filtro.Semestre.HasValue)
                 query = query.Where(lnq => lnq.Semestre == filtro.Semestre);
 
-            return await query.OrderByDescending(lnq => lnq.Ano)
+            return await query.Include(lnq => lnq.Curriculo)
+                              .ThenInclude(lnq => lnq.Curso)
+                              .Include(lnq => lnq.Turno)
+                              .OrderByDescending(lnq => lnq.Ano)
                               .ThenByDescending(lnq => lnq.Periodo)
                               .ThenBy(lnq => lnq.CodigoCurriculo)
                               .ToListAsync();
