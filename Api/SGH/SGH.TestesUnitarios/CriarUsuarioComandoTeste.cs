@@ -17,11 +17,11 @@ using SGH.Dominio.Services.Email;
 namespace SGH.TestesDeUnidade
 {
     [Collection(nameof(UsuarioCollection))]
-    public class CriarUsuarioComandoTests
+    public class CriarUsuarioComandoTeste
     {
         readonly UsuarioTestsFixture _usuarioTestsFixture;
 
-        public CriarUsuarioComandoTests(UsuarioTestsFixture usuarioTestsFixture)
+        public CriarUsuarioComandoTeste(UsuarioTestsFixture usuarioTestsFixture)
         {
             _usuarioTestsFixture = usuarioTestsFixture;
         }

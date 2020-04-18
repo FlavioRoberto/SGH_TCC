@@ -27,6 +27,7 @@ using SGH.Dominio.Services.Implementacao.Cursos.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Disciplinas.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Professores.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Professores.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Professores.Comandos.Remover;
@@ -83,6 +84,7 @@ namespace SGH.Dominio.Services.Extensions
             services.AddScoped<IValidador<AtualizarSalaComando>, AtualizarSalaComandoValidador>();
             services.AddScoped<IValidador<RemoverSalaComando>, RemoverSalaComandoValidador>();
             services.AddScoped<IValidador<CriarHorarioAulaComando>, CriarHorarioAulaComandoValidador>();
+            services.AddScoped<IValidador<RemoverHorarioComando>, RemoverHorarioComandoValidador>();
 
             #region AutoMapper
             services.AddAutoMapperConfig();

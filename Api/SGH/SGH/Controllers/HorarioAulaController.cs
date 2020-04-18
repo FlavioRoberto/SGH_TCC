@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SGH.Dominio.Core;
 using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Horarios.Consultas.Listar;
 using System;
 using System.Threading.Tasks;
@@ -48,6 +50,29 @@ namespace SGH.Api.Controllers
                 var resultado = await _mediator.Send(consulta);
 
                 return Ok(resultado);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpDelete]
+        [Authorize("admin")]
+        [Route("remover")]
+        public async Task<IActionResult> Remover([FromQuery]int codigo)
+        {
+            try
+            {
+                Resposta<Unit> resultado = await _mediator.Send(new RemoverHorarioComando
+                {
+                    CodigoHorario = codigo
+                });
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok();
             }
             catch (Exception e)
             {

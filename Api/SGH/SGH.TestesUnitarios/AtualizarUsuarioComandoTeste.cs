@@ -14,11 +14,11 @@ using Xunit;
 namespace SGH.TestesDeUnidade
 {
     [Collection(nameof(UsuarioCollection))]
-    public class AtualizarUsuarioComandoTests
+    public class AtualizarUsuarioComandoTeste
     {
         readonly UsuarioTestsFixture _usuarioTestsFixture;
 
-        public AtualizarUsuarioComandoTests(UsuarioTestsFixture usuarioTestsFixture)
+        public AtualizarUsuarioComandoTeste(UsuarioTestsFixture usuarioTestsFixture)
         {
             _usuarioTestsFixture = usuarioTestsFixture;
         }

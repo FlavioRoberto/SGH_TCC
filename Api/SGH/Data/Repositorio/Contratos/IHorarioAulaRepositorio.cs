@@ -11,5 +11,6 @@ namespace SGH.Data.Repositorio.Contratos
         Task<HorarioAula> Criar(HorarioAula entidade);
         Task<List<HorarioAula>> Listar(ListarHorarioFiltro filtro);
         Task<bool> Contem(Expression<Func<HorarioAula, bool>> expressao);
+        Task<bool> Remover(Expression<Func<HorarioAula, bool>> query);
     }
 }

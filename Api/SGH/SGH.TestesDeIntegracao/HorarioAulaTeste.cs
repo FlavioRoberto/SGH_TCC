@@ -242,6 +242,41 @@ namespace SGH.TestesDeIntegracao
             conteudo.Should().BeEmpty();
         }
 
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "Remover horário - Deve retornar mensagem código não inforado")]
+        public async Task HorarioAula_Remover_DeveRetornarMensagemCodigoNaoInformado()
+        {
+            var codigoHorario = 0;
+
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"remover?codigo={codigoHorario}"));
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, "O código do horário não foi informado.");
+        }
+
+
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "Remover horário - Deve retornar mensagem horário não existe")]
+        public async Task HorarioAula_Remover_DeveRetornarMensagemHorarioNaoExiste()
+        {
+            var codigoHorario = 99;
+
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"remover?codigo={codigoHorario}"));
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, $"Não foi encontrado um horário com o código {codigoHorario}.");
+        }
+
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "Remover horário - Deve remover horário com sucesso")]
+        public async Task HorarioAula_Remover_DeveRemoverHorarioComSucesso()
+        {
+            var codigoHorario = 1;
+
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"remover?codigo={codigoHorario}"));
+
+            resposta.EnsureSuccessStatusCode();
+            
+        }
+
         private string GetRota(string rota = "")
         {
             return $"api/horario-aula/{rota}";

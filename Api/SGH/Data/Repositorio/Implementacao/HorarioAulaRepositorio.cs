@@ -52,5 +52,10 @@ namespace SGH.Data.Repositorio.Implementacao
                               .ThenBy(lnq => lnq.CodigoCurriculo)
                               .ToListAsync();
         }
+
+        public async Task<bool> Remover(Expression<Func<HorarioAula, bool>> expressao)
+        {
+            return await _repositorio.Remover(expressao);
+        }
     }
 }
