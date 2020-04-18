@@ -1,12 +1,12 @@
 ﻿using Microsoft.IdentityModel.Tokens;
+using SGH.Data.Store;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Core.Store;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace SGH.Dominio.Core.Extensions
+namespace SGH.Data.Extensios
 {
     public static class TokenExtension
     {

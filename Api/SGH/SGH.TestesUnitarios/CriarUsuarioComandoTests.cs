@@ -4,7 +4,6 @@ using Moq;
 using Moq.AutoMock;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Services.Contratos;
-using SGH.Dominio.Core.Email;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Shared.Extensions;
 using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar;
@@ -13,6 +12,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
+using SGH.Dominio.Services.Email;
 
 namespace SGH.TestesDeUnidade
 {

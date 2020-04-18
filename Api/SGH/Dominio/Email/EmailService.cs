@@ -4,7 +4,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Core.Email
+namespace SGH.Dominio.Services.Email
 {
     public class EmailService : IEmailService
     {

@@ -1,6 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SGH.Dominio.Services.AutoMapper;
 using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Services.Email;
 using SGH.Dominio.Services.Implementacao;
 using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.AtualizarSenha;
 using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login;
@@ -41,8 +43,11 @@ namespace SGH.Dominio.Services.Extensions
 {
     public static class InjecaoDependenciaExtension
     {
-        public static IServiceCollection AddDominio(this IServiceCollection services)
+        public static IServiceCollection AddDominio(this IServiceCollection services, IConfigurationSection configuracaoSecao)
         {
+            services.Configure<EmailConfiguracoes>(configuracaoSecao);
+            services.AddTransient<IEmailService, EmailService>();
+
             services.AddScoped<IValidador<AtualizarCurriculoComando>, AtualizarCurriculoComandoValidador>();
             services.AddScoped<IValidador<AtualizarSenhaComando>, AtualizarSenhaComandoValidador>();
             services.AddScoped<IValidador<CriarUsuarioComando>, CriarUsuarioComandoValidador>();

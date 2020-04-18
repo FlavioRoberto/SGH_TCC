@@ -1,13 +1,11 @@
-﻿using MediatR;
-using SGH.Data.Repositorio.Contratos;
+﻿using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core;
-using SGH.Dominio.Core.Extensions;
 using SHG.Data.Contexto;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using SGH.Dominio.Services.Extensions;
+using MediatR;
 
 namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Remover
 {

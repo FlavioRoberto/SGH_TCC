@@ -5,10 +5,10 @@ using System.Threading;
 using SGH.Dominio.Core;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Services.Contratos;
-using SGH.Dominio.Core.Email;
 using SGH.Dominio.Services.Extensions;
 using SGH.Dominio.Services.Helpers;
 using SGH.Dominio.Shared.Extensions;
+using SGH.Dominio.Services.Email;
 
 namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.RedefinirSenha
 {
