@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace SGH.Data.Repositorio.Implementacao
@@ -14,6 +16,11 @@ namespace SGH.Data.Repositorio.Implementacao
         public HorarioAulaRepositorio(IRepositorio<HorarioAula> repositorio)
         {
             _repositorio = repositorio;
+        }
+
+        public async Task<bool> Contem(Expression<Func<HorarioAula, bool>> expressao)
+        {
+            return await _repositorio.Contem(expressao);
         }
 
         public async Task<HorarioAula> Criar(HorarioAula entidade)

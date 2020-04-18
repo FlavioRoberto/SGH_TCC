@@ -17,11 +17,11 @@ using Xunit;
 namespace SGH.TestesDeIntegracao
 {
     [Collection(nameof(IntegracaoWebTestsFixtureCollection))]
-    public class CargoTests
+    public class CargoTeste
     {
         private readonly IntegracaoTestsFixture<StartupTests> _testsFixture;
 
-        public CargoTests(IntegracaoTestsFixture<StartupTests> testsFixture)
+        public CargoTeste(IntegracaoTestsFixture<StartupTests> testsFixture)
         {
             _testsFixture = testsFixture;
         }

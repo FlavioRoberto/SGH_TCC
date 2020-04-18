@@ -30,6 +30,10 @@ namespace SGH.Api.Testes.Factory
                 new Turno
                 {
                     Descricao = "Noturno"
+                },
+                new Turno
+                {
+                    Descricao = "Vinculado em horários"
                 }
             };
 

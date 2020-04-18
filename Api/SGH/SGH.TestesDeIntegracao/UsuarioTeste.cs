@@ -11,11 +11,11 @@ using Xunit;
 namespace SGH.TestesDeIntegracao
 {
     [Collection(nameof(IntegracaoWebTestsFixtureCollection))]
-    public class UsuarioTests
+    public class UsuarioTeste
     {
         private readonly IntegracaoTestsFixture<StartupTests> _testsFixture;
 
-        public UsuarioTests(IntegracaoTestsFixture<StartupTests> testsFixture)
+        public UsuarioTeste(IntegracaoTestsFixture<StartupTests> testsFixture)
         {
             _testsFixture = testsFixture;
         }

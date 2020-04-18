@@ -13,11 +13,11 @@ using Xunit;
 namespace SGH.TestesDeIntegracao
 {
     [Collection(nameof(IntegracaoWebTestsFixtureCollection))]
-    public class HorarioAulaTests
+    public class HorarioAulaTeste
     {
         private readonly IntegracaoTestsFixture<StartupTests> _testsFixture;
 
-        public HorarioAulaTests(IntegracaoTestsFixture<StartupTests> testsFixture)
+        public HorarioAulaTeste(IntegracaoTestsFixture<StartupTests> testsFixture)
         {
             _testsFixture = testsFixture;
         }
@@ -190,7 +190,7 @@ namespace SGH.TestesDeIntegracao
 
             conteudo.Should().NotBeEmpty();
 
-            conteudo.Should().HaveCount(3);
+            conteudo.Should().HaveCountGreaterOrEqualTo(4);
         }
 
         [Trait("Integração", "Horário de aula")]

@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 namespace SGH.TestesDeIntegracao
 {
     [Collection(nameof(IntegracaoWebTestsFixtureCollection))]
-    public class CursoTests
+    public class CursoTeste
     {
         private readonly IntegracaoTestsFixture<StartupTests> _testsFixture;
 
-        public CursoTests(IntegracaoTestsFixture<StartupTests> testsFixture)
+        public CursoTeste(IntegracaoTestsFixture<StartupTests> testsFixture)
         {
             _testsFixture = testsFixture;
         }

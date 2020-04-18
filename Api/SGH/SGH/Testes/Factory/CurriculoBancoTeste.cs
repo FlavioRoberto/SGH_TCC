@@ -38,6 +38,12 @@ namespace SGH.Api.Testes.Factory
                 {
                     Ano = DateTime.Now.Year + 2,
                     CodigoCurso = 3 //ENGENHARIA DE PRODUCAO
+                },
+                //5 - teste remover vinculado horário
+                new Curriculo
+                {
+                    Ano = DateTime.Now.Year + 2,
+                    CodigoCurso = 3 
                 }
             };
 

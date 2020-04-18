@@ -1,5 +1,7 @@
 ﻿using SGH.Dominio.Core.Model;
+using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace SGH.Data.Repositorio.Contratos
@@ -8,5 +10,6 @@ namespace SGH.Data.Repositorio.Contratos
     {
         Task<HorarioAula> Criar(HorarioAula entidade);
         Task<List<HorarioAula>> Listar(ListarHorarioFiltro filtro);
+        Task<bool> Contem(Expression<Func<HorarioAula, bool>> expressao);
     }
 }

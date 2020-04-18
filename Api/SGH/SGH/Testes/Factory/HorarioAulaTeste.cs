@@ -41,6 +41,14 @@ namespace SGH.Api.Testes.Factory
                     CodigoTurno = 1,
                     Semestre = ESemestre.SEGUNDO,
                     Periodo = EPeriodo.TERCEIRO
+                },
+                new HorarioAula
+                {
+                    Ano = 2022,
+                    CodigoCurriculo = 5,
+                    CodigoTurno = 4,
+                    Semestre = ESemestre.SEGUNDO,
+                    Periodo = EPeriodo.TERCEIRO
                 }
             };
 
