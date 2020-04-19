@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SGH.Dominio.Core.Model;
+using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Criar;
 using SGH.Dominio.Services.ViewModel;
 
@@ -9,11 +10,11 @@ namespace SGH.Dominio.Services.AutoMapper
     {
         public HorarioAulaProfile()
         {
-            CreateMap<HorarioAula, HorarioAulaViewModel>();
-            CreateMap<HorarioAulaViewModel,HorarioAula>();
+            CreateMap<HorarioAula, HorarioAulaViewModel>().ReverseMap();
 
-            CreateMap<HorarioAula, CriarHorarioAulaComando>();
-            CreateMap<CriarHorarioAulaComando, HorarioAula>();
+            CreateMap<HorarioAula, CriarHorarioAulaComando>().ReverseMap();
+
+            CreateMap<AtualizarHorarioAulaComando, HorarioAula>().ReverseMap();
         }
     }
 }

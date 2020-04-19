@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using SGH.APi;
 using SGH.Dominio.Core.Enums;
+using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Horarios.Consultas.Listar;
 using SGH.Dominio.Services.ViewModel;
@@ -275,6 +276,207 @@ namespace SGH.TestesDeIntegracao
 
             resposta.EnsureSuccessStatusCode();
             
+        }
+
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "Atualizar - Deve retornar mensagem código não inforado")]
+        public async Task HorarioAula_Atualizar_DeveRetornarMensagemCodigoNaoInformado()
+        {
+            var comando = new AtualizarHorarioAulaComando {
+                Ano = 2020,
+                CodigoCurriculo = 1,
+                CodigoTurno = 1,
+                Periodo = EPeriodo.DECIMO,
+                Semestre = ESemestre.PRIMEIRO
+            };
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, "O campo códgo não pode ser vazio.");
+        }
+
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "Atualizar - Deve retornar mensagem código não encontrado")]
+        public async Task HorarioAula_Atualizar_DeveRetornarMensagemCodigoNaoEncontrado()
+        {
+            var comando = new AtualizarHorarioAulaComando
+            {
+                Codigo = 99,
+                Ano = 2020,
+                CodigoCurriculo = 1,
+                CodigoTurno = 1,
+                Periodo = EPeriodo.DECIMO,
+                Semestre = ESemestre.PRIMEIRO
+            };
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, $"Não foi encontrado um horário com o código {comando.Codigo}.");
+        }
+
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "Atualizar - Deve retornar mensagem campo ano não pode ser vazio")]
+        public async Task HorarioAula_Atualizar_DeveRetornarMensagemCampoAnoNaoPodeSerVazio()
+        {
+            var comando = new AtualizarHorarioAulaComando
+            {
+                Codigo = 2,
+                CodigoCurriculo = 1,
+                CodigoTurno = 1,
+                Periodo = EPeriodo.DECIMO,
+                Semestre = ESemestre.PRIMEIRO
+            };
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, "O campo ano não pode ser vazio.");
+        }
+
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "Atualizar - Deve retornar mensagem campo período não pode ser vazio")]
+        public async Task HorarioAula_Atualizar_DeveRetornarMensagemCampoPeriodoNaoPodeSerVazio()
+        {
+            var comando = new AtualizarHorarioAulaComando
+            {
+                Codigo = 2,
+                Ano = 2020,
+                CodigoCurriculo = 1,
+                CodigoTurno = 1,
+                Semestre = ESemestre.PRIMEIRO
+            };
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, "O campo período não pode ser vazio.");
+        }
+
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "Atualizar - Deve retornar mensagem campo semestre não pode ser vazio")]
+        public async Task HorarioAula_Atualizar_DeveRetornarMensagemCampoSemestreNaoPodeSerVazio()
+        {
+            var comando = new AtualizarHorarioAulaComando
+            {
+                Codigo = 2,
+                Ano = 2020,
+                CodigoCurriculo = 1,
+                CodigoTurno = 1,
+                Periodo = EPeriodo.DECIMO
+            };
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, "O campo semestre não pode ser vazio.");
+        }
+
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "Atualizar - Deve retornar mensagem campo código do currículo não pode ser vazio")]
+        public async Task HorarioAula_Atualizar_DeveRetornarMensagemCampoCodigoCurriculoeNaoPodeSerVazio()
+        {
+            var comando = new AtualizarHorarioAulaComando
+            {
+                Codigo = 2,
+                Ano = 2020,
+                CodigoTurno = 1,
+                Periodo = EPeriodo.DECIMO,
+                Semestre = ESemestre.PRIMEIRO
+            };
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, "O campo código do currículo não pode ser vazio.");
+        }
+
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "Atualizar - Deve retornar mensagem campo currículo não encontrado")]
+        public async Task HorarioAula_Atualizar_DeveRetornarMensagemCurriculoNaoEncontrado()
+        {
+            var comando = new AtualizarHorarioAulaComando
+            {
+                Codigo = 2,
+                Ano = 2020,
+                CodigoTurno = 1,
+                Periodo = EPeriodo.DECIMO,
+                Semestre = ESemestre.PRIMEIRO,
+                CodigoCurriculo = 99
+            };
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, $"Não foi encontrado um currículo com o código {comando.CodigoCurriculo}.");
+        }
+
+
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "Atualizar - Deve retornar mensagem campo código do turno não pode ser vazio")]
+        public async Task HorarioAula_Atualizar_DeveRetornarMensagemCampoCodigoTurnoNaoPodeSerVazio()
+        {
+            var comando = new AtualizarHorarioAulaComando
+            {
+                Codigo = 2,
+                Ano = 2020,
+                Periodo = EPeriodo.DECIMO,
+                Semestre = ESemestre.PRIMEIRO,
+                CodigoCurriculo = 1
+            };
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, "O campo código do turno não pode ser vazio.");
+        }
+
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "Atualizar - Deve retornar mensagem campo turno não encontrado")]
+        public async Task HorarioAula_Atualizar_DeveRetornarMensagemTurnoNaoEncontrado()
+        {
+            var comando = new AtualizarHorarioAulaComando
+            {
+                Codigo = 2,
+                Ano = 2020,
+                CodigoTurno = 99,
+                Periodo = EPeriodo.DECIMO,
+                Semestre = ESemestre.PRIMEIRO,
+                CodigoCurriculo = 1
+            };
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, $"Não foi encontrado um turno com o código {comando.CodigoTurno}.");
+        }
+
+
+        [Trait("Integração", "Horário de aula")]
+        [Fact(DisplayName = "Atualizar - Deve atualizar horário com sucesso")]
+        public async Task HorarioAula_Atualizar_DeveAtualizarHorarioComSucesso()
+        {
+            var comando = new AtualizarHorarioAulaComando
+            {
+                Codigo = 2,
+                Ano = 2021,
+                CodigoTurno = 2,
+                Periodo = EPeriodo.NONO,
+                Semestre = ESemestre.SEGUNDO,
+                CodigoCurriculo = 2
+            };
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
+
+            resposta.EnsureSuccessStatusCode();
+
+            var conteudo = await _testsFixture.RecuperarConteudoRequisicao<HorarioAulaViewModel>(resposta);
+
+            conteudo.Should().NotBeNull();
+
+            conteudo.Codigo.Should().Be(comando.Codigo);
+
+            conteudo.Ano.Should().Be(comando.Ano);
+
+            conteudo.CodigoTurno.Should().Be(comando.CodigoTurno);
+
+            conteudo.Periodo.Should().Be(comando.Periodo);
+
+            conteudo.Semestre.Should().Be(comando.Semestre);
+
+            conteudo.CodigoCurriculo.Should().Be(comando.CodigoCurriculo);
         }
 
         private string GetRota(string rota = "")

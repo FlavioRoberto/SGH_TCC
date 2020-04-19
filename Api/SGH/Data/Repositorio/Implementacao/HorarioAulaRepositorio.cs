@@ -18,6 +18,11 @@ namespace SGH.Data.Repositorio.Implementacao
             _repositorio = repositorio;
         }
 
+        public async Task<HorarioAula> Atualizar(HorarioAula entidade)
+        {
+            return await _repositorio.Atualizar(entidade);
+        }
+
         public async Task<bool> Contem(Expression<Func<HorarioAula, bool>> expressao)
         {
             return await _repositorio.Contem(expressao);
