@@ -47,6 +47,19 @@ namespace SGH.Data.Repositorio.Implementacao
                                      .ToListAsync();
         }
 
+        public async Task<List<CargoDisciplina>> ListarDisciplinasCurriculo(Expression<Func<CargoDisciplina, bool>> query)
+        {
+            return await _repositorio.GetDbSet<CargoDisciplina>()
+                                     .Include(lnq => lnq.Turno)
+                                     .Include(lnq => lnq.Cargo)
+                                     .Include(lnq => lnq.Disciplina)
+                                        .ThenInclude(lnq => lnq.Curriculo)
+                                        .ThenInclude(lnq => lnq.Curso)
+                                     .AsNoTracking()
+                                     .Where(query)
+                                     .ToListAsync();
+        }
+
         public async Task<bool> Remover(Expression<Func<CargoDisciplina, bool>> expressao)
         {
             return await _repositorio.Remover(expressao);

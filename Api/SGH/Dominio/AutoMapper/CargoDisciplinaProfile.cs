@@ -11,7 +11,8 @@ namespace SGH.Dominio.Services.AutoMapper
         {
             CreateMap<CargoDisciplinaViewModel, CargoDisciplina>();
             CreateMap<CargoDisciplina, CargoDisciplinaViewModel>()
-                .ForMember(dto => dto.CursoDescricao, opt => opt.MapFrom(c => c.Disciplina.Curriculo.Curso.Descricao));
+                .ForMember(dto => dto.CursoDescricao, opt => opt.MapFrom(c => c.Disciplina.Curriculo.Curso.Descricao))
+                .ForMember(dto => dto.Descricao, opt => opt.MapFrom(c => string.IsNullOrEmpty(c.Descricao) ? c.Disciplina.Disciplina.Descricao : c.Descricao));
             CreateMap<CargoDisciplina, CriarCargoDisciplinaComando>();
             CreateMap<CriarCargoDisciplinaComando, CargoDisciplina>();
         }

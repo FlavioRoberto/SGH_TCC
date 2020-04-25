@@ -51,6 +51,13 @@ namespace SGH.Api.Testes.Factory
                     CodigoProfessor = 2,
                     Edital = 13,
                     Semestre = ESemestre.PRIMEIRO
+                },
+                new Cargo //5
+                {
+                    Ano = 2020,
+                    CodigoProfessor = 2,
+                    Edital = 13,
+                    Semestre = ESemestre.PRIMEIRO
                 }
             };
 
@@ -107,17 +114,29 @@ namespace SGH.Api.Testes.Factory
                     CodigoTurno = 2,
                     Descricao = "Substituindo nome disciplina no cargo"
                  },
-                   new CargoDisciplina 
+                 new CargoDisciplina 
                  {
                     CodigoCargo = 4,
                     CodigoCurriculoDisciplina = 5,
                     CodigoTurno = 3
                  },
-                    new CargoDisciplina 
+                 new CargoDisciplina 
                  {
                     CodigoCargo = 4,
                     CodigoCurriculoDisciplina = 6,
                     CodigoTurno = 1
+                 },
+                 new CargoDisciplina
+                 {
+                    CodigoCargo = 5,
+                    CodigoCurriculoDisciplina = 1,
+                    CodigoTurno = 2
+                 },
+                 new CargoDisciplina
+                 {
+                    CodigoCargo = 5,
+                    CodigoCurriculoDisciplina = 2,
+                    CodigoTurno = 2
                  }
             };
 

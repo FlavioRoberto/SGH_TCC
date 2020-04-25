@@ -1,4 +1,5 @@
 ﻿using SGH.Api.Testes.Factory.Contratos;
+using SGH.Dominio.Core.Enums;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Contexto;
 using System;
@@ -55,12 +56,14 @@ namespace SGH.Api.Testes.Factory
                 new CurriculoDisciplina  //1
                 {
                     CodigoCurriculo = 1,
-                    CodigoDisciplina = 1
+                    CodigoDisciplina = 1,
+                    Periodo = EPeriodo.NONO
                 },
                 new CurriculoDisciplina //1
                 {
                     CodigoCurriculo = 1,
-                    CodigoDisciplina = 2
+                    CodigoDisciplina = 3,
+                    Periodo = EPeriodo.NONO
                 },
                 new CurriculoDisciplina //3
                 {

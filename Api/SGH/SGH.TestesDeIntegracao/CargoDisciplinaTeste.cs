@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Xunit;
 using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Consulta.ListarPorCurriculo;
 using SGH.Dominio.Core.Enums;
+using System.Collections.Generic;
 
 namespace SGH.TestesDeIntegracao
 {
@@ -365,6 +366,56 @@ namespace SGH.TestesDeIntegracao
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota($"listar-por-curriculo"), consulta);
 
             await _testsFixture.TestarRequisicaoComErro(resposta, $"Não foi encontrado um turno com o código {consulta.CodigoTurno}.");
+        }
+
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Listar por curriculo - Deve retornar lista vazia ")]
+        public async Task DisciplinaCargo_ListarDisciplinasPorCurriculo_DeveRetornarListaVazia()
+        {
+            var consulta = new ListarDisciplinaCargoPorCurriculoConsulta
+            {
+                Ano = 2020,
+                CodigoTurno = 1,
+                Periodo = EPeriodo.DECIMO,
+                Semestre = ESemestre.PRIMEIRO,
+                CodigoCurriculo = 1
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota($"listar-por-curriculo"), consulta);
+
+            resposta.EnsureSuccessStatusCode();
+
+            var dados = await _testsFixture.RecuperarConteudoRequisicao<List<CargoDisciplinaViewModel>>(resposta);
+
+            dados.Should().BeEmpty();
+        }
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Listar por curriculo - Deve retornar lista vazia ")]
+        public async Task DisciplinaCargo_ListarDisciplinasPorCurriculo_DeveRetornarDuasDisciplinas()
+        {
+            var consulta = new ListarDisciplinaCargoPorCurriculoConsulta
+            {
+                Ano = 2020,
+                CodigoTurno = 2,
+                Periodo = EPeriodo.NONO,
+                Semestre = ESemestre.PRIMEIRO,
+                CodigoCurriculo = 1
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota($"listar-por-curriculo"), consulta);
+
+            resposta.EnsureSuccessStatusCode();
+
+            var dados = await _testsFixture.RecuperarConteudoRequisicao<List<CargoDisciplinaViewModel>>(resposta);
+
+            dados.Should().HaveCount(2);
+
+            dados.Should().NotContain(lnq => lnq.CursoDescricao != "Engenharia da computação" &&
+                                             (lnq.Descricao != "Programação orientada a objetos" ||
+                                             lnq.Descricao != "Engenharia de software"));
+
         }
 
 

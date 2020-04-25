@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SGH.Dominio.Core.Enums;
+using System.Collections.Generic;
 
 namespace SGH.Dominio.Core.Model
 {
@@ -6,7 +7,7 @@ namespace SGH.Dominio.Core.Model
     {
         public int? CodigoDisciplina { get; set; }
         public int CodigoCurriculo { get; set; }
-        public int Periodo { get; set; }
+        public EPeriodo Periodo { get; set; }
         public int AulasSemanaisTeorica { get; set; }
         public int AulasSemanaisPratica { get; set; }
 
