@@ -12,6 +12,7 @@ using Xunit;
 using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Consulta.ListarPorCurriculo;
 using SGH.Dominio.Core.Enums;
 using System.Collections.Generic;
+using SGH.Dominio.Services.Implementacao.CargosDisciplinas.ViewModel;
 
 namespace SGH.TestesDeIntegracao
 {
@@ -386,13 +387,13 @@ namespace SGH.TestesDeIntegracao
 
             resposta.EnsureSuccessStatusCode();
 
-            var dados = await _testsFixture.RecuperarConteudoRequisicao<List<CargoDisciplinaViewModel>>(resposta);
+            var dados = await _testsFixture.RecuperarConteudoRequisicao<List<CargoDisciplinaListarPorCurriculoViewModel>>(resposta);
 
             dados.Should().BeEmpty();
         }
 
         [Trait("Integração", "Disciplina Cargo")]
-        [Fact(DisplayName = "Listar por curriculo - Deve retornar lista vazia ")]
+        [Fact(DisplayName = "Listar por curriculo - Deve retornar duas disciplinas ")]
         public async Task DisciplinaCargo_ListarDisciplinasPorCurriculo_DeveRetornarDuasDisciplinas()
         {
             var consulta = new ListarDisciplinaCargoPorCurriculoConsulta
@@ -408,11 +409,11 @@ namespace SGH.TestesDeIntegracao
 
             resposta.EnsureSuccessStatusCode();
 
-            var dados = await _testsFixture.RecuperarConteudoRequisicao<List<CargoDisciplinaViewModel>>(resposta);
+            var dados = await _testsFixture.RecuperarConteudoRequisicao<List<CargoDisciplinaListarPorCurriculoViewModel>>(resposta);
 
             dados.Should().HaveCount(2);
 
-            dados.Should().NotContain(lnq => lnq.CursoDescricao != "Engenharia da computação" &&
+            dados.Should().NotContain(lnq => lnq.Professor != "Cargo 0" &&
                                              (lnq.Descricao != "Programação orientada a objetos" ||
                                              lnq.Descricao != "Engenharia de software"));
 

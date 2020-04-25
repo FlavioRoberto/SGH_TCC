@@ -146,7 +146,7 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"{codigoDisciplina}"));
 
-            var mensagemErroEsperada = "Não foi possível remover a disciplina pois ela está vinculada ao cargo de código 1.";
+            var mensagemErroEsperada = "Não foi possível remover a disciplina pois ela está vinculada ao cargo de código 2.";
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
 
