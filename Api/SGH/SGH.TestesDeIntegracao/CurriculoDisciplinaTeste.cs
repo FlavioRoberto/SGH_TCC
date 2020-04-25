@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Editar;
 using SGH.Dominio.Services.ViewModel;
+using System;
 
 namespace SGH.TestesDeIntegracao
 {
@@ -40,8 +41,7 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota(), comando);
 
-            var mensagemErroEsperada = "Disciplina já adicionada neste currículo."
-                                       .RemoverEspacosVazios();
+            var mensagemErroEsperada = "Disciplina já adicionada neste currículo.";                                       
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
 
@@ -80,12 +80,11 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota(), comando);
 
-            var mensagemErroEsperada = $@"O campo período é obrigatório.
-                                        O campo código da disciplina é obrigatório.
-                                        O campo código do currículo é obrigatório.
-                                        O campo aulas semanais teóricas é obrigatório.
-                                        O campo aulas semanais práticas é obrigatório."
-                                       .RemoverEspacosVazios();
+            var mensagemErroEsperada = $"O campo período é obrigatório.{Environment.NewLine}"+
+                                       $"O campo código da disciplina é obrigatório.{Environment.NewLine}" +
+                                       $"O campo código do currículo é obrigatório.{Environment.NewLine}" +
+                                       $"O campo aulas semanais teóricas é obrigatório.{Environment.NewLine}" +
+                                       $"O campo aulas semanais práticas é obrigatório.";                                      
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
         }
@@ -105,11 +104,12 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota(), comando);
 
-            var mensagemErroEsperada = $@"Não foi encontrado uma disciplina com o código {comando.CodigoDisciplina}.
-                                       Não foi encontrado um currículo com o código {comando.CodigoCurriculo}."
-                                       .RemoverEspacosVazios();
+            var erros = new List<string> {
+                $"Não foi encontrado uma disciplina com o código {comando.CodigoDisciplina}.",
+                $"Não foi encontrado um currículo com o código {comando.CodigoCurriculo}."
+            };
 
-            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
+            await _testsFixture.TestarRequisicaoComErro(resposta, erros);
         }
 
         [Trait("Integração", "Disciplina currículo")]
@@ -132,8 +132,7 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"{codigoDisciplina}"));
 
-            var mensagemErroEsperada = $@"Não foi encontrado uma disciplina do currículo com código {codigoDisciplina}."
-                                        .RemoverEspacosVazios();
+            var mensagemErroEsperada = $@"Não foi encontrado uma disciplina do currículo com código {codigoDisciplina}.";
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
 
@@ -147,8 +146,7 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"{codigoDisciplina}"));
 
-            var mensagemErroEsperada = "Não foi possível remover a disciplina pois ela está vinculada ao cargo de código 2."
-                                       .RemoverEspacosVazios();
+            var mensagemErroEsperada = "Não foi possível remover a disciplina pois ela está vinculada ao cargo de código 1.";
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
 
@@ -162,8 +160,7 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.GetAsync(GetRota($"{codigo}"));
 
-            var mensagemExperada = "O campo código do currículo não pode ter valor menor ou igual a 0."
-                                   .RemoverEspacosVazios();
+            var mensagemExperada = "O campo código do currículo não pode ter valor menor ou igual a 0.";
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemExperada);
         }
@@ -202,15 +199,17 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota(), comando);
 
-            var mensagemErroEsperada = $@"O campo período é obrigatório.
-                                        O campo código da disciplina é obrigatório.
-                                        O campo código do currículo é obrigatório.
-                                        O campo aulas semanais teóricas é obrigatório.
-                                        O campo aulas semanais práticas é obrigatório.
-                                        O campo código da disciplina do currículo é obrigatório"
-                                       .RemoverEspacosVazios();
+            var erros = new List<string>
+            {
+               "O campo período é obrigatório.",
+               "O campo código da disciplina é obrigatório.",
+               "O campo código do currículo é obrigatório.",
+               "O campo aulas semanais teóricas é obrigatório.",
+               "O campo aulas semanais práticas é obrigatório.",
+               "O campo código da disciplina do currículo é obrigatório"
+            };
 
-            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
+            await _testsFixture.TestarRequisicaoComErro(resposta, erros);
         }
 
         [Trait("Integração", "Disciplina currículo")]
@@ -229,11 +228,13 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota(), comando);
 
-            var mensagemErroEsperada = $@"Não foi encontrado uma disciplina com o código {comando.CodigoDisciplina}.
-                                       Não foi encontrado um currículo com o código {comando.CodigoCurriculo}."
-                                       .RemoverEspacosVazios();
+            var erros = new List<string>
+            {
+                $"Não foi encontrado uma disciplina com o código {comando.CodigoDisciplina}.",
+                $"Não foi encontrado um currículo com o código {comando.CodigoCurriculo}."
+            };
 
-            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
+            await _testsFixture.TestarRequisicaoComErro(resposta, erros);
         }
 
         [Trait("Integração", "Disciplina currículo")]
@@ -260,11 +261,13 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota(), comando);
 
-            var mensagemErroEsperada = $@"Não foi informado o campo código da disciplina do currículo para algum pré-requisito.
-                                          Existem pré-requisitos com o código de disciplina do currículo diferente do selecionado."
-                                       .RemoverEspacosVazios();
+            var erros = new List<string>
+            {
+                "Não foi informado o campo código da disciplina do currículo para algum pré-requisito.",
+                "Existem pré-requisitos com o código de disciplina do currículo diferente do selecionado."
+            };
 
-            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
+            await _testsFixture.TestarRequisicaoComErro(resposta, erros);
         }
 
         [Trait("Integração", "Disciplina currículo")]
@@ -283,8 +286,7 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota(), comando);
 
-            var mensagemErroEsperada = "Disciplina já adicionada neste currículo."
-                                       .RemoverEspacosVazios();
+            var mensagemErroEsperada = "Disciplina já adicionada neste currículo.";
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
 

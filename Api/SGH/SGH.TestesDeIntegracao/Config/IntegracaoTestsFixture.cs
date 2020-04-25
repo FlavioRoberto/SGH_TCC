@@ -4,6 +4,8 @@ using Newtonsoft.Json;
 using SGH.APi;
 using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login;
 using SGH.Dominio.Shared.Extensions;
+using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -57,7 +59,19 @@ namespace SGH.TestesDeIntegracao.Config
 
             var mensagemErroRequest = await resposta.Content.ReadAsStringAsync();
 
-            mensagemErroRequest.RemoverEspacosVazios().Should().Be(mensagemErroEsperada.RemoverEspacosVazios());
+            mensagemErroRequest.Trim().Should().Be(mensagemErroEsperada.Trim());
+        }
+
+        internal async Task TestarRequisicaoComErro(HttpResponseMessage resposta, List<string> erros)
+        {
+            var mensagemErroEsperada = "";
+
+            erros.ForEach(erro =>
+            {
+                mensagemErroEsperada += $"{erro}{Environment.NewLine}";
+            });
+
+            await TestarRequisicaoComErro(resposta, mensagemErroEsperada);
         }
 
         internal HttpContent GerarCorpoRequisicao<T>(T conteudo)

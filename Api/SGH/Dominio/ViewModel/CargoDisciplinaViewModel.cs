@@ -1,6 +1,4 @@
-﻿using SGH.Dominio.Core.Model;
-
-namespace SGH.Dominio.ViewModel
+﻿namespace SGH.Dominio.ViewModel
 {
     public class CargoDisciplinaViewModel
     {

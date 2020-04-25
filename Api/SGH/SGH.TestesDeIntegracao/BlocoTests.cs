@@ -53,7 +53,7 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("criar"), comando);
 
-            var mensagemEsperada = "O campo descricão não pode estar vazio.".RemoverEspacosVazios();
+            var mensagemEsperada = "O campo descricão não pode estar vazio.";
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
 
@@ -89,10 +89,13 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
 
-            var mensagemEsperada = @"O campo descricão não pode estar vazio.
-                                     O campo código não foi informado.".RemoverEspacosVazios();
+            var erros = new List<string>
+            {
+                "O campo descricão não pode estar vazio.",
+                "O campo código não foi informado."
+            };
 
-            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
+            await _testsFixture.TestarRequisicaoComErro(resposta, erros);
 
         }
 
@@ -108,8 +111,7 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
 
-            var mensagemEsperada = $@"Não foi encontrado um bloco com o código {comando.Codigo}."
-                                   .RemoverEspacosVazios();
+            var mensagemEsperada = $@"Não foi encontrado um bloco com o código {comando.Codigo}.";
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
 
@@ -142,7 +144,7 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"remover?codigo={comando.Codigo}"));
 
-            var mensagemEsperada = "O código do bloco não foi informado.".RemoverEspacosVazios();
+            var mensagemEsperada = "O código do bloco não foi informado.";
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
 
@@ -159,7 +161,7 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"remover?codigo={comando.Codigo}"));
 
-            var mensagemEsperada = $"Não foi encontrado um bloco com o código {comando.Codigo}.".RemoverEspacosVazios();
+            var mensagemEsperada = $"Não foi encontrado um bloco com o código {comando.Codigo}.";
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
 
@@ -177,9 +179,8 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"remover?codigo={comando.Codigo}"));
 
-            var mensagemEsperada = $"Não foi possível remover o bloco de código {comando.Codigo}, pois ele está vinculado em salas."
-                                  .RemoverEspacosVazios();
-
+            var mensagemEsperada = $"Não foi possível remover o bloco de código {comando.Codigo}, pois ele está vinculado em salas.";
+                                  
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
 
         }

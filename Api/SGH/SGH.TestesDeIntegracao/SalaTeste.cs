@@ -57,12 +57,15 @@ namespace SGH.TestesDeIntegracao
         
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("criar"), comando);
 
-            var mensagemEsperada = @"O campo descrição é obrigatório.
-                                     O campo número é obrigatório.
-                                     O campo código do bloco é obrigatório.
-                                     O campo número é obrigatório.";
+            var erros = new List<string>
+            {
+                 "O campo descrição é obrigatório.",
+                 "O campo número é obrigatório.",
+                 "O campo código do bloco é obrigatório.",
+                 "O campo número é obrigatório."
+            };
 
-            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
+            await _testsFixture.TestarRequisicaoComErro(resposta, erros);
         }
 
         [Trait("Integração", "Sala")]
@@ -92,13 +95,16 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
 
-            var mensagemEsperada = @"O campo descrição é obrigatório.
-                                     O campo número é obrigatório.
-                                     O campo código do bloco é obrigatório.
-                                     O campo número é obrigatório.
-                                     O campo código é obrigatório.";
+            var erros = new List<string>
+            {
+                "O campo descrição é obrigatório.",
+                "O campo número é obrigatório.",
+                "O campo código do bloco é obrigatório.",
+                "O campo número é obrigatório.",
+                "O campo código é obrigatório."
+            };
 
-            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
+            await _testsFixture.TestarRequisicaoComErro(resposta, erros);
         }
 
         [Trait("Integração", "Sala")]

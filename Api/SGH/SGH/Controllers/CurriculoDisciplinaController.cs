@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Consulta.ListarPorCurriculo;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Editar;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Remover;

@@ -15,6 +15,7 @@ using SGH.Dominio.Services.Implementacao.Cargos.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Cargos.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Remover;
+using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Consulta.ListarPorCurriculo;
 using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Consulta.ListarTodas;
 using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Criar;
@@ -87,6 +88,7 @@ namespace SGH.Dominio.Services.Extensions
             services.AddScoped<IValidador<CriarHorarioAulaComando>, CriarHorarioAulaComandoValidador>();
             services.AddScoped<IValidador<RemoverHorarioComando>, RemoverHorarioComandoValidador>();
             services.AddScoped<IValidador<AtualizarHorarioAulaComando>, AtualizarHorarioAulaComandoValidador>();
+            services.AddScoped<IValidador<ListarDisciplinaCargoPorCurriculoConsulta>, ListarDisciplinasCargoPorCurriculoConsultaValidador>();
 
             #region AutoMapper
             services.AddAutoMapperConfig();

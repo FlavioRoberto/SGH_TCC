@@ -9,6 +9,8 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
+using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Consulta.ListarPorCurriculo;
+using SGH.Dominio.Core.Enums;
 
 namespace SGH.TestesDeIntegracao
 {
@@ -240,6 +242,131 @@ namespace SGH.TestesDeIntegracao
 
             erro.RemoverEspacosVazios().Should().Be(mensagemExperada);
         }
+
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Listar por curriculo - Deve retornar mensagem ano não informado ")]
+        public async Task DisciplinaCargo_ListarDisciplinasPorCurriculo_DeveRetornarMensagemAnoNaoInformado()
+        {
+            var consulta = new ListarDisciplinaCargoPorCurriculoConsulta { 
+                CodigoCurriculo = 1,
+                CodigoTurno = 1,
+                Periodo = EPeriodo.DECIMO,
+                Semestre = ESemestre.PRIMEIRO
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota($"listar-por-curriculo"), consulta);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, $"O campo ano não foi informado.");          
+        }
+
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Listar por curriculo - Deve retornar mensagem periodo não informado ")]
+        public async Task DisciplinaCargo_ListarDisciplinasPorCurriculo_DeveRetornarMensagemPeriodoNaoInformado()
+        {
+            var consulta = new ListarDisciplinaCargoPorCurriculoConsulta
+            {
+                Ano = 2020,
+                CodigoCurriculo = 1,
+                CodigoTurno = 1,
+                Semestre = ESemestre.PRIMEIRO
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota($"listar-por-curriculo"), consulta);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, $"O campo período não foi informado.");
+        }
+
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Listar por curriculo - Deve retornar mensagem semestre não informado ")]
+        public async Task DisciplinaCargo_ListarDisciplinasPorCurriculo_DeveRetornarMensagemSemestreNaoInformado()
+        {
+            var consulta = new ListarDisciplinaCargoPorCurriculoConsulta
+            {
+                Ano = 2020,
+                CodigoCurriculo = 1,
+                CodigoTurno = 1,
+                Periodo = EPeriodo.PRIMEIRO
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota($"listar-por-curriculo"), consulta);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, $"O campo semestre não foi informado.");
+        }
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Listar por curriculo - Deve retornar mensagem turno não informado ")]
+        public async Task DisciplinaCargo_ListarDisciplinasPorCurriculo_DeveRetornarMensagemTurnoNaoInformado()
+        {
+            var consulta = new ListarDisciplinaCargoPorCurriculoConsulta
+            {
+                Ano = 2020,
+                CodigoCurriculo = 1,
+                Periodo = EPeriodo.PRIMEIRO,
+                Semestre = ESemestre.PRIMEIRO
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota($"listar-por-curriculo"), consulta);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, $"O campo código do turno não foi informado.");
+        }
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Listar por curriculo - Deve retornar mensagem curriculo não informado ")]
+        public async Task DisciplinaCargo_ListarDisciplinasPorCurriculo_DeveRetornarMensagemCurriculoNaoInformado()
+        {
+            var consulta = new ListarDisciplinaCargoPorCurriculoConsulta
+            {
+                Ano = 2020,
+                CodigoTurno = 1,
+                Periodo = EPeriodo.PRIMEIRO,
+                Semestre = ESemestre.PRIMEIRO
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota($"listar-por-curriculo"), consulta);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, $"O campo código do currículo não foi informado.");
+        }
+
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Listar por curriculo - Deve retornar mensagem curriculo não encontrado ")]
+        public async Task DisciplinaCargo_ListarDisciplinasPorCurriculo_DeveRetornarMensagemCurriculoNaoEncontrado()
+        {
+            var consulta = new ListarDisciplinaCargoPorCurriculoConsulta
+            {
+                Ano = 2020,
+                CodigoTurno = 1,
+                Periodo = EPeriodo.PRIMEIRO,
+                Semestre = ESemestre.PRIMEIRO,
+                CodigoCurriculo = 99
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota($"listar-por-curriculo"), consulta);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, $"Não foi encontrado um currículo com o código {consulta.CodigoCurriculo}.");
+        }
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Listar por curriculo - Deve retornar mensagem turno não encontrado ")]
+        public async Task DisciplinaCargo_ListarDisciplinasPorCurriculo_DeveRetornarMensagemTurnoNaoEncontrado()
+        {
+            var consulta = new ListarDisciplinaCargoPorCurriculoConsulta
+            {
+                Ano = 2020,
+                CodigoTurno = 99,
+                Periodo = EPeriodo.PRIMEIRO,
+                Semestre = ESemestre.PRIMEIRO,
+                CodigoCurriculo = 1
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota($"listar-por-curriculo"), consulta);
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, $"Não foi encontrado um turno com o código {consulta.CodigoTurno}.");
+        }
+
 
         private string GetRota(string rota = "")
         {

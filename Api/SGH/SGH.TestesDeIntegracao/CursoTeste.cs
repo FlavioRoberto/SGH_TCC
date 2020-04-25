@@ -24,9 +24,8 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"remover?codigo={codigoCurso}"));
 
-            var mensagemEsperada = $"Não foi possível remover o curso pois ele está vinculado ao currículo de código {codigoCurso}."
-                                   .RemoverEspacosVazios();
-
+            var mensagemEsperada = $"Não foi possível remover o curso pois ele está vinculado ao currículo de código {codigoCurso}.";
+                                   
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
         }
 
