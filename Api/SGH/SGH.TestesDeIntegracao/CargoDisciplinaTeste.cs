@@ -416,7 +416,6 @@ namespace SGH.TestesDeIntegracao
             dados.Should().NotContain(lnq => lnq.Professor != "Cargo 0" &&
                                              (lnq.Descricao != "Programação orientada a objetos" ||
                                              lnq.Descricao != "Engenharia de software"));
-
         }
 
 

@@ -6,6 +6,7 @@ using SGH.Dominio.Services.Implementacao.Salas.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Salas.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Salas.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Salas.Consultas.ListarPaginacao;
+using SGH.Dominio.Services.Implementacao.Salas.Consultas.ListarTodas;
 using SGH.Dominio.Services.ViewModel;
 using System;
 using System.Threading.Tasks;
@@ -20,6 +21,19 @@ namespace SGH.Api.Controllers
         public SalaController(IMediator mediator)
         {
             _mediator = mediator;
+        }
+
+        [HttpGet]
+        [Authorize("admin")]
+        [Route("listarTodos")]
+        public async Task<IActionResult> ListarTodos()
+        {
+            var resultado = await _mediator.Send(new ListarTodasSalasConsulta());
+
+            if (resultado.TemErro())
+                return BadRequest(resultado.GetErros());
+
+            return Ok(resultado.GetResultado());
         }
 
         [HttpPost]

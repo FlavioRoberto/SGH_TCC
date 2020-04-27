@@ -237,7 +237,7 @@ namespace SGH.TestesDeIntegracao
 
         [Trait("Integração", "Sala")]
         [Fact(DisplayName = "Realizar consulta paginada de sala sem dados encontrados")]
-        public async Task Bloco_RealizarConsultaPaginada_DeveConsultarPaginadoSemDadosEncontrados()
+        public async Task Sala_RealizarConsultaPaginada_DeveConsultarPaginadoSemDadosEncontrados()
         {
             var consulta = new Paginacao<SalaViewModel>
             {
@@ -255,6 +255,22 @@ namespace SGH.TestesDeIntegracao
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("listarPaginacao"), consulta);
 
             await _testsFixture.TestarRequisicaoComErro(resposta, "Nenhuma sala encontrada.");
+        }
+
+
+        [Trait("Integração", "Sala")]
+        [Fact(DisplayName = "Listar salas - Deverá retornar todas as salas")]
+        public async Task Sala_RealizarConsultaSala_DeveConsultarTodasSalas()
+        {
+            var resposta = await _testsFixture.Client.GetAsync(GetRota("listarTodos"));
+
+            resposta.EnsureSuccessStatusCode();
+
+            var dados = await _testsFixture.RecuperarConteudoRequisicao<List<SalaViewModel>>(resposta);
+
+            dados.Should().NotBeEmpty();
+
+            dados.Should().HaveCount(3);
         }
 
         private string GetRota(string rota = "")
