@@ -15,11 +15,11 @@ namespace SHG.Data.Mapeamento
         {
             builder.HasKey(lnq => lnq.Codigo);
 
-            builder.Property(lnq => lnq.Codigo).HasColumnName("dis_codigo");
-            builder.Property(lnq => lnq.Descricao).HasColumnName("dis_descricao");
-            builder.Property(lnq => lnq.CodigoTipo).HasColumnName("dis_tipo");
+            builder.Property(lnq => lnq.Codigo).HasColumnName("Dis_Codigo");
+            builder.Property(lnq => lnq.Descricao).HasColumnName("Dis_Descricao");
+            builder.Property(lnq => lnq.CodigoTipo).HasColumnName("Dis_Tipo");
 
-            builder.ToTable("disciplina");
+            builder.ToTable("Disciplina");
 
             #region relacionamentos
 

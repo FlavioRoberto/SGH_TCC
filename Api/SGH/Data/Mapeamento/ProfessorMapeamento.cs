@@ -15,32 +15,32 @@ namespace SHG.Data.Mapeamento
 
             builder.Property(p => p.Codigo)
               .ValueGeneratedOnAdd()
-              .HasColumnName("prof_codigo");
+              .HasColumnName("Prof_Codigo");
 
             builder.Property(p => p.Nome)
-              .HasColumnName("prof_nome")
+              .HasColumnName("Prof_Nome")
               .IsRequired(true)
               .HasMaxLength(45);
 
             builder.Property(p => p.Email)
-              .HasColumnName("prof_email")
+              .HasColumnName("Prof_Email")
               .IsRequired(true)
               .HasMaxLength(50);
 
             builder.Property(p => p.Telefone)
-              .HasColumnName("prof_telefone")
+              .HasColumnName("Prof_Telefone")
               .HasMaxLength(12);
 
             builder.Property(p => p.Matricula)
-              .HasColumnName("prof_matricula")
+              .HasColumnName("Prof_Matricula")
               .HasMaxLength(10);
 
             builder.Property(p => p.Ativo)
               .HasConversion<int>()
-              .HasColumnName("prof_ativo")
+              .HasColumnName("Prof_Ativo")
               .HasMaxLength(10);
 
-            builder.ToTable("professor");
+            builder.ToTable("Professor");
 
             return this;
         }

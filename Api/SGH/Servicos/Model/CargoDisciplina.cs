@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace SGH.Dominio.Core.Model
 {
     public class CargoDisciplina : EntidadeBase
@@ -8,6 +10,7 @@ namespace SGH.Dominio.Core.Model
         public string Descricao { get; set; }
         public virtual Turno Turno { get; set; }
         public virtual CurriculoDisciplina Disciplina { get; set; }
-        public virtual Cargo Cargo { get; set; } 
+        public virtual Cargo Cargo { get; set; }
+        public virtual ICollection<Aula> Aulas { get; set; }
     }
 }

@@ -17,13 +17,13 @@ namespace SGH.Data.Mapeamento
 
             #region Propriedades
             builder.Property(lnq => lnq.Codigo)
-                   .HasColumnName("bloco_codigo");
+                   .HasColumnName("Bloco_Codigo");
 
             builder.Property(lnq => lnq.Descricao)
-                   .HasColumnName("bloco_descricao");
+                   .HasColumnName("Bloco_Descricao");
             #endregion
 
-            builder.ToTable("bloco");
+            builder.ToTable("Bloco");
 
             return this;
         }

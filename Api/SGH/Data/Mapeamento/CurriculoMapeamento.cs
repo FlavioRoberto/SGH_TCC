@@ -18,17 +18,17 @@ namespace SHG.Data.Mapeamento
 
             builder.Property(lnq => lnq.Codigo)
                 .ValueGeneratedOnAdd()
-                .HasColumnName("curric_codigo");
+                .HasColumnName("Curric_Codigo");
 
             builder.Property(lnq => lnq.CodigoCurso)
                 .IsRequired()
-                .HasColumnName("curric_curso");
+                .HasColumnName("Curric_Curso");
        
             builder.Property(lnq => lnq.Ano)
                 .IsRequired()
-                .HasColumnName("curric_ano");
+                .HasColumnName("Curric_Ano");
 
-            builder.ToTable("curriculo");
+            builder.ToTable("Curriculo");
             #endregion
 
             #region relacionamentos

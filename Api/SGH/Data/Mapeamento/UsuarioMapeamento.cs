@@ -16,43 +16,43 @@ namespace SHG.Data.Mapeamento
 
             builder.Property(p => p.Codigo)
                 .ValueGeneratedOnAdd()
-                .HasColumnName("usu_codigo");
+                .HasColumnName("Usu_Codigo");
 
             builder.Property(p => p.Email)
-                .HasColumnName("usu_email")
+                .HasColumnName("Usu_Email")
                 .IsRequired(true)
                 .HasMaxLength(50);
 
             builder.Property(p => p.Foto)
-                .HasColumnName("usu_foto");
+                .HasColumnName("Usu_Foto");
 
             builder.Property(p => p.Login)
-                .HasColumnName("usu_login")
+                .HasColumnName("Usu_Login")
                 .IsRequired(true)
                 .HasMaxLength(30);
 
             builder.Property(p => p.Nome)
-                .HasColumnName("usu_nome")
+                .HasColumnName("Usu_Nome")
                 .IsRequired(true)
                 .HasMaxLength(45);
 
             builder.Property(p => p.Senha)
-                .HasColumnName("usu_senha")
+                .HasColumnName("Usu_Senha")
                 .IsRequired(true)
                 .HasMaxLength(35);
 
             builder.Property(p => p.Telefone)
-                .HasColumnName("usu_telefone")
+                .HasColumnName("Usu_Telefone")
                 .HasMaxLength(12);
 
             builder.Property(p => p.Ativo)
                 .HasConversion<int>()
-                .HasColumnName("usu_ativo")
+                .HasColumnName("Usu_Ativo")
                 .HasDefaultValue(true);
 
             builder.Property(p => p.PerfilCodigo)
                 .IsRequired(true)
-                .HasColumnName("usuPrf_Perfil");
+                .HasColumnName("Usu_Perfil");
 
             #region Relacionamento
             builder.HasOne(lnq => lnq.Perfil)
@@ -62,7 +62,7 @@ namespace SHG.Data.Mapeamento
                 .OnDelete(DeleteBehavior.Restrict); 
             #endregion
 
-            builder.ToTable("usuario");
+            builder.ToTable("Usuario");
 
             return this;
         }

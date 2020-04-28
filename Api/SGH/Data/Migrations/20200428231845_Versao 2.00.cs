@@ -13,7 +13,7 @@ namespace SGH.Data.Migrations
                 insert into usuario_perfil (usuPrf_descricao, usuPrf_administrador) values ('Professores', false);
                 insert into usuario_perfil (usuPrf_descricao, usuPrf_administrador) values ('Usuario', false);
                 
-                 insert into usuario (usuario.usu_nome, usuario.usu_login, usuario.usuPrf_Perfil, usuario.usu_senha, usuario.usu_email) 
+                 insert into usuario (usuario.usu_nome, usuario.usu_login, usuario.usu_Perfil, usuario.usu_senha, usuario.usu_email) 
 	                   values ('Administrador','admin',(select usuPrf_codigo from usuario_perfil where usuPrf_descricao = 'Administrador'), '21232f297a57a5a743894a0e4a801fc3','');
             ");
         }

@@ -17,28 +17,28 @@ namespace SHG.Data.Mapeamento
             #region Properties
 
             builder.Property(lnq => lnq.Codigo)
-                .HasColumnName("curdis_codigo");
+                .HasColumnName("Curdis_Codigo");
 
             builder.Property(lnq => lnq.CodigoDisciplina)
-                .HasColumnName("curdis_disciplina")
+                .HasColumnName("Curdis_Disciplina")
                 .IsRequired(false);
 
             builder.Property(lnq => lnq.Periodo)
               .IsRequired()
-              .HasColumnName("curdis_periodo");
+              .HasColumnName("Curdis_Periodo");
 
             builder.Property(lnq => lnq.CodigoCurriculo)
-                .HasColumnName("curdis_curriculo");
+                .HasColumnName("Curdis_Curriculo");
 
             builder.Property(lnq => lnq.AulasSemanaisPratica)
-                .HasColumnName("curdis_quantidade_aulas_semanal_pratica");
+                .HasColumnName("Curdis_Quantidade_Aulas_Semanal_Pratica");
 
             builder.Property(lnq => lnq.AulasSemanaisTeorica)
-                .HasColumnName("curdis_quantidade_aulas_semanais_teorica");
+                .HasColumnName("Curdis_Quantidade_Aulas_Semanais_Teorica");
 
             #endregion
 
-            builder.ToTable("curriculo_disciplina");
+            builder.ToTable("Curriculo_Disciplina");
 
             #region relacionamentos
 

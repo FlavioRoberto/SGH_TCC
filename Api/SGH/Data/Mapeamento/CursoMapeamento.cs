@@ -16,14 +16,14 @@ namespace SHG.Data.Mapeamento
             builder.HasKey(lnq => lnq.Codigo);
 
             builder.Property(lnq => lnq.Codigo)
-                .HasColumnName("curso_codigo")
+                .HasColumnName("Curso_Codigo")
                 .ValueGeneratedOnAdd();
 
             builder.Property(lnq => lnq.Descricao)
-                .HasColumnName("curso_descricao")
+                .HasColumnName("Curso_Descricao")
                 .IsRequired();
 
-            builder.ToTable("curso");
+            builder.ToTable("Curso");
 
 
             return this;

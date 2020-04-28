@@ -15,13 +15,12 @@ namespace SHG.Data.Mapeamento
             builder.HasKey(lnq => lnq.Codigo);
 
             builder.Property(lnq => lnq.Codigo)
-                .HasColumnName("distip_codigo");
+                .HasColumnName("Distip_Codigo");
 
             builder.Property(lnq => lnq.Descricao)
-                .HasColumnName("distip_descricao");
+                .HasColumnName("Distip_Descricao");
 
-            builder.ToTable("disciplina_tipo");
-
+            builder.ToTable("Disciplina_Tipo");
 
             #region relacionamentos
             builder.HasMany(lnq => lnq.Disciplinas)
@@ -29,6 +28,7 @@ namespace SHG.Data.Mapeamento
                 .HasForeignKey(lnq => lnq.CodigoTipo)
                 .OnDelete(DeleteBehavior.Restrict);
             #endregion
+
 
             return this;
         }

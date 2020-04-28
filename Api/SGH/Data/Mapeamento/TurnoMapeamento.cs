@@ -16,14 +16,14 @@ namespace SHG.Data.Mapeamento
             builder.HasKey(lnq => lnq.Codigo);
 
             builder.Property(lnq => lnq.Codigo)
-                .HasColumnName("turno_codigo")
+                .HasColumnName("Turno_Codigo")
                 .ValueGeneratedOnAdd();
 
             builder.Property(lnq => lnq.Descricao)
-                .HasColumnName("turno_descricao")
+                .HasColumnName("Turno_Descricao")
                 .IsRequired();
 
-            builder.ToTable("turno");
+            builder.ToTable("Turno");
 
             return this;
         }

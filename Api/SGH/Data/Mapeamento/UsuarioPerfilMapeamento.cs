@@ -16,17 +16,17 @@ namespace SHG.Data.Mapeamento
 
             builder.Property(p => p.Codigo)
                 .ValueGeneratedOnAdd()
-                .HasColumnName("usuPrf_codigo");
+                .HasColumnName("UsuPrf_Codigo");
 
             builder.Property(p => p.Descricao)
                 .IsRequired(true)
-                .HasColumnName("usuPrf_descricao")
+                .HasColumnName("UsuPrf_Descricao")
                 .HasMaxLength(45);
 
             builder.Property(p => p.Administrador)
                 .HasDefaultValue(false)
                 .HasConversion<int>()
-                .HasColumnName("usuPrf_administrador");
+                .HasColumnName("UsuPrf_Administrador");
 
             builder.ToTable("Usuario_Perfil");
             

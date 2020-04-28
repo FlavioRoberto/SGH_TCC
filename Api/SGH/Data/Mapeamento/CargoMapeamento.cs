@@ -19,19 +19,19 @@ namespace SHG.Data.Mapeamento
             #region properties
 
             builder.Property(lnq => lnq.Numero)
-            .HasColumnName("cargo_numero");
+            .HasColumnName("Cargo_Mumero");
 
             builder.Property(lnq => lnq.Edital)
-            .HasColumnName("cargo_edital");
+            .HasColumnName("Cargo_Edital");
 
             builder.Property(lnq => lnq.Ano)
-            .HasColumnName("cargo_ano");
+            .HasColumnName("Cargo_Ano");
 
             builder.Property(lnq => lnq.Semestre)
-            .HasColumnName("cargo_semestre");
+            .HasColumnName("Cargo_Semestre");
 
             builder.Property(lnq => lnq.CodigoProfessor)
-            .HasColumnName("cargo_professor");
+            .HasColumnName("Cargo_Professor");
 
             #endregion properties
 
@@ -44,6 +44,8 @@ namespace SHG.Data.Mapeamento
             .OnDelete(DeleteBehavior.Restrict);
 
             #endregion relacionamentos
+
+            builder.ToTable("Cargo");
 
             return this;
         }

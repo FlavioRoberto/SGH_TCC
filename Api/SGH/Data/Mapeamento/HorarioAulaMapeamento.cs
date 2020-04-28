@@ -16,22 +16,22 @@ namespace SGH.Data.Mapeamento
             builder.HasKey(lnq => lnq.Codigo);
 
             builder.Property(lnq => lnq.Ano)
-                   .HasColumnName("horario_ano");
+                   .HasColumnName("Horario_Ano");
 
             builder.Property(lnq => lnq.Codigo)
-                   .HasColumnName("horario_codigo");
+                   .HasColumnName("Horario_Codigo");
 
             builder.Property(lnq => lnq.CodigoCurriculo)
-                   .HasColumnName("horario_curriculo");
+                   .HasColumnName("Horario_Curriculo");
 
             builder.Property(lnq => lnq.CodigoTurno)
-                   .HasColumnName("horario_turno");
+                   .HasColumnName("Horario_Turno");
 
             builder.Property(lnq => lnq.Semestre)
-                   .HasColumnName("horario_semestre");
+                   .HasColumnName("Horario_Semestre");
 
             builder.Property(lnq => lnq.Periodo)
-                   .HasColumnName("horario_periodo");
+                   .HasColumnName("Horario_Periodo");
 
             builder.HasOne(lnq => lnq.Curriculo)
                    .WithMany(lnq => lnq.HorariosAula)
@@ -47,7 +47,7 @@ namespace SGH.Data.Mapeamento
                    .HasConstraintName("FK_Turno_Horario")
                    .OnDelete(DeleteBehavior.Restrict);            
 
-            builder.ToTable("horarios_aula");
+            builder.ToTable("Horarios_Aula");
 
             return this;
         }

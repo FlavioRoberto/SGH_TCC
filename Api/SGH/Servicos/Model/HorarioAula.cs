@@ -1,4 +1,5 @@
 ﻿using SGH.Dominio.Core.Enums;
+using System.Collections.Generic;
 
 namespace SGH.Dominio.Core.Model
 {
@@ -11,5 +12,6 @@ namespace SGH.Dominio.Core.Model
         public int CodigoCurriculo { get; set; }
         public virtual Turno Turno { get; set; }
         public virtual Curriculo Curriculo { get; set; }
+        public virtual ICollection<Aula> Aulas { get; set; }
     }
 }

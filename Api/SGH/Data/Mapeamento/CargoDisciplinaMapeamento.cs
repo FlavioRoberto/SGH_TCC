@@ -17,16 +17,16 @@ namespace SHG.Data.Mapeamento
             #region propriedades
 
             builder.Property(lnq => lnq.CodigoCargo)
-                   .HasColumnName("cardis_cargo");
+                   .HasColumnName("Cardis_Cargo");
 
             builder.Property(lnq => lnq.CodigoCurriculoDisciplina)
-                   .HasColumnName("cardis_disciplina");
+                   .HasColumnName("Cardis_Disciplina");
 
             builder.Property(lnq => lnq.CodigoTurno)
-                   .HasColumnName("cardis_turno");
+                   .HasColumnName("Cardis_Turno");
 
             builder.Property(lnq => lnq.Descricao)
-                   .HasColumnName("cardis_descricao");
+                   .HasColumnName("Cardis_Descricao");
 
             #endregion propriedades
 
@@ -52,7 +52,7 @@ namespace SHG.Data.Mapeamento
 
             #endregion relacionamentos
 
-            builder.ToTable("cargo_disciplina");
+            builder.ToTable("Cargo_Disciplina");
 
             return this;
         }

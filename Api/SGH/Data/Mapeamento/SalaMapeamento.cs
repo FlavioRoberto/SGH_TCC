@@ -17,20 +17,20 @@ namespace SGH.Data.Mapeamento
             #region Properties
 
             builder.Property(lnq => lnq.Codigo)
-                   .HasColumnName("sala_codigo");
+                   .HasColumnName("Sala_Codigo");
 
             builder.Property(lnq => lnq.CodigoBloco)
-                   .HasColumnName("sala_bloco");
+                   .HasColumnName("Sala_Bloco");
 
             builder.Property(lnq => lnq.Descricao)
-                   .HasColumnName("sala_descricao");
+                   .HasColumnName("Sala_Descricao");
 
             builder.Property(lnq => lnq.Laboratorio)
                    .HasConversion<int>()
-                   .HasColumnName("sala_laboratorio");
+                   .HasColumnName("Sala_Laboratorio");
 
             builder.Property(lnq => lnq.Numero)
-                   .HasColumnName("sala_numero");
+                   .HasColumnName("Sala_Numero");
             #endregion
 
             #region relacionamentos
@@ -39,7 +39,7 @@ namespace SGH.Data.Mapeamento
                    .HasForeignKey(lnq => lnq.CodigoBloco);
             #endregion
 
-            builder.ToTable("sala");
+            builder.ToTable("Sala");
 
             return this;
         }

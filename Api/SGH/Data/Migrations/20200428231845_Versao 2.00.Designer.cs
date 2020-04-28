@@ -9,7 +9,7 @@ using SHG.Data.Contexto;
 namespace SGH.Data.Migrations
 {
     [DbContext(typeof(MySqlContext))]
-    [Migration("20200404165759_Versao 2.00")]
+    [Migration("20200428231845_Versao 2.00")]
     partial class Versao200
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -18,18 +18,52 @@ namespace SGH.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.3-servicing-35854");
 
+            modelBuilder.Entity("SGH.Dominio.Core.Model.Aula", b =>
+                {
+                    b.Property<int>("Codigo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Aula_Codigo");
+
+                    b.Property<int>("CodigoDisciplina")
+                        .HasColumnName("Aula_Disciplina");
+
+                    b.Property<int>("CodigoHorario")
+                        .HasColumnName("Aula_Horarario");
+
+                    b.Property<int>("CodigoSala")
+                        .HasColumnName("Aula_Sala");
+
+                    b.Property<string>("DescricaoDesdobramento")
+                        .HasColumnName("Aula_Descricao_Desdobramento");
+
+                    b.Property<int>("Desdobramento")
+                        .HasColumnName("Aula_Desdobramento");
+
+                    b.Property<bool>("Laboratorio");
+
+                    b.HasKey("Codigo");
+
+                    b.HasIndex("CodigoDisciplina");
+
+                    b.HasIndex("CodigoHorario");
+
+                    b.HasIndex("CodigoSala");
+
+                    b.ToTable("Aulas");
+                });
+
             modelBuilder.Entity("SGH.Dominio.Core.Model.Bloco", b =>
                 {
                     b.Property<int>("Codigo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("bloco_codigo");
+                        .HasColumnName("Bloco_Codigo");
 
                     b.Property<string>("Descricao")
-                        .HasColumnName("bloco_descricao");
+                        .HasColumnName("Bloco_Descricao");
 
                     b.HasKey("Codigo");
 
-                    b.ToTable("bloco");
+                    b.ToTable("Bloco");
                 });
 
             modelBuilder.Entity("SGH.Dominio.Core.Model.Cargo", b =>
@@ -38,19 +72,19 @@ namespace SGH.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("Ano")
-                        .HasColumnName("cargo_ano");
+                        .HasColumnName("Cargo_Ano");
 
                     b.Property<int?>("CodigoProfessor")
-                        .HasColumnName("cargo_professor");
+                        .HasColumnName("Cargo_Professor");
 
                     b.Property<int>("Edital")
-                        .HasColumnName("cargo_edital");
+                        .HasColumnName("Cargo_Edital");
 
                     b.Property<int>("Numero")
-                        .HasColumnName("cargo_numero");
+                        .HasColumnName("Cargo_Mumero");
 
                     b.Property<int>("Semestre")
-                        .HasColumnName("cargo_semestre");
+                        .HasColumnName("Cargo_Semestre");
 
                     b.HasKey("Codigo");
 
@@ -65,16 +99,16 @@ namespace SGH.Data.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("CodigoCargo")
-                        .HasColumnName("cardis_cargo");
+                        .HasColumnName("Cardis_Cargo");
 
                     b.Property<int>("CodigoCurriculoDisciplina")
-                        .HasColumnName("cardis_disciplina");
+                        .HasColumnName("Cardis_Disciplina");
 
                     b.Property<int>("CodigoTurno")
-                        .HasColumnName("cardis_turno");
+                        .HasColumnName("Cardis_Turno");
 
                     b.Property<string>("Descricao")
-                        .HasColumnName("cardis_descricao");
+                        .HasColumnName("Cardis_Descricao");
 
                     b.HasKey("Codigo");
 
@@ -84,48 +118,48 @@ namespace SGH.Data.Migrations
 
                     b.HasIndex("CodigoTurno");
 
-                    b.ToTable("cargo_disciplina");
+                    b.ToTable("Cargo_Disciplina");
                 });
 
             modelBuilder.Entity("SGH.Dominio.Core.Model.Curriculo", b =>
                 {
                     b.Property<int>("Codigo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("curric_codigo");
+                        .HasColumnName("Curric_Codigo");
 
                     b.Property<int>("Ano")
-                        .HasColumnName("curric_ano");
+                        .HasColumnName("Curric_Ano");
 
                     b.Property<int>("CodigoCurso")
-                        .HasColumnName("curric_curso");
+                        .HasColumnName("Curric_Curso");
 
                     b.HasKey("Codigo");
 
                     b.HasIndex("CodigoCurso");
 
-                    b.ToTable("curriculo");
+                    b.ToTable("Curriculo");
                 });
 
             modelBuilder.Entity("SGH.Dominio.Core.Model.CurriculoDisciplina", b =>
                 {
                     b.Property<int>("Codigo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("curdis_codigo");
+                        .HasColumnName("Curdis_Codigo");
 
                     b.Property<int>("AulasSemanaisPratica")
-                        .HasColumnName("curdis_quantidade_aulas_semanal_pratica");
+                        .HasColumnName("Curdis_Quantidade_Aulas_Semanal_Pratica");
 
                     b.Property<int>("AulasSemanaisTeorica")
-                        .HasColumnName("curdis_quantidade_aulas_semanais_teorica");
+                        .HasColumnName("Curdis_Quantidade_Aulas_Semanais_Teorica");
 
                     b.Property<int>("CodigoCurriculo")
-                        .HasColumnName("curdis_curriculo");
+                        .HasColumnName("Curdis_Curriculo");
 
                     b.Property<int?>("CodigoDisciplina")
-                        .HasColumnName("curdis_disciplina");
+                        .HasColumnName("Curdis_Disciplina");
 
                     b.Property<int>("Periodo")
-                        .HasColumnName("curdis_periodo");
+                        .HasColumnName("Curdis_Periodo");
 
                     b.HasKey("Codigo");
 
@@ -133,212 +167,283 @@ namespace SGH.Data.Migrations
 
                     b.HasIndex("CodigoDisciplina");
 
-                    b.ToTable("curriculo_disciplina");
+                    b.ToTable("Curriculo_Disciplina");
                 });
 
             modelBuilder.Entity("SGH.Dominio.Core.Model.CurriculoDisciplinaPreRequisito", b =>
                 {
                     b.Property<int>("CodigoCurriculoDisciplina")
-                        .HasColumnName("disPre_curriculo_disciplina");
+                        .HasColumnName("DisPre_Curriculo_Disciplina");
 
                     b.Property<int>("CodigoDisciplina")
-                        .HasColumnName("disPre_disciplina");
+                        .HasColumnName("DisPre_Disciplina");
 
                     b.HasKey("CodigoCurriculoDisciplina", "CodigoDisciplina");
 
                     b.HasIndex("CodigoDisciplina");
 
-                    b.ToTable("curriculo_disciplina_pre_requisito");
+                    b.ToTable("Curriculo_Disciplina_Pre_Requisito");
                 });
 
             modelBuilder.Entity("SGH.Dominio.Core.Model.Curso", b =>
                 {
                     b.Property<int>("Codigo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("curso_codigo");
+                        .HasColumnName("Curso_Codigo");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
-                        .HasColumnName("curso_descricao");
+                        .HasColumnName("Curso_Descricao");
 
                     b.HasKey("Codigo");
 
-                    b.ToTable("curso");
+                    b.ToTable("Curso");
                 });
 
             modelBuilder.Entity("SGH.Dominio.Core.Model.Disciplina", b =>
                 {
                     b.Property<int>("Codigo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("dis_codigo");
+                        .HasColumnName("Dis_Codigo");
 
                     b.Property<int>("CodigoTipo")
-                        .HasColumnName("dis_tipo");
+                        .HasColumnName("Dis_Tipo");
 
                     b.Property<string>("Descricao")
-                        .HasColumnName("dis_descricao");
+                        .HasColumnName("Dis_Descricao");
 
                     b.HasKey("Codigo");
 
                     b.HasIndex("CodigoTipo");
 
-                    b.ToTable("disciplina");
+                    b.ToTable("Disciplina");
                 });
 
             modelBuilder.Entity("SGH.Dominio.Core.Model.DisciplinaTipo", b =>
                 {
                     b.Property<int>("Codigo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("distip_codigo");
+                        .HasColumnName("Distip_Codigo");
 
                     b.Property<string>("Descricao")
-                        .HasColumnName("distip_descricao");
+                        .HasColumnName("Distip_Descricao");
 
                     b.HasKey("Codigo");
 
-                    b.ToTable("disciplina_tipo");
+                    b.ToTable("Disciplina_Tipo");
+                });
+
+            modelBuilder.Entity("SGH.Dominio.Core.Model.HorarioAula", b =>
+                {
+                    b.Property<int>("Codigo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("Horario_Codigo");
+
+                    b.Property<int>("Ano")
+                        .HasColumnName("Horario_Ano");
+
+                    b.Property<int>("CodigoCurriculo")
+                        .HasColumnName("Horario_Curriculo");
+
+                    b.Property<int>("CodigoTurno")
+                        .HasColumnName("Horario_Turno");
+
+                    b.Property<int>("Periodo")
+                        .HasColumnName("Horario_Periodo");
+
+                    b.Property<int>("Semestre")
+                        .HasColumnName("Horario_Semestre");
+
+                    b.HasKey("Codigo");
+
+                    b.HasIndex("CodigoCurriculo");
+
+                    b.HasIndex("CodigoTurno");
+
+                    b.ToTable("Horarios_Aula");
                 });
 
             modelBuilder.Entity("SGH.Dominio.Core.Model.Professor", b =>
                 {
                     b.Property<int>("Codigo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("prof_codigo");
+                        .HasColumnName("Prof_Codigo");
 
                     b.Property<int>("Ativo")
-                        .HasColumnName("prof_ativo")
+                        .HasColumnName("Prof_Ativo")
                         .HasMaxLength(10);
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnName("prof_email")
+                        .HasColumnName("Prof_Email")
                         .HasMaxLength(50);
 
                     b.Property<string>("Matricula")
-                        .HasColumnName("prof_matricula")
+                        .HasColumnName("Prof_Matricula")
                         .HasMaxLength(10);
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnName("prof_nome")
+                        .HasColumnName("Prof_Nome")
                         .HasMaxLength(45);
 
                     b.Property<string>("Telefone")
-                        .HasColumnName("prof_telefone")
+                        .HasColumnName("Prof_Telefone")
                         .HasMaxLength(12);
 
                     b.HasKey("Codigo");
 
-                    b.ToTable("professor");
+                    b.ToTable("Professor");
                 });
 
             modelBuilder.Entity("SGH.Dominio.Core.Model.Sala", b =>
                 {
                     b.Property<int>("Codigo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("sala_codigo");
+                        .HasColumnName("Sala_Codigo");
 
                     b.Property<int>("CodigoBloco")
-                        .HasColumnName("sala_bloco");
+                        .HasColumnName("Sala_Bloco");
 
                     b.Property<string>("Descricao")
-                        .HasColumnName("sala_descricao");
+                        .HasColumnName("Sala_Descricao");
 
                     b.Property<int>("Laboratorio")
-                        .HasColumnName("sala_laboratorio");
+                        .HasColumnName("Sala_Laboratorio");
 
                     b.Property<int>("Numero")
-                        .HasColumnName("sala_numero");
+                        .HasColumnName("Sala_Numero");
 
                     b.HasKey("Codigo");
 
                     b.HasIndex("CodigoBloco");
 
-                    b.ToTable("sala");
+                    b.ToTable("Sala");
                 });
 
             modelBuilder.Entity("SGH.Dominio.Core.Model.Turno", b =>
                 {
                     b.Property<int>("Codigo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("turno_codigo");
+                        .HasColumnName("Turno_Codigo");
 
                     b.Property<string>("Descricao")
                         .IsRequired()
-                        .HasColumnName("turno_descricao");
+                        .HasColumnName("Turno_Descricao");
 
                     b.HasKey("Codigo");
 
-                    b.ToTable("turno");
+                    b.ToTable("Turno");
                 });
 
             modelBuilder.Entity("SGH.Dominio.Core.Model.Usuario", b =>
                 {
                     b.Property<int>("Codigo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("usu_codigo");
+                        .HasColumnName("Usu_Codigo");
 
                     b.Property<int>("Ativo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("usu_ativo")
+                        .HasColumnName("Usu_Ativo")
                         .HasDefaultValue(1);
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnName("usu_email")
+                        .HasColumnName("Usu_Email")
                         .HasMaxLength(50);
 
                     b.Property<string>("Foto")
-                        .HasColumnName("usu_foto");
+                        .HasColumnName("Usu_Foto");
 
                     b.Property<string>("Login")
                         .IsRequired()
-                        .HasColumnName("usu_login")
+                        .HasColumnName("Usu_Login")
                         .HasMaxLength(30);
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnName("usu_nome")
+                        .HasColumnName("Usu_Nome")
                         .HasMaxLength(45);
 
                     b.Property<int>("PerfilCodigo")
-                        .HasColumnName("usuPrf_Perfil");
+                        .HasColumnName("Usu_Perfil");
 
                     b.Property<string>("Senha")
                         .IsRequired()
-                        .HasColumnName("usu_senha")
+                        .HasColumnName("Usu_Senha")
                         .HasMaxLength(35);
 
                     b.Property<string>("Telefone")
-                        .HasColumnName("usu_telefone")
+                        .HasColumnName("Usu_Telefone")
                         .HasMaxLength(12);
 
                     b.HasKey("Codigo");
 
                     b.HasIndex("PerfilCodigo");
 
-                    b.ToTable("usuario");
+                    b.ToTable("Usuario");
                 });
 
             modelBuilder.Entity("SGH.Dominio.Core.Model.UsuarioPerfil", b =>
                 {
                     b.Property<int>("Codigo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("usuPrf_codigo");
+                        .HasColumnName("UsuPrf_Codigo");
 
                     b.Property<int>("Administrador")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("usuPrf_administrador")
+                        .HasColumnName("UsuPrf_Administrador")
                         .HasDefaultValue(0);
 
                     b.Property<string>("Descricao")
                         .IsRequired()
-                        .HasColumnName("usuPrf_descricao")
+                        .HasColumnName("UsuPrf_Descricao")
                         .HasMaxLength(45);
 
                     b.HasKey("Codigo");
 
                     b.ToTable("Usuario_Perfil");
+                });
+
+            modelBuilder.Entity("SGH.Dominio.Core.Model.Aula", b =>
+                {
+                    b.HasOne("SGH.Dominio.Core.Model.CargoDisciplina", "Disciplina")
+                        .WithMany("Aulas")
+                        .HasForeignKey("CodigoDisciplina")
+                        .HasConstraintName("FK_Cargo_Disciplina_Aula")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SGH.Dominio.Core.Model.HorarioAula", "Horario")
+                        .WithMany("Aulas")
+                        .HasForeignKey("CodigoHorario")
+                        .HasConstraintName("FK_Horario_Aula")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("SGH.Dominio.Core.Model.Sala", "Sala")
+                        .WithMany("Aulas")
+                        .HasForeignKey("CodigoSala")
+                        .HasConstraintName("FK_Sala_Aula")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.OwnsOne("SGH.Dominio.Core.ObjetosValor.Reserva", "Reserva", b1 =>
+                        {
+                            b1.Property<int>("AulaCodigo");
+
+                            b1.Property<string>("DiaSemana")
+                                .HasColumnName("Aula_Dia_Semana");
+
+                            b1.Property<string>("Hora")
+                                .HasColumnName("Aula_Hora");
+
+                            b1.HasKey("AulaCodigo");
+
+                            b1.ToTable("Aulas");
+
+                            b1.HasOne("SGH.Dominio.Core.Model.Aula")
+                                .WithOne("Reserva")
+                                .HasForeignKey("SGH.Dominio.Core.ObjetosValor.Reserva", "AulaCodigo")
+                                .OnDelete(DeleteBehavior.Cascade);
+                        });
                 });
 
             modelBuilder.Entity("SGH.Dominio.Core.Model.Cargo", b =>
@@ -414,6 +519,21 @@ namespace SGH.Data.Migrations
                     b.HasOne("SGH.Dominio.Core.Model.DisciplinaTipo", "DisciplinaTipo")
                         .WithMany("Disciplinas")
                         .HasForeignKey("CodigoTipo")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("SGH.Dominio.Core.Model.HorarioAula", b =>
+                {
+                    b.HasOne("SGH.Dominio.Core.Model.Curriculo", "Curriculo")
+                        .WithMany("HorariosAula")
+                        .HasForeignKey("CodigoCurriculo")
+                        .HasConstraintName("FK_Curriculo_Horario")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("SGH.Dominio.Core.Model.Turno", "Turno")
+                        .WithMany("HorariosAula")
+                        .HasForeignKey("CodigoTurno")
+                        .HasConstraintName("FK_Turno_Horario")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

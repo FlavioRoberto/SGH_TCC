@@ -1,4 +1,7 @@
-﻿namespace SGH.Dominio.Core.Model
+﻿using System.Collections;
+using System.Collections.Generic;
+
+namespace SGH.Dominio.Core.Model
 {
     public class Sala : EntidadeBase
     {
@@ -11,5 +14,6 @@
         public int CodigoBloco { get; set; }
 
         public virtual Bloco Bloco { get; set; }
+        public virtual ICollection<Aula> Aulas { get; set; }
     }
 }

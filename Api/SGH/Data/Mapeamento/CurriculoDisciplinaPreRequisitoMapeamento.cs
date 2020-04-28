@@ -16,14 +16,14 @@ namespace SHG.Data.Mapeamento
             #region properties
 
             builder.Property(lnq => lnq.CodigoCurriculoDisciplina)
-                .HasColumnName("disPre_curriculo_disciplina");
+                .HasColumnName("DisPre_Curriculo_Disciplina");
 
             builder.Property(lnq => lnq.CodigoDisciplina)
-                .HasColumnName("disPre_disciplina");
+                .HasColumnName("DisPre_Disciplina");
 
             #endregion
 
-            builder.ToTable("curriculo_disciplina_pre_requisito");
+            builder.ToTable("Curriculo_Disciplina_Pre_Requisito");
 
             #region relacionamentos
 
