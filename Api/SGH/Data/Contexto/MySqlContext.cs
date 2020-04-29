@@ -51,6 +51,7 @@ namespace SHG.Data.Contexto
         public DbSet<Bloco> Bloco { get; set; }
         public DbSet<Sala> Sala { get; set; }
         public DbSet<HorarioAula> HorarioAula { get; set; }
+        public DbSet<Aula> Aula { get; set; }
 
         public async Task IniciarTransacao()
         {
