@@ -4,6 +4,7 @@ using SGH.Dominio.Services.AutoMapper;
 using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Services.Email;
 using SGH.Dominio.Services.Implementacao;
+using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.AtualizarSenha;
 using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login;
 using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.RedefinirSenha;
@@ -89,6 +90,7 @@ namespace SGH.Dominio.Services.Extensions
             services.AddScoped<IValidador<RemoverHorarioComando>, RemoverHorarioComandoValidador>();
             services.AddScoped<IValidador<AtualizarHorarioAulaComando>, AtualizarHorarioAulaComandoValidador>();
             services.AddScoped<IValidador<ListarDisciplinaCargoPorCurriculoConsulta>, ListarDisciplinasCargoPorCurriculoConsultaValidador>();
+            services.AddScoped<IValidador<CriarAulaComando>, CriarAulaComandoValidador>();
 
             #region AutoMapper
             services.AddAutoMapperConfig();

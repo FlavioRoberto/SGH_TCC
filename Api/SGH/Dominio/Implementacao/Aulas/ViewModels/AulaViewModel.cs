@@ -18,4 +18,4 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.ViewModels
         public virtual Sala Sala { get; set; }
     }
 }
-}
+
