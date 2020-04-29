@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.Contratos;
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,14 +13,23 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
         private readonly ISalaRepositorio _salaRepositorio;
         private readonly IHorarioAulaRepositorio _horarioRepositorio;
         private readonly IDisciplinaRepositorio _disciplinaRepositorio;
+        private readonly IAulaRepositorio _aulaRepositorio;
+        private readonly ICargoDisciplinaRepositorio _cargoDisciplinaRepositorio;
+        private readonly ICargoRepositorio _cargoRepositorio;
 
         public CriarAulaComandoValidador(ISalaRepositorio salaRepositorio, 
                                          IHorarioAulaRepositorio horarioAulaRepositorio,
-                                         IDisciplinaRepositorio disciplinaRepositorio)
+                                         IDisciplinaRepositorio disciplinaRepositorio,
+                                         IAulaRepositorio aulaRepositorio,
+                                         ICargoRepositorio cargoRepositorio,
+                                         ICargoDisciplinaRepositorio cargoDisciplinaRepositorio)
         {
             _horarioRepositorio = horarioAulaRepositorio;
             _salaRepositorio = salaRepositorio;
             _disciplinaRepositorio = disciplinaRepositorio;
+            _aulaRepositorio = aulaRepositorio;
+            _cargoRepositorio = cargoRepositorio;
+            _cargoDisciplinaRepositorio = cargoDisciplinaRepositorio;
 
             ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
 
@@ -62,6 +73,71 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
                 
                 .MustAsync(ValidarSeDisciplinaExiste)
                 .WithMessage(c => $"Não foi encontrada uma disciplina de cargo com o código {c.CodigoDisciplina}.");
+
+            RuleFor(lnq => lnq)
+                .MustAsync(ValidarSeHorarioDisponivel)
+                .WithMessage("Não foi possível criar a aula nesse horário, pois já tem uma aula reservada para esse dia e horário.")
+                
+                .MustAsync(ValidarSeCargoDisponivel)
+                .WithMessage("Não foi possível criar a aula, pois o cargo selecionado já está reservado para esse dia e horário.")
+                
+                .MustAsync(ValidarSeProfessorDisponivel)
+                .WithMessage("Não foi possível criar a aula, pois o professor selecionado já está reservado para esse dia e horário.")
+                
+                .MustAsync(ValidarSeSalaDisponivel)
+                .WithMessage("Não foi possível criar a aula, pois a sala selecionada já está reservada para esse dia e horário");
+        }
+
+        private async Task<bool> ValidarSeSalaDisponivel(CriarAulaComando comando, CancellationToken arg2)
+        {
+            var aulaReservada = await _aulaRepositorio.Contem(lnq => lnq.CodigoSala == comando.CodigoSala &&
+                                                                     lnq.Reserva.Hora == comando.Reserva.Hora &&
+                                                                     lnq.Reserva.DiaSemana == comando.Reserva.DiaSemana);
+            if (aulaReservada)
+                return false;
+
+            return true;
+        }
+
+        private async Task<bool> ValidarSeProfessorDisponivel(CriarAulaComando comando, CancellationToken arg2)
+        {
+            var cargoDisciplina = await _cargoDisciplinaRepositorio.Consultar(lnq => lnq.Codigo == comando.CodigoDisciplina);
+
+            var cargo = await _cargoRepositorio.Consultar(lnq => lnq.Codigo == cargoDisciplina.CodigoCargo);
+
+            if (!cargo.CodigoProfessor.HasValue)
+                return true;
+
+            var aulaReservada = await _aulaRepositorio.VerificarDisponibilidadeProfessor(cargo.CodigoProfessor.Value, comando.Reserva.DiaSemana, comando.Reserva.Hora);
+
+            if (aulaReservada)
+                return false;
+
+            return true;
+        }
+
+        private async Task<bool> ValidarSeCargoDisponivel(CriarAulaComando comando, CancellationToken arg2)
+        {
+            var cargoDisciplina = await _cargoDisciplinaRepositorio.Consultar(lnq => lnq.Codigo == comando.CodigoDisciplina);
+
+            var aulaReservada = await _aulaRepositorio.VerificarDisponibilidadeCargo(cargoDisciplina.CodigoCargo, comando.Reserva.DiaSemana, comando.Reserva.Hora);
+
+            if (aulaReservada)
+                return false;
+
+            return true;
+        }
+
+        private async Task<bool> ValidarSeHorarioDisponivel(CriarAulaComando comando, CancellationToken arg2)
+        {
+            var aulaReservada = await _aulaRepositorio.Contem(lnq => lnq.CodigoHorario == comando.CodigoHorario &&
+                                                                     lnq.Reserva.DiaSemana == comando.Reserva.DiaSemana && 
+                                                                     lnq.Reserva.Hora == comando.Reserva.Hora);
+
+            if (aulaReservada)
+                return false;
+
+            return true;
         }
 
         private async Task<bool> ValidarSeSalaExiste(int codigoSala, CancellationToken arg2)

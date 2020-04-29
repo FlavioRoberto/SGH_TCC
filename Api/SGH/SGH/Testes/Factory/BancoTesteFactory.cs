@@ -17,6 +17,7 @@ namespace SGH.Api.Testes.Factory
         private readonly IBancoTeste<Bloco> _blocoTeste;
         private readonly IBancoTeste<Sala> _salaTeste;
         private readonly IBancoTeste<HorarioAula> _horarioAulaTeste;
+        private readonly IBancoTeste<Aula> _aulaTeste;
 
         public BancoTesteFactory(IBancoTeste<UsuarioPerfil> usuarioPerfil,
                                  IBancoTeste<Usuario> usuario,
@@ -29,7 +30,8 @@ namespace SGH.Api.Testes.Factory
                                  IBancoTeste<Turno> turnoTeste,
                                  IBancoTeste<Bloco> blocoTeste,
                                  IBancoTeste<Sala> salaTeste,
-                                 IBancoTeste<HorarioAula> horarioAulaTeste)
+                                 IBancoTeste<HorarioAula> horarioAulaTeste,
+                                 IBancoTeste<Aula> aulaTeste)
         {
             _usuarioPerfil = usuarioPerfil;
             _usuario = usuario;
@@ -43,6 +45,7 @@ namespace SGH.Api.Testes.Factory
             _blocoTeste = blocoTeste;
             _salaTeste = salaTeste;
             _horarioAulaTeste = horarioAulaTeste;
+            _aulaTeste = aulaTeste;
         }
                
         public void InicializarBanco()
@@ -59,6 +62,7 @@ namespace SGH.Api.Testes.Factory
             _blocoTeste.InicializarBanco();
             _salaTeste.InicializarBanco();
             _horarioAulaTeste.InicializarBanco();
+            _aulaTeste.InicializarBanco();
         }
     }
 }

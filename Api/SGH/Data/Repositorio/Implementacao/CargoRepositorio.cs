@@ -71,5 +71,10 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             return await _repositorio.Atualizar(entidade);
         }
+
+        public async Task<Cargo> Consultar(Expression<Func<Cargo, bool>> expressao)
+        {
+            return await _repositorio.Consultar(expressao);
+        }
     }
 }

@@ -22,6 +22,7 @@ namespace SGH.Dominio.Services.AutoMapper
                 config.AddProfile<BlocoProfile>();
                 config.AddProfile<SalaProfile>();
                 config.AddProfile<HorarioAulaProfile>();
+                config.AddProfile<AulaProfile>();
             });
 
             IMapper mapper = autoMapperConfig.CreateMapper();
