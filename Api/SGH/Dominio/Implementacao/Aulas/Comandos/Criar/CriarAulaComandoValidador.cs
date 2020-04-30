@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Services.Implementacao.Salas.Comandos.Criar;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -55,37 +55,50 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
 
             RuleFor(lnq => lnq.CodigoSala)
                 .NotEmpty()
-                .WithMessage("O código da sala não pode ser vazio.")
-
-                .MustAsync(ValidarSeSalaExiste)
-                .WithMessage(c => $"Não foi encontrada uma sala com o código {c.CodigoSala}.");
+                .WithMessage("O código da sala não pode ser vazio.");
 
             RuleFor(lnq => lnq.CodigoHorario)
                 .NotEmpty()
-                .WithMessage("O código do horário não pode ser vazio.")
-                
-                .MustAsync(ValidarSeHorarioExiste)
-                .WithMessage(c => $"Não foi encontrado um horário com o código {c.CodigoHorario}");
+                .WithMessage("O código do horário não pode ser vazio.");     
 
             RuleFor(lnq => lnq.CodigoDisciplina)
                 .NotEmpty()
-                .WithMessage("O código da disciplina não pode ser vazio.")
-                
-                .MustAsync(ValidarSeDisciplinaExiste)
-                .WithMessage(c => $"Não foi encontrada uma disciplina de cargo com o código {c.CodigoDisciplina}.");
+                .WithMessage("O código da disciplina não pode ser vazio.");
 
-            RuleFor(lnq => lnq)
-                .MustAsync(ValidarSeHorarioDisponivel)
-                .WithMessage("Não foi possível criar a aula nesse horário, pois já tem uma aula reservada para esse dia e horário.")
-                
-                .MustAsync(ValidarSeCargoDisponivel)
-                .WithMessage("Não foi possível criar a aula, pois o cargo selecionado já está reservado para esse dia e horário.")
-                
-                .MustAsync(ValidarSeProfessorDisponivel)
-                .WithMessage("Não foi possível criar a aula, pois o professor selecionado já está reservado para esse dia e horário.")
-                
-                .MustAsync(ValidarSeSalaDisponivel)
-                .WithMessage("Não foi possível criar a aula, pois a sala selecionada já está reservada para esse dia e horário");
+            When(ValidarSeCamposComandoForamInformados, () =>
+            {
+                RuleFor(lnq => lnq)
+                   .MustAsync(ValidarSeSalaExiste)
+                   .WithMessage(c => $"Não foi encontrada uma sala com o código {c.CodigoSala}.")
+
+                   .MustAsync(ValidarSeHorarioExiste)
+                   .WithMessage(c => $"Não foi encontrado um horário com o código {c.CodigoHorario}")
+
+                   .MustAsync(ValidarSeDisciplinaExiste)
+                   .WithMessage(c => $"Não foi encontrada uma disciplina de cargo com o código {c.CodigoDisciplina}.")
+
+                   .MustAsync(ValidarSeHorarioDisponivel)
+                   .WithMessage("Não foi possível criar a aula nesse horário, pois já tem uma aula reservada para esse dia e horário.")
+
+                   .MustAsync(ValidarSeCargoDisponivel)
+                   .WithMessage("Não foi possível criar a aula, pois o cargo selecionado já está reservado para esse dia e horário.")
+
+                   .MustAsync(ValidarSeProfessorDisponivel)
+                   .WithMessage("Não foi possível criar a aula, pois o professor selecionado já está reservado para esse dia e horário.")
+
+                   .MustAsync(ValidarSeSalaDisponivel)
+                   .WithMessage("Não foi possível criar a aula, pois a sala selecionada já está reservada para esse dia e horário");
+            });
+        }
+
+        private bool ValidarSeCamposComandoForamInformados(CriarAulaComando comando)
+        {
+            return comando.Reserva != null &&
+                  !string.IsNullOrEmpty(comando.Reserva.DiaSemana) &&
+                  !string.IsNullOrEmpty(comando.Reserva.Hora) &&
+                  comando.CodigoSala > 0 &&
+                  comando.CodigoDisciplina > 0 &&
+                  comando.CodigoSala > 0;
         }
 
         private async Task<bool> ValidarSeSalaDisponivel(CriarAulaComando comando, CancellationToken arg2)
@@ -140,19 +153,19 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
             return true;
         }
 
-        private async Task<bool> ValidarSeSalaExiste(int codigoSala, CancellationToken arg2)
+        private async Task<bool> ValidarSeSalaExiste(CriarAulaComando comando, CancellationToken arg2)
         {
-            return await _salaRepositorio.Contem(lnq => lnq.Codigo == codigoSala);
+            return await _salaRepositorio.Contem(lnq => lnq.Codigo == comando.CodigoSala);
         }
 
-        private async Task<bool> ValidarSeHorarioExiste(int codigoHorario, CancellationToken arg2)
+        private async Task<bool> ValidarSeHorarioExiste(CriarAulaComando comando, CancellationToken arg2)
         {
-            return await _horarioRepositorio.Contem(lnq => lnq.Codigo == codigoHorario);
+            return await _horarioRepositorio.Contem(lnq => lnq.Codigo == comando.CodigoHorario);
         }
 
-        private async Task<bool> ValidarSeDisciplinaExiste(int codigoDisciplina, CancellationToken arg2)
+        private async Task<bool> ValidarSeDisciplinaExiste(CriarAulaComando comando, CancellationToken arg2)
         {
-            return await _disciplinaRepositorio.Contem(lnq => lnq.Codigo == codigoDisciplina);
+            return await _disciplinaRepositorio.Contem(lnq => lnq.Codigo == comando.CodigoDisciplina);
         }
     }
 }
