@@ -1,8 +1,6 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Services.Contratos;
-using SGH.Dominio.Services.Implementacao.Salas.Comandos.Criar;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,21 +10,18 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
     {
         private readonly ISalaRepositorio _salaRepositorio;
         private readonly IHorarioAulaRepositorio _horarioRepositorio;
-        private readonly IDisciplinaRepositorio _disciplinaRepositorio;
         private readonly IAulaRepositorio _aulaRepositorio;
         private readonly ICargoDisciplinaRepositorio _cargoDisciplinaRepositorio;
         private readonly ICargoRepositorio _cargoRepositorio;
 
         public CriarAulaComandoValidador(ISalaRepositorio salaRepositorio, 
                                          IHorarioAulaRepositorio horarioAulaRepositorio,
-                                         IDisciplinaRepositorio disciplinaRepositorio,
                                          IAulaRepositorio aulaRepositorio,
                                          ICargoRepositorio cargoRepositorio,
                                          ICargoDisciplinaRepositorio cargoDisciplinaRepositorio)
         {
             _horarioRepositorio = horarioAulaRepositorio;
             _salaRepositorio = salaRepositorio;
-            _disciplinaRepositorio = disciplinaRepositorio;
             _aulaRepositorio = aulaRepositorio;
             _cargoRepositorio = cargoRepositorio;
             _cargoDisciplinaRepositorio = cargoDisciplinaRepositorio;
@@ -87,7 +82,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
                    .WithMessage("Não foi possível criar a aula, pois o professor selecionado já está reservado para esse dia e horário.")
 
                    .MustAsync(ValidarSeSalaDisponivel)
-                   .WithMessage("Não foi possível criar a aula, pois a sala selecionada já está reservada para esse dia e horário");
+                   .WithMessage("Não foi possível criar a aula, pois a sala selecionada já está reservada para esse dia e horário.");
             });
         }
 
@@ -165,7 +160,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
 
         private async Task<bool> ValidarSeDisciplinaExiste(CriarAulaComando comando, CancellationToken arg2)
         {
-            return await _disciplinaRepositorio.Contem(lnq => lnq.Codigo == comando.CodigoDisciplina);
+            return await _cargoDisciplinaRepositorio.Contem(lnq => lnq.Codigo == comando.CodigoDisciplina);
         }
     }
 }

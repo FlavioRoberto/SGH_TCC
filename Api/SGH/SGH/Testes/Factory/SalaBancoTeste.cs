@@ -38,6 +38,20 @@ namespace SGH.Api.Testes.Factory
                     Descricao = "Sala remover",
                     Laboratorio = true,
                     Numero = 1
+                },
+                new Sala //4
+                {
+                    CodigoBloco = 3,
+                    Descricao = "Sala Teste distribuição horários",
+                    Laboratorio = true,
+                    Numero = 1
+                },
+                new Sala //5
+                {
+                    CodigoBloco = 2,
+                    Descricao = "Sala Teste distribuição horários",
+                    Laboratorio = true,
+                    Numero = 3
                 }
             };
 

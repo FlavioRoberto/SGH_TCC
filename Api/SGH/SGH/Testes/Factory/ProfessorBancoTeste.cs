@@ -26,13 +26,20 @@ namespace SGH.Api.Testes.Factory
                     Nome = "Professor 1",
                     Telefone = "37991456665"
                 },
-                 new Professor
+                new Professor
                 {
                     Ativo = true,
                     Email = "professor2@gmail.com",
                     Matricula = "1829675",
                     Nome = "Professor 2",
                     Telefone = "37991456668"
+                },
+                new Professor
+                {
+                    Ativo = true,
+                    Email="teste@teste.com",
+                    Nome="Professor teste cargo",
+                    Telefone="379885554"
                 }
             };
 

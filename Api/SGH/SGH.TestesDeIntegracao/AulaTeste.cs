@@ -66,29 +66,6 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Aula")]
-        [Fact(DisplayName = "Cadastro - Deve retornar mensagem horário reservado")]
-        public async Task Aula_RealizarCadastro_DeveRetornarMensagemHorarioReservado()
-        {
-            var comando = new CriarAulaComando
-            {
-                Reserva = new Reserva("Quarta", "08:00"),
-                Desdobramento = false,
-                CodigoDisciplina = 1,
-                CodigoHorario = 1,
-                CodigoSala = 1,
-                Laboratorio = false
-            };
-
-            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("criar"), comando);
-
-            var mensagemEsperada = new List<string> {
-                "Não foi possível criar a aula nesse horário, pois já tem uma aula reservada para esse dia e horário."
-            };
-
-            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
-        }
-
-        [Trait("Integração", "Aula")]
         [Fact(DisplayName = "Cadastro - Deve retornar mensagem sala não encontrada")]
         public async Task Aula_RealizarCadastro_DeveRetornarMensagemSalaNaoEncontrada()
         {
@@ -158,7 +135,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Aula")]
-        [Theory(DisplayName = "Cadastro - Deve retornar mensagem horário não disponível")]
+        [Theory(DisplayName = "Cadastro - Deve retornar mensagem horário não disponível para esse dia e horario")]
         [InlineData(1,1)]
         [InlineData(2,2)]
         public async Task Aula_RealizarCadastro_DeveRetornarMensagemHorarioNaoDisponivel(int codigoSala, int codigoDisciplina)
@@ -177,6 +154,81 @@ namespace SGH.TestesDeIntegracao
 
             var mensagemEsperada = new List<string> {
                 "Não foi possível criar a aula nesse horário, pois já tem uma aula reservada para esse dia e horário."
+            };
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
+        }
+
+        [Trait("Integração", "Aula")]
+        [Theory(DisplayName = "Cadastro - Deve retornar mensagem horário não disponível para essa sala")]
+        [InlineData(1, 2, 2)]
+        public async Task Aula_RealizarCadastro_DeveRetornarMensagemHorarioNaoDisponivelParaEssaSala(int codigoSala, int codigoDisciplina, int codigoHorario)
+        {
+            var comando = new CriarAulaComando
+            {
+                Reserva = new Reserva("Quarta", "08:00"),
+                Desdobramento = false,
+                CodigoDisciplina = codigoDisciplina,
+                CodigoHorario = codigoHorario,
+                CodigoSala = codigoSala,
+                Laboratorio = false
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("criar"), comando);
+
+            var mensagemEsperada = new List<string> {
+                "Não foi possível criar a aula, pois a sala selecionada já está reservada para esse dia e horário."
+            };
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
+        }
+
+        [Trait("Integração", "Aula")]
+        [Theory(DisplayName = "Cadastro - Deve retornar mensagem horário não disponível para o cargo selecionado")]
+        [InlineData(2, 3, 4)]
+        [InlineData(1, 3, 4)]
+        [InlineData(1, 2, 5)]
+        [InlineData(2, 2, 5)]
+        public async Task Aula_RealizarCadastro_DeveRetornarMensagemCargoNaoDisponivel(int codigoSala, int codigoDisciplina, int codigoHorario)
+        {
+            var comando = new CriarAulaComando
+            {
+                Reserva = new Reserva("Quarta", "09:00"),
+                Desdobramento = false,
+                CodigoDisciplina = codigoDisciplina,
+                CodigoHorario = codigoHorario,
+                CodigoSala = codigoSala,
+                Laboratorio = false
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("criar"), comando);
+
+            var mensagemEsperada = new List<string> {
+                "Não foi possível criar a aula, pois o cargo selecionado já está reservado para esse dia e horário."
+            };
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
+        }
+
+        [Trait("Integração", "Aula")]
+        [Theory(DisplayName = "Cadastro - Deve retornar mensagem horário não disponível para professor selecionado")]
+        [InlineData(4, 14, 7)]
+        public async Task Aula_RealizarCadastro_DeveRetornarMensagemProfessorDisponivel(int codigoSala, int codigoDisciplina, int codigoHorario)
+        {
+            var comando = new CriarAulaComando
+            {
+                Reserva = new Reserva("Sexta", "11:00"),
+                Desdobramento = false,
+                CodigoDisciplina = codigoDisciplina,
+                CodigoHorario = codigoHorario,
+                CodigoSala = codigoSala,
+                Laboratorio = false
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("criar"), comando);
+
+            var mensagemEsperada = new List<string> {
+                "Não foi possível criar a aula, pois o professor selecionado já está reservado para esse dia e horário."
             };
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
