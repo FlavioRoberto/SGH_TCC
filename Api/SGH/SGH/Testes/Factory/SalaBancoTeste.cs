@@ -48,7 +48,7 @@ namespace SGH.Api.Testes.Factory
                 },
                 new Sala //5
                 {
-                    CodigoBloco = 2,
+                    CodigoBloco = 4,
                     Descricao = "Sala Teste distribuição horários",
                     Laboratorio = true,
                     Numero = 3

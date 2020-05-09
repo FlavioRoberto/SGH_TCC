@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -10,8 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.AspNetCore.Http;
 using FluentValidation.AspNetCore;
 using MediatR;
@@ -19,8 +16,6 @@ using System;
 using SHG.Data.Contexto;
 using SGH.Data.Extensios;
 using SGH.Dominio.Services.Extensions;
-using SGH.Dominio.Shared.Extensions;
-using SGH.Data.Store;
 
 namespace SGH.APi
 {
