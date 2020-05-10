@@ -35,17 +35,10 @@ namespace SGH.APi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connectionString = _configuration["MySqlConnections:ConexaoLocal"];
-            
-            services.AddDbContext<MySqlContext>(options =>
-            {
-                options.UseMySQL(connectionString);
-            });
-
             services.AddApiVersioning();
+            services.AddPersistencia(_configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddPersistencia();
             services.AddDominio(_configuration.GetSection("ConfiguracoesEmail"));
 
             services.AddCors(o =>
@@ -64,35 +57,6 @@ namespace SGH.APi
             });
 
             services.AddAutenticacao();
-
-            //var key = Encoding.ASCII.GetBytes(Configuracoes.Secret);
-            //services.AddAuthentication(x =>
-            //{
-            //    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //})
-            //.AddJwtBearer(x =>
-            //{
-            //    x.RequireHttpsMetadata = false;
-            //    x.SaveToken = true;
-            //    x.TokenValidationParameters = new TokenValidationParameters
-            //    {
-            //        ValidateIssuerSigningKey = true,
-            //        IssuerSigningKey = new SymmetricSecurityKey(key),
-            //        ValidateIssuer = false,
-            //        ValidateAudience = false
-            //    };
-            //}); ;
-
-            //services.AddAuthorization(options =>
-            //{
-            //    options.AddPolicy("user", policy => policy.RequireClaim("perfilId", "5"));
-            //    options.AddPolicy("admin", policy => policy.RequireClaim("admin", "administrador"));
-            //    options.AddPolicy("pedagogico", policy => policy.RequireClaim("perfilId", "2"));
-            //    options.AddPolicy("todos", policy => policy.RequireAssertion(context =>
-            //            context.User.HasClaim(c =>
-            //                (c.Type == "perfilId" && (c.Value.ToInt() > 0)))));
-            //});
 
             services.AddAutoMapper(typeof(Startup));
             var assembly = AppDomain.CurrentDomain.Load("SGH.Dominio.Services");
@@ -128,14 +92,9 @@ namespace SGH.APi
 
         private static void UpdateDatabase(IApplicationBuilder app)
         {
-            using (var serviceScope = app.ApplicationServices
-                .GetRequiredService<IServiceScopeFactory>()
-                .CreateScope())
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                using (var context = serviceScope.ServiceProvider.GetService<MySqlContext>())
-                {
-                    context.Database.Migrate();
-                }
+                scope.ServiceProvider.GetRequiredService<IContexto>().Database.Migrate();
             }
         }
     }

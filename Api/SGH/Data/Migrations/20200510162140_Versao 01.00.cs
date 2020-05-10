@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace SGH.Data.Migrations
 {
-    public partial class Versao100 : Migration
+    public partial class Versao0100 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +12,7 @@ namespace SGH.Data.Migrations
                 columns: table => new
                 {
                     Bloco_Codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Bloco_Descricao = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -24,7 +25,7 @@ namespace SGH.Data.Migrations
                 columns: table => new
                 {
                     Curso_Codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Curso_Descricao = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -37,7 +38,7 @@ namespace SGH.Data.Migrations
                 columns: table => new
                 {
                     Distip_Codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Distip_Descricao = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -50,7 +51,7 @@ namespace SGH.Data.Migrations
                 columns: table => new
                 {
                     Prof_Codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Prof_Matricula = table.Column<string>(maxLength: 10, nullable: true),
                     Prof_Nome = table.Column<string>(maxLength: 45, nullable: false),
                     Prof_Telefone = table.Column<string>(maxLength: 12, nullable: true),
@@ -67,7 +68,7 @@ namespace SGH.Data.Migrations
                 columns: table => new
                 {
                     Turno_Codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Turno_Descricao = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -80,7 +81,7 @@ namespace SGH.Data.Migrations
                 columns: table => new
                 {
                     UsuPrf_Codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     UsuPrf_Descricao = table.Column<string>(maxLength: 45, nullable: false),
                     UsuPrf_Administrador = table.Column<int>(nullable: false, defaultValue: 0)
                 },
@@ -94,7 +95,7 @@ namespace SGH.Data.Migrations
                 columns: table => new
                 {
                     Sala_Codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Sala_Numero = table.Column<int>(nullable: false),
                     Sala_Descricao = table.Column<string>(nullable: true),
                     Sala_Laboratorio = table.Column<int>(nullable: false),
@@ -116,7 +117,7 @@ namespace SGH.Data.Migrations
                 columns: table => new
                 {
                     Curric_Codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Curric_Curso = table.Column<int>(nullable: false),
                     Curric_Ano = table.Column<int>(nullable: false)
                 },
@@ -136,7 +137,7 @@ namespace SGH.Data.Migrations
                 columns: table => new
                 {
                     Dis_Codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Dis_Descricao = table.Column<string>(nullable: true),
                     Dis_Tipo = table.Column<int>(nullable: false)
                 },
@@ -156,7 +157,7 @@ namespace SGH.Data.Migrations
                 columns: table => new
                 {
                     Codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Cargo_Mumero = table.Column<int>(nullable: false),
                     Cargo_Edital = table.Column<int>(nullable: false),
                     Cargo_Ano = table.Column<int>(nullable: false),
@@ -179,7 +180,7 @@ namespace SGH.Data.Migrations
                 columns: table => new
                 {
                     Usu_Codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Usu_Nome = table.Column<string>(maxLength: 45, nullable: false),
                     Usu_Telefone = table.Column<string>(maxLength: 12, nullable: true),
                     Usu_Login = table.Column<string>(maxLength: 30, nullable: false),
@@ -205,7 +206,7 @@ namespace SGH.Data.Migrations
                 columns: table => new
                 {
                     Horario_Codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Horario_Ano = table.Column<int>(nullable: false),
                     Horario_Semestre = table.Column<int>(nullable: false),
                     Horario_Periodo = table.Column<int>(nullable: false),
@@ -234,7 +235,7 @@ namespace SGH.Data.Migrations
                 columns: table => new
                 {
                     Curdis_Codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Curdis_Disciplina = table.Column<int>(nullable: true),
                     Curdis_Curriculo = table.Column<int>(nullable: false),
                     Curdis_Periodo = table.Column<int>(nullable: false),
@@ -263,7 +264,7 @@ namespace SGH.Data.Migrations
                 columns: table => new
                 {
                     Codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Cardis_Disciplina = table.Column<int>(nullable: false),
                     Cardis_Cargo = table.Column<int>(nullable: false),
                     Cardis_Turno = table.Column<int>(nullable: false),
@@ -321,11 +322,11 @@ namespace SGH.Data.Migrations
                 columns: table => new
                 {
                     Aula_Codigo = table.Column<int>(nullable: false)
-                        .Annotation("MySQL:AutoIncrement", true),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Aula_Horarario = table.Column<int>(nullable: false),
                     Aula_Disciplina = table.Column<int>(nullable: false),
                     Aula_Sala = table.Column<int>(nullable: false),
-                    Laboratorio = table.Column<short>(nullable: false),
+                    Aula_Laboratorio = table.Column<int>(nullable: false),
                     Aula_Desdobramento = table.Column<int>(nullable: false),
                     Aula_Descricao_Desdobramento = table.Column<string>(nullable: true),
                     Aula_Dia_Semana = table.Column<string>(nullable: true),

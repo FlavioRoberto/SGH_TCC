@@ -2,17 +2,13 @@
 using SGH.Data.Mapeamento;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Mapeamento;
-using System;
 using System.Threading.Tasks;
 
 namespace SHG.Data.Contexto
 {
-    public class MySqlContext : DbContext, IContexto
+    public class Contexto : DbContext, IContexto
     {
-        public MySqlContext()
-        { }
-
-        public MySqlContext(DbContextOptions<MySqlContext> options) : base(options)
+        public Contexto(DbContextOptions<Contexto> options) : base(options)
         {
         }
 

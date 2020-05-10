@@ -34,6 +34,10 @@ namespace SGH.Data.Mapeamento
                    .HasColumnName("Aula_Desdobramento")
                    .HasConversion<int>();
 
+            builder.Property(lnq => lnq.Laboratorio)
+                  .HasColumnName("Aula_Laboratorio")
+                  .HasConversion<int>();
+
             builder.OwnsOne(lnq => lnq.Reserva)
                    .Property(lnq => lnq.DiaSemana)
                    .HasColumnName("Aula_Dia_Semana");

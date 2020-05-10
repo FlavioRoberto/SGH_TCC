@@ -261,15 +261,9 @@ namespace SGH.TestesDeIntegracao
 
             conteudo.Reserva.Should().BeEquivalentTo(comando.Reserva);
 
-            conteudo.Laboratorio.Should().Be(comando.Laboratorio);
-
-            conteudo.Desdobramento.Should().Be(comando.Desdobramento);
-
             conteudo.DescricaoDesdobramento.Should().Be(comando.DescricaoDesdobramento);
 
-            conteudo.CodigoDisciplina.Should().Be(comando.CodigoDisciplina);
-
-            conteudo.CodigoHorario.Should().Be(comando.CodigoHorario);
+            conteudo.DescricaoDesdobramento.Should().Be(comando.DescricaoDesdobramento);
 
             conteudo.CodigoSala.Should().Be(comando.CodigoSala);
 

@@ -4,19 +4,22 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SHG.Data.Contexto;
 
 namespace SGH.Data.Migrations
 {
-    [DbContext(typeof(MySqlContext))]
-    [Migration("20200428231813_Versao 1.00")]
-    partial class Versao100
+    [DbContext(typeof(Contexto))]
+    [Migration("20200510162140_Versao 01.00")]
+    partial class Versao0100
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854");
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("SGH.Dominio.Core.Model.Aula", b =>
                 {
@@ -39,7 +42,8 @@ namespace SGH.Data.Migrations
                     b.Property<int>("Desdobramento")
                         .HasColumnName("Aula_Desdobramento");
 
-                    b.Property<bool>("Laboratorio");
+                    b.Property<int>("Laboratorio")
+                        .HasColumnName("Aula_Laboratorio");
 
                     b.HasKey("Codigo");
 

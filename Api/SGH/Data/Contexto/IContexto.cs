@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using SGH.Dominio.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SHG.Data.Contexto
 {
-    public interface IContexto
+    public interface IContexto 
     {
         DbSet<CurriculoDisciplina> CurriculoDisciplina { get; set; }
         DbSet<CurriculoDisciplinaPreRequisito> CurriculoDisciplinaPreRequisito { get; set; }
@@ -24,7 +25,7 @@ namespace SHG.Data.Contexto
         DbSet<Sala> Sala { get; set; }
         DbSet<HorarioAula> HorarioAula { get; set; }
         DbSet<Aula> Aula { get; set; }
-
+        DatabaseFacade Database { get; }
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken));
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
         int SaveChanges();
