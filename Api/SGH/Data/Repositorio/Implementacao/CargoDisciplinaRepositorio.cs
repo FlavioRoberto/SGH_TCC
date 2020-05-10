@@ -28,6 +28,12 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _repositorio.Consultar(expressao);
         }
 
+        public async Task<Cargo> ConsultarCargo(int codigoDisciplina)
+        {
+            var disciplina = await _repositorio.Consultar(lnq => lnq.Codigo == codigoDisciplina);
+            return await _repositorio.GetDbSet<Cargo>().FirstOrDefaultAsync(lnq => lnq.Codigo == disciplina.CodigoCargo);
+        }
+
         public Task<bool> Contem(Expression<Func<CargoDisciplina, bool>> expressao)
         {
             return _repositorio.Contem(expressao);

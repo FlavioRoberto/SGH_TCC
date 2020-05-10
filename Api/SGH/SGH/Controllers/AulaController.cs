@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario;
 using System;
 using System.Threading.Tasks;
 

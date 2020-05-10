@@ -24,6 +24,11 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _repositorioBase.Atualizar(sala);
         }
 
+        public async Task<Sala> Consultar(Expression<Func<Sala, bool>> expressao)
+        {
+            return await _repositorioBase.Consultar(expressao);
+        }
+
         public async Task<bool> Contem(Expression<Func<Sala, bool>> expressao)
         {
             return await _repositorioBase.Contem(expressao);

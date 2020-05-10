@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGH.Dominio.Core;
+using SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario;
 using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Remover;
@@ -20,6 +21,28 @@ namespace SGH.Api.Controllers
         {
             _mediator = mediator;
         }
+
+        [HttpGet]
+        [Authorize("admin")]
+        [Route("{codigoHorario}/listar-aulas")]
+        public async Task<IActionResult> ListarAulas(int codigoHorario)
+        {
+            try
+            {
+                var consulta = new ListarAulaPorHorarioConsulta { CodigoHorario = codigoHorario };
+                var resultado = await _mediator.Send(consulta);
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
 
         [HttpPost]
         [Authorize("admin")]

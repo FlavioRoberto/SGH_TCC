@@ -12,7 +12,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.ViewModels
         public string Sala { get; set; }
         public Reserva Reserva { get; set; }
         public string DescricaoDesdobramento { get; set; }
-        public bool Pratica { get; set; }
+        public bool Laboratorio { get; set; }
         public bool HorarioExtrapolado { get; set; }
 
     }

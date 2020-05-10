@@ -14,5 +14,6 @@ namespace SGH.Data.Repositorio.Contratos
         Task<bool> Remover(Expression<Func<Sala, bool>> expressao);
         Task<Paginacao<Sala>> ListarPorPaginacao(Paginacao<Sala> entidadePaginada);
         Task<List<Sala>> ListarTodos();
+        Task<Sala> Consultar(Expression<Func<Sala, bool>> expressao);
     }
 }

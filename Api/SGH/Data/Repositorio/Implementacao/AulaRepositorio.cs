@@ -2,6 +2,7 @@
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Model;
 using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -24,6 +25,11 @@ namespace SGH.Data.Repositorio.Implementacao
         public async Task<Aula> Criar(Aula aula)
         {
             return await _repositorioBase.Criar(aula);
+        }
+
+        public async Task<List<Aula>> Listar(Expression<Func<Aula, bool>> expressao)
+        {
+            return await _repositorioBase.Listar(expressao);
         }
 
         public async Task<bool> VerificarDisponibilidadeCargo(int codigoCargo, string diaSemana, string hora)

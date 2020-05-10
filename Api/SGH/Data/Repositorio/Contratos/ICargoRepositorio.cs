@@ -12,5 +12,7 @@ namespace SGH.Data.Repositorio.Contratos
         Task<bool> Remover(Expression<Func<Cargo, bool>> expressao);
         Task<Cargo> Atualizar(Cargo entidade);
         Task<Cargo> Consultar(Expression<Func<Cargo, bool>> expressao);
+        Task<Professor> ConsultarProfessor(int codigoCargo);
+
     }
 }
