@@ -5,6 +5,7 @@ using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Services.Email;
 using SGH.Dominio.Services.Implementacao;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario;
 using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.AtualizarSenha;
 using SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login;
@@ -93,6 +94,8 @@ namespace SGH.Dominio.Services.Extensions
             services.AddScoped<IValidador<ListarDisciplinaCargoPorCurriculoConsulta>, ListarDisciplinasCargoPorCurriculoConsultaValidador>();
             services.AddScoped<IValidador<CriarAulaComando>, CriarAulaComandoValidador>();
             services.AddScoped<IValidador<ListarAulaPorHorarioConsulta>, ListarAulaPorHorarioValidador>();
+            services.AddScoped<IValidador<RemoverAulaComando>, RemoverAulaComandoValidador>();
+
             #region AutoMapper
             services.AddAutoMapperConfig();
             #endregion

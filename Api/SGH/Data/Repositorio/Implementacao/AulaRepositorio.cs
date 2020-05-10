@@ -32,6 +32,11 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _repositorioBase.Listar(expressao);
         }
 
+        public async Task<bool> Remover(Expression<Func<Aula, bool>> expressao)
+        {
+            return await _repositorioBase.Remover(expressao);
+        }
+
         public async Task<bool> VerificarDisponibilidadeCargo(int codigoCargo, string diaSemana, string hora)
         {
             return await _repositorioBase.GetDbSet<Aula>()
