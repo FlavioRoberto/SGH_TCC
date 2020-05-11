@@ -53,6 +53,15 @@ namespace SGH.Api.Testes.Factory
                     CodigoHorario = 5,
                     CodigoSala = 2,
                     Laboratorio = false
+                },
+                new Aula //5 - Remover
+                {
+                    Reserva = new Reserva("Sexta", "18:00"),
+                    Desdobramento = false,
+                    CodigoDisciplina = 13,
+                    CodigoHorario = 5,
+                    CodigoSala = 2,
+                    Laboratorio = false
                 }
             });
 

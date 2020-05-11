@@ -2,6 +2,7 @@
 using SGH.APi;
 using SGH.Dominio.Core.ObjetosValor;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Aulas.ViewModels;
 using SGH.TestesDeIntegracao.Config;
 using System.Collections.Generic;
@@ -268,6 +269,46 @@ namespace SGH.TestesDeIntegracao
             conteudo.CodigoSala.Should().Be(comando.CodigoSala);
 
         }
+
+        [Trait("Integração", "Aula")]
+        [Fact(DisplayName = "Remover - Deve retornar mensagem código aula não foi informado")]
+        public async Task Aula_RealizarCadastro_DeveRetornarMensagemCodigoAulaNaoInformado()
+        {
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota("0"));
+
+            var mensagemEsperada = new List<string> {
+                "O código da aula não foi informado."
+            };
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
+        }
+
+        [Trait("Integração", "Aula")]
+        [Fact(DisplayName = "Remover - Deve retornar mensagem aula não encontrada")]
+        public async Task Aula_RealizarCadastro_DeveRetornarMensagemAulaNaoEncontrada()
+        {
+            int codigoAula = 99;
+
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"{codigoAula}"));
+
+            var mensagemEsperada = new List<string> {
+                $"Não foi encontrada uma aula com o código {codigoAula}."
+            };
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
+        }
+
+        [Trait("Integração", "Aula")]
+        [Fact(DisplayName = "Remover - Deve remover aula com sucesso")]
+        public async Task Aula_RealizarCadastro_DeveRemoverAulaComSucesso()
+        {
+            int codigoAula = 5;
+
+            var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"{codigoAula}"));
+
+            resposta.EnsureSuccessStatusCode();
+        }
+
 
         private string GetRota(string rota = "")
         {
