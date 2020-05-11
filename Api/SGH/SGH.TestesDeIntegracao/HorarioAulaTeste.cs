@@ -1,6 +1,8 @@
 ﻿using FluentAssertions;
 using SGH.APi;
 using SGH.Dominio.Core.Enums;
+using SGH.Dominio.Core.Model;
+using SGH.Dominio.Services.Implementacao.Aulas.ViewModels;
 using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Horarios.Consultas.Listar;
@@ -477,6 +479,27 @@ namespace SGH.TestesDeIntegracao
             conteudo.Semestre.Should().Be(comando.Semestre);
 
             conteudo.CodigoCurriculo.Should().Be(comando.CodigoCurriculo);
+        }
+
+
+        [Trait("Integração", "Horário de aula")]
+        [InlineData(2, 1)]
+        [InlineData(4, 2)]
+        [Theory(DisplayName = "Listar - Deve retornar aulas de um horário")]
+        public async Task Aula_RealizarCadastro_DeveRetornarAulaDeHorario(int codigoHorario, int quantidade)
+        {
+            var resposta = await _testsFixture.Client.GetAsync(GetRota($"{codigoHorario}/listar-aulas"));
+
+            resposta.EnsureSuccessStatusCode();
+
+            var conteudo = await _testsFixture.RecuperarConteudoRequisicao<ICollection<AulaViewModel>>(resposta);
+
+            conteudo.Should().NotBeEmpty();
+
+            conteudo.Should().HaveCount(quantidade);
+
+            conteudo.Should().NotContain(lnq => lnq.CodigoHorario != codigoHorario);
+
         }
 
         private string GetRota(string rota = "")

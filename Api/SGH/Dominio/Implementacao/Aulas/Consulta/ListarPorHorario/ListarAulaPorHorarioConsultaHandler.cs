@@ -61,6 +61,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
 
                 var aulaViewModel = new AulaViewModel
                 {
+                    CodigoHorario = aula.CodigoHorario,
                     Codigo = aula.Codigo,
                     CodigoCargo = cargo.Codigo,
                     CodigoSala = aula.CodigoSala,

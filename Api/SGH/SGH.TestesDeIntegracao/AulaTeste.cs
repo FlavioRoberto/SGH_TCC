@@ -2,7 +2,6 @@
 using SGH.APi;
 using SGH.Dominio.Core.ObjetosValor;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar;
-using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Aulas.ViewModels;
 using SGH.TestesDeIntegracao.Config;
 using System.Collections.Generic;
@@ -308,7 +307,6 @@ namespace SGH.TestesDeIntegracao
 
             resposta.EnsureSuccessStatusCode();
         }
-
 
         private string GetRota(string rota = "")
         {
