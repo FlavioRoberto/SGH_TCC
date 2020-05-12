@@ -9,5 +9,6 @@ namespace SGH.Dominio.Services.Implementacao.Horarios.Comandos.Comum
         public EPeriodo Periodo { get; set; }
         public int CodigoTurno { get; set; }
         public int CodigoCurriculo { get; set; }
+        public string Mensagem { get; set; }
     }
 }

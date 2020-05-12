@@ -10,6 +10,7 @@ namespace SGH.Dominio.Core.Model
         public EPeriodo Periodo { get; set; }
         public int CodigoTurno { get; set; }
         public int CodigoCurriculo { get; set; }
+        public string Mensagem { get; set; }
         public virtual Turno Turno { get; set; }
         public virtual Curriculo Curriculo { get; set; }
         public virtual ICollection<Aula> Aulas { get; set; }

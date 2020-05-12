@@ -33,6 +33,9 @@ namespace SGH.Data.Mapeamento
             builder.Property(lnq => lnq.Periodo)
                    .HasColumnName("Horario_Periodo");
 
+            builder.Property(lnq => lnq.Mensagem)
+                   .HasColumnName("Horario_mensagem");
+
             builder.HasOne(lnq => lnq.Curriculo)
                    .WithMany(lnq => lnq.HorariosAula)
                    .HasForeignKey(lnq => lnq.CodigoCurriculo)

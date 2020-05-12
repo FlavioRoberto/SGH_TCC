@@ -156,7 +156,8 @@ namespace SGH.TestesDeIntegracao
                 CodigoCurriculo = 1,
                 CodigoTurno = 1,
                 Semestre = ESemestre.SEGUNDO,
-                Periodo = EPeriodo.SEGUNDO
+                Periodo = EPeriodo.SEGUNDO,
+                Mensagem = "Teste de mensagem"
             };
 
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("criar"), comando);
@@ -176,6 +177,8 @@ namespace SGH.TestesDeIntegracao
             dadosResposta.Semestre.Should().Be(comando.Semestre);
 
             dadosResposta.Periodo.Should().Be(comando.Periodo);
+
+            dadosResposta.Mensagem.Should().Be(comando.Mensagem);
         }
 
 
@@ -457,7 +460,8 @@ namespace SGH.TestesDeIntegracao
                 CodigoTurno = 2,
                 Periodo = EPeriodo.NONO,
                 Semestre = ESemestre.SEGUNDO,
-                CodigoCurriculo = 2
+                CodigoCurriculo = 2,
+                Mensagem = "Teste edição de mensagem"
             };
 
             var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("editar"), comando);
@@ -479,6 +483,9 @@ namespace SGH.TestesDeIntegracao
             conteudo.Semestre.Should().Be(comando.Semestre);
 
             conteudo.CodigoCurriculo.Should().Be(comando.CodigoCurriculo);
+           
+            conteudo.Mensagem.Should().Be(comando.Mensagem);
+
         }
 
         [Trait("Integração", "Horário de aula")]
