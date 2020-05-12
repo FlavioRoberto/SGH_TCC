@@ -18,7 +18,7 @@ namespace SGH.Api.Testes.Factory
         {
             var professores = new List<Professor>
             {
-                new Professor
+                new Professor //1
                 {
                     Ativo = true,
                     Email = "professor1@gmail.com",
@@ -26,7 +26,7 @@ namespace SGH.Api.Testes.Factory
                     Nome = "Professor 1",
                     Telefone = "37991456665"
                 },
-                new Professor
+                new Professor //2
                 {
                     Ativo = true,
                     Email = "professor2@gmail.com",
@@ -34,11 +34,18 @@ namespace SGH.Api.Testes.Factory
                     Nome = "Professor 2",
                     Telefone = "37991456668"
                 },
-                new Professor
+                new Professor //3
                 {
                     Ativo = true,
                     Email="teste@teste.com",
                     Nome="Professor teste cargo",
+                    Telefone="379885554"
+                },
+                new Professor //4
+                {
+                    Ativo = true,
+                    Email="teste@teste.com",
+                    Nome="Professor remover",
                     Telefone="379885554"
                 }
             };
