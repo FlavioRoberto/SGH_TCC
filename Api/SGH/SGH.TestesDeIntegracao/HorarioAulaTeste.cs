@@ -481,7 +481,6 @@ namespace SGH.TestesDeIntegracao
             conteudo.CodigoCurriculo.Should().Be(comando.CodigoCurriculo);
         }
 
-
         [Trait("Integração", "Horário de aula")]
         [InlineData(2, 1)]
         [InlineData(4, 2)]

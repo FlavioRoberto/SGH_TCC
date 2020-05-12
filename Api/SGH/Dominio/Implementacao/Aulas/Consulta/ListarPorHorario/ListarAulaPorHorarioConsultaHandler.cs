@@ -18,6 +18,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
         private readonly ICargoDisciplinaRepositorio _cargoDisciplinaRepositorio;
         private readonly ICargoRepositorio _cargoRepositorio;
         private readonly ISalaRepositorio _salaRepositorio;
+        private readonly ICurriculoDisciplinaRepositorio _curriculoDisciplinaRepositorio;
         private readonly IValidador<ListarAulaPorHorarioConsulta> _validador;
         
 
@@ -25,6 +26,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
                                                    ICargoDisciplinaRepositorio cargoDisciplinaRepositorio,
                                                    ICargoRepositorio cargoRepositorio,
                                                    ISalaRepositorio salaRepositorio,
+                                                   ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio,
                                                    IValidador<ListarAulaPorHorarioConsulta> validador)
         {
             _aulaRepositorio = aulaRepositorio;
@@ -32,6 +34,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
             _cargoRepositorio = cargoRepositorio;
             _validador = validador;
             _salaRepositorio = salaRepositorio;
+            _curriculoDisciplinaRepositorio = curriculoDisciplinaRepositorio;
         }
 
         public async Task<Resposta<ICollection<AulaViewModel>>> Handle(ListarAulaPorHorarioConsulta request, CancellationToken cancellationToken)
@@ -58,6 +61,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
                 var professor = await RetornarProfessorCargo(cargo);
                 var disciplina = await RetornarDisciplina(aula.CodigoDisciplina);
                 var sala = await RetornarSalaDisciplina(aula.CodigoSala);
+                var horarioExtrapolado = await VerificarSeHorarioExtrapolado(aula.CodigoHorario, disciplina, aula.Laboratorio);
 
                 var aulaViewModel = new AulaViewModel
                 {
@@ -66,7 +70,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
                     CodigoCargo = cargo.Codigo,
                     CodigoSala = aula.CodigoSala,
                     DescricaoDesdobramento = aula.DescricaoDesdobramento,
-                    HorarioExtrapolado = false,
+                    HorarioExtrapolado = horarioExtrapolado,
                     Laboratorio = aula.Laboratorio,
                     Sala = sala.Descricao,
                     Disciplina = disciplina.Descricao,
@@ -78,6 +82,37 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
             }
 
             return aulasViewModel;
+        }
+
+        private async Task<bool> VerificarSeHorarioExtrapolado(int codigoHorario, CargoDisciplina disciplina, bool laboratorio)
+        {
+            var curriculoDisciplina = await _curriculoDisciplinaRepositorio.Consultar(lnq => lnq.Codigo == disciplina.CodigoCurriculoDisciplina);
+
+            var totalAula = await RetornarQuantidadeAulaDistribuida(codigoHorario, disciplina, laboratorio);
+
+            var totalAulaLimite = laboratorio ? curriculoDisciplina.AulasSemanaisPratica : curriculoDisciplina.AulasSemanaisTeorica;
+
+            var aulaExtrapolada = totalAula > totalAulaLimite;
+
+            return aulaExtrapolada;
+        }
+
+        private async Task<double> RetornarQuantidadeAulaDistribuida(int codigoHorario, CargoDisciplina disciplina, bool laboratorio)
+        {
+            var aulasDistribuidas = await _aulaRepositorio.Listar(lnq => lnq.CodigoHorario == codigoHorario &&
+                                                                         lnq.CodigoDisciplina == disciplina.Codigo &&
+                                                                         lnq.Laboratorio == laboratorio);
+            var totalAula = 0.0;
+
+            foreach (var aula in aulasDistribuidas)
+            {
+                if (!aula.Desdobramento)
+                    totalAula += 1;
+                else
+                    totalAula += 0.5;
+            }
+
+            return totalAula;
         }
 
         private async Task<Sala> RetornarSalaDisciplina(int codigoSala)
