@@ -13,6 +13,5 @@ namespace SGH.Dominio.Core.Model
 
         public virtual Professor Professor { get; set; }
         public virtual IEnumerable<CargoDisciplina> Disciplinas { get; set; }
-
     }
 }
