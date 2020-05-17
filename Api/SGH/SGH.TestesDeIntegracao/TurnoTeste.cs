@@ -19,7 +19,7 @@ namespace SGH.TestesDeIntegracao
         [Fact(DisplayName = "Remover - Deve retornar mensagem de turno vinculado a disciplina de cargo")]
         public async Task Turno_RealizarRemocao_DeveRetornarMensagemTurnoVinculadoDisciplinaCargo()
         {
-            var codigoCargo = 2;
+            var codigoCargo = 3;
 
             var codigoTurno = 1;
 

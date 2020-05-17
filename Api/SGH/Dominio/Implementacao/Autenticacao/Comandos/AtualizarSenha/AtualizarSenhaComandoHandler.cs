@@ -37,7 +37,7 @@ namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.AtualizarSenh
 
             await _repositorio.Atualizar(usuario);
 
-            return new Resposta<string>("A senha foi atualizada!");
+            return new Resposta<string>("A senha foi atualizada!", "");
         }
     }
 }

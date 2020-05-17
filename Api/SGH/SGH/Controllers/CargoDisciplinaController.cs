@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Editar;
 using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Consulta.ListarPorCurriculo;
 using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Consulta.ListarTodas;
@@ -73,6 +74,26 @@ namespace SGH.Api.Controllers
             try
             {
                 var resposta = await _mediator.Send(consulta);
+
+                if (resposta.TemErro())
+                    return BadRequest(resposta.GetErros());
+
+                return Ok(resposta.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+
+        [HttpPut]
+        [Authorize("admin")]
+        public async Task<IActionResult> Editar([FromBody] EditarCargoDisciplinaComando comando)
+        {
+            try
+            {
+                var resposta = await _mediator.Send(comando);
 
                 if (resposta.TemErro())
                     return BadRequest(resposta.GetErros());
