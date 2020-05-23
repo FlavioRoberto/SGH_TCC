@@ -1,6 +1,6 @@
 ﻿namespace SGH.Relatorios.Factories.Exportacao
 {
-    public enum ETipoExportacao
+    internal enum ETipoExportacao
     {
         JPG = 1
     }

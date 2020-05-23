@@ -2,7 +2,7 @@
 
 namespace SGH.Relatorios.Factories.Exportacao
 {
-    public interface IExportacao
+    internal interface IExportacao
     {
         void Exportar(Report relatorio, string nome);
     }

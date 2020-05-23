@@ -5,7 +5,7 @@ using System.Reflection;
 
 namespace SGH.Relatorios.Extensions
 {
-    public static class DataSetExtension
+    internal static class DataSetExtension
     {
         public static DataSet ConverterParaDataSet<T>(this IEnumerable<T> lista, string nomeDataset, string nomeTabela)
         {

@@ -3,7 +3,7 @@ using FastReport.Export.Image;
 
 namespace SGH.Relatorios.Factories.Exportacao
 {
-    public class ExportacaoJpg : IExportacao
+    internal class ExportacaoJpg : IExportacao
     {
         public void Exportar(Report relatorio, string nome)
         {

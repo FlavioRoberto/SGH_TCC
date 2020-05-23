@@ -1,4 +1,5 @@
 ﻿using SGH.Relatorios.Implementacoes;
+using SGH.Relatorios.Implementacoes.Horario;
 using System;
 
 namespace SGH.Relatorios
@@ -7,7 +8,7 @@ namespace SGH.Relatorios
     {
         static void Main(string[] args)
         {
-            new TesteRelatorio().Gerar();
+            new HorarioRelatorio().Gerar();
             Console.WriteLine("Hello World!");
         }
     }

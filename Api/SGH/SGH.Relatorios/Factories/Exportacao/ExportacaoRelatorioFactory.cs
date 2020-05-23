@@ -2,7 +2,7 @@
 
 namespace SGH.Relatorios.Factories.Exportacao
 {
-    public class ExportacaoRelatorioFactory : IExportacaoFactory
+    internal class ExportacaoRelatorioFactory : IExportacaoFactory
     {
         private IExportacao _exportacao;
 
