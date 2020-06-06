@@ -8,19 +8,22 @@ using SGH.Dominio.Services.Extensions;
 using SGH.Dominio.ViewModel;
 using System.Threading;
 using System.Threading.Tasks;
+using System;
+using SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Base;
 
 namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Criar
 {
-    public class CriarCargoDisciplinaComandoHandler : IRequestHandler<CriarCargoDisciplinaComando, Resposta<CargoDisciplinaViewModel>>
+    public class CriarCargoDisciplinaComandoHandler : CargoDisciplinaComandoHandlerBase, IRequestHandler<CriarCargoDisciplinaComando, Resposta<CargoDisciplinaViewModel>>
     {
         private readonly ICargoDisciplinaRepositorio _repositorio;
-        private readonly IMapper _mapper;
         private readonly IValidador<CriarCargoDisciplinaComando> _validador;
-
-        public CriarCargoDisciplinaComandoHandler(ICargoDisciplinaRepositorio cargoDisciplinaRepositorio, IMapper mapper, IValidador<CriarCargoDisciplinaComando> validador)
+       
+        public CriarCargoDisciplinaComandoHandler(ICargoDisciplinaRepositorio cargoDisciplinaRepositorio, 
+                                                  IMapper mapper, 
+                                                  IValidador<CriarCargoDisciplinaComando> validador,
+                                                  ICurriculoDisciplinaRepositorio disciplinaRepositorio) :base(mapper, disciplinaRepositorio)
         {
             _repositorio = cargoDisciplinaRepositorio;
-            _mapper = mapper;
             _validador = validador;
         }
 
@@ -31,7 +34,7 @@ namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Criar
             if (!string.IsNullOrEmpty(erros))
                 return new Resposta<CargoDisciplinaViewModel>(erros);
 
-            var disciplina = _mapper.Map<CargoDisciplina>(request);
+            var disciplina = await MapearComandoParaDisciplina(request);
 
             disciplina = await _repositorio.Criar(disciplina);
 

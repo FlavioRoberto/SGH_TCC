@@ -105,7 +105,7 @@ namespace SGH.TestesDeIntegracao
         [Fact(DisplayName = "Realizar remoção de cargo")]
         public async Task Cargo_RealizarExclusão_DeveRemoverCargoComSucesso()
         {
-            int codigoCargo = 1;
+            int codigoCargo = 8;
 
             var response = await _testsFixture.Client.DeleteAsync(GetRota($"remover?codigo={codigoCargo}"));
 

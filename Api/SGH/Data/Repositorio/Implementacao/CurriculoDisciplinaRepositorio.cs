@@ -100,5 +100,17 @@ namespace SGH.Data.Repositorio.Implementacao
                                      .Include(lnq => lnq.Disciplina)
                                      .FirstOrDefaultAsync(lnq => lnq.CodigoDisciplina == codigoDisciplina);
         }
+
+        public async Task<Disciplina> ConsultarDisciplinaVinculadaCurriculo(Expression<Func<CurriculoDisciplina, bool>> expressao)
+        {
+            var codigoDisciplina = await _repositorio.GetDbSet<CurriculoDisciplina>()
+                                                     .Where(expressao)
+                                                     .Select(lnq => lnq.CodigoDisciplina)
+                                                     .FirstOrDefaultAsync();
+            if(codigoDisciplina.HasValue)
+                return await _repositorio.GetDbSet<Disciplina>().FirstOrDefaultAsync(lnq => lnq.Codigo == codigoDisciplina);
+
+            return null;
+        }
     }
 }

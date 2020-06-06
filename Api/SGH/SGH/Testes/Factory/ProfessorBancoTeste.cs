@@ -47,6 +47,13 @@ namespace SGH.Api.Testes.Factory
                     Email="teste@teste.com",
                     Nome="Professor remover",
                     Telefone="379885554"
+                },
+                 new Professor //5
+                {
+                    Ativo = true,
+                    Email="teste@teste.com",
+                    Nome="Professor vinculado ao cargo remover",
+                    Telefone="379885554"
                 }
             };
 

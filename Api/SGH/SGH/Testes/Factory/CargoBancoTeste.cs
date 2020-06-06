@@ -72,6 +72,13 @@ namespace SGH.Api.Testes.Factory
                     CodigoProfessor = 3,
                     Edital = 14,
                     Semestre = ESemestre.PRIMEIRO
+                },
+                new Cargo //8 - Cargo remover
+                {
+                    Ano = 2021,
+                    CodigoProfessor = 5,
+                    Edital = 14,
+                    Semestre = ESemestre.PRIMEIRO
                 }
             };
 

@@ -105,6 +105,11 @@ namespace SGH.Api.Testes.Factory
                     CodigoCurriculo = 4, //engenharia de produção
                     CodigoDisciplina = 5
                 },
+                new CurriculoDisciplina //12
+                {
+                    CodigoCurriculo = 4, //engenharia de produção
+                    CodigoDisciplina = 5
+                }
             };
 
             _contexto.CurriculoDisciplina.AddRange(disciplinasCurriculo);

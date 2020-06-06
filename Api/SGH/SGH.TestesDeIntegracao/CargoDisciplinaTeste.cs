@@ -28,7 +28,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Disciplina Cargo")]
-        [Fact(DisplayName = "Criar - Deverá realizar cadastro de disciplina do cargo com sucesso")]
+        [Fact(DisplayName = "Criar - Deverá realizar cadastro de disciplina do cargo com sucesso passando descrição")]
         public async Task DisciplinaCargo_RealizarCadastro_DeveRealizarCadastroComSucesso()
         {
             var comando = new CriarCargoDisciplinaComando
@@ -52,6 +52,34 @@ namespace SGH.TestesDeIntegracao
             dadosResposta.CodigoCurriculoDisciplina.Should().Be(comando.CodigoCurriculoDisciplina);
 
             dadosResposta.Descricao.Should().Be(comando.Descricao);
+
+        }
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Criar - Deverá realizar cadastro de disciplina do cargo com sucesso sem passar descrição")]
+        public async Task DisciplinaCargo_RealizarCadastro_DeveRealizarCadastroComSucessoSemPassarDescricao()
+        {
+            var comando = new CriarCargoDisciplinaComando
+            {
+                CodigoCargo = 2,
+                CodigoCurriculoDisciplina = 11,
+                CodigoTurno = 1,
+                Descricao = ""
+            };
+
+            var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota(), comando);
+
+            resposta.EnsureSuccessStatusCode();
+
+            var dadosResposta = await _testsFixture.RecuperarConteudoRequisicao<CargoDisciplinaViewModel>(resposta);
+
+            dadosResposta.Codigo.Should().BeGreaterThan(0);
+
+            dadosResposta.CodigoCargo.Should().Be(comando.CodigoCargo);
+
+            dadosResposta.CodigoCurriculoDisciplina.Should().Be(comando.CodigoCurriculoDisciplina);
+
+            dadosResposta.Descricao.Should().Be("Cálculo I");
 
         }
 
@@ -473,7 +501,7 @@ namespace SGH.TestesDeIntegracao
         }
 
         [Trait("Integração", "Disciplina Cargo")]
-        [Fact(DisplayName = "Editar - Deverá editar uma disciplina cargo com sucesso")]
+        [Fact(DisplayName = "Editar - Deverá editar uma disciplina cargo com sucesso passando descrição")]
         public async Task DisciplinaCargo_RealizarEdicao_DeveRealizarCadastroComSucesso()
         {
             var comando = new EditarCargoDisciplinaComando
@@ -498,6 +526,35 @@ namespace SGH.TestesDeIntegracao
             dadosResposta.CodigoCurriculoDisciplina.Should().Be(comando.CodigoCurriculoDisciplina);
 
             dadosResposta.Descricao.Should().Be(comando.Descricao);
+
+        }
+
+        [Trait("Integração", "Disciplina Cargo")]
+        [Fact(DisplayName = "Editar - Deverá editar uma disciplina cargo com sucesso sem passar descrição")]
+        public async Task DisciplinaCargo_RealizarEdicao_DeveRealizarCadastroComSucessoSemPassarDescricao()
+        {
+            var comando = new EditarCargoDisciplinaComando
+            {
+                Codigo = 1,
+                CodigoCargo = 1,
+                CodigoCurriculoDisciplina = 3,
+                CodigoTurno = 1,
+                Descricao = ""
+            };
+
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota(), comando);
+
+            resposta.EnsureSuccessStatusCode();
+
+            var dadosResposta = await _testsFixture.RecuperarConteudoRequisicao<CargoDisciplinaViewModel>(resposta);
+
+            dadosResposta.Codigo.Should().BeGreaterThan(0);
+
+            dadosResposta.CodigoCargo.Should().Be(comando.CodigoCargo);
+
+            dadosResposta.CodigoCurriculoDisciplina.Should().Be(comando.CodigoCurriculoDisciplina);
+
+            dadosResposta.Descricao.Should().Be("Programação para dispositivos móveis");
 
         }
 

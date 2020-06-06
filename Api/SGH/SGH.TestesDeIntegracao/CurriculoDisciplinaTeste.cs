@@ -179,7 +179,7 @@ namespace SGH.TestesDeIntegracao
 
             var preRequisitos = disciplinasCurriculo.FirstOrDefault().PreRequisitos;
 
-            disciplinasCurriculo.Should().HaveCount(2);
+            disciplinasCurriculo.Should().HaveCount(3);
 
             disciplinasCurriculo.Should().NotContain(lnq => lnq.CodigoCurriculo != codigo &&
                                  (lnq.Codigo != 9 && lnq.Codigo != 10));

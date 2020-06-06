@@ -28,7 +28,7 @@ namespace SGH.TestesDeIntegracao
 
             var response = await _testsFixture.Client.DeleteAsync(GetRota($"remover?codigo={codigoProfessor}"));
 
-            var mensagemComparar = $"Não foi possível remover esse professor, pois ele está vinculado ao cargo de código 9.";
+            var mensagemComparar = $"Não foi possível remover esse professor, pois ele está vinculado ao cargo de código 1.";
 
             await _testsFixture.TestarRequisicaoComErro(response, mensagemComparar);
         }
