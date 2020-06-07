@@ -8,7 +8,7 @@ using System.IO;
 
 namespace SGH.Relatorios.Implementacoes.Horario
 {
-    internal class HorarioRelatorio : IRelatorio<HorarioRelatorioData>
+    internal class HorarioRelatorio : IRelatorio<QuadroHorario>
     {
         private readonly IExportacaoFactory _exportacaoFactory;
 
@@ -27,48 +27,54 @@ namespace SGH.Relatorios.Implementacoes.Horario
         private Report GerarRelatorio()
         {
             var datasetHorario = GerarDataSetHorario();
-            var dataSetAula = GerarDataSetAula();
 
             var relatorio = new Report();
+ 
             relatorio.Load(Path.Combine("Relatorios", "Horario.frx"));
 
-            relatorio.RegisterData(datasetHorario.Tables["Horarios"], "Horarios");
-            relatorio.RegisterData(dataSetAula.Tables["Aulas"], "Aulas");
-
-            relatorio.De
+            relatorio.RegisterData(datasetHorario, "Horarios");
+            relatorio.GetDataSource("Horarios").Enabled = true;
 
             relatorio.SetParameterValue("Semestre", "1° Semestre");
             relatorio.SetParameterValue("Ano", "2020");
-
+            relatorio.SetParameterValue("Curso", "Engenharia de computação");
+            relatorio.SetParameterValue("Turno", "Matutino");
             relatorio.Prepare();
+
+           // relatorio.Save(Path.Combine("Relatorios", "Horario.frx"));
 
             return relatorio;
         }
 
-        private DataSet GerarDataSetHorario()
+        private IList<QuadroHorario> GerarDataSetHorario()
         {
-            var lista = new List<HorarioRelatorioData>() {
-                new HorarioRelatorioData {
-                    Id = 1,
+            return new List<QuadroHorario>() {
+                new QuadroHorario {
                     Curso = "Engenharia da computação",
                     Turno = "Matutino",
                     Periodo = "1° Período",
-                }
-            };
-            return lista.ConverterParaDataSet("Data", "Horarios");
-        }
-
-        private DataSet GerarDataSetAula()
-        {
-            var lista = new List<Aula>()
-            {
-                new Aula
-                {
+                    Hora = "09:00",
+                    DisciplinaSegunda = "Engenharia de Software \r\n (Denys Balsamão) \r\n Laboratório 301",
+                    DisciplinaTerca = "POO",
+                    DisciplinaQuarta = "Calculo I",
+                    DisciplinaQuinta = "Sistemas Operacionais",
+                    DisciplinaSexta = "",
+                    DisciplinaSabado = "Sistemas Discitribuidos"                    
+                },
+                 new QuadroHorario {
+                    Curso = "Engenharia da computação",
+                    Turno = "Matutino",
+                    Periodo = "1° Período",
                     Hora = "07:00",
-                    HorarioCodigo = 1
+                    DisciplinaSegunda = "",
+                    DisciplinaTerca = "POO",
+                    DisciplinaQuarta = "Calculo I",
+                    DisciplinaQuinta = "Sistemas Operacionais",
+                    DisciplinaSexta = "",
+                    DisciplinaSabado = "Sistemas Discitribuidos"
                 }
             };
-            return lista.ConverterParaDataSet("Data", "Aulas");
         }
+     
     }
 }
