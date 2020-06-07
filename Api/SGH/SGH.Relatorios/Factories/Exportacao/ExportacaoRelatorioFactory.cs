@@ -11,6 +11,7 @@ namespace SGH.Relatorios.Factories.Exportacao
             switch (tipo)
             {
                 case ETipoExportacao.JPG: _exportacao = new ExportacaoJpg(); break;
+                case ETipoExportacao.PDF: _exportacao = new ExportacaoPdf();break;
             }
 
             _exportacao.Exportar(relatorio, nome);

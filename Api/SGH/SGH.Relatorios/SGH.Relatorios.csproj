@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="FastReport.OpenSource" Version="2020.3.1" />
+    <PackageReference Include="FastReport.OpenSource.Export.PdfSimple" Version="2020.3.4" />
   </ItemGroup>
 
   <ItemGroup>

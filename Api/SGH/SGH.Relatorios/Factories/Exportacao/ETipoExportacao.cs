@@ -2,6 +2,7 @@
 {
     internal enum ETipoExportacao
     {
-        JPG = 1
+        JPG = 1,
+        PDF = 2
     }
 }

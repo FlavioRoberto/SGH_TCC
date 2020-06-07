@@ -2,6 +2,7 @@
 using SGH.Relatorios.Contratos;
 using SGH.Relatorios.Extensions;
 using SGH.Relatorios.Factories.Exportacao;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -20,13 +21,13 @@ namespace SGH.Relatorios.Implementacoes.Horario
         public void Gerar()
         {
             var relatorio = GerarRelatorio();
-
-            _exportacaoFactory.Exportar(relatorio, "Horario", ETipoExportacao.JPG);
+            _exportacaoFactory.Exportar(relatorio, "Horario", ETipoExportacao.PDF);
         }
 
         private Report GerarRelatorio()
         {
             var datasetHorario = GerarDataSetHorario();
+            var datasetAula = GerarDataSetAula();
 
             var relatorio = new Report();
  
@@ -35,13 +36,18 @@ namespace SGH.Relatorios.Implementacoes.Horario
             relatorio.RegisterData(datasetHorario, "Horarios");
             relatorio.GetDataSource("Horarios").Enabled = true;
 
+            relatorio.RegisterData(datasetAula, "Aulas");
+            relatorio.GetDataSource("Aulas").Enabled = true;
+
             relatorio.SetParameterValue("Semestre", "1° Semestre");
             relatorio.SetParameterValue("Ano", "2020");
             relatorio.SetParameterValue("Curso", "Engenharia de computação");
             relatorio.SetParameterValue("Turno", "Matutino");
+            relatorio.SetParameterValue("Data", DateTime.Now.ToShortDateString());
+
             relatorio.Prepare();
 
-           // relatorio.Save(Path.Combine("Relatorios", "Horario.frx"));
+            relatorio.Save(Path.Combine("Relatorios", "Horario.frx"));
 
             return relatorio;
         }
@@ -50,31 +56,92 @@ namespace SGH.Relatorios.Implementacoes.Horario
         {
             return new List<QuadroHorario>() {
                 new QuadroHorario {
-                    Curso = "Engenharia da computação",
-                    Turno = "Matutino",
-                    Periodo = "1° Período",
-                    Hora = "09:00",
-                    DisciplinaSegunda = "Engenharia de Software \r\n (Denys Balsamão) \r\n Laboratório 301",
-                    DisciplinaTerca = "POO",
-                    DisciplinaQuarta = "Calculo I",
-                    DisciplinaQuinta = "Sistemas Operacionais",
-                    DisciplinaSexta = "",
-                    DisciplinaSabado = "Sistemas Discitribuidos"                    
+                    Codigo = 1,
+                    Periodo = "1° Período"
                 },
-                 new QuadroHorario {
-                    Curso = "Engenharia da computação",
-                    Turno = "Matutino",
-                    Periodo = "1° Período",
-                    Hora = "07:00",
-                    DisciplinaSegunda = "",
-                    DisciplinaTerca = "POO",
-                    DisciplinaQuarta = "Calculo I",
-                    DisciplinaQuinta = "Sistemas Operacionais",
-                    DisciplinaSexta = "",
-                    DisciplinaSabado = "Sistemas Discitribuidos"
+                new QuadroHorario
+                {
+                    Codigo = 2,
+                    Periodo = "2° Período"
                 }
             };
         }
-     
+
+        private IList<Aula> GerarDataSetAula()
+        {
+            return new List<Aula> {
+               new Aula
+               {
+                   HorarioCodigo = 1,
+                   Hora = "07:00",
+                   DisciplinaSegunda = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 511",
+                   DisciplinaTerca = "Programação de Computador \r\n Turma A \r\n (Cargo 86) \r\n Laboratório A1",
+                   DisciplinaQuarta = "Quimica Geral \r\n (Viviane Aparecida Costa) \r\n Sala 512",
+                   DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
+                   DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
+               },
+               new Aula
+               {
+                   HorarioCodigo = 1,
+                   Hora = "07:50",
+                   DisciplinaSegunda = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 511",
+                   DisciplinaTerca = "Programação de Computador \r\n Turma A \r\n (Cargo 86) \r\n Laboratório A1",
+                   DisciplinaQuarta = "Quimica Geral \r\n (Viviane Aparecida Costa) \r\n Sala 512",
+                   DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
+                   DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
+               },
+               new Aula
+               {
+                   HorarioCodigo = 1,
+                   Hora = "08:40",
+                   DisciplinaSegunda = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 511",
+                   DisciplinaTerca = "Programação de Computador \r\n Turma A \r\n (Cargo 86) \r\n Laboratório A1",
+                   DisciplinaQuarta = "Quimica Geral \r\n (Viviane Aparecida Costa) \r\n Sala 512",
+                   DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
+                   DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
+               },
+               new Aula
+               {
+                   HorarioCodigo = 1,
+                   Hora = "09:30",
+                   DisciplinaSegunda = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 511",
+                   DisciplinaTerca = "Programação de Computador \r\n Turma A \r\n (Cargo 86) \r\n Laboratório A1",
+                   DisciplinaQuarta = "Quimica Geral \r\n (Viviane Aparecida Costa) \r\n Sala 512",
+                   DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
+                   DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
+               },
+               new Aula
+               {
+                   HorarioCodigo = 1,
+                   Hora = "09:45",
+                   DisciplinaSegunda = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 511",
+                   DisciplinaTerca = "Programação de Computador \r\n Turma A \r\n (Cargo 86) \r\n Laboratório A1",
+                   DisciplinaQuarta = "Quimica Geral \r\n (Viviane Aparecida Costa) \r\n Sala 512",
+                   DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
+                   DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
+               },
+               new Aula
+               {
+                   HorarioCodigo = 1,
+                   Hora = "10:35",
+                   DisciplinaSegunda = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 511",
+                   DisciplinaTerca = "Programação de Computador \r\n Turma A \r\n (Cargo 86) \r\n Laboratório A1",
+                   DisciplinaQuarta = "Quimica Geral \r\n (Viviane Aparecida Costa) \r\n Sala 512",
+                   DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
+                   DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
+               },
+               new Aula
+               {
+                   HorarioCodigo = 1,
+                   Hora = "11:25",
+                   DisciplinaSegunda = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 511",
+                   DisciplinaTerca = "Programação de Computador \r\n Turma A \r\n (Cargo 86) \r\n Laboratório A1",
+                   DisciplinaQuarta = "Quimica Geral \r\n (Viviane Aparecida Costa) \r\n Sala 512",
+                   DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
+                   DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
+               }
+            };
+        }
+
     }
 }
