@@ -7,6 +7,7 @@ namespace SGH.Relatorios.Implementacoes.Horario
     public class QuadroHorario : IRelatorioData {
         public int Codigo { get; set; }
         public string Periodo { get; set; }
+        public string Avisos { get; set; }
     }
 
     public class Aula
