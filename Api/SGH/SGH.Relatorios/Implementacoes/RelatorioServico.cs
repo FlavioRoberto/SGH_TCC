@@ -3,7 +3,7 @@ using SGH.Relatorios.DataSets;
 
 namespace SGH.Relatorios.Implementacoes
 {
-    public class RelatorioServico : IRelatorioServico
+    internal class RelatorioServico : IRelatorioServico
     {
         public byte[] GerarRelatorioHorario(HorarioRelatorioData dados)
         {
