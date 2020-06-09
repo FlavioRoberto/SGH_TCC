@@ -6,7 +6,7 @@ namespace SGH.Relatorios.Factories.Exportacao
 {
     internal class ExportacaoJpg : IExportacao
     {
-        public byte[] Exportar(Report relatorio, string nome)
+        public byte[] Exportar(Report relatorio)
         {
             using (var ms = new MemoryStream())
             {

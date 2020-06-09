@@ -21,7 +21,7 @@ namespace SGH.Relatorios.Implementacoes
         public byte[] Gerar()
         {
             var relatorio = ConstruirRelatorio();
-            return _exportacaoFactory.Exportar(relatorio, "Horario", ETipoExportacao.PDF);
+            return _exportacaoFactory.Exportar(relatorio, ETipoExportacao.PDF);
         }
 
         private Report ConstruirRelatorio()

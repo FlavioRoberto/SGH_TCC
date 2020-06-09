@@ -6,7 +6,7 @@ namespace SGH.Relatorios.Factories.Exportacao
     {
         private IExportacao _exportacao;
 
-        public byte[] Exportar(Report relatorio, string nome, ETipoExportacao tipo)
+        public byte[] Exportar(Report relatorio, ETipoExportacao tipo)
         {
             switch (tipo)
             {
@@ -14,7 +14,7 @@ namespace SGH.Relatorios.Factories.Exportacao
                 case ETipoExportacao.PDF: _exportacao = new ExportacaoPdf();break;
             }
 
-            return _exportacao.Exportar(relatorio, nome);
+            return _exportacao.Exportar(relatorio);
         }
     }
 }

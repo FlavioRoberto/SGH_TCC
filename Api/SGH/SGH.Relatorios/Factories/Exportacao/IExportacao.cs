@@ -4,6 +4,6 @@ namespace SGH.Relatorios.Factories.Exportacao
 {
     internal interface IExportacao
     {
-        byte[] Exportar(Report relatorio, string nome);
+        byte[] Exportar(Report relatorio);
     }
 }
