@@ -1,15 +1,5 @@
-﻿using FastReport.Preview;
-using SGH.Relatorios.Contratos;
-using System.Collections.Generic;
-
-namespace SGH.Relatorios.Implementacoes.Horario
+﻿namespace SGH.Relatorios.DataSets
 {
-    public class QuadroHorario : IRelatorioData {
-        public int Codigo { get; set; }
-        public string Periodo { get; set; }
-        public string Avisos { get; set; }
-    }
-
     public class Aula
     {
         public int HorarioCodigo { get; set; }

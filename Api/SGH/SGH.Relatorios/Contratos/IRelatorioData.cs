@@ -1,6 +1,6 @@
 ﻿namespace SGH.Relatorios.Contratos
 {
-    public interface IRelatorioData
+    internal interface IRelatorioData
     {
     }
 }
