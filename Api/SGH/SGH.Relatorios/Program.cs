@@ -156,7 +156,7 @@ namespace SGH.Relatorios
                }
             };
 
-            var relatorio = new HorarioRelatorio(new HorarioRelatorioData(2020, "Engenharia Civil", "Matutino", horarios, aulas)).Gerar();
+            var relatorio = new RelatorioServico().GerarRelatorioHorario(new HorarioRelatorioData(2020, "Engenharia Civil", "Matutino", horarios, aulas));
 
             File.WriteAllBytes(Path.Combine("Relatorios", "Horario.pdf"), relatorio);
 
