@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
-using System;
+using SGH.Dominio.Services.Contratos;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 {
-    public class GerarRelatorioHorarioGeralConsultaValidador : AbstractValidator<GerarHorarioGeralRelatorioConsulta>, IValidator<GerarHorarioGeralRelatorioConsulta>
+    public class GerarRelatorioHorarioGeralConsultaValidador : AbstractValidator<GerarHorarioGeralRelatorioConsulta>, IValidador<GerarHorarioGeralRelatorioConsulta>
     {
         private readonly ICurriculoRepositorio _curriculoRepositorio;
         private readonly ITurnoRepositorio _turnoRepositorio;

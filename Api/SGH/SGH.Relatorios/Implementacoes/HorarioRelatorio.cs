@@ -20,17 +20,25 @@ namespace SGH.Relatorios.Implementacoes
 
         public byte[] Gerar()
         {
-            var relatorio = ConstruirRelatorio();
+            var caminhoRepx = RetornarCaminhoRepx();
+            var relatorio = ConstruirRelatorio(caminhoRepx);
             return _exportacaoFactory.Exportar(relatorio, ETipoExportacao.PDF);
         }
 
-        private Report ConstruirRelatorio()
+        private string RetornarCaminhoRepx()
+        {
+            var localizacao = System.Reflection.Assembly.GetEntryAssembly().Location;
+            var diretorio = Path.GetDirectoryName(localizacao);
+            return Path.Combine(diretorio, "Relatorios", "Horario.frx");
+        }
+
+        private Report ConstruirRelatorio(string caminhoRepx)
         {
             var relatorio = new Report();
 
             relatorio = RegistrarDataSet(relatorio);
 
-            relatorio.Load(Path.Combine("Relatorios", "Horario.frx"));
+            relatorio.Load(caminhoRepx);
 
             relatorio = DefinirParametros(relatorio);
 
