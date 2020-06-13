@@ -1,28 +1,28 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
 
 namespace SGH.Dominio.Core.Enums
 {
     public enum EPeriodo
     {
-        [Display(Name = "Primeiro")]
+        [Description("Primeiro")]
         PRIMEIRO = 1,
-        [Display(Name = "Segundo")]
+        [Description("Segundo")]
         SEGUNDO = 2,
-        [Display(Name = "Terceiro")]
+        [Description("Terceiro")]
         TERCEIRO = 3,
-        [Display(Name = "Quarto")]
+        [Description("Quarto")]
         QUARTO = 4,
-        [Display(Name = "Quinto")]
+        [Description("Quinto")]
         QUINTO = 5,
-        [Display(Name = "Sexto")]
+        [Description("Sexto")]
         SEXTO = 6,
-        [Display(Name = "Sétimo")]
+        [Description("Sétimo")]
         SETIMO = 7,
-        [Display(Name = "Oitavo")]
+        [Description("Oitavo")]
         OITAVO = 8,
-        [Display(Name = "Nono")]
+        [Description("Nono")]
         NONO = 9,
-        [Display(Name = "Décimo")]
+        [Description("Décimo")]
         DECIMO = 10
     }
 }

@@ -7,7 +7,7 @@ using System.Text;
 
 namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 {
-    public class GerarHorarioGeralRelatorioConsulta : IRequest<Resposta<Unit>>
+    public class GerarHorarioGeralRelatorioConsulta : IRequest<Resposta<string>>
     {
         public int CursoId { get; set; }
         public int TurnoId { get; set; }

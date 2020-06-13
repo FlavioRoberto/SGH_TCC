@@ -1,12 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace SGH.Dominio.Core.Enums
 {
     public enum ESemestre
     {
-        [Display(Name = "Primeiro")]
+        [Description("1° Semestre")]
         PRIMEIRO = 1,
-        [Display(Name = "Segundo")]
+        [Description("2° Semestre")]
         SEGUNDO = 2
     }
 }

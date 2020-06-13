@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 {
-    public class GerarRelatorioHorarioGeralConsultaHandler : IRequestHandler<GerarHorarioGeralRelatorioConsulta, Resposta<Unit>>
+    public class GerarRelatorioHorarioGeralConsultaHandler : IRequestHandler<GerarHorarioGeralRelatorioConsulta, Resposta<string>>
     {
         private readonly IValidador<GerarHorarioGeralRelatorioConsulta> _validador;
         private readonly IRelatorioServico _relatorioServico;
@@ -24,6 +24,8 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
         private readonly IAulaRepositorio _aulaRepositorio;
         private readonly ICursoRepositorio _cursoRepositorio;
         private readonly ICurriculoRepositorio _curriculoRepositorio;
+        private readonly ICargoRepositorio _cargoRepositorio;
+        private readonly ISalaRepositorio _salaRepositorio;
 
         public GerarRelatorioHorarioGeralConsultaHandler(IValidador<GerarHorarioGeralRelatorioConsulta> validador,
                                                          IRelatorioServico relatorioServico,
@@ -31,7 +33,9 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
                                                          IAulaRepositorio aulaRepositorio,
                                                          ITurnoRepositorio turnoRepositorio,
                                                          ICursoRepositorio cursoRepositorio,
-                                                         ICurriculoRepositorio curriculoRepositorio)
+                                                         ICurriculoRepositorio curriculoRepositorio,
+                                                         ICargoRepositorio cargoRepositorio,
+                                                         ISalaRepositorio salaRepositorio)
         {
             _validador = validador;
             _relatorioServico = relatorioServico;
@@ -40,14 +44,16 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
             _aulaRepositorio = aulaRepositorio;
             _cursoRepositorio = cursoRepositorio;
             _curriculoRepositorio = curriculoRepositorio;
+            _cargoRepositorio = cargoRepositorio;
+            _salaRepositorio = salaRepositorio;
         }
 
-        public async Task<Resposta<Unit>> Handle(GerarHorarioGeralRelatorioConsulta request, CancellationToken cancellationToken)
+        public async Task<Resposta<string>> Handle(GerarHorarioGeralRelatorioConsulta request, CancellationToken cancellationToken)
         {
             var erro = _validador.Validar(request);
 
             if (!string.IsNullOrEmpty(erro))
-                return new Resposta<Unit>(erro);
+                return new Resposta<string>(erro);
 
             var curso = await RetornarDescricaoCurso(request.CursoId);
 
@@ -57,11 +63,15 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 
             var aulas = await RetornarAulas(horarios);
 
-            var dados = new HorarioRelatorioData(request.Ano, curso, turno, horarios, aulas);
+            var semestre = request.Semestre.RetornarDescricao();
+
+            var dados = new HorarioRelatorioData(request.Ano, curso, turno, semestre, horarios, aulas);
 
             var bytesRelatorio = _relatorioServico.GerarRelatorioHorario(dados);
 
-            return new Resposta<Unit>(Unit.Value);
+            var base64 = Convert.ToBase64String(bytesRelatorio);
+
+            return new Resposta<string>(base64);
         }
 
         private async Task<string> RetornarDescricaoCurso(int cursoId)
@@ -111,7 +121,7 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
         {
             var aulasRelatorio = new List<AulaData>();
 
-            var aulas = await _aulaRepositorio.Listar(lnq => lnq.CodigoHorario == horario.Codigo);
+            var aulas = await _aulaRepositorio.ListarComDisciplinas(lnq => lnq.CodigoHorario == horario.Codigo);
 
             var aulasPorHorario = aulas.GroupBy(lnq => lnq.Reserva.Hora).Select(lnq => lnq).ToList();
 
@@ -119,12 +129,12 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
             {
                 aulasRelatorio.Add(new AulaData
                 {
-                    DisciplinaSegunda = RetornarDisciplinaPorDiaSemanaHora(aula, "Segunda"),
-                    DisciplinaTerca = RetornarDisciplinaPorDiaSemanaHora(aula, "Terça"),
-                    DisciplinaQuarta = RetornarDisciplinaPorDiaSemanaHora(aula, "Quarta"),
-                    DisciplinaQuinta = RetornarDisciplinaPorDiaSemanaHora(aula, "Quinta"),
-                    DisciplinaSexta = RetornarDisciplinaPorDiaSemanaHora(aula, "Sexta"),
-                    DisciplinaSabado = RetornarDisciplinaPorDiaSemanaHora(aula, "Sábado"),
+                    DisciplinaSegunda = await RetornarDisciplinaPorDiaSemanaHora(aula, "Segunda"),
+                    DisciplinaTerca = await RetornarDisciplinaPorDiaSemanaHora(aula, "Terça"),
+                    DisciplinaQuarta = await RetornarDisciplinaPorDiaSemanaHora(aula, "Quarta"),
+                    DisciplinaQuinta = await RetornarDisciplinaPorDiaSemanaHora(aula, "Quinta"),
+                    DisciplinaSexta = await RetornarDisciplinaPorDiaSemanaHora(aula, "Sexta"),
+                    DisciplinaSabado = await RetornarDisciplinaPorDiaSemanaHora(aula, "Sábado"),
                     Hora = aula.Key,
                     HorarioCodigo = horario.Codigo
                 });
@@ -133,14 +143,42 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
             return aulasRelatorio;
         }
 
-        private string RetornarDisciplinaPorDiaSemanaHora(IGrouping<string, Aula> aula, string diaSemana)
+        private async Task<string> RetornarDisciplinaPorDiaSemanaHora(IGrouping<string, Aula> aula, string diaSemana)
         {
             var disciplina = aula.FirstOrDefault(lnq => lnq.Reserva.DiaSemana == diaSemana && lnq.Reserva.Hora == aula.Key);
 
-            if (disciplina != null)
-                return disciplina.Disciplina.Descricao;
+            if (disciplina == null)
+                return "";
 
-            return "";
+            var descricaoCargo = await RetornarDescricaoCargo(disciplina.Disciplina.CodigoCargo);
+            var descricaoSala = await RetornarDescricaoSala(disciplina.CodigoSala);
+
+            return $"{disciplina.Disciplina.Descricao} \r\n ({descricaoCargo}) \r\n {descricaoSala}";
+        }
+
+        private async Task<string> RetornarDescricaoSala(int codigoSala)
+        {
+            var sala = await _salaRepositorio.Consultar(lnq => lnq.Codigo == codigoSala);
+            
+            if (sala == null)
+                return "Sala não encontrada";
+            
+            return sala.Descricao;
+        }
+
+        private async Task<string> RetornarDescricaoCargo(int codigoCargo)
+        {
+            var cargo = await _cargoRepositorio.Consultar(lnq => lnq.Codigo == codigoCargo);
+
+            if (cargo == null)
+                return "Cargo não encontrado";
+
+            var professor = await _cargoRepositorio.ConsultarProfessor(codigoCargo);
+
+            if (professor != null)
+                return professor.Nome;
+
+            return $"Cargo {cargo.Numero}";
         }
     }
 }
