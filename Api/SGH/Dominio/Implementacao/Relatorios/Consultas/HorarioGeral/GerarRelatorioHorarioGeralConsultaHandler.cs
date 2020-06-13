@@ -24,8 +24,8 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
         private readonly IAulaRepositorio _aulaRepositorio;
         private readonly ICursoRepositorio _cursoRepositorio;
         private readonly ICurriculoRepositorio _curriculoRepositorio;
-        private readonly ICargoRepositorio _cargoRepositorio;
         private readonly ISalaRepositorio _salaRepositorio;
+        private readonly ICargoService _cargoService;
 
         public GerarRelatorioHorarioGeralConsultaHandler(IValidador<GerarHorarioGeralRelatorioConsulta> validador,
                                                          IRelatorioServico relatorioServico,
@@ -34,8 +34,8 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
                                                          ITurnoRepositorio turnoRepositorio,
                                                          ICursoRepositorio cursoRepositorio,
                                                          ICurriculoRepositorio curriculoRepositorio,
-                                                         ICargoRepositorio cargoRepositorio,
-                                                         ISalaRepositorio salaRepositorio)
+                                                         ISalaRepositorio salaRepositorio,
+                                                         ICargoService cargoService)
         {
             _validador = validador;
             _relatorioServico = relatorioServico;
@@ -44,8 +44,8 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
             _aulaRepositorio = aulaRepositorio;
             _cursoRepositorio = cursoRepositorio;
             _curriculoRepositorio = curriculoRepositorio;
-            _cargoRepositorio = cargoRepositorio;
             _salaRepositorio = salaRepositorio;
+            _cargoService = cargoService;
         }
 
         public async Task<Resposta<string>> Handle(GerarHorarioGeralRelatorioConsulta request, CancellationToken cancellationToken)
@@ -150,7 +150,7 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
             if (disciplina == null)
                 return "";
 
-            var descricaoCargo = await RetornarDescricaoCargo(disciplina.Disciplina.CodigoCargo);
+            var descricaoCargo = await _cargoService.RetornarProfessor(disciplina.Disciplina.CodigoCargo);
             var descricaoSala = await RetornarDescricaoSala(disciplina.CodigoSala);
 
             return $"{disciplina.Disciplina.Descricao} \r\n ({descricaoCargo}) \r\n {descricaoSala}";
@@ -166,19 +166,5 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
             return sala.Descricao;
         }
 
-        private async Task<string> RetornarDescricaoCargo(int codigoCargo)
-        {
-            var cargo = await _cargoRepositorio.Consultar(lnq => lnq.Codigo == codigoCargo);
-
-            if (cargo == null)
-                return "Cargo não encontrado";
-
-            var professor = await _cargoRepositorio.ConsultarProfessor(codigoCargo);
-
-            if (professor != null)
-                return professor.Nome;
-
-            return $"Cargo {cargo.Numero}";
-        }
     }
 }

@@ -46,6 +46,7 @@ using SGH.Dominio.Services.Implementacao.Turnos.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Remover;
+using SGH.Dominio.Services.Servicos;
 using SGH.Relatorios;
 
 namespace SGH.Dominio.Services.Extensions
@@ -56,6 +57,7 @@ namespace SGH.Dominio.Services.Extensions
         {
             services.Configure<EmailConfiguracoes>(configuracaoSecao);
             services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<ICargoService, CargoService>();
 
             services.AddScoped<IValidador<AtualizarCurriculoComando>, AtualizarCurriculoComandoValidador>();
             services.AddScoped<IValidador<AtualizarSenhaComando>, AtualizarSenhaComandoValidador>();

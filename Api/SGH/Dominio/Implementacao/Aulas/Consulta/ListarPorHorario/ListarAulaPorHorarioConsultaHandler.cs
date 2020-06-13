@@ -20,14 +20,16 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
         private readonly ISalaRepositorio _salaRepositorio;
         private readonly ICurriculoDisciplinaRepositorio _curriculoDisciplinaRepositorio;
         private readonly IValidador<ListarAulaPorHorarioConsulta> _validador;
-        
+        private readonly ICargoService _cargoService;
+
 
         public ListarAulaPorHorarioConsultaHandler(IAulaRepositorio aulaRepositorio, 
                                                    ICargoDisciplinaRepositorio cargoDisciplinaRepositorio,
                                                    ICargoRepositorio cargoRepositorio,
                                                    ISalaRepositorio salaRepositorio,
                                                    ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio,
-                                                   IValidador<ListarAulaPorHorarioConsulta> validador)
+                                                   IValidador<ListarAulaPorHorarioConsulta> validador,
+                                                   ICargoService cargoService)
         {
             _aulaRepositorio = aulaRepositorio;
             _cargoDisciplinaRepositorio = cargoDisciplinaRepositorio;
@@ -35,6 +37,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
             _validador = validador;
             _salaRepositorio = salaRepositorio;
             _curriculoDisciplinaRepositorio = curriculoDisciplinaRepositorio;
+            _cargoService = cargoService;
         }
 
         public async Task<Resposta<ICollection<AulaViewModel>>> Handle(ListarAulaPorHorarioConsulta request, CancellationToken cancellationToken)
@@ -58,7 +61,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
             foreach(var aula in aulas)
             {
                 var cargo = await RetornarCargoDisciplina(aula.CodigoDisciplina);
-                var professor = await RetornarProfessorCargo(cargo);
+                var professor = await _cargoService.RetornarProfessor(cargo.Codigo);
                 var disciplina = await RetornarDisciplina(aula.CodigoDisciplina);
                 var sala = await RetornarSalaDisciplina(aula.CodigoSala);
                 var horarioExtrapolado = await VerificarSeHorarioExtrapolado(aula.CodigoHorario, disciplina, aula.Laboratorio);
@@ -123,12 +126,6 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
         private async Task<CargoDisciplina> RetornarDisciplina(int codigoDisciplina)
         {
             return await _cargoDisciplinaRepositorio.Consultar(lnq => lnq.Codigo == codigoDisciplina);
-        }
-
-        private async Task<string> RetornarProfessorCargo(Cargo cargo)
-        {
-            var professor = await _cargoRepositorio.ConsultarProfessor(cargo.Codigo);
-            return professor == null ? cargo.Numero.ToString() : professor.Nome;
         }
 
         private async Task<Cargo> RetornarCargoDisciplina(int codigoDisciplina)
