@@ -15,5 +15,6 @@ namespace SGH.Data.Repositorio.Contratos
         Task<bool> Contem(Expression<Func<Curriculo, bool>> expressao);
         Task<List<Curriculo>> ListarTodos();
         Task<Curriculo> Consultar(Expression<Func<Curriculo, bool>> expressao);
+        Task<IList<int>> ListarCodigos(Expression<Func<Curriculo, bool>> expressao);
     }
 }

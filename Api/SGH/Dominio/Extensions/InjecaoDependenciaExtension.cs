@@ -45,6 +45,7 @@ using SGH.Dominio.Services.Implementacao.Turnos.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Remover;
+using SGH.Relatorios;
 
 namespace SGH.Dominio.Services.Extensions
 {
@@ -102,6 +103,9 @@ namespace SGH.Dominio.Services.Extensions
             services.AddAutoMapperConfig();
             #endregion
 
+            #region Relatorio
+            services.AddRelatorio(configuracaoSecao);
+            #endregion
 
             return services;
         }

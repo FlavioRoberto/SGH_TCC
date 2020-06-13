@@ -10,9 +10,9 @@ namespace SGH.Relatorios.DataSets
         public string Curso { get; private set; }
         public string Turno { get; private set; }
         public IList<QuadroHorario> Horarios { get; private set; }
-        public IList<Aula> Aulas { get; private set; }
+        public IList<AulaData> Aulas { get; private set; }
 
-        public HorarioRelatorioData(int ano, string curso, string turno, IList<QuadroHorario> horarios, IList<Aula> aulas)
+        public HorarioRelatorioData(int ano, string curso, string turno, IList<QuadroHorario> horarios, IList<AulaData> aulas)
         {
             Ano = ano;
             Curso = curso;

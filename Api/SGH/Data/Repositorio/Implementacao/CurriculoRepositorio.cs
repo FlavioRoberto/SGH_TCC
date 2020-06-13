@@ -76,5 +76,13 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             return await _repositorio.Consultar(expressao);
         }
+
+        public async Task<IList<int>> ListarCodigos(Expression<Func<Curriculo, bool>> expressao)
+        {
+            return await _repositorio.GetDbSet<Curriculo>()
+                                     .Where(expressao)
+                                     .Select(lnq => lnq.Codigo)
+                                     .ToListAsync();
+        }
     }
 }

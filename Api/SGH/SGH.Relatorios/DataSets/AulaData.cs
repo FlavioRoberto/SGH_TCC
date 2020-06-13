@@ -1,6 +1,6 @@
 ﻿namespace SGH.Relatorios.DataSets
 {
-    public class Aula
+    public class AulaData
     {
         public int HorarioCodigo { get; set; }
         public string Hora { get; set; }

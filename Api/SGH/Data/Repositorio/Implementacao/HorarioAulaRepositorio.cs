@@ -58,6 +58,11 @@ namespace SGH.Data.Repositorio.Implementacao
                               .ToListAsync();
         }
 
+        public async Task<List<HorarioAula>> Listar(Expression<Func<HorarioAula, bool>> expressao)
+        {
+            return await _repositorio.Listar(expressao);
+        }
+
         public async Task<bool> Remover(Expression<Func<HorarioAula, bool>> expressao)
         {
             return await _repositorio.Remover(expressao);
