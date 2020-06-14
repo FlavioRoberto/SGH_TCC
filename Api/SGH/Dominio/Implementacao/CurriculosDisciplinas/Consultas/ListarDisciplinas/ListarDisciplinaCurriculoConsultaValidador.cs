@@ -1,7 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using FluentValidation;
+﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Services.Contratos;
 

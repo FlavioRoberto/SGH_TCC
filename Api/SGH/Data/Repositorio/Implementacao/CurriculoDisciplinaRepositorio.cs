@@ -69,6 +69,7 @@ namespace SGH.Data.Repositorio.Implementacao
                                      .Include(lnq => lnq.CurriculoDisciplinaPreRequisito)
                                      .ThenInclude(lnq => lnq.Disciplina)
                                      .Where(expressao)
+                                     .OrderBy(lnq => lnq.Periodo)
                                      .ToListAsync();
         }
 

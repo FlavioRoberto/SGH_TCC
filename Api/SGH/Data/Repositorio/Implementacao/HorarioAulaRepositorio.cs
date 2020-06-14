@@ -60,7 +60,10 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<List<HorarioAula>> Listar(Expression<Func<HorarioAula, bool>> expressao)
         {
-            return await _repositorio.Listar(expressao);
+            return await _repositorio.GetDbSet<HorarioAula>()
+                                     .Where(expressao)
+                                     .OrderBy(lnq => lnq.Periodo)
+                                     .ToListAsync();
         }
 
         public async Task<bool> Remover(Expression<Func<HorarioAula, bool>> expressao)

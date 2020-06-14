@@ -99,7 +99,7 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
                                                                        lnq.Semestre == request.Semestre);
             return horarios.Select(lnq => new QuadroHorario
             {
-                Avisos = "",
+                Avisos = lnq.Mensagem,
                 Codigo = lnq.Codigo,
                 Periodo = lnq.Periodo.RetornarDescricao()
             }).ToList();
