@@ -36,6 +36,9 @@ namespace SHG.Data.Mapeamento
             builder.Property(lnq => lnq.AulasSemanaisTeorica)
                 .HasColumnName("Curdis_Quantidade_Aulas_Semanais_Teorica");
 
+            builder.Property(lnq => lnq.QuantidadeAulaTotal)
+                .HasColumnName("Curdis_Quantidade_Aulas_Total");
+
             #endregion
 
             builder.ToTable("Curriculo_Disciplina");

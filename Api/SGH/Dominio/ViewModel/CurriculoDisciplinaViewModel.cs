@@ -18,6 +18,8 @@ namespace SGH.Dominio.ViewModel
 
         public int AulasSemanaisPratica { get; set; }
 
+        public int QuantidadeAulaTotal { get; set; }
+
         public DisciplinaViewModel Disciplina { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

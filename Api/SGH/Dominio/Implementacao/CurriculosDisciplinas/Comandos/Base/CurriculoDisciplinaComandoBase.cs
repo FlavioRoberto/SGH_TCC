@@ -16,6 +16,9 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Base
 
         public int AulasSemanaisPratica { get; set; }
 
+        public int QuantidadeAulaTotal { get; set; }
+
+
         public IEnumerable<DisciplinCurriculoPreRequisitoaViewModel> PreRequisitos { get; set; }
     }
 }
