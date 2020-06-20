@@ -28,22 +28,22 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
                 .NotEmpty()
                 .WithMessage("O semestre não foi informado.");
 
-            RuleFor(lnq => lnq.CursoId)
+            RuleFor(lnq => lnq.CodigoCurso)
                 .NotEmpty()
                 .WithMessage("O código do curriculo não foi informado.")
 
                 .MustAsync(ValidarSeCursoExiste)
-                .WithMessage(c => $"Não foi encontrado um curso com o código {c.CursoId}.")
+                .WithMessage(c => $"Não foi encontrado um curso com o código {c.CodigoCurso}.")
 
                 .MustAsync(ValidarSeCursoPossuiCurriculoVinculado)
-                .WithMessage(c => $"Não foi encontrado currículos para o curso de código {c.CursoId}.");
+                .WithMessage(c => $"Não foi encontrado currículos para o curso de código {c.CodigoCurso}.");
 
-            RuleFor(lnq => lnq.TurnoId)
+            RuleFor(lnq => lnq.CodigoTurno)
                 .NotEmpty()
                 .WithMessage("O turno não foi informado.")
 
                 .MustAsync(ValidarSeTurnoExiste)
-                .WithMessage(c => $"Não foi encontrado um turno com o código {c.TurnoId}.");
+                .WithMessage(c => $"Não foi encontrado um turno com o código {c.CodigoTurno}.");
         }
 
         private async Task<bool> ValidarSeCursoPossuiCurriculoVinculado(int codigoCurso, CancellationToken arg2)

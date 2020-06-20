@@ -55,9 +55,9 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
             if (!string.IsNullOrEmpty(erro))
                 return new Resposta<string>(erro);
 
-            var curso = await RetornarDescricaoCurso(request.CursoId);
+            var curso = await RetornarDescricaoCurso(request.CodigoCurso);
 
-            var turno = await RetornarDescricaoTurno(request.TurnoId);
+            var turno = await RetornarDescricaoTurno(request.CodigoTurno);
 
             var horarios = await RetornarHorarios(request);
 
@@ -71,7 +71,7 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 
             var base64 = Convert.ToBase64String(bytesRelatorio);
 
-            return new Resposta<string>(base64);
+            return new Resposta<string>(base64, "");
         }
 
         private async Task<string> RetornarDescricaoCurso(int cursoId)
@@ -88,14 +88,14 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 
         private async Task<IList<QuadroHorario>> RetornarHorarios(GerarHorarioGeralRelatorioConsulta request)
         {
-            var curriculosCurso = await _curriculoRepositorio.ListarCodigos(lnq => lnq.CodigoCurso == request.CursoId);
+            var curriculosCurso = await _curriculoRepositorio.ListarCodigos(lnq => lnq.CodigoCurso == request.CodigoCurso);
 
             if (curriculosCurso.Count <= 0)
                 return new List<QuadroHorario>();
 
             var horarios = await _horarioAulaRepositorio.Listar(lnq => curriculosCurso.Contains(lnq.CodigoCurriculo) &&
                                                                        lnq.Ano == request.Ano &&
-                                                                       lnq.CodigoTurno == request.TurnoId &&
+                                                                       lnq.CodigoTurno == request.CodigoTurno &&
                                                                        lnq.Semestre == request.Semestre);
             return horarios.Select(lnq => new QuadroHorario
             {
