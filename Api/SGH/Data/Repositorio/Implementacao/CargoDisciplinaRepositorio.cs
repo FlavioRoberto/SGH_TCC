@@ -13,10 +13,11 @@ namespace SGH.Data.Repositorio.Implementacao
     public class CargoDisciplinaRepositorio : ICargoDisciplinaRepositorio
     {
         private readonly IRepositorio<CargoDisciplina> _repositorio;
-        private readonly IContexto contexto;
-        public CargoDisciplinaRepositorio(IRepositorio<CargoDisciplina> repositorio)
+        private readonly IContexto _contexto;
+        public CargoDisciplinaRepositorio(IRepositorio<CargoDisciplina> repositorio, IContexto contexto)
         {
             _repositorio = repositorio;
+            _contexto = contexto;
         }
 
         public async Task<CargoDisciplina> Atualizar(CargoDisciplina entidade)
@@ -32,7 +33,7 @@ namespace SGH.Data.Repositorio.Implementacao
         public async Task<Cargo> ConsultarCargo(int codigoDisciplina)
         {
             var disciplina = await _repositorio.Consultar(lnq => lnq.Codigo == codigoDisciplina);
-            return await _repositorio.GetDbSet<Cargo>().FirstOrDefaultAsync(lnq => lnq.Codigo == disciplina.CodigoCargo);
+            return await _contexto.Cargo.FirstOrDefaultAsync(lnq => lnq.Codigo == disciplina.CodigoCargo);
         }
 
         public Task<bool> Contem(Expression<Func<CargoDisciplina, bool>> expressao)
@@ -47,7 +48,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<List<CargoDisciplina>> Listar(Expression<Func<CargoDisciplina, bool>> query)
         {
-            return await _repositorio.GetDbSet<CargoDisciplina>()
+            return await _contexto.CargoDisciplina
                                      .Include(lnq => lnq.Turno)
                                      .AsNoTracking()
                                      .Where(query)
@@ -56,7 +57,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<List<CargoDisciplina>> ListarDisciplinasCurriculo(Expression<Func<CargoDisciplina, bool>> query)
         {
-            return await _repositorio.GetDbSet<CargoDisciplina>()
+            return await _contexto.CargoDisciplina
                                      .Include(lnq => lnq.Turno)
                                      .Include(lnq => lnq.Cargo)
                                      .Include(lnq => lnq.Disciplina)
@@ -74,7 +75,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<Curriculo> RetornarCurriculoDisciplina(int codigoCurriculoDisciplina)
         {
-            var curriculoDisciplina = await _repositorio.GetDbSet<CurriculoDisciplina>()
+            var curriculoDisciplina = await _contexto.CurriculoDisciplina
                 .Include(lnq => lnq.Curriculo)
                 .ThenInclude(lnq => lnq.Curso)
                 .AsNoTracking()
@@ -85,7 +86,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<Disciplina> RetornarDisciplina(int codigoCurriculoDisciplina)
         {
-            var curriculoDisciplina = await _repositorio.GetDbSet<CurriculoDisciplina>()
+            var curriculoDisciplina = await _contexto.CurriculoDisciplina
                 .Include(lnq => lnq.Disciplina)
                 .AsNoTracking()
                 .FirstOrDefaultAsync(lnq => lnq.Codigo == codigoCurriculoDisciplina);

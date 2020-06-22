@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SGH.Dominio.Core.Contratos;
 using SGH.Dominio.Core.Model;
+using SHG.Data.Contexto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace SGH.Data.Repositorio.Implementacao
     public class HorarioAulaRepositorio : IHorarioAulaRepositorio
     {
         private readonly IRepositorio<HorarioAula> _repositorio;
+        private readonly IContexto _contexto;
 
-        public HorarioAulaRepositorio(IRepositorio<HorarioAula> repositorio)
+        public HorarioAulaRepositorio(IRepositorio<HorarioAula> repositorio, IContexto contexto)
         {
             _repositorio = repositorio;
+            _contexto = contexto;
         }
 
         public async Task<HorarioAula> Atualizar(HorarioAula entidade)
@@ -35,7 +38,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<List<HorarioAula>> Listar(ListarHorarioFiltro filtro)
         {
-            var query = _repositorio.GetDbSet<HorarioAula>().AsNoTracking();
+            var query = _contexto.HorarioAula.AsNoTracking();
 
             if (filtro.Ano.HasValue)
                 query = query.Where(lnq => lnq.Ano == filtro.Ano);
@@ -60,10 +63,10 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<List<HorarioAula>> Listar(Expression<Func<HorarioAula, bool>> expressao)
         {
-            return await _repositorio.GetDbSet<HorarioAula>()
-                                     .Where(expressao)
-                                     .OrderBy(lnq => lnq.Periodo)
-                                     .ToListAsync();
+            return await _contexto.HorarioAula
+                                  .Where(expressao)
+                                  .OrderBy(lnq => lnq.Periodo)
+                                  .ToListAsync();
         }
 
         public async Task<bool> Remover(Expression<Func<HorarioAula, bool>> expressao)

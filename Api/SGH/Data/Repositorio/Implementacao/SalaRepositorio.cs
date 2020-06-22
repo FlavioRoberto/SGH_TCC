@@ -7,16 +7,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using SHG.Data.Contexto;
 
 namespace SGH.Data.Repositorio.Implementacao
 {
     public class SalaRepositorio : ISalaRepositorio
     {
         private readonly IRepositorio<Sala> _repositorioBase;
+        private IContexto _contexto;
 
-        public SalaRepositorio(IRepositorio<Sala> repositorioBase)
+        public SalaRepositorio(IRepositorio<Sala> repositorioBase, IContexto contexto)
         {
             _repositorioBase = repositorioBase;
+            _contexto = contexto;
         }
 
         public async Task<Sala> Atualizar(Sala sala)
@@ -41,7 +44,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<Paginacao<Sala>> ListarPorPaginacao(Paginacao<Sala> entidadePaginada)
         {
-            var query = _repositorioBase.GetDbSet<Sala>().AsNoTracking();
+            var query = _contexto.Sala.AsNoTracking();
 
             if (entidadePaginada.Entidade == null)
                 entidadePaginada.Entidade = new List<Sala>();
