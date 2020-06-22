@@ -1,6 +1,6 @@
 ﻿using SGH.Dominio.Core.Model;
 
-namespace SGH.Data.Repositorio.Contratos
+namespace SGH.Dominio.Core.Contratos
 {
     public interface ICursoRepositorio : IRepositorio<Curso>, IRepositorioPaginacao<Curso>
     {

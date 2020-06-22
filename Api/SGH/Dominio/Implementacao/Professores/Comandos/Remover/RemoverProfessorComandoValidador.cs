@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.IdentityModel.Tokens;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Contratos;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.Contratos;
 using System;

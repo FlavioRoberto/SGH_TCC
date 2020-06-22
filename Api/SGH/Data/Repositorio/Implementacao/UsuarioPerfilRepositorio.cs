@@ -1,4 +1,4 @@
-﻿using SGH.Data.Repositorio.Contratos;
+﻿using SGH.Dominio.Core.Contratos;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Contexto;
 

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Contratos;
 using SGH.Data.Repositorio.Helpers;
 using SGH.Dominio.Core.Model;
 using System;
@@ -7,16 +7,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using SHG.Data.Contexto;
 
 namespace SGH.Data.Repositorio.Implementacao
 {
     public class CurriculoRepositorio : ICurriculoRepositorio
     {
         private readonly IRepositorio<Curriculo> _repositorio;
+        private readonly IContexto _contexto;
 
-        public CurriculoRepositorio(IRepositorio<Curriculo> repositorio)
+        public CurriculoRepositorio(IRepositorio<Curriculo> repositorio, IContexto contexto)
         {
             _repositorio = repositorio;
+            _contexto = contexto;
         }
 
         public async Task<Curriculo> Atualizar(Curriculo entidade)
@@ -31,9 +34,9 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<Paginacao<Curriculo>> ListarPorPaginacao(Paginacao<Curriculo> entidadePaginada)
         {
-            var query = _repositorio.GetDbSet<Curriculo>()
-                                    .Include(lnq => lnq.Curso)
-                                    .AsNoTracking();
+            var query = _contexto.Curriculo
+                                 .Include(lnq => lnq.Curso)
+                                 .AsNoTracking();
 
             if (entidadePaginada.Entidade == null)
                 entidadePaginada.Entidade = new List<Curriculo>();
@@ -54,7 +57,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<int> RetornarQuantidadeDisciplinaCurriculo(long codigoCurriculo)
         {
-            return await _repositorio.GetDbSet<CurriculoDisciplina>().CountAsync(lnq => lnq.CodigoCurriculo == codigoCurriculo);
+            return await _contexto.CurriculoDisciplina.CountAsync(lnq => lnq.CodigoCurriculo == codigoCurriculo);
         }
 
         public async Task<bool> Remover(int codigoCurriculo)
@@ -69,7 +72,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<List<Curriculo>> ListarTodos()
         {
-            return await _repositorio.GetDbSet<Curriculo>().AsNoTracking().Include(lnq => lnq.Curso).ToListAsync();
+            return await _contexto.Curriculo.AsNoTracking().Include(lnq => lnq.Curso).ToListAsync();
         }
 
         public async Task<Curriculo> Consultar(Expression<Func<Curriculo, bool>> expressao)
@@ -79,10 +82,10 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<IList<int>> ListarCodigos(Expression<Func<Curriculo, bool>> expressao)
         {
-            return await _repositorio.GetDbSet<Curriculo>()
-                                     .Where(expressao)
-                                     .Select(lnq => lnq.Codigo)
-                                     .ToListAsync();
+            return await _contexto.Curriculo
+                                  .Where(expressao)
+                                  .Select(lnq => lnq.Codigo)
+                                  .ToListAsync();
         }
     }
 }

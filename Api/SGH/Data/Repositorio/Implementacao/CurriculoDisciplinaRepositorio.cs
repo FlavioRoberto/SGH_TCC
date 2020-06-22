@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Contratos;
 using SGH.Dominio.Core.Model;
+using SHG.Data.Contexto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +13,19 @@ namespace SGH.Data.Repositorio.Implementacao
     public class CurriculoDisciplinaRepositorio : ICurriculoDisciplinaRepositorio
     {
         private readonly IRepositorio<CurriculoDisciplina> _repositorio;
+        private readonly IContexto _contexto;
 
-        public CurriculoDisciplinaRepositorio(IRepositorio<CurriculoDisciplina> repositorio)
+        public CurriculoDisciplinaRepositorio(IRepositorio<CurriculoDisciplina> repositorio, IContexto contexto)
         {
             _repositorio = repositorio;
+            _contexto = contexto;
         }
 
         public async Task<CurriculoDisciplina> Consultar(Expression<Func<CurriculoDisciplina, bool>> expressao)
         {
-            return await _repositorio.GetDbSet<CurriculoDisciplina>()
-                                     .Include(lnq => lnq.Disciplina)
-                                     .FirstOrDefaultAsync(expressao);
+            return await _contexto.CurriculoDisciplina
+                                  .Include(lnq => lnq.Disciplina)
+                                  .FirstOrDefaultAsync(expressao);
         }
 
         public async Task<bool> Contem(Expression<Func<CurriculoDisciplina, bool>> expressao)
@@ -45,16 +48,16 @@ namespace SGH.Data.Repositorio.Implementacao
 
         private async Task<List<CurriculoDisciplinaPreRequisito>> AtualizarPreRequisitos(int codigoCurriculoDisciplina, List<CurriculoDisciplinaPreRequisito> curriculoDisciplinaPreRequisito)
         {
-            var disciplinasBancoPreRequisito = await _repositorio.GetDbSet<CurriculoDisciplinaPreRequisito>()
+            var disciplinasBancoPreRequisito = await _contexto.CurriculoDisciplinaPreRequisito
                                                      .AsNoTracking()
                                                      .Where(lnq => lnq.CodigoCurriculoDisciplina == codigoCurriculoDisciplina)
                                                      .ToListAsync();
 
-            _repositorio.GetDbSet<CurriculoDisciplinaPreRequisito>().RemoveRange(disciplinasBancoPreRequisito);
+            _contexto.CurriculoDisciplinaPreRequisito.RemoveRange(disciplinasBancoPreRequisito);
 
             await _repositorio.SaveChangesAsync();
 
-            _repositorio.GetDbSet<CurriculoDisciplinaPreRequisito>().AddRange(curriculoDisciplinaPreRequisito);
+            _contexto.CurriculoDisciplinaPreRequisito.AddRange(curriculoDisciplinaPreRequisito);
 
             await _repositorio.SaveChangesAsync();
 
@@ -64,7 +67,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<List<CurriculoDisciplina>> Listar(Expression<Func<CurriculoDisciplina, bool>> expressao)
         {
-            return await _repositorio.GetDbSet<CurriculoDisciplina>()
+            return await _contexto.CurriculoDisciplina
                                      .Include(lnq => lnq.Disciplina)
                                      .Include(lnq => lnq.CurriculoDisciplinaPreRequisito)
                                      .ThenInclude(lnq => lnq.Disciplina)
@@ -88,28 +91,28 @@ namespace SGH.Data.Repositorio.Implementacao
 
         private async Task RemoverPrerequisitosCurriculoDisciplina(int codigo)
         {
-            var preRequisitos = await _repositorio.GetDbSet<CurriculoDisciplinaPreRequisito>()
+            var preRequisitos = await _contexto.CurriculoDisciplinaPreRequisito
                                                   .Where(lnq => lnq.CodigoCurriculoDisciplina == codigo)
                                                   .ToListAsync();
 
-            _repositorio.GetDbSet<CurriculoDisciplinaPreRequisito>().RemoveRange(preRequisitos);
+            _contexto.CurriculoDisciplinaPreRequisito.RemoveRange(preRequisitos);
         }
 
         public async Task<CurriculoDisciplinaPreRequisito> ConsultarPreRequisito(long codigoDisciplina)
         {
-            return await _repositorio.GetDbSet<CurriculoDisciplinaPreRequisito>()
+            return await _contexto.CurriculoDisciplinaPreRequisito
                                      .Include(lnq => lnq.Disciplina)
                                      .FirstOrDefaultAsync(lnq => lnq.CodigoDisciplina == codigoDisciplina);
         }
 
         public async Task<Disciplina> ConsultarDisciplinaVinculadaCurriculo(Expression<Func<CurriculoDisciplina, bool>> expressao)
         {
-            var codigoDisciplina = await _repositorio.GetDbSet<CurriculoDisciplina>()
+            var codigoDisciplina = await _contexto.CurriculoDisciplina
                                                      .Where(expressao)
                                                      .Select(lnq => lnq.CodigoDisciplina)
                                                      .FirstOrDefaultAsync();
-            if(codigoDisciplina.HasValue)
-                return await _repositorio.GetDbSet<Disciplina>().FirstOrDefaultAsync(lnq => lnq.Codigo == codigoDisciplina);
+            if (codigoDisciplina.HasValue)
+                return await _contexto.Disciplina.FirstOrDefaultAsync(lnq => lnq.Codigo == codigoDisciplina);
 
             return null;
         }

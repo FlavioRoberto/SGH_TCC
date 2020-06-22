@@ -2,12 +2,10 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SGH.Data.Repositorio;
-using SGH.Data.Repositorio.Contratos;
 using SGH.Data.Repositorio.Implementacao;
+using SGH.Dominio.Core.Contratos;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Contexto;
-using System;
 
 namespace SGH.Data.Extensios
 {

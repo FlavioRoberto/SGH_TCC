@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Contratos;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.Contratos;
 

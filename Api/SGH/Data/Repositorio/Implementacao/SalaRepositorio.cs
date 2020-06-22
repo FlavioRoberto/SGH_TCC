@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Contratos;
 using SGH.Data.Repositorio.Helpers;
 using SGH.Dominio.Core.Model;
 using System;

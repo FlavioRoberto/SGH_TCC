@@ -1,23 +1,25 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Contratos;
 using SGH.Data.Repositorio.Helpers;
 using SGH.Dominio.Core.Model;
-using SHG.Data.Contexto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using SHG.Data.Contexto;
 
 namespace SGH.Data.Repositorio.Implementacao
 {
     public class CargoRepositorio :  ICargoRepositorio
     {
         private readonly IRepositorio<Cargo> _repositorio;
+        private readonly IContexto _contexto;
 
-        public CargoRepositorio(IRepositorio<Cargo> repositorio) 
+        public CargoRepositorio(IRepositorio<Cargo> repositorio, IContexto contexto) 
         {
             _repositorio = repositorio;
+            _contexto = contexto;
         }
 
         public Task<Cargo> Criar(Cargo entidade)
@@ -37,9 +39,9 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<Paginacao<Cargo>> ListarPorPaginacao(Paginacao<Cargo> entidadePaginada)
         {
-            var query = _repositorio.GetDbSet<Cargo>()
-                                    .Include(lnq => lnq.Professor)
-                                    .AsNoTracking();
+            var query = _contexto.Cargo
+                                 .Include(lnq => lnq.Professor)
+                                 .AsNoTracking();
 
             if (entidadePaginada.Entidade == null)
                 entidadePaginada.Entidade = new List<Cargo>();
@@ -80,7 +82,7 @@ namespace SGH.Data.Repositorio.Implementacao
         public async Task<Professor> ConsultarProfessor(int codigoCargo)
         {
             var cargo = await _repositorio.Consultar(lnq => lnq.Codigo == codigoCargo);
-            return await _repositorio.GetDbSet<Professor>().FirstOrDefaultAsync(lnq => lnq.Codigo == cargo.CodigoProfessor);
+            return await _contexto.Professor.FirstOrDefaultAsync(lnq => lnq.Codigo == cargo.CodigoProfessor);
         }
     }
 }

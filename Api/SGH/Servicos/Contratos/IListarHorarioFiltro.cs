@@ -1,6 +1,6 @@
 ﻿using SGH.Dominio.Core.Enums;
 
-namespace SGH.Data.Repositorio.Contratos
+namespace SGH.Dominio.Core.Contratos
 {
     public class ListarHorarioFiltro
     {

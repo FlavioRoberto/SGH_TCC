@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Contratos;
 using SGH.Dominio.Core.Model;
 using System.Threading.Tasks;
 

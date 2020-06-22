@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Contratos;
 using SGH.Dominio.Core.Model;
+using SHG.Data.Contexto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace SGH.Data.Repositorio.Implementacao
     public class AulaRepositorio : IAulaRepositorio
     {
         private readonly IRepositorio<Aula> _repositorioBase;
+        private readonly IContexto _contexto;
 
-        public AulaRepositorio(IRepositorio<Aula>  repositorioBase)
+        public AulaRepositorio(IRepositorio<Aula>  repositorioBase, IContexto contexto)
         {
             _repositorioBase = repositorioBase;
+            _contexto = contexto;
         }
 
         public async Task<bool> Contem(Expression<Func<Aula, bool>> expressao)
@@ -35,10 +38,10 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<List<Aula>> ListarComDisciplinas(Expression<Func<Aula, bool>> expressao)
         {
-            return await _repositorioBase.GetDbSet<Aula>()
-                                         .Include(lnq => lnq.Disciplina)
-                                         .Where(expressao)
-                                         .ToListAsync();
+            return await _contexto.Aula
+                                  .Include(lnq => lnq.Disciplina)
+                                  .Where(expressao)
+                                  .ToListAsync();
         }
 
         public async Task<bool> Remover(Expression<Func<Aula, bool>> expressao)
@@ -48,24 +51,24 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<bool> VerificarDisponibilidadeCargo(int codigoCargo, string diaSemana, string hora)
         {
-            return await _repositorioBase.GetDbSet<Aula>()
-                                        .Include(lnq => lnq.Disciplina)
-                                        .AsNoTracking()
-                                        .AnyAsync(lnq => lnq.Disciplina.CodigoCargo == codigoCargo &&
-                                                         lnq.Reserva.Hora == hora &&
-                                                         lnq.Reserva.DiaSemana == diaSemana); 
+            return await _contexto.Aula
+                                  .Include(lnq => lnq.Disciplina)
+                                  .AsNoTracking()
+                                  .AnyAsync(lnq => lnq.Disciplina.CodigoCargo == codigoCargo &&
+                                                   lnq.Reserva.Hora == hora &&
+                                                   lnq.Reserva.DiaSemana == diaSemana); 
         }
 
         public async Task<bool> VerificarDisponibilidadeProfessor(int codigoProfessor, string diaSemana, string hora)
         {
-            return await _repositorioBase.GetDbSet<Aula>()
-                                    .Include(lnq => lnq.Disciplina)
-                                    .ThenInclude(lnq => lnq.Cargo)
-                                    .ThenInclude(lnq => lnq.Professor)
-                                    .AsNoTracking()
-                                    .AnyAsync(lnq => lnq.Disciplina.Cargo.Professor.Codigo == codigoProfessor &&
-                                                     lnq.Reserva.Hora == hora &&
-                                                     lnq.Reserva.DiaSemana == diaSemana);
+            return await _contexto.Aula
+                                  .Include(lnq => lnq.Disciplina)
+                                  .ThenInclude(lnq => lnq.Cargo)
+                                  .ThenInclude(lnq => lnq.Professor)
+                                  .AsNoTracking()
+                                  .AnyAsync(lnq => lnq.Disciplina.Cargo.Professor.Codigo == codigoProfessor &&
+                                                   lnq.Reserva.Hora == hora &&
+                                                   lnq.Reserva.DiaSemana == diaSemana);
         }
     }
 }

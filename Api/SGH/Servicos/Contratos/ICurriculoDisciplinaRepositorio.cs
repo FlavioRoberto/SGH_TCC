@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace SGH.Data.Repositorio.Contratos
+namespace SGH.Dominio.Core.Contratos
 {
     public interface ICurriculoDisciplinaRepositorio
     {

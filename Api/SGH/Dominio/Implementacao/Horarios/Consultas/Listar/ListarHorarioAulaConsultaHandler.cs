@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Contratos;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.ViewModel;
 using System;

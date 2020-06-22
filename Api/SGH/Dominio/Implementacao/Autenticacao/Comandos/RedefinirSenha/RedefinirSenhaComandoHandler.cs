@@ -3,7 +3,7 @@ using AutoMapper;
 using MediatR;
 using System.Threading;
 using SGH.Dominio.Core;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Contratos;
 using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Services.Extensions;
 using SGH.Dominio.Services.Helpers;

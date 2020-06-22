@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Contratos;
 using System;
 using System.Linq;
 using System.Threading;

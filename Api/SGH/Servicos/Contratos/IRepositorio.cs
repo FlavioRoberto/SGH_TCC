@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SGH.Data.Repositorio
+namespace SGH.Dominio.Core.Contratos
 {
     public interface IRepositorio<T> where T : class
     {
@@ -16,7 +15,6 @@ namespace SGH.Data.Repositorio
         Task<T> Atualizar(T entidade);
         Task<bool> Remover(Expression<Func<T, bool>> query);
         Task<bool> Contem(Expression<Func<T, bool>> expressao);
-        DbSet<TData> GetDbSet<TData>() where TData : class;
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
         Task IniciarTransacao();
         void FecharTransacao();

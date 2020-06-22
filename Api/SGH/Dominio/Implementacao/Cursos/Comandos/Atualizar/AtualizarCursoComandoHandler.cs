@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Contratos;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Contexto;

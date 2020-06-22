@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Contratos;
 using SGH.Dominio.Core.Model;
+using SHG.Data.Contexto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace SGH.Data.Repositorio.Implementacao
     public class CargoDisciplinaRepositorio : ICargoDisciplinaRepositorio
     {
         private readonly IRepositorio<CargoDisciplina> _repositorio;
-
+        private readonly IContexto contexto;
         public CargoDisciplinaRepositorio(IRepositorio<CargoDisciplina> repositorio)
         {
             _repositorio = repositorio;
