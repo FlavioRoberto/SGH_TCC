@@ -10,6 +10,49 @@ namespace SGH.Relatorios
     {
         static void Main(string[] args)
         {
+            //var relatorio = GerarRelatorioGeral();
+
+            var relatorio = GerarRelatorioIndividual();
+
+            File.WriteAllBytes(Path.Combine("Relatorios", "Horario.pdf"), relatorio);
+
+            Console.WriteLine("Hello World!");
+        }
+
+        private static byte[] GerarRelatorioIndividual()
+        {
+            var dados = new HorarioIndividualRelatorioData { 
+                Ano = 2020,
+                Cargo = "Cargo 56 Edital 025/2020",
+                Professor = "Flávio Roberto Teixeira",
+                Semestre = "1° Semestre",
+                DisciplinasMinistradas = new[]
+                {
+                    new HorarioIndividualDisciplina
+                    {
+                        Curso = "Engenharia da computação",
+                        Descricao = "Programação Orientada a Objetos",
+                        Periodo = 5,
+                        QuantidadeHoraPratica = 8,
+                        QuantidadeHoraTeorica = 10,
+                        Turno = "Matutino"
+                    },
+                     new HorarioIndividualDisciplina
+                    {
+                        Curso = "Engenharia da computação",
+                        Descricao = "Arquitetura de computadores",
+                        Periodo = 5,
+                        QuantidadeHoraPratica = 4,
+                        QuantidadeHoraTeorica = 8,
+                        Turno = "Noturno"
+                    }
+                }
+            };
+            return new RelatorioServico().GerarRelatorioHorarioIndividual(dados);
+        }
+
+        private static byte[] GerarRelatorioGeral()
+        {
             var horarios = new List<QuadroHorario> {
              new QuadroHorario {
                     Codigo = 1,
@@ -156,11 +199,7 @@ namespace SGH.Relatorios
                }
             };
 
-            var relatorio = new RelatorioServico().GerarRelatorioHorario(new HorarioRelatorioData(2020, "Engenharia Civil", "Matutino","1° Semestre", horarios, aulas));
-
-            File.WriteAllBytes(Path.Combine("Relatorios", "Horario.pdf"), relatorio);
-
-            Console.WriteLine("Hello World!");
+            return new RelatorioServico().GerarRelatorioHorarioGeral(new HorarioGeralRelatorioData(2020, "Engenharia Civil", "Matutino", "1° Semestre", horarios, aulas));
         }
     }
 }

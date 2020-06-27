@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SGH.Relatorios.DataSets
 {
-    public class HorarioRelatorioData : IRelatorioData
+    public class HorarioGeralRelatorioData : IRelatorioData
     {
         public string Semestre { get; private set; }
         public int Ano { get; private set; }
@@ -12,7 +12,7 @@ namespace SGH.Relatorios.DataSets
         public IList<QuadroHorario> Horarios { get; private set; }
         public IList<AulaData> Aulas { get; private set; }
 
-        public HorarioRelatorioData(int ano, string curso, string turno,string semestre, IList<QuadroHorario> horarios, IList<AulaData> aulas)
+        public HorarioGeralRelatorioData(int ano, string curso, string turno,string semestre, IList<QuadroHorario> horarios, IList<AulaData> aulas)
         {
             Ano = ano;
             Curso = curso;

@@ -5,6 +5,8 @@ namespace SGH.Relatorios.Contratos
 {
     public interface IRelatorioServico
     {
-        byte[] GerarRelatorioHorario(HorarioRelatorioData dados);
+        byte[] GerarRelatorioHorarioGeral(HorarioGeralRelatorioData dados);
+        byte[] GerarRelatorioHorarioIndividual(HorarioIndividualRelatorioData dados);
+
     }
 }

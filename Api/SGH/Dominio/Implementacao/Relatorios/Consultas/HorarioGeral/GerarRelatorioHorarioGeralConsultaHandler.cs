@@ -65,9 +65,9 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 
             var semestre = request.Semestre.RetornarDescricao();
 
-            var dados = new HorarioRelatorioData(request.Ano, curso, turno, semestre, horarios, aulas);
+            var dados = new HorarioGeralRelatorioData(request.Ano, curso, turno, semestre, horarios, aulas);
 
-            var bytesRelatorio = _relatorioServico.GerarRelatorioHorario(dados);
+            var bytesRelatorio = _relatorioServico.GerarRelatorioHorarioIndividual(dados);
 
             var base64 = Convert.ToBase64String(bytesRelatorio);
 
