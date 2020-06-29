@@ -67,6 +67,23 @@ namespace SGH.Relatorios
                         Hora = "09:00",
                         DisciplinaSegunda = $"(5° Período) {Environment.NewLine} Arquitetura de computadores"
                     },
+                    new HorarioIndividualAulasData
+                    {
+                        Turno = "Noturno",
+                        Hora = "19:00",
+                        DisciplinaQuarta = $"(5° Período) {Environment.NewLine} Arquitetura de computadores"
+                    },
+                    new HorarioIndividualAulasData
+                    {
+                        Turno = "Vespertino",
+                        Hora = "14:00",
+                        DisciplinaQuinta = $"(5° Período) {Environment.NewLine} Programação orientada a objetos"
+                    },  new HorarioIndividualAulasData
+                    {
+                        Turno = "Vespertino",
+                        Hora = "14:00",
+                        DisciplinaTerca = $"(5° Período) {Environment.NewLine} Engenharia de software"
+                    }
                 }
             };
             return new RelatorioServico().GerarRelatorioHorarioIndividual(dados);
