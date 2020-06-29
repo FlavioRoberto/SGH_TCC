@@ -28,7 +28,7 @@ namespace SGH.Relatorios
                 Semestre = "1° Semestre",
                 DisciplinasMinistradas = new[]
                 {
-                    new HorarioIndividualDisciplina
+                    new HorarioIndividualDisciplinaData
                     {
                         Curso = "Engenharia da computação",
                         Descricao = "Programação Orientada a Objetos",
@@ -37,7 +37,7 @@ namespace SGH.Relatorios
                         QuantidadeHoraTeorica = 10,
                         Turno = "Matutino"
                     },
-                     new HorarioIndividualDisciplina
+                     new HorarioIndividualDisciplinaData
                     {
                         Curso = "Engenharia da computação",
                         Descricao = "Arquitetura de computadores",
@@ -53,20 +53,20 @@ namespace SGH.Relatorios
 
         private static byte[] GerarRelatorioGeral()
         {
-            var horarios = new List<QuadroHorario> {
-             new QuadroHorario {
+            var horarios = new List<QuadroHorarioData> {
+             new QuadroHorarioData {
                     Codigo = 1,
                     Periodo = "1° Período",
                     Avisos = "Introdução a Engenharia Civil: 2 Aulas de 15 em 15 dias - Março: 01, 15 e 29 - Abril: 12 e 26 - Maio: 10 e 24 - Junho: 26 - Julho: 05"
                 },
-                new QuadroHorario
+                new QuadroHorarioData
                 {
                     Codigo = 2,
                     Periodo = "2° Período"
                 }
             };
-            var aulas = new List<AulaData> {
-             new AulaData
+            var aulas = new List<HorarioGeralAulaData> {
+             new HorarioGeralAulaData
                {
                    HorarioCodigo = 1,
                    Hora = "07:00",
@@ -76,7 +76,7 @@ namespace SGH.Relatorios
                    DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
                    DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
                },
-               new AulaData
+               new HorarioGeralAulaData
                {
                    HorarioCodigo = 1,
                    Hora = "07:50",
@@ -86,7 +86,7 @@ namespace SGH.Relatorios
                    DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
                    DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
                },
-               new AulaData
+               new HorarioGeralAulaData
                {
                    HorarioCodigo = 1,
                    Hora = "08:40",
@@ -96,7 +96,7 @@ namespace SGH.Relatorios
                    DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
                    DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
                },
-               new AulaData
+               new HorarioGeralAulaData
                {
                    HorarioCodigo = 1,
                    Hora = "09:45",
@@ -106,7 +106,7 @@ namespace SGH.Relatorios
                    DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
                    DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
                },
-               new AulaData
+               new HorarioGeralAulaData
                {
                    HorarioCodigo = 1,
                    Hora = "10:35",
@@ -116,7 +116,7 @@ namespace SGH.Relatorios
                    DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
                    DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
                },
-               new AulaData
+               new HorarioGeralAulaData
                {
                    HorarioCodigo = 1,
                    Hora = "11:25",
@@ -127,7 +127,7 @@ namespace SGH.Relatorios
                    DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
                },
                //
-                new AulaData
+                new HorarioGeralAulaData
                {
                    HorarioCodigo = 2,
                    Hora = "07:00",
@@ -137,7 +137,7 @@ namespace SGH.Relatorios
                    DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
                    DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
                },
-               new AulaData
+               new HorarioGeralAulaData
                {
                    HorarioCodigo = 2,
                    Hora = "07:50",
@@ -147,7 +147,7 @@ namespace SGH.Relatorios
                    DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
                    DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
                },
-               new AulaData
+               new HorarioGeralAulaData
                {
                    HorarioCodigo = 2,
                    Hora = "08:40",
@@ -157,7 +157,7 @@ namespace SGH.Relatorios
                    DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
                    DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
                },
-               new AulaData
+               new HorarioGeralAulaData
                {
                    HorarioCodigo = 2,
                    Hora = "09:30",
@@ -167,7 +167,7 @@ namespace SGH.Relatorios
                    DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
                    DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
                },
-               new AulaData
+               new HorarioGeralAulaData
                {
                    HorarioCodigo = 2,
                    Hora = "09:45",
@@ -177,7 +177,7 @@ namespace SGH.Relatorios
                    DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
                    DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
                },
-               new AulaData
+               new HorarioGeralAulaData
                {
                    HorarioCodigo = 2,
                    Hora = "10:35",
@@ -187,7 +187,7 @@ namespace SGH.Relatorios
                    DisciplinaQuinta = "Quimica Geral \r\n Prática - B \r\n (Viviane Aparecida Costa)",
                    DisciplinaSexta = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 501"
                },
-               new AulaData
+               new HorarioGeralAulaData
                {
                    HorarioCodigo = 2,
                    Hora = "11:25",

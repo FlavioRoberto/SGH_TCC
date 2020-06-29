@@ -17,6 +17,9 @@ namespace SGH.Relatorios.Implementacoes
             report.RegisterData(_data.DisciplinasMinistradas, "DisciplinasMinistradas");
             report.GetDataSource("DisciplinasMinistradas").Enabled = true;
 
+            report.RegisterData(_data.Aulas, "Aulas");
+            report.GetDataSource("Aulas").Enabled = true;
+
             return report;
         }
 

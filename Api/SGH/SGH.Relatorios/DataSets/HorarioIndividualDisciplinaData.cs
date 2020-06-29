@@ -1,6 +1,6 @@
 ﻿namespace SGH.Relatorios.DataSets
 {
-    public class HorarioIndividualDisciplina
+    public class HorarioIndividualDisciplinaData
     {
         public string Curso { get; set; }
         public string Turno { get; set; }

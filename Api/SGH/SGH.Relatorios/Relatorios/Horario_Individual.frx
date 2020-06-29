@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="06/20/2020 16:42:20" ReportInfo.Modified="06/27/2020 17:42:26" ReportInfo.CreatorVersion="2020.3.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/20/2020 16:42:20" ReportInfo.Modified="06/29/2020 07:37:23" ReportInfo.CreatorVersion="2020.3.0.0">
   <Dictionary>
     <BusinessObjectDataSource Name="DisciplinasMinistradas" ReferenceName="DisciplinasMinistradas" DataType="null" Enabled="true">
       <Column Name="Curso" DataType="System.String"/>
@@ -23,14 +23,14 @@
       <TextObject Name="Text2" Top="141.75" Width="1048.95" Height="28.35" Text="[Professor] - [Cargo]" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
       <TextObject Name="Text4" Top="103.95" Width="1048.95" Height="28.35" Text="[Semestre] De [Ano]" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
     </ReportTitleBand>
-    <GroupHeaderBand Name="GroupDisciplinasMinistradas" Top="173.3" Width="1047.06" Height="37.8" KeepWithData="true" Condition="[DisciplinasMinistradas.Curso]">
+    <GroupHeaderBand Name="GroupDisciplinasMinistradas" Top="174.1" Width="1047.06" Height="37.8" KeepWithData="true" Condition="[DisciplinasMinistradas.Curso]">
       <TextObject Name="Text5" Top="9.45" Width="368.55" Height="28.35" Border.Lines="All" Fill.Color="Gainsboro" Text="CURSO" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text6" Left="368.55" Top="9.45" Width="66.15" Height="28.35" Border.Lines="All" Fill.Color="Gainsboro" Text="TURNO&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text7" Left="434.7" Top="9.45" Width="75.6" Height="28.35" Border.Lines="All" Fill.Color="Gainsboro" Text="PERÍODO" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text8" Left="973.35" Top="9.45" Width="75.6" Height="28.35" Border.Lines="All" Fill.Color="Gainsboro" Text="PRÁTICA" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text9" Left="897.75" Top="9.45" Width="75.6" Height="28.35" Border.Lines="All" Fill.Color="Gainsboro" Text="TEÓRICA" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text10" Left="510.3" Top="9.45" Width="387.45" Height="28.35" Border.Lines="All" Fill.Color="Gainsboro" Text="DISCIPLINA" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
-      <DataBand Name="Data1" Top="214.3" Width="1047.06" Height="28.35" DataSource="DisciplinasMinistradas">
+      <DataBand Name="Data1" Top="215.9" Width="1047.06" Height="28.35" DataSource="DisciplinasMinistradas">
         <TextObject Name="Text11" Width="368.55" Height="28.35" Border.Lines="All" Text="[DisciplinasMinistradas.Curso]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
         <TextObject Name="Text12" Left="368.55" Width="66.15" Height="28.35" Border.Lines="All" Text="[DisciplinasMinistradas.Turno]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
         <TextObject Name="Text13" Left="434.7" Width="75.6" Height="28.35" Border.Lines="All" Text="[DisciplinasMinistradas.Periodo]°" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
@@ -38,11 +38,15 @@
         <TextObject Name="Text15" Left="897.75" Width="75.6" Height="28.35" Border.Lines="All" Text="[DisciplinasMinistradas.QuantidadeHoraTeorica]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
         <TextObject Name="Text16" Left="973.35" Width="75.6" Height="28.35" Border.Lines="All" Text="[DisciplinasMinistradas.QuantidadeHoraPratica]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       </DataBand>
-      <GroupFooterBand Name="GroupFooter1" Top="245.85" Width="1047.06" Height="37.8">
+      <GroupFooterBand Name="GroupFooter1" Top="248.25" Width="1047.06" Height="18.9">
         <TextObject Name="Text17" Width="897.75" Height="18.9" Border.Lines="All" Text="TOTAL" HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
         <TextObject Name="Text18" Left="973.35" Width="75.6" Height="18.9" Border.Lines="All" Text="[TotalHoraPratica]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
         <TextObject Name="Text19" Left="897.75" Width="75.6" Height="18.9" Border.Lines="All" Text="[TotalHoraTeorica]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       </GroupFooterBand>
+    </GroupHeaderBand>
+    <GroupHeaderBand Name="GroupHeader1" Top="271.15" Width="1047.06" Height="37.8">
+      <DataBand Name="Data2" Top="312.95" Width="1047.06" Height="37.8"/>
+      <GroupFooterBand Name="GroupFooter2" Top="354.75" Width="1047.06" Height="37.8"/>
     </GroupHeaderBand>
   </ReportPage>
 </Report>

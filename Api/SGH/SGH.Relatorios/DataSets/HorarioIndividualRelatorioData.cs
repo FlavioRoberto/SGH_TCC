@@ -1,5 +1,4 @@
 ﻿using SGH.Relatorios.Contratos;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace SGH.Relatorios.DataSets
@@ -11,11 +10,13 @@ namespace SGH.Relatorios.DataSets
         public string Professor { get; set; }
         public string Cargo { get; set; }
 
-        public IList<HorarioIndividualDisciplina> DisciplinasMinistradas { get; set; }
+        public IList<HorarioIndividualDisciplinaData> DisciplinasMinistradas { get; set; }
+        public IList<HorarioIndividualAulasData> Aulas { get; set; }
 
         public HorarioIndividualRelatorioData()
         {
-            DisciplinasMinistradas = new List<HorarioIndividualDisciplina>();
+            DisciplinasMinistradas = new List<HorarioIndividualDisciplinaData>();
+            Aulas = new List<HorarioIndividualAulasData>();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace SGH.Relatorios.DataSets
 {
-    public class QuadroHorario
+    public class QuadroHorarioData
     {
         public int Codigo { get; set; }
         public string Periodo { get; set; }

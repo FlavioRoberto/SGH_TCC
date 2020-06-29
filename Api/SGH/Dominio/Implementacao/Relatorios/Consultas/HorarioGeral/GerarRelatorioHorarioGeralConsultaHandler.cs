@@ -67,7 +67,7 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 
             var dados = new HorarioGeralRelatorioData(request.Ano, curso, turno, semestre, horarios, aulas);
 
-            var bytesRelatorio = _relatorioServico.GerarRelatorioHorarioIndividual(dados);
+            var bytesRelatorio = _relatorioServico.GerarRelatorioHorarioGeral(dados);
 
             var base64 = Convert.ToBase64String(bytesRelatorio);
 
@@ -86,18 +86,18 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
             return turno.Descricao;
         }
 
-        private async Task<IList<QuadroHorario>> RetornarHorarios(GerarHorarioGeralRelatorioConsulta request)
+        private async Task<IList<QuadroHorarioData>> RetornarHorarios(GerarHorarioGeralRelatorioConsulta request)
         {
             var curriculosCurso = await _curriculoRepositorio.ListarCodigos(lnq => lnq.CodigoCurso == request.CodigoCurso);
 
             if (curriculosCurso.Count <= 0)
-                return new List<QuadroHorario>();
+                return new List<QuadroHorarioData>();
 
             var horarios = await _horarioAulaRepositorio.Listar(lnq => curriculosCurso.Contains(lnq.CodigoCurriculo) &&
                                                                        lnq.Ano == request.Ano &&
                                                                        lnq.CodigoTurno == request.CodigoTurno &&
                                                                        lnq.Semestre == request.Semestre);
-            return horarios.Select(lnq => new QuadroHorario
+            return horarios.Select(lnq => new QuadroHorarioData
             {
                 Avisos = lnq.Mensagem,
                 Codigo = lnq.Codigo,
@@ -105,9 +105,9 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
             }).ToList();
         }
 
-        private async Task<IList<AulaData>> RetornarAulas(IEnumerable<QuadroHorario> horarios)
+        private async Task<IList<HorarioGeralAulaData>> RetornarAulas(IEnumerable<QuadroHorarioData> horarios)
         {
-            var aulasRelatorio = new List<AulaData>();
+            var aulasRelatorio = new List<HorarioGeralAulaData>();
 
             foreach (var horario in horarios) {
                 var aulaRelatorio = await GerarAulasPorHorario(horario);
@@ -117,9 +117,9 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
             return aulasRelatorio;
         }
 
-        private async Task<List<AulaData>> GerarAulasPorHorario(QuadroHorario horario)
+        private async Task<List<HorarioGeralAulaData>> GerarAulasPorHorario(QuadroHorarioData horario)
         {
-            var aulasRelatorio = new List<AulaData>();
+            var aulasRelatorio = new List<HorarioGeralAulaData>();
 
             var aulas = await _aulaRepositorio.ListarComDisciplinas(lnq => lnq.CodigoHorario == horario.Codigo);
 
@@ -127,7 +127,7 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 
             foreach (var aula in aulasPorHorario)
             {
-                aulasRelatorio.Add(new AulaData
+                aulasRelatorio.Add(new HorarioGeralAulaData
                 {
                     DisciplinaSegunda = await RetornarDisciplinaPorDiaSemanaHora(aula, "Segunda"),
                     DisciplinaTerca = await RetornarDisciplinaPorDiaSemanaHora(aula, "Terça"),
