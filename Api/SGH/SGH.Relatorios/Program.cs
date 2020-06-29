@@ -46,6 +46,21 @@ namespace SGH.Relatorios
                         QuantidadeHoraTeorica = 8,
                         Turno = "Noturno"
                     }
+                },
+                Aulas = new[]
+                {
+                    new HorarioIndividualAulasData
+                    {
+                        Turno = "Matutino",
+                        Hora = "07:00",
+                        DisciplinaQuarta = "Arquitetura de computadores"
+                    },
+                    new HorarioIndividualAulasData
+                    {
+                        Turno = "Noturno",
+                        Hora = "19:00",
+                        DisciplinaQuarta = "Arquitetura de computadores"
+                    }
                 }
             };
             return new RelatorioServico().GerarRelatorioHorarioIndividual(dados);

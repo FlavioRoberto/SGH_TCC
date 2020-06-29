@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="06/20/2020 16:42:20" ReportInfo.Modified="06/29/2020 07:37:23" ReportInfo.CreatorVersion="2020.3.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="06/20/2020 16:42:20" ReportInfo.Modified="06/29/2020 13:50:47" ReportInfo.CreatorVersion="2020.3.0.0">
   <Dictionary>
     <BusinessObjectDataSource Name="DisciplinasMinistradas" ReferenceName="DisciplinasMinistradas" DataType="null" Enabled="true">
       <Column Name="Curso" DataType="System.String"/>
@@ -8,6 +8,16 @@
       <Column Name="Descricao" DataType="System.String"/>
       <Column Name="QuantidadeHoraTeorica" DataType="System.Int32"/>
       <Column Name="QuantidadeHoraPratica" DataType="System.Int32"/>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="Aulas" ReferenceName="Aulas" DataType="null" Enabled="true">
+      <Column Name="Turno" DataType="System.String"/>
+      <Column Name="Hora" DataType="System.String"/>
+      <Column Name="DisciplinaSegunda" DataType="System.String"/>
+      <Column Name="DisciplinaTerca" DataType="System.String"/>
+      <Column Name="DisciplinaQuarta" DataType="System.String"/>
+      <Column Name="DisciplinaQuinta" DataType="System.String"/>
+      <Column Name="DisciplinaSexta" DataType="System.String"/>
+      <Column Name="DisciplinaSabado" DataType="System.String"/>
     </BusinessObjectDataSource>
     <Parameter Name="Semestre" DataType="System.String"/>
     <Parameter Name="Ano" DataType="System.Int32"/>
@@ -44,9 +54,25 @@
         <TextObject Name="Text19" Left="897.75" Width="75.6" Height="18.9" Border.Lines="All" Text="[TotalHoraTeorica]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
       </GroupFooterBand>
     </GroupHeaderBand>
-    <GroupHeaderBand Name="GroupHeader1" Top="271.15" Width="1047.06" Height="37.8">
-      <DataBand Name="Data2" Top="312.95" Width="1047.06" Height="37.8"/>
-      <GroupFooterBand Name="GroupFooter2" Top="354.75" Width="1047.06" Height="37.8"/>
+    <GroupHeaderBand Name="GroupHeader1" Top="271.15" Width="1047.06" Height="56.7" Condition="[Aulas.Turno]">
+      <TextObject Name="Text20" Top="9.45" Width="1048.95" Height="28.35" Text="[Aulas.Turno]" HorzAlign="Center" VertAlign="Center" Font="Arial, 12pt, style=Bold"/>
+      <TextObject Name="Text21" Top="37.8" Width="85.05" Height="18.9" Border.Lines="All" Fill.Color="Gainsboro" Text="HORA" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text22" Left="85.05" Top="37.8" Width="160.65" Height="18.9" Border.Lines="All" Fill.Color="Gainsboro" Text="SEGUNDA" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text23" Left="245.7" Top="37.8" Width="160.65" Height="18.9" Border.Lines="All" Fill.Color="Gainsboro" Text="TERÇA" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text24" Left="406.35" Top="37.8" Width="160.65" Height="18.9" Border.Lines="All" Fill.Color="Gainsboro" Text="QUARTA" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text25" Left="567" Top="37.8" Width="160.65" Height="18.9" Border.Lines="All" Fill.Color="Gainsboro" Text="QUINTA" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text26" Left="727.65" Top="37.8" Width="160.65" Height="18.9" Border.Lines="All" Fill.Color="Gainsboro" Text="SEXTA" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <TextObject Name="Text27" Left="888.3" Top="37.8" Width="160.65" Height="18.9" Border.Lines="All" Fill.Color="Gainsboro" Text="SÁBADO" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      <DataBand Name="Data2" Top="331.85" Width="1047.06" Height="37.8" DataSource="Aulas">
+        <TextObject Name="Text28" Width="85.05" Height="37.8" Anchor="Top, Bottom, Left, Right" Border.Lines="All" CanGrow="true" Text="[Aulas.Hora]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text29" Left="85.05" Width="160.65" Height="37.8" Anchor="Top, Bottom, Left, Right" Border.Lines="All" CanGrow="true" Text="[Aulas.DisciplinaSegunda]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text30" Left="245.7" Width="160.65" Height="37.8" Anchor="Top, Bottom, Left, Right" Border.Lines="All" CanGrow="true" Text="[Aulas.DisciplinaTerca]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text31" Left="406.35" Width="160.65" Height="37.8" Anchor="Top, Bottom, Left, Right" Border.Lines="All" CanGrow="true" Text="[Aulas.DisciplinaQuarta]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text32" Left="567" Width="160.65" Height="37.8" Anchor="Top, Bottom, Left, Right" Border.Lines="All" CanGrow="true" Text="[Aulas.DisciplinaQuinta]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text33" Left="727.65" Width="160.65" Height="37.8" Anchor="Top, Bottom, Left, Right" Border.Lines="All" CanGrow="true" Text="[Aulas.DisciplinaSexta]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        <TextObject Name="Text34" Left="888.3" Width="160.65" Height="37.8" Anchor="Top, Bottom, Left, Right" Border.Lines="All" CanGrow="true" Text="[Aulas.DisciplinaSabado]" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+      </DataBand>
+      <GroupFooterBand Name="GroupFooter2" Top="373.65" Width="1047.06" Height="37.8"/>
     </GroupHeaderBand>
   </ReportPage>
 </Report>
