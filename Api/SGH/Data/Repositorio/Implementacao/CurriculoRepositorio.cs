@@ -84,5 +84,15 @@ namespace SGH.Data.Repositorio.Implementacao
                                      .Select(lnq => lnq.Codigo)
                                      .ToListAsync();
         }
+
+        public async Task<Curso> ConsultarCurso(int codigoCurriculo)
+        {
+            var curriculo = await _repositorio.GetDbSet<Curriculo>().FirstOrDefaultAsync(lnq => lnq.Codigo == codigoCurriculo);
+
+            if (curriculo == null)
+                return null;
+
+            return await _repositorio.GetDbSet<Curso>().FirstOrDefaultAsync(lnq => lnq.Codigo == curriculo.CodigoCurso);
+        }
     }
 }

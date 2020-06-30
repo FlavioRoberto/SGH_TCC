@@ -82,5 +82,10 @@ namespace SGH.Data.Repositorio.Implementacao
             var cargo = await _repositorio.Consultar(lnq => lnq.Codigo == codigoCargo);
             return await _repositorio.GetDbSet<Professor>().FirstOrDefaultAsync(lnq => lnq.Codigo == cargo.CodigoProfessor);
         }
+
+        public async Task<List<Cargo>> Listar(Expression<Func<Cargo, bool>> expressao)
+        {
+            return await _repositorio.Listar(expressao);
+        }
     }
 }

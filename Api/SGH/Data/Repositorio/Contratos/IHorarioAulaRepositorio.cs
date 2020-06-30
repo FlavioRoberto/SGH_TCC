@@ -14,5 +14,6 @@ namespace SGH.Data.Repositorio.Contratos
         Task<bool> Contem(Expression<Func<HorarioAula, bool>> expressao);
         Task<bool> Remover(Expression<Func<HorarioAula, bool>> query);
         Task<HorarioAula> Atualizar(HorarioAula entidade);
+        Task<Turno> ConsultarTurno(int codigoHorario);
     }
 }

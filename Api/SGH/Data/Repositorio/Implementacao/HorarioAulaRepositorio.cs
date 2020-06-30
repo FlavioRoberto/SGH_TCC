@@ -23,6 +23,16 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _repositorio.Atualizar(entidade);
         }
 
+        public async Task<Turno> ConsultarTurno(int codigoHorario)
+        {
+            var horario = await _repositorio.Consultar(lnq => lnq.Codigo == codigoHorario);
+
+            if (horario == null)
+                return null;
+
+            return await _repositorio.GetDbSet<Turno>().FirstOrDefaultAsync(lnq => lnq.Codigo == horario.Codigo);
+        }
+
         public async Task<bool> Contem(Expression<Func<HorarioAula, bool>> expressao)
         {
             return await _repositorio.Contem(expressao);
