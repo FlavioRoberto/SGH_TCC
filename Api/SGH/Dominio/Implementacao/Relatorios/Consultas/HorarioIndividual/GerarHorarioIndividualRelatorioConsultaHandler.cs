@@ -61,6 +61,9 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioIndivid
             var cargos = await _cargoRepositorio.Listar(lnq => lnq.CodigoProfessor == request.CodigoProfessor &&
                                                                lnq.Ano == request.Ano &&
                                                                lnq.Semestre == request.Semestre);
+
+            if (cargos == null || cargos.Count <= 0)
+                return new HorarioIndividualRelatorioData();
             
             return new HorarioIndividualRelatorioData
             {
@@ -80,6 +83,9 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioIndivid
             var cargosId = cargos.Select(lnq => lnq.Codigo);
 
             var disciplinasCargo = await _cargoDisciplinaRepositorio.Listar(lnq => cargosId.Contains(lnq.CodigoCargo));
+
+            if (disciplinasCargo == null || disciplinasCargo.Count <= 0)
+                return new List<HorarioIndividualDisciplinaData>();
 
             foreach(var disciplinaCargo in disciplinasCargo)
             {
