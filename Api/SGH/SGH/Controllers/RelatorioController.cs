@@ -19,7 +19,6 @@ namespace SGH.Api.Controllers
 
         [HttpPost]
         [Authorize("admin")]
-        [AllowAnonymous]
         [Route("horario-geral")]
         public async Task<IActionResult> GerarRelatorioHorarioGeral([FromBody] GerarHorarioGeralRelatorioConsulta consulta)
         {

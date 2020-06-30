@@ -127,7 +127,7 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioIndivid
                     DisciplinaQuarta =  RetornarDisciplinaDia("Quarta", aula, (int)disciplinaCurriculo.Periodo, disciplina.Descricao),
                     DisciplinaQuinta =  RetornarDisciplinaDia("Quinta", aula, (int)disciplinaCurriculo.Periodo, disciplina.Descricao),
                     DisciplinaSexta =  RetornarDisciplinaDia("Sexta", aula, (int)disciplinaCurriculo.Periodo, disciplina.Descricao),
-                    DisciplinaSabado =  RetornarDisciplinaDia("Sabado", aula, (int)disciplinaCurriculo.Periodo, disciplina.Descricao)
+                    DisciplinaSabado =  RetornarDisciplinaDia("Sábado", aula, (int)disciplinaCurriculo.Periodo, disciplina.Descricao)
                 });
             }
         }
@@ -137,7 +137,7 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioIndivid
             if (!aula.Reserva.DiaSemana.Equals(dia))
                 return "";
 
-            return $"({periodo}){Environment.NewLine}{descricaoDisciplina}";
+            return $"({periodo}° Período){Environment.NewLine}{descricaoDisciplina}";
         }
 
         private async Task<Disciplina> ConsultarDisciplinaCurriculo(int codigoCurriculoDisciplina)

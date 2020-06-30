@@ -1,9 +1,6 @@
 ﻿using MediatR;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Enums;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 {
