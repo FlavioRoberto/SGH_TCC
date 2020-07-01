@@ -69,7 +69,7 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioIndivid
             {
                 Ano = request.Ano,
                 Semestre = request.Semestre.RetornarDescricao(),
-                Cargo = cargos.Select(lnq => $"{lnq.Numero} - {lnq.Edital}").Join(", "),
+                Cargo = cargos.Select(lnq => $"Cargo: {lnq.Numero} - Edital: {lnq.Edital}").Join(", "),
                 Professor = professor.Nome,
                 DisciplinasMinistradas = await ListarDisciplinasMinistradas(cargos),
                 Aulas = _aulasRelatorio
