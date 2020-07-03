@@ -1,25 +1,30 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Model;
+using SGH.Dominio.ViewModel;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Turnos.Consultas.ListarTodos
 {
-    public class ListarTodosTurnoComandoHandler : IRequestHandler<ListarTodosTurnoConsulta, ICollection<Turno>>
+    public class ListarTodosTurnoComandoHandler : IRequestHandler<ListarTodosTurnoConsulta, ICollection<TurnoViewModel>>
     {
 
         private readonly ITurnoRepositorio _repositorio;
+        private readonly IMapper _mapper;
 
-        public ListarTodosTurnoComandoHandler(ITurnoRepositorio repositorio)
+        public ListarTodosTurnoComandoHandler(ITurnoRepositorio repositorio, IMapper mapper)
         {
             _repositorio = repositorio;
+            _mapper = mapper;
         }
 
-        public async Task<ICollection<Turno>> Handle(ListarTodosTurnoConsulta request, CancellationToken cancellationToken)
+        public async Task<ICollection<TurnoViewModel>> Handle(ListarTodosTurnoConsulta request, CancellationToken cancellationToken)
         {
-            return await _repositorio.ListarTodos();    
+            var resultado =  await _repositorio.ListarTodos();
+            return _mapper.Map<List<TurnoViewModel>>(resultado);
         }
     }
 }

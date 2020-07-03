@@ -94,7 +94,8 @@ namespace SGH.APi
         {
             using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                scope.ServiceProvider.GetRequiredService<IContexto>().Database.Migrate();
+                var contexto = scope.ServiceProvider.GetRequiredService<IContexto>();
+                contexto.Database.Migrate();
             }
         }
     }

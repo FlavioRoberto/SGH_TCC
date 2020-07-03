@@ -1,10 +1,10 @@
 ﻿using MediatR;
-using SGH.Dominio.Core.Model;
+using SGH.Dominio.ViewModel;
 using System.Collections.Generic;
 
 namespace SGH.Dominio.Services.Implementacao.Turnos.Consultas.ListarTodos
 {
-    public class ListarTodosTurnoConsulta : IRequest<ICollection<Turno>>
+    public class ListarTodosTurnoConsulta : IRequest<ICollection<TurnoViewModel>>
     {
     }
 }

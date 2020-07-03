@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200702224016_Versao 05.00.cs" />
+    <Compile Remove="Migrations\20200702224016_Versao 05.00.Designer.cs" />
+    <Compile Remove="Migrations\20200702225659_Versao 05.00.cs" />
+    <Compile Remove="Migrations\20200702225659_Versao 05.00.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="2.2.0" />

@@ -23,6 +23,10 @@ namespace SHG.Data.Mapeamento
                 .HasColumnName("Turno_Descricao")
                 .IsRequired();
 
+            builder.Property(lnq => lnq.Descricao)
+                .HasColumnName("Turno_Horarios")
+                .IsRequired();
+
             builder.ToTable("Turno");
 
             return this;
