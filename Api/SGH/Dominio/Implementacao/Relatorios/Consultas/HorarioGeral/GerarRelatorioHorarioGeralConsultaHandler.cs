@@ -109,7 +109,8 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
         {
             var aulasRelatorio = new List<HorarioGeralAulaData>();
 
-            foreach (var horario in horarios) {
+            foreach (var horario in horarios)
+            {
                 var aulaRelatorio = await GerarAulasPorHorario(horario);
                 aulasRelatorio.AddRange(aulaRelatorio);
             }
@@ -152,17 +153,17 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 
             var descricaoCargo = await _cargoService.RetornarProfessor(disciplina.Disciplina.CodigoCargo);
             var descricaoSala = await RetornarDescricaoSala(disciplina.CodigoSala);
-
-            return $"{disciplina.Disciplina.Descricao} \r\n ({descricaoCargo}) \r\n {descricaoSala}";
+            var descricaoDesdobramento = !string.IsNullOrEmpty(disciplina.DescricaoDesdobramento) ? $" {disciplina.DescricaoDesdobramento} { Environment.NewLine}" : "";
+            return $"{disciplina.Disciplina.Descricao} {Environment.NewLine} {descricaoDesdobramento} ({descricaoCargo}) {Environment.NewLine} {descricaoSala}";
         }
 
         private async Task<string> RetornarDescricaoSala(int codigoSala)
         {
             var sala = await _salaRepositorio.Consultar(lnq => lnq.Codigo == codigoSala);
-            
+
             if (sala == null)
                 return "Sala não encontrada";
-            
+
             return sala.Descricao;
         }
 
