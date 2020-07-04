@@ -16,6 +16,7 @@ namespace SGH.Api.Controllers
 {
 
     [Route("api/[controller]")]
+    [Authorize("coordenacao")]
     public class CurriculoController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -28,7 +29,6 @@ namespace SGH.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize("admin")]
         [Route("listarTodos")]
         public async Task<IActionResult> ListarTodos(int curriculoId)
         {

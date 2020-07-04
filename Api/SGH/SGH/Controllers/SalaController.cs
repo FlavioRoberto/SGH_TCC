@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 namespace SGH.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize("coordenacao")]
     public class SalaController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -24,7 +25,6 @@ namespace SGH.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize("admin")]
         [Route("listarTodos")]
         public async Task<IActionResult> ListarTodos()
         {
@@ -57,7 +57,6 @@ namespace SGH.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize("admin")]
         [Route("listarPaginacao")]
         public async Task<IActionResult> ListarPorPaginacao([FromBody] Paginacao<SalaViewModel> entidadePaginada)
         {

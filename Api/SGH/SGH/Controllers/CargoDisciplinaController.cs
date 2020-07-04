@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace SGH.Api.Controllers
 {
     [Route("api/cargo/disciplinas")]
+    [Authorize("coordenacao")]
     public class CargoDisciplinaController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -67,7 +68,6 @@ namespace SGH.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize("admin")]
         [Route("listar-por-curriculo")]
         public async Task<IActionResult> ListarDisciplinasCurriculo([FromBody] ListarDisciplinaCargoPorCurriculoConsulta consulta)
         {

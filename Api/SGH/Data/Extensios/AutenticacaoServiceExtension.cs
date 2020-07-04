@@ -33,8 +33,15 @@ namespace SGH.Dominio.Services.Extensions
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("user", policy => policy.RequireClaim("perfilId", "5"));
-                options.AddPolicy("admin", policy => policy.RequireClaim("admin", "administrador"));
                 options.AddPolicy("pedagogico", policy => policy.RequireClaim("perfilId", "2"));
+                options.AddPolicy("admin", policy => policy.RequireClaim("admin", "administrador"));
+                options.AddPolicy("coordenacao", policy => policy.RequireAssertion(context =>
+                        context.User.HasClaim(c =>
+                            (c.Type == "perfilId" && (Convert.ToInt32(c.Value) == 3) ||
+                            (c.Type == "admin" && c.Value == "administrador")
+                        ))
+                ));
+
                 options.AddPolicy("todos", policy => policy.RequireAssertion(context =>
                         context.User.HasClaim(c =>
                             (c.Type == "perfilId" && (Convert.ToInt32(c.Value) > 0)))));

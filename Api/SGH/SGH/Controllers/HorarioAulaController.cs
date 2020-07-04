@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 namespace SGH.Api.Controllers
 {
     [Route("api/horario-aula")]
+    [Authorize("coordenacao")]
     public class HorarioAulaController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -23,7 +24,6 @@ namespace SGH.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize("admin")]
         [Route("{codigoHorario}/listar-aulas")]
         public async Task<IActionResult> ListarAulas(int codigoHorario)
         {
@@ -65,7 +65,6 @@ namespace SGH.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize("admin")]
         [Route("listar")]
         public async Task<IActionResult> Listar([FromBody] ListarHorarioAulaConsulta consulta)
         {
