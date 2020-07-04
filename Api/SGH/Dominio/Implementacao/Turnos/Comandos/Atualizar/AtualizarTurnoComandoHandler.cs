@@ -34,6 +34,10 @@ namespace SGH.Dominio.Services.Implementacao.Turnos.Comandos.Atualizar
                 return new Resposta<TurnoViewModel>(erros);
 
             var turno = await _repositorio.Consultar(lnq => lnq.Codigo == request.Codigo);
+
+            if (turno == null)
+                return new Resposta<TurnoViewModel>("Não foi encontrado um turno com código informado.");
+
             turno.Descricao = request.Descricao;
             turno.Horarios = request.Horarios.Join(",");
             

@@ -44,6 +44,7 @@ using SGH.Dominio.Services.Implementacao.Salas.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Salas.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Salas.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Turnos.Comandos.Atualizar;
+using SGH.Dominio.Services.Implementacao.Turnos.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Turnos.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar;
@@ -76,6 +77,7 @@ namespace SGH.Dominio.Services.Extensions
             services.AddScoped<IValidador<CriarProfessorComando>, CriarProfessorComandoValidador>();
             services.AddScoped<IValidador<AtualizarProfessorComando>, AtualizarProfessorComandoValidador>();
             services.AddScoped<IValidador<RemoverProfessorComando>, RemoverProfessorComandoValidador>();
+            services.AddScoped<IValidador<CriarTurnoComando>, CriarTurnoComandoValidador>();
             services.AddScoped<IValidador<AtualizarTurnoComando>, AtualizarTurnoComandoValidador>();
             services.AddScoped<IValidador<RemoverTurnoComando>, RemoverTurnoComandoValidador>();
             services.AddScoped<IValidador<CriarCurriculoComando>, CriarCurriculoComandoValidador>();
