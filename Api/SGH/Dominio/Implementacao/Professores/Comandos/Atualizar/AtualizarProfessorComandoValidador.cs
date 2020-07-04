@@ -10,13 +10,25 @@ namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Atualizar
     {
         public AtualizarProfessorComandoValidador(IProfessorRepositorio repositorio) : base(repositorio)
         {
+            ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
+
+            RuleFor(lnq => lnq.Codigo)
+                .NotEmpty()
+                .WithMessage("O código não foi informado")
+                .GreaterThan(0)
+                .WithMessage("O código deve ser maior que 0.");
+
             RuleFor(lnq => lnq).MustAsync(ValidarMatriculaExistente).WithMessage(comando => $"A matrícula {comando.Matricula} já está em uso.");
         }
 
         private async Task<bool> ValidarMatriculaExistente(AtualizarProfessorComando comando, CancellationToken cancellationToken)
         {
-            var resultado = await _repositorio.Listar(lnq => lnq.Matricula == comando.Matricula && lnq.Codigo != comando.ProfessorId);
-            return resultado.Count > 0;
+            var matriculaExiste = await _repositorio.Contem(lnq => lnq.Matricula == comando.Matricula && lnq.Codigo != comando.Codigo);
+
+            if (matriculaExiste)
+                return false;
+
+            return true;
         }
     }
 }

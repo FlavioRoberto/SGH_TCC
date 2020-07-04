@@ -7,7 +7,7 @@ namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Atualizar
 {
     public class AtualizarProfessorComando : IRequest<Resposta<Professor>>, IProfessorComando
     {
-        public int ProfessorId { get; set; }
+        public int Codigo { get; set; }
         public string Matricula { get; set; }
         public string Nome { get; set; }
         public string Telefone { get; set; }

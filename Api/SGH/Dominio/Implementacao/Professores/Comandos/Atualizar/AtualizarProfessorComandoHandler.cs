@@ -28,16 +28,15 @@ namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Atualizar
             if (!string.IsNullOrEmpty(erros))
                 return new Resposta<Professor>(erros);
 
-            var entidade = new Professor
-            {
-                Codigo = request.ProfessorId,
-                Ativo = request.Ativo ?? false,
-                Email = request.Email,
-                Matricula = request.Matricula,
-                Nome = request.Nome,
-                Telefone = request.Telefone
-            };
+            var entidade = await _repositorio.Consultar(lnq => lnq.Codigo == request.Codigo);
 
+            entidade.Codigo = request.Codigo;
+            entidade.Ativo = request.Ativo ?? false;
+            entidade.Email = request.Email;
+            entidade.Matricula = request.Matricula;
+            entidade.Nome = request.Nome;
+            entidade.Telefone = request.Telefone;
+            
             var professor = await _repositorio.Atualizar(entidade);
             return new Resposta<Professor>(professor);
         }
