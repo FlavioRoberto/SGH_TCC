@@ -16,5 +16,6 @@ namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Atualizar
         public bool Ativo { get; set; }
         public string Email { get; set; }
         public string Login { get; set; }
+        public int CursoCodigo { get; set; }
     }
 }

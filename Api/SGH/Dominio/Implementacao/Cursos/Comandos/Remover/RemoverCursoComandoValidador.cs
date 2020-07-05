@@ -13,19 +13,42 @@ namespace SGH.Dominio.Services.Implementacao.Cursos.Comandos.Remover
     {
         private readonly ICursoRepositorio _repositorio;
         private readonly ICurriculoRepositorio _curriculoRepositorio;
+        private readonly IUsuarioRepositorio _usuarioRepositorio;
         private Curriculo _curriculo;
 
-        public RemoverCursoComandoValidador(ICursoRepositorio repositorio, ICurriculoRepositorio curriculoRepositorio)
+        public RemoverCursoComandoValidador(ICursoRepositorio repositorio,
+                                            ICurriculoRepositorio curriculoRepositorio,
+                                            IUsuarioRepositorio usuarioRepositorio)
         {
             _repositorio = repositorio;
             _curriculoRepositorio = curriculoRepositorio;
-            RuleFor(lnq => lnq.CursoId).NotEmpty().WithMessage("O campo código não pode ser vazio.");
-            RuleFor(lnq => lnq.CursoId).MustAsync(ValidarCursoExistente).WithMessage(comando => $"Não foi encontrado o curso com código {comando.CursoId}.");
+            _usuarioRepositorio = usuarioRepositorio;
 
-            When(lnq => lnq.CursoId > 0, () =>
-            {
-                RuleFor(lnq => lnq.CursoId).MustAsync(VerificarSeCursoVinculadoAoCurriculo).WithMessage(c => $"Não foi possível remover o curso pois ele está vinculado ao currículo de código {_curriculo.Codigo}.");
-            });
+            ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
+
+            RuleFor(lnq => lnq.CursoId)
+                .NotEmpty()
+                .WithMessage("O campo código não pode ser vazio.")
+
+                .MustAsync(ValidarCursoExistente)
+                .WithMessage(comando => $"Não foi encontrado o curso com código {comando.CursoId}.")
+
+                .MustAsync(VerificarSeCursoVinculadoAoCurriculo)
+                .WithMessage(c => $"Não foi possível remover o curso pois ele está vinculado ao currículo de código {_curriculo.Codigo}.")
+
+                .MustAsync(VerificarSePossuiUsuarioVinculadoAoCurso)
+                .WithMessage(c => "Não foi possível remover o curso, pois existem usuários vinculados ao mesmo.");
+
+        }
+
+        private async Task<bool> VerificarSePossuiUsuarioVinculadoAoCurso(int codigoCurso, CancellationToken arg2)
+        {
+            var existeUsuarioVinculado = await _usuarioRepositorio.Contem(lnq => lnq.CursoCodigo == codigoCurso);
+
+            if (existeUsuarioVinculado)
+                return false;
+
+            return true;
         }
 
         private async Task<bool> VerificarSeCursoVinculadoAoCurriculo(int codigoCurso, CancellationToken arg2)

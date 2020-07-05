@@ -54,12 +54,22 @@ namespace SHG.Data.Mapeamento
                 .IsRequired(true)
                 .HasColumnName("Usu_Perfil");
 
+            builder.Property(p => p.CursoCodigo)
+                .IsRequired(false)
+                .HasColumnName("Usu_Curso");
+
             #region Relacionamento
             builder.HasOne(lnq => lnq.Perfil)
-                .WithMany(lnq => lnq.Usuarios)
-                .HasForeignKey(lnq => lnq.PerfilCodigo)
-                .HasConstraintName("FK_Perfil")
-                .OnDelete(DeleteBehavior.Restrict); 
+                   .WithMany(lnq => lnq.Usuarios)
+                   .HasForeignKey(lnq => lnq.PerfilCodigo)
+                   .HasConstraintName("FK_Perfil")
+                   .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasOne(lnq => lnq.Curso)
+                   .WithMany(lnq => lnq.Usuarios)
+                   .HasForeignKey(lnq => lnq.CursoCodigo)
+                   .HasConstraintName("FK_Curso")
+                   .OnDelete(DeleteBehavior.Restrict);
             #endregion
 
             builder.ToTable("Usuario");

@@ -58,7 +58,7 @@ namespace SGH.TestesDeUnidade
             
         }
 
-        [Fact(DisplayName = "Criar usuário - Deve cadastrar o usuário inválido")]
+        [Fact(DisplayName = "Criar usuário - Deve retornar mensagens ao cadastrar usuário inválido")]
         [Trait("Unitários", "Usuário")]
         public async Task Usuario_Criar_CadastrarUsuarioInvalido()
         {
@@ -68,11 +68,15 @@ namespace SGH.TestesDeUnidade
 
             var repositorioMock = new Mock<IUsuarioRepositorio>();
 
+            var cursoRepositorioMock = new Mock<ICursoRepositorio>();
+
             repositorioMock.Setup(c => c.Contem(It.IsAny<Expression<Func<Usuario, bool>>>())).Returns(Task.FromResult(true));
+
+            cursoRepositorioMock.Setup(c => c.Contem(It.IsAny<Expression<Func<Curso, bool>>>())).Returns(Task.FromResult(false));
 
             var emailServiceMock = new Mock<IEmailService>();
             
-            var validadorMock = new CriarUsuarioComandoValidador(repositorioMock.Object);
+            var validadorMock = new CriarUsuarioComandoValidador(repositorioMock.Object, cursoRepositorioMock.Object);
 
             var handler = new CriarUsuarioComandoHandler(repositorioMock.Object,validadorMock,emailServiceMock.Object);
 
@@ -84,6 +88,42 @@ namespace SGH.TestesDeUnidade
                                  O campo de perfil não pode ser vazio.
                                  Já existe um usuário cadastrado com o e-mail {comando.Email}.
                                  Já existe um usuário cadastrado com o login {comando.Login}.";
+
+            resultado.TemErro().Should().BeTrue();
+
+            resultado.GetErros().RemoverEspacosVazios().Should().BeEquivalentTo(mensagemErro.RemoverEspacosVazios());
+
+        }
+
+        [Fact(DisplayName = "Criar usuário - Deve retornar validação somente usuário coordenador possui curso vinculado")]
+        [Trait("Unitários", "Usuário")]
+        public async Task Usuario_Criar_DeveRetornarValidacaoSomenteUsuarioCoordenadorPossuiCurso()
+        {
+            var usuario = _usuarioTestsFixture.GerarUsuarioValido();
+
+            usuario.PerfilCodigo = 1;
+
+            usuario.CursoCodigo = 1;
+
+            var comando = GerarUsuarioComando(usuario);
+
+            var repositorioMock = new Mock<IUsuarioRepositorio>();
+
+            var cursoRepositorioMock = new Mock<ICursoRepositorio>();
+
+            repositorioMock.Setup(c => c.Contem(It.IsAny<Expression<Func<Usuario, bool>>>())).Returns(Task.FromResult(false));
+
+            cursoRepositorioMock.Setup(c => c.Contem(It.IsAny<Expression<Func<Curso, bool>>>())).Returns(Task.FromResult(true));
+
+            var emailServiceMock = new Mock<IEmailService>();
+
+            var validadorMock = new CriarUsuarioComandoValidador(repositorioMock.Object, cursoRepositorioMock.Object);
+
+            var handler = new CriarUsuarioComandoHandler(repositorioMock.Object, validadorMock, emailServiceMock.Object);
+
+            var resultado = await handler.Handle(comando, CancellationToken.None);
+
+            var mensagemErro = @$"Somente usuários com perfil coordenador de curso podem ter cursos vinculados.";
 
             resultado.TemErro().Should().BeTrue();
 
