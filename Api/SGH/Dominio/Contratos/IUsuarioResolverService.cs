@@ -2,6 +2,6 @@
 {
     public interface IUsuarioResolverService
     {
-        string GetUser();
+        int RetornarCodigoUsuario();
     }
 }

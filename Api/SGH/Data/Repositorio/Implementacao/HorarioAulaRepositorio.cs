@@ -12,10 +12,12 @@ namespace SGH.Data.Repositorio.Implementacao
     public class HorarioAulaRepositorio : IHorarioAulaRepositorio
     {
         private readonly IRepositorio<HorarioAula> _repositorio;
+        private readonly IUsuarioRepositorio _usuarioRepositorio;
 
-        public HorarioAulaRepositorio(IRepositorio<HorarioAula> repositorio)
+        public HorarioAulaRepositorio(IRepositorio<HorarioAula> repositorio, IUsuarioRepositorio usuarioRepositorio)
         {
             _repositorio = repositorio;
+            _usuarioRepositorio = usuarioRepositorio;
         }
 
         public async Task<HorarioAula> Atualizar(HorarioAula entidade)
@@ -45,7 +47,14 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<List<HorarioAula>> Listar(ListarHorarioFiltro filtro)
         {
-            var query = _repositorio.GetDbSet<HorarioAula>().AsNoTracking();
+            var query = _repositorio.GetDbSet<HorarioAula>()
+                                    .Include(lnq => lnq.Curriculo)
+                                    .AsNoTracking();
+
+            var usuario = await _usuarioRepositorio.Consultar(lnq => lnq.Codigo == filtro.codigoUsuario);
+
+            if (usuario != null)
+                query = query.Where(lnq => lnq.Curriculo.CodigoCurso == usuario.CursoCodigo);
 
             if (filtro.Ano.HasValue)
                 query = query.Where(lnq => lnq.Ano == filtro.Ano);

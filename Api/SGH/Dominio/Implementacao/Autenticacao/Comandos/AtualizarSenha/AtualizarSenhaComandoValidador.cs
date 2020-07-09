@@ -39,7 +39,7 @@ namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.AtualizarSenh
 
         private async Task<bool> ValidarUsuarioNaoEncontrado(AtualizarSenhaComando comando, CancellationToken cancellationToken)
         {
-            var codigoUsuarioLogado = _usuarioResolverService.GetUser().ToInt();
+            var codigoUsuarioLogado = _usuarioResolverService.RetornarCodigoUsuario();
             _usuario = await _repositorio.Consultar(lnq => lnq.Codigo == codigoUsuarioLogado);
 
             if (_usuario == null)

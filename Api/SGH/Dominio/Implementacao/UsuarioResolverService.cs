@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SGH.Dominio.Services.Contratos;
+using System;
 using System.Security.Claims;
 
 namespace SGH.Dominio.Services.Implementacao
@@ -12,10 +13,10 @@ namespace SGH.Dominio.Services.Implementacao
             this.accessor = accessor;
         }
 
-        public string GetUser()
+        public int RetornarCodigoUsuario()
         {
             var userClaim = accessor?.HttpContext?.User?.Identity as ClaimsIdentity;
-            return userClaim.FindFirst("codigo").Value;
+            return Convert.ToInt32(userClaim.FindFirst("codigo").Value);
         }
     }
 }

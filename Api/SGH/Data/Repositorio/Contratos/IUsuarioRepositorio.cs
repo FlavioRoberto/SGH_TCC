@@ -7,5 +7,6 @@ namespace SGH.Data.Repositorio.Contratos
     {
         Task<Usuario> RetornarUsuarioPorLoginESenha(string login, string senha);
         Task<int> QuantidadeUsuarioAdm();
+        Task<UsuarioPerfil> ConsultarPerfil(int codigoUsuarioLogado);
     }
 }

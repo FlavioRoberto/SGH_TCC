@@ -40,7 +40,8 @@ namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar
                 Login = request.Login,
                 Nome = request.Nome,
                 PerfilCodigo = request.PerfilCodigo,
-                Telefone = request.Telefone
+                Telefone = request.Telefone,
+                CursoCodigo = request.CursoCodigo
             };
 
             string senha = SenhaHelper.Gerar();

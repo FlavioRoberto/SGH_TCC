@@ -37,7 +37,8 @@ namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Atualizar
                 Nome = request.Nome,
                 PerfilCodigo = request.PerfilCodigo,
                 Senha = request.Senha,
-                Telefone = request.Telefone
+                Telefone = request.Telefone,
+                CursoCodigo = request.CursoCodigo
             };
 
             var resultado = await _repositorio.Atualizar(usuario);

@@ -29,7 +29,7 @@ namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.AtualizarSenh
             if (!string.IsNullOrEmpty(erros))
                 return new Resposta<string>("", erros);
 
-            var codigoUsuarioLogado = _usuarioResolverService.GetUser().ToInt();
+            var codigoUsuarioLogado = _usuarioResolverService.RetornarCodigoUsuario();
 
             var usuario = await _repositorio.Consultar(lnq => lnq.Codigo == codigoUsuarioLogado);
 

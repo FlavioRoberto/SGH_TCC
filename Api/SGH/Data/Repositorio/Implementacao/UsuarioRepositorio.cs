@@ -14,8 +14,12 @@ namespace SGH.Data.Repositorio.Implementacao
 {
     public class UsuarioRepositorio : RepositorioBase<Usuario>, IUsuarioRepositorio
     {
-        public UsuarioRepositorio(IContexto contexto) : base(contexto)
-        { }
+        private readonly IUsuarioPerfilRepositorio _usuarioPerfilRepositorio;
+
+        public UsuarioRepositorio(IContexto contexto, IUsuarioPerfilRepositorio usuarioPerfilRepositorio) : base(contexto)
+        {
+            _usuarioPerfilRepositorio = usuarioPerfilRepositorio;
+        }
 
         public async Task<Paginacao<Usuario>> ListarPorPaginacao(Paginacao<Usuario> entidadePaginada)
         {
@@ -73,6 +77,16 @@ namespace SGH.Data.Repositorio.Implementacao
                     .Include(lnq => lnq.Perfil)
                     .AsQueryable()
                     .FirstOrDefaultAsync(query);
+        }
+
+        public async Task<UsuarioPerfil> ConsultarPerfil(int codigoUsuarioLogado)
+        {
+            var usuario = await Consultar(lnq => lnq.Codigo == codigoUsuarioLogado);
+
+            if (usuario == null)
+                return null;
+
+            return await _usuarioPerfilRepositorio.Consultar(lnq => lnq.Codigo == usuario.PerfilCodigo);
         }
     }
 }

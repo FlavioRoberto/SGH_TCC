@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace SGH.Api.Controllers
 {
     [Route("api/aula")]
+    [Authorize("coordenacao")]
     public class AulaController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -19,7 +20,6 @@ namespace SGH.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize("admin")]
         [Route("criar")]
         public async Task<IActionResult> Criar([FromBody] CriarAulaComando comando)
         {
@@ -39,7 +39,6 @@ namespace SGH.Api.Controllers
         }
 
         [HttpDelete]
-        [Authorize("admin")]
         [Route("{codigoAula}")]
         public async Task<IActionResult> Remover(int codigoAula)
         {
