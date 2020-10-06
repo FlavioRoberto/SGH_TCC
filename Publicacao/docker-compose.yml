@@ -1,0 +1,40 @@
+version: '3.7'
+
+networks:
+    sgh-network:
+        driver: bridge  
+
+services:
+  sgh_front:
+    image: nginx
+    container_name: sgh_front
+    ports:
+        - "80:80"
+    volumes:
+        - ./front/www:/usr/share/nginx/html
+        - ./front/config/nginx.conf:/etc/nginx/nginx.conf 
+
+  sgh_db_postgres:
+    image: postgres
+    container_name: sgh_db_postgres
+    volumes:
+        - $PWD/postgres/data:/var/lib/postgresql/data
+    environment:
+         POSTGRES_PASSWORD: "sghDb347#"
+    ports:
+        - "5432:5432"
+    networks:
+        - sgh-network
+   
+  sgh_api:
+     image: microsoft/dotnet:2.2-aspnetcore-runtime
+     working_dir: /app
+     ports: 
+        - "5000:5000"
+     volumes: 
+        - ./api:/app
+     depends_on:
+        - sgh_db_postgres
+     entrypoint: ["dotnet", "SGH.Api.dll"]
+     networks:
+        - sgh-network

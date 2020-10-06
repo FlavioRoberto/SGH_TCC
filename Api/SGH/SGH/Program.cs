@@ -12,7 +12,9 @@ namespace SGH.APi
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                   .UseKestrel()
                    .UseIIS()
+                   .UseUrls("http://*:5000")
                    .UseStartup<Startup>();
     }
 }
