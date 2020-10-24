@@ -7,6 +7,6 @@
         string Login { get; set; }
         string Nome { get; set; }
         int PerfilCodigo { get; set; }
-        int CursoCodigo { get; set; }
+        int? CursoCodigo { get; set; }
     }
 }

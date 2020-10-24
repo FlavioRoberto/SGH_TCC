@@ -39,8 +39,8 @@ namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos
 
         private async Task<bool> ValidarSeUsuarioCoordenadorPossuiCursoVinculado(T comando, CancellationToken arg2)
         {
-            if (comando.PerfilCodigo == 3 && comando.CursoCodigo <= 0)
-                return false;
+            if (comando.PerfilCodigo != 3)
+                return true;
 
             var existeCurso = await _cursoRepositorio.Contem(lnq => lnq.Codigo == comando.CursoCodigo);
 

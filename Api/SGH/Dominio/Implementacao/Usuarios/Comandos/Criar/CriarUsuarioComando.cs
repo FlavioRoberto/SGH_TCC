@@ -16,6 +16,6 @@ namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar
         public bool Ativo { get; set; }
         public string Email { get; set; }
         public string Login { get; set; }
-        public int CursoCodigo { get; set; }
+        public int? CursoCodigo { get; set; }
     }
 }
