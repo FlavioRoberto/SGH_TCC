@@ -47,7 +47,6 @@ namespace SGH.APi
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddPersistencia(_configuration);
-            services.AddDominio(_configuration.GetSection("ConfiguracoesEmail"));
 
             #region FAKE_DB
             services.AddScoped<IBancoTesteFactory, BancoTesteFactory>();

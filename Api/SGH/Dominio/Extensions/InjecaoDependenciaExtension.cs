@@ -56,9 +56,8 @@ namespace SGH.Dominio.Services.Extensions
 {
     public static class InjecaoDependenciaExtension
     {
-        public static IServiceCollection AddDominio(this IServiceCollection services, IConfigurationSection configuracaoSecao)
+        public static IServiceCollection AddDominio(this IServiceCollection services)
         {
-            services.Configure<EmailConfiguracoes>(configuracaoSecao);
             services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<ICargoService, CargoService>();
 
@@ -114,7 +113,7 @@ namespace SGH.Dominio.Services.Extensions
             #endregion
 
             #region Relatorio
-            services.AddRelatorio(configuracaoSecao);
+            services.AddRelatorio();
             #endregion
 
             return services;

@@ -39,7 +39,7 @@ namespace SGH.APi
             services.AddPersistencia(_configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
-            services.AddDominio(_configuration.GetSection("ConfiguracoesEmail"));
+            services.AddDominio();
 
             services.AddCors(o =>
                 o.AddPolicy("MyPolicy", builder =>
