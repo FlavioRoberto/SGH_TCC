@@ -14,7 +14,7 @@ namespace SGH.Data.Extensios
     {
         public static IServiceCollection AddPersistencia(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("ConnectionStrings");
+            var connectionString = configuration["ConnectionStrings:SghSqlConnections"];
 
             services.AddScoped<IContexto, Contexto>();
 

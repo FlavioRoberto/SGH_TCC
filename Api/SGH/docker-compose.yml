@@ -7,12 +7,10 @@ networks:
 services:
   sgh.api:
     image: ${DOCKER_REGISTRY-}sgh
+    container_name: SGH.Api
     build:
       context: .
       dockerfile: SGH/Dockerfile
-    environment:
-      POSTGRES_PASSWORD: "sghDb347#"
-      PGDATA: /data/postgres
     ports:
         - "5000:5000"
         - "443:443"
