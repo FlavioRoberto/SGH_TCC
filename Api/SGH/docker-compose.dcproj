@@ -9,7 +9,6 @@
     <UserSecretsId>8ce4653e-42c4-41c0-94be-04878b8ff663</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <None Include=".env" />
     <None Include="docker-compose.override.yml">
       <DependentUpon>docker-compose.yml</DependentUpon>
     </None>

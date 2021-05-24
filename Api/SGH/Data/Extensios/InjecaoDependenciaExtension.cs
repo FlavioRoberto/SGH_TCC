@@ -7,7 +7,6 @@ using SGH.Data.Repositorio.Contratos;
 using SGH.Data.Repositorio.Implementacao;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Contexto;
-using System;
 
 namespace SGH.Data.Extensios
 {
@@ -15,7 +14,7 @@ namespace SGH.Data.Extensios
     {
         public static IServiceCollection AddPersistencia(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration["CONNECTION_STRING"];
+            var connectionString = configuration.GetConnectionString("ConnectionStrings");
 
             services.AddScoped<IContexto, Contexto>();
 
