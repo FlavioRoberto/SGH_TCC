@@ -37,7 +37,7 @@ namespace SGH.Relatorios.Implementacoes
 
             relatorio.Prepare();
 
-         //   relatorio.Save(caminhoRepx);
+            relatorio.Save(caminhoRepx);
 
             return relatorio;
         }
