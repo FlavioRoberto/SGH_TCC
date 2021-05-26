@@ -2,13 +2,18 @@
 {
     public class HorarioGeralAulaData
     {
-        public int HorarioCodigo { get; set; }
-        public string Hora { get; set; }
-        public string DisciplinaSegunda { get; set; }
-        public string DisciplinaTerca { get; set; }
-        public string DisciplinaQuarta { get; set; }
-        public string DisciplinaQuinta { get; set; }
-        public string DisciplinaSexta { get; set; }
-        public string DisciplinaSabado { get; set; }
+        public long HorarioCodigo { get; set; }
+        public DisciplinaData DisciplinaSegunda { get; set; }
+        public DisciplinaData DisciplinaTerca { get; set; }
+        public DisciplinaData DisciplinaQuarta { get; set; }
+        public DisciplinaData DisciplinaQuinta { get; set; }
+        public DisciplinaData DisciplinaSexta { get; set; }
+        public DisciplinaData DisciplinaSabado { get; set; }
     }
+}
+
+public class DisciplinaData
+{
+    public string Disciplina { get; set; }
+    public string Hora { get; set; }
 }

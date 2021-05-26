@@ -15,7 +15,6 @@ namespace SGH.Relatorios.Implementacoes
 
         protected override Report RegistrarDataSet(Report relatorio)
         {
-            relatorio = RegistrarDataSetHorario(relatorio);
             relatorio = RegistrarDataSetAula(relatorio);
             return relatorio;
         }
@@ -35,14 +34,11 @@ namespace SGH.Relatorios.Implementacoes
             var datasetAula = _dados.Aulas;
             relatorio.RegisterData(datasetAula, "Aulas");
             relatorio.GetDataSource("Aulas").Enabled = true;
-            return relatorio;
-        }
 
-        private Report RegistrarDataSetHorario(Report relatorio)
-        {
-            var datasetHorario = _dados.Horarios;
-            relatorio.RegisterData(datasetHorario, "Horarios");
+            var datasetHorarios = _dados.Horarios;
+            relatorio.RegisterData(datasetHorarios, "Horarios");
             relatorio.GetDataSource("Horarios").Enabled = true;
+
             return relatorio;
         }
     }

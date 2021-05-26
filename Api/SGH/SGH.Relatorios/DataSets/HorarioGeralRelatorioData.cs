@@ -1,5 +1,6 @@
 ﻿using SGH.Relatorios.Contratos;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SGH.Relatorios.DataSets
 {

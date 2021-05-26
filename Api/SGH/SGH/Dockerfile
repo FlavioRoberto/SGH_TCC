@@ -10,6 +10,7 @@ ENV CONNECTION_STRING=""
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
 COPY ["SGH/SGH.API.csproj", "SGH/"]
+
 RUN dotnet restore "SGH.API/SGH.API.csproj"
 COPY . .
 WORKDIR "/src/SGH"

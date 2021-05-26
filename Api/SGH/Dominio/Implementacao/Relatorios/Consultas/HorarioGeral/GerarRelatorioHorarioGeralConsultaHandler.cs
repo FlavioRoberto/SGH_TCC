@@ -124,37 +124,43 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 
             var aulas = await _aulaRepositorio.ListarComDisciplinas(lnq => lnq.CodigoHorario == horario.Codigo);
 
-            var aulasPorHorario = aulas.GroupBy(lnq => lnq.Reserva.Hora).Select(lnq => lnq).ToList();
-
-            foreach (var aula in aulasPorHorario)
+            for (var i = 0; i < 5; i++)
             {
                 aulasRelatorio.Add(new HorarioGeralAulaData
                 {
-                    DisciplinaSegunda = await RetornarDisciplinaPorDiaSemanaHora(aula, "Segunda"),
-                    DisciplinaTerca = await RetornarDisciplinaPorDiaSemanaHora(aula, "Terça"),
-                    DisciplinaQuarta = await RetornarDisciplinaPorDiaSemanaHora(aula, "Quarta"),
-                    DisciplinaQuinta = await RetornarDisciplinaPorDiaSemanaHora(aula, "Quinta"),
-                    DisciplinaSexta = await RetornarDisciplinaPorDiaSemanaHora(aula, "Sexta"),
-                    DisciplinaSabado = await RetornarDisciplinaPorDiaSemanaHora(aula, "Sábado"),
-                    Hora = aula.Key,
+                    DisciplinaSegunda = await RetornarDisciplinaPorDiaSemanaHora(aulas, i, "Segunda"),
+                    DisciplinaTerca = await RetornarDisciplinaPorDiaSemanaHora(aulas, i, "Terça"),
+                    DisciplinaQuarta = await RetornarDisciplinaPorDiaSemanaHora(aulas, i, "Quarta"),
+                    DisciplinaQuinta = await RetornarDisciplinaPorDiaSemanaHora(aulas, i, "Quinta"),
+                    DisciplinaSexta = await RetornarDisciplinaPorDiaSemanaHora(aulas, i, "Sexta"),
+                    DisciplinaSabado = await RetornarDisciplinaPorDiaSemanaHora(aulas, i, "Sábado"),
                     HorarioCodigo = horario.Codigo
                 });
             }
-
             return aulasRelatorio;
         }
 
-        private async Task<string> RetornarDisciplinaPorDiaSemanaHora(IGrouping<string, Aula> aula, string diaSemana)
+        private async Task<DisciplinaData> RetornarDisciplinaPorDiaSemanaHora(List<Aula> aulas, int posicao, string diaSemana)
         {
-            var disciplina = aula.FirstOrDefault(lnq => lnq.Reserva.DiaSemana == diaSemana && lnq.Reserva.Hora == aula.Key);
+            if (aulas.Count < posicao)
+                return new DisciplinaData();
 
-            if (disciplina == null)
-                return "";
+            var aulaPosicao = aulas.Where(lnq => lnq.Reserva.DiaSemana == diaSemana)
+                                   .OrderBy(lnq => lnq.Reserva.Hora)
+                                   .Skip(posicao)
+                                   .FirstOrDefault();
+            if (aulaPosicao == null)
+                return new DisciplinaData();
 
-            var descricaoCargo = await _cargoService.RetornarProfessor(disciplina.Disciplina.CodigoCargo);
-            var descricaoSala = await RetornarDescricaoSala(disciplina.CodigoSala);
-            var descricaoDesdobramento = !string.IsNullOrEmpty(disciplina.DescricaoDesdobramento) ? $" {disciplina.DescricaoDesdobramento} { Environment.NewLine}" : "";
-            return $"{disciplina.Disciplina.Descricao} {Environment.NewLine} {descricaoDesdobramento} ({descricaoCargo}) {Environment.NewLine} {descricaoSala}";
+            var descricaoCargo = await _cargoService.RetornarProfessor(aulaPosicao.Disciplina.CodigoCargo);
+            var descricaoSala = await RetornarDescricaoSala(aulaPosicao.CodigoSala);
+            var descricaoDesdobramento = !string.IsNullOrEmpty(aulaPosicao.DescricaoDesdobramento) ? $" {aulaPosicao.DescricaoDesdobramento} { Environment.NewLine}" : "";
+
+            return new DisciplinaData
+            {
+                Disciplina = $"{aulaPosicao.Disciplina.Descricao} {Environment.NewLine} {descricaoDesdobramento} ({descricaoCargo}) {Environment.NewLine} {descricaoSala}",
+                Hora = aulaPosicao.Reserva.Hora.ToString()
+            };
         }
 
         private async Task<string> RetornarDescricaoSala(int codigoSala)
