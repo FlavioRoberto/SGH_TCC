@@ -10,7 +10,7 @@ using SHG.Data.Contexto;
 namespace SGH.Data.Migrations
 {
     [DbContext(typeof(Contexto))]
-    [Migration("20210607233551_Versao 07.00")]
+    [Migration("20210608215418_Versao 07.00")]
     partial class Versao0700
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -518,6 +518,7 @@ namespace SGH.Data.Migrations
                     b.HasOne("SGH.Dominio.Core.Model.DisciplinaTipo", "DisciplinaTipo")
                         .WithMany("Disciplinas")
                         .HasForeignKey("CodigoTipo")
+                        .HasConstraintName("FK_Disciplina_Tipo")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

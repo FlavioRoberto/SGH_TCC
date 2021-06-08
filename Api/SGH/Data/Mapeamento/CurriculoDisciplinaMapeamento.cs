@@ -50,6 +50,7 @@ namespace SHG.Data.Mapeamento
             builder.HasOne(lnq => lnq.DisciplinaTipo)
                    .WithMany(lnq => lnq.Disciplinas)
                    .HasForeignKey(lnq => lnq.CodigoTipo)
+                   .HasConstraintName("FK_Disciplina_Tipo")
                    .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(lnq => lnq.Curriculo)

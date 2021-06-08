@@ -7,6 +7,7 @@ namespace SGH.Dominio.ViewModel
     public class CurriculoDisciplinaViewModel
     {
         public int? Codigo { get; set; }
+        public long CodigoTipo { get; set; }
 
         public int Periodo { get; set; }
 

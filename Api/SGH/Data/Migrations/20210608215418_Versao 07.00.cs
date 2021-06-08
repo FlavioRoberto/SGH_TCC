@@ -262,7 +262,7 @@ namespace SGH.Data.Migrations
                 column: "Dis_Tipo");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_Curriculo_Disciplina_Disciplina_Tipo_Dis_Tipo",
+                name: "FK_Disciplina_Tipo",
                 table: "Curriculo_Disciplina",
                 column: "Dis_Tipo",
                 principalTable: "Disciplina_Tipo",
@@ -273,7 +273,7 @@ namespace SGH.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Curriculo_Disciplina_Disciplina_Tipo_Dis_Tipo",
+                name: "FK_Disciplina_Tipo",
                 table: "Curriculo_Disciplina");
 
             migrationBuilder.DropIndex(

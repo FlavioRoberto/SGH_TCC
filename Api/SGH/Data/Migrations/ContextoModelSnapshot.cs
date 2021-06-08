@@ -516,6 +516,7 @@ namespace SGH.Data.Migrations
                     b.HasOne("SGH.Dominio.Core.Model.DisciplinaTipo", "DisciplinaTipo")
                         .WithMany("Disciplinas")
                         .HasForeignKey("CodigoTipo")
+                        .HasConstraintName("FK_Disciplina_Tipo")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
