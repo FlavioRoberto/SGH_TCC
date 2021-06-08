@@ -87,7 +87,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
             return aulasViewModel;
         }
 
-        private async Task<bool> VerificarSeHorarioExtrapolado(int codigoHorario, CargoDisciplina disciplina, bool laboratorio)
+        private async Task<bool> VerificarSeHorarioExtrapolado(long codigoHorario, CargoDisciplina disciplina, bool laboratorio)
         {
             var curriculoDisciplina = await _curriculoDisciplinaRepositorio.Consultar(lnq => lnq.Codigo == disciplina.CodigoCurriculoDisciplina);
 
@@ -100,7 +100,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
             return aulaExtrapolada;
         }
 
-        private async Task<double> RetornarQuantidadeAulaDistribuida(int codigoHorario, CargoDisciplina disciplina, bool laboratorio)
+        private async Task<double> RetornarQuantidadeAulaDistribuida(long codigoHorario, CargoDisciplina disciplina, bool laboratorio)
         {
             var aulasDistribuidas = await _aulaRepositorio.Listar(lnq => lnq.CodigoHorario == codigoHorario &&
                                                                          lnq.CodigoDisciplina == disciplina.Codigo &&
@@ -118,17 +118,17 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
             return totalAula;
         }
 
-        private async Task<Sala> RetornarSalaDisciplina(int codigoSala)
+        private async Task<Sala> RetornarSalaDisciplina(long codigoSala)
         {
             return await _salaRepositorio.Consultar(lnq => lnq.Codigo == codigoSala);
         }
 
-        private async Task<CargoDisciplina> RetornarDisciplina(int codigoDisciplina)
+        private async Task<CargoDisciplina> RetornarDisciplina(long codigoDisciplina)
         {
             return await _cargoDisciplinaRepositorio.Consultar(lnq => lnq.Codigo == codigoDisciplina);
         }
 
-        private async Task<Cargo> RetornarCargoDisciplina(int codigoDisciplina)
+        private async Task<Cargo> RetornarCargoDisciplina(long codigoDisciplina)
         {
             return await _cargoDisciplinaRepositorio.ConsultarCargo(codigoDisciplina);
         }

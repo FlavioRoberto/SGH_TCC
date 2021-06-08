@@ -39,11 +39,18 @@ namespace SHG.Data.Mapeamento
             builder.Property(lnq => lnq.QuantidadeAulaTotal)
                 .HasColumnName("Curdis_Quantidade_Aulas_Total");
 
+            builder.Property(lnq => lnq.CodigoTipo).HasColumnName("Dis_Tipo");
+                     
+
             #endregion
 
             builder.ToTable("Curriculo_Disciplina");
 
             #region relacionamentos
+            builder.HasOne(lnq => lnq.DisciplinaTipo)
+                   .WithMany(lnq => lnq.Disciplinas)
+                   .HasForeignKey(lnq => lnq.CodigoTipo)
+                   .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(lnq => lnq.Curriculo)
                 .WithMany(lnq => lnq.Disciplinas)

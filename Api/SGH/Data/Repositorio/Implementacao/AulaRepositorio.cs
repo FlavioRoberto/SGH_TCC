@@ -46,7 +46,7 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _repositorioBase.Remover(expressao);
         }
 
-        public async Task<bool> VerificarDisponibilidadeCargo(int codigoCargo, string diaSemana, string hora)
+        public async Task<bool> VerificarDisponibilidadeCargo(long codigoCargo, string diaSemana, string hora)
         {
             return await _repositorioBase.GetDbSet<Aula>()
                                         .Include(lnq => lnq.Disciplina)
@@ -56,7 +56,7 @@ namespace SGH.Data.Repositorio.Implementacao
                                                          lnq.Reserva.DiaSemana == diaSemana); 
         }
 
-        public async Task<bool> VerificarDisponibilidadeProfessor(int codigoProfessor, string diaSemana, string hora)
+        public async Task<bool> VerificarDisponibilidadeProfessor(long codigoProfessor, string diaSemana, string hora)
         {
             return await _repositorioBase.GetDbSet<Aula>()
                                     .Include(lnq => lnq.Disciplina)

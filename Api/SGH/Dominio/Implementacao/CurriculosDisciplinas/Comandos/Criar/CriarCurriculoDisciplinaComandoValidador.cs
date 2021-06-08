@@ -11,8 +11,9 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Cria
     {
         public CriarCurriculoDisciplinaComandoValidador(ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio,
                                                         IDisciplinaRepositorio disciplinaRepositorio,
-                                                        ICurriculoRepositorio curriculoRepositorio) :
-                                                        base(curriculoDisciplinaRepositorio, disciplinaRepositorio, curriculoRepositorio)
+                                                        ICurriculoRepositorio curriculoRepositorio,
+                                                        IDisciplinaTipoRepositorio disciplinaTipoRepositorio) :
+                                                        base(curriculoDisciplinaRepositorio, disciplinaRepositorio, curriculoRepositorio, disciplinaTipoRepositorio)
         {
             RuleFor(lnq => lnq).MustAsync(ValidarSeDisciplinaCurriculoJaAdicionada).WithMessage(c => $"Disciplina já adicionada neste currículo.");
         }

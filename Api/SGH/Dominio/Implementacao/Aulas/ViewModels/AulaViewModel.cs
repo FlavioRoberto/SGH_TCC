@@ -4,10 +4,10 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.ViewModels
 {
     public class AulaViewModel
     {
-        public int CodigoHorario { get; set; }
-        public int Codigo { get; set; }
-        public int CodigoCargo { get; set; }
-        public int CodigoSala { get; set; }
+        public long CodigoHorario { get; set; }
+        public long Codigo { get; set; }
+        public long CodigoCargo { get; set; }
+        public long CodigoSala { get; set; }
         public string Professor { get; set; }
         public string Disciplina { get; set; }
         public string Sala { get; set; }

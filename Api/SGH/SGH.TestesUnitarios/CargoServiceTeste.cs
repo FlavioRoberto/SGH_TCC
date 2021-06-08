@@ -56,10 +56,10 @@ namespace SGH.TestesDeUnidade
         public async Task CargoService_RetornarProfessor_DeveRetornarNomeProfessorVinculado()
         {
             var cargoRetornado = new Cargo();
-            var professorRetornado = new Professor { Nome = "Professor Teste" };
+            var professorRetornado = new Professor { Codigo = 1, Nome = "Professor Teste" };
 
             _mockRepositorio.Setup(lnq => lnq.Consultar(It.IsAny<Expression<Func<Cargo, bool>>>())).Returns(Task.FromResult(cargoRetornado));
-            _mockRepositorio.Setup(lnq => lnq.ConsultarProfessor(It.IsAny<int>())).Returns(Task.FromResult(professorRetornado));
+            _mockRepositorio.Setup(lnq => lnq.ConsultarProfessor(It.IsAny<long>())).Returns(Task.FromResult(professorRetornado));
 
             var nomeProfessor = await _cargoService.RetornarProfessor(1);
 

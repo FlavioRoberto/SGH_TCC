@@ -2,8 +2,8 @@
 {
     public class CurriculoDisciplinaPreRequisito
     {
-        public int CodigoCurriculoDisciplina { get; set; }
-        public int CodigoDisciplina { get; set; }
+        public long CodigoCurriculoDisciplina { get; set; }
+        public long CodigoDisciplina { get; set; }
 
         public virtual CurriculoDisciplina CurriculoDisciplina { get; set; }
         public virtual Disciplina Disciplina { get; set; }

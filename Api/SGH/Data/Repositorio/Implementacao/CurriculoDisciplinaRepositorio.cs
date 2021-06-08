@@ -43,7 +43,7 @@ namespace SGH.Data.Repositorio.Implementacao
             return entidade;
         }
 
-        private async Task<List<CurriculoDisciplinaPreRequisito>> AtualizarPreRequisitos(int codigoCurriculoDisciplina, List<CurriculoDisciplinaPreRequisito> curriculoDisciplinaPreRequisito)
+        private async Task<List<CurriculoDisciplinaPreRequisito>> AtualizarPreRequisitos(long codigoCurriculoDisciplina, List<CurriculoDisciplinaPreRequisito> curriculoDisciplinaPreRequisito)
         {
             var disciplinasBancoPreRequisito = await _repositorio.GetDbSet<CurriculoDisciplinaPreRequisito>()
                                                      .AsNoTracking()

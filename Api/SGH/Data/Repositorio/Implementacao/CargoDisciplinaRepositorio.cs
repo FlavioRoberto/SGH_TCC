@@ -28,7 +28,7 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _repositorio.Consultar(expressao);
         }
 
-        public async Task<Cargo> ConsultarCargo(int codigoDisciplina)
+        public async Task<Cargo> ConsultarCargo(long codigoDisciplina)
         {
             var disciplina = await _repositorio.Consultar(lnq => lnq.Codigo == codigoDisciplina);
             return await _repositorio.GetDbSet<Cargo>().FirstOrDefaultAsync(lnq => lnq.Codigo == disciplina.CodigoCargo);
@@ -71,7 +71,7 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _repositorio.Remover(expressao);
         }
 
-        public async Task<Curriculo> RetornarCurriculoDisciplina(int codigoCurriculoDisciplina)
+        public async Task<Curriculo> RetornarCurriculoDisciplina(long codigoCurriculoDisciplina)
         {
             var curriculoDisciplina = await _repositorio.GetDbSet<CurriculoDisciplina>()
                 .Include(lnq => lnq.Curriculo)
@@ -82,7 +82,7 @@ namespace SGH.Data.Repositorio.Implementacao
             return curriculoDisciplina.Curriculo;
         }
 
-        public async Task<Disciplina> RetornarDisciplina(int codigoCurriculoDisciplina)
+        public async Task<Disciplina> RetornarDisciplina(long codigoCurriculoDisciplina)
         {
             var curriculoDisciplina = await _repositorio.GetDbSet<CurriculoDisciplina>()
                 .Include(lnq => lnq.Disciplina)

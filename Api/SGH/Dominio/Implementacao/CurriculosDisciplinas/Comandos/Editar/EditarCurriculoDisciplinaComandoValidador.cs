@@ -14,8 +14,9 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Edit
     {
         public EditarCurriculoDisciplinaComandoValidador(ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio,
                                                          IDisciplinaRepositorio disciplinaRepositorio,
-                                                         ICurriculoRepositorio curriculoRepositorio) :
-                                                         base(curriculoDisciplinaRepositorio, disciplinaRepositorio, curriculoRepositorio)
+                                                         ICurriculoRepositorio curriculoRepositorio,
+                                                         IDisciplinaTipoRepositorio disciplinaTipoRepositorio) :
+                                                         base(curriculoDisciplinaRepositorio, disciplinaRepositorio, curriculoRepositorio, disciplinaTipoRepositorio)
         {
             RuleFor(lnq => lnq.Codigo).NotEmpty().WithMessage("O campo código da disciplina do currículo é obrigatório");
 

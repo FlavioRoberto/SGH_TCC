@@ -4,6 +4,6 @@ namespace SGH.Dominio.Services.Contratos
 {
     public interface ICargoService
     {
-        Task<string> RetornarProfessor(int codigoCargo);
+        Task<string> RetornarProfessor(long codigoCargo);
     }
 }

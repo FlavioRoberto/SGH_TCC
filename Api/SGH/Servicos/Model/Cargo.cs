@@ -9,7 +9,7 @@ namespace SGH.Dominio.Core.Model
         public int Edital { get; set; }
         public int Ano { get; set; }
         public ESemestre Semestre { get; set; }
-        public int? CodigoProfessor { get; set; }
+        public long? CodigoProfessor { get; set; }
 
         public virtual Professor Professor { get; set; }
         public virtual IEnumerable<CargoDisciplina> Disciplinas { get; set; }

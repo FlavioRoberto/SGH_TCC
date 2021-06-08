@@ -137,6 +137,7 @@ namespace SGH.TestesDeUnidade
             {
                 Ativo = usuario.Ativo,
                 Codigo = usuario.Codigo,
+                CursoCodigo = usuario.CursoCodigo,
                 Email = usuario.Email,
                 Foto = usuario.Foto,
                 Login = usuario.Login,

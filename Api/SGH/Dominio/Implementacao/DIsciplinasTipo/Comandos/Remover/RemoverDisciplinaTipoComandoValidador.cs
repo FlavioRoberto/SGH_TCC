@@ -2,7 +2,6 @@
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.Contratos;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,10 +10,10 @@ namespace SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Comandos.Rem
     public class RemoverDisciplinaTipoComandoValidador : AbstractValidator<RemoverDisciplinaTipoComando>, IValidador<RemoverDisciplinaTipoComando>
     {
         private readonly IDisciplinaTipoRepositorio _repositorio;
-        private readonly IDisciplinaRepositorio _disciplinaRepositorio;
-        private Disciplina _disciplina;
+        private readonly ICurriculoDisciplinaRepositorio _disciplinaRepositorio;
+        private CurriculoDisciplina _disciplina;
 
-        public RemoverDisciplinaTipoComandoValidador(IDisciplinaTipoRepositorio repositorio, IDisciplinaRepositorio disciplinaRepositorio)
+        public RemoverDisciplinaTipoComandoValidador(IDisciplinaTipoRepositorio repositorio, ICurriculoDisciplinaRepositorio disciplinaRepositorio)
         {
             _repositorio = repositorio;
             _disciplinaRepositorio = disciplinaRepositorio;
@@ -27,13 +26,13 @@ namespace SGH.Dominio.Services.Implementacao.DIsciplinasTipoServico.Comandos.Rem
             });
         }
 
-        private async Task<bool> ValidarSeTipoDisciplinaVinculadoDisciplina(int codigoTipo, CancellationToken arg2)
+        private async Task<bool> ValidarSeTipoDisciplinaVinculadoDisciplina(long codigoTipo, CancellationToken arg2)
         {
             _disciplina = await _disciplinaRepositorio.Consultar(lnq => lnq.CodigoTipo == codigoTipo);
             return _disciplina == null ? true : false;
         }
 
-        private async Task<bool> ValidarDisciplinaTipoExistente(int codigo, CancellationToken cancellationToken)
+        private async Task<bool> ValidarDisciplinaTipoExistente(long codigo, CancellationToken cancellationToken)
         {
             var disciplinaTipo = await _repositorio.Consultar(lnq => lnq.Codigo == codigo);
 

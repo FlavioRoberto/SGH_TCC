@@ -20,7 +20,7 @@ namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Atualizar
             });
         }
 
-        private Task<bool> ValidarUsuarioExistente(int? codigo, CancellationToken cancellationToken)
+        private Task<bool> ValidarUsuarioExistente(long? codigo, CancellationToken cancellationToken)
         {
             return _usuarioRepositorio.Contem(lnq => lnq.Codigo == codigo.Value);
         }

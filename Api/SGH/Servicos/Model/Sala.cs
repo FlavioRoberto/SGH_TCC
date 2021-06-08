@@ -11,7 +11,7 @@ namespace SGH.Dominio.Core.Model
 
         public bool Laboratorio { get; set; }
 
-        public int CodigoBloco { get; set; }
+        public long CodigoBloco { get; set; }
 
         public virtual Bloco Bloco { get; set; }
         public virtual ICollection<Aula> Aulas { get; set; }

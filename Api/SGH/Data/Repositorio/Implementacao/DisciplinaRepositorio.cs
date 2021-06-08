@@ -28,9 +28,6 @@ namespace SGH.Data.Repositorio.Implementacao
             if (entidade.Codigo > 0)
                 query = query.Where(lnq => lnq.Codigo == entidade.Codigo);
 
-            if (entidade.CodigoTipo > 0)
-                query = query.Where(lnq => lnq.CodigoTipo == entidade.CodigoTipo);
-
             if (!string.IsNullOrEmpty(entidade.Descricao))
                 query = query.Where(lnq => lnq.Descricao.Contains(entidade.Descricao));
 

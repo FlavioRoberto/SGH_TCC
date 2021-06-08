@@ -2,7 +2,7 @@
 {
     public class HorarioGeralAulaData
     {
-        public int HorarioCodigo { get; set; }
+        public long HorarioCodigo { get; set; }
         public DisciplinaData DisciplinaSegunda { get; set; }
         public DisciplinaData DisciplinaTerca { get; set; }
         public DisciplinaData DisciplinaQuarta { get; set; }

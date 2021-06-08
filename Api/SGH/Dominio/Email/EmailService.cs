@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using System;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
@@ -7,8 +8,11 @@ namespace SGH.Dominio.Services.Email
 {
     public class EmailService : IEmailService
     {
-        public EmailService()
+        private IConfiguration _configuration;
+
+        public EmailService(IConfiguration configuration)
         {
+            _configuration = configuration;
         }
 
         public Task Enviar(string email, string assunto, string mensagem)
@@ -72,11 +76,11 @@ namespace SGH.Dominio.Services.Email
         {
             return new EmailConfiguracoes
             {
-                CcoEmail = Environment.GetEnvironmentVariable("SGH_EMAIL_CCO"),
-                Dominio = Environment.GetEnvironmentVariable("SGH_EMAIL_DOMINIO"),
-                Email = Environment.GetEnvironmentVariable("SGH_EMAIL_EMAIL"),
-                Porta = int.Parse(Environment.GetEnvironmentVariable("SGH_EMAIL_PORTA")),
-                Senha = Environment.GetEnvironmentVariable("SGH_EMAIL_SENHA")
+                CcoEmail = _configuration["ConfiguracoesEmail:CcoEmail"],
+                Dominio = _configuration["ConfiguracoesEmail:Dominio"],
+                Email = _configuration["ConfiguracoesEmail:Email"],
+                Porta = int.Parse(_configuration["ConfiguracoesEmail:Porta"]),
+                Senha = _configuration["ConfiguracoesEmail:Senha"]
             };
         }
 

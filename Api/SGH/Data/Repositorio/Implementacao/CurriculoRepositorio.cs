@@ -57,7 +57,7 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _repositorio.GetDbSet<CurriculoDisciplina>().CountAsync(lnq => lnq.CodigoCurriculo == codigoCurriculo);
         }
 
-        public async Task<bool> Remover(int codigoCurriculo)
+        public async Task<bool> Remover(long codigoCurriculo)
         {
             return await _repositorio.Remover(lnq => lnq.Codigo == codigoCurriculo);
         }
@@ -77,7 +77,7 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _repositorio.Consultar(expressao);
         }
 
-        public async Task<IList<int>> ListarCodigos(Expression<Func<Curriculo, bool>> expressao)
+        public async Task<IList<long>> ListarCodigos(Expression<Func<Curriculo, bool>> expressao)
         {
             return await _repositorio.GetDbSet<Curriculo>()
                                      .Where(expressao)
@@ -85,7 +85,7 @@ namespace SGH.Data.Repositorio.Implementacao
                                      .ToListAsync();
         }
 
-        public async Task<Curso> ConsultarCurso(int codigoCurriculo)
+        public async Task<Curso> ConsultarCurso(long codigoCurriculo)
         {
             var curriculo = await _repositorio.GetDbSet<Curriculo>().FirstOrDefaultAsync(lnq => lnq.Codigo == codigoCurriculo);
 

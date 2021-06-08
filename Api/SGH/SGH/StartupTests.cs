@@ -48,6 +48,7 @@ namespace SGH.APi
 
             services.AddPersistencia(_configuration);
 
+
             #region FAKE_DB
             services.AddScoped<IBancoTesteFactory, BancoTesteFactory>();
             services.AddScoped<IBancoTeste<UsuarioPerfil>, UsuarioPerfilBancoTeste>();
@@ -75,16 +76,18 @@ namespace SGH.APi
                 })
            );
 
+            services.AddDominio();
+
             services.Configure<MvcOptions>(options =>
             {
                 options.Filters.Add(new CorsAuthorizationFilterFactory("MyPolicy"));
             });
 
-            services.AddAutenticacao();
-
             services.AddAutoMapper(typeof(StartupTests));
             var assembly = AppDomain.CurrentDomain.Load("SGH.Dominio.Services");
             services.AddMediatR(assembly);
+
+            services.AddAutenticacao();
 
             services.AddMvc(config =>
             {
@@ -108,7 +111,7 @@ namespace SGH.APi
                 app.UseDeveloperExceptionPage();
 
             var factoryDb = app.ApplicationServices.GetService<IBancoTesteFactory>();
-            
+
             factoryDb.InicializarBanco();
 
             app.UseAuthentication();
@@ -116,5 +119,5 @@ namespace SGH.APi
             app.UseMvc();
         }
     }
-        
+
 }

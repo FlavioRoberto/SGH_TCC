@@ -24,8 +24,7 @@ namespace SGH.Dominio.Services.AutoMapper
 
             CreateMap<CurriculoDisciplinaPreRequisito, DisciplinCurriculoPreRequisitoaViewModel>()
               .ForMember(d => d.CodigoDisciplina, opt => opt.MapFrom(p => p.CodigoDisciplina))
-              .ForMember(d => d.DescricaoDisciplina, opt => opt.MapFrom(p => p.Disciplina.Descricao))
-              .ForMember(d => d.CodigoTipo, opt => opt.MapFrom(p => p.Disciplina.CodigoTipo));
+              .ForMember(d => d.DescricaoDisciplina, opt => opt.MapFrom(p => p.Disciplina.Descricao));              
 
             CreateMap<CriarCurriculoDisciplinaComando, CurriculoDisciplina>();
 

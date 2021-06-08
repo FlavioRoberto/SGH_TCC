@@ -3,14 +3,13 @@ using SGH.APi;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Criar;
 using SGH.Dominio.Services.ViewModel;
 using SGH.TestesDeIntegracao.Config;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
-using SGH.Dominio.Shared.Extensions;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Atualizar;
 using SGH.Dominio.Services.Implementacao.Blocos.Comandos.Remover;
 using SGH.Dominio.Core.Model;
 using System.Collections.Generic;
+using System.Net.Http;
 
 namespace SGH.TestesDeIntegracao
 {

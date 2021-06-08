@@ -4,6 +4,6 @@ namespace SGH.Dominio.Core.Model
 {
     public abstract class EntidadeBase
     {
-        public int Codigo { get; set; }
+        public long Codigo { get; set; }
     }
 }

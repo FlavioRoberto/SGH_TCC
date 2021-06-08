@@ -7,6 +7,6 @@ namespace SGH.Dominio.Core.Model
     {
         public string Descricao { get; set; }
 
-        public virtual List<Disciplina> Disciplinas { get; set; }
+        public virtual List<CurriculoDisciplina> Disciplinas { get; set; }
     }
 }

@@ -4,9 +4,9 @@ namespace SGH.Dominio.Core.Model
 {
     public class Aula : EntidadeBase
     {
-        public int CodigoHorario { get; set; }
-        public int CodigoDisciplina { get; set; }
-        public int CodigoSala { get; set; }
+        public long CodigoHorario { get; set; }
+        public long CodigoDisciplina { get; set; }
+        public long CodigoSala { get; set; }
         public bool Laboratorio { get; set; }
         public bool Desdobramento { get; set; }
         public string DescricaoDesdobramento { get; set; }

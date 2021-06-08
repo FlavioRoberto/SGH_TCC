@@ -13,7 +13,7 @@ namespace SGH.Dominio.Services.Servicos
             _cargoRepositorio = cargoRepositorio;
         }
 
-        public async Task<string> RetornarProfessor(int codigoCargo)
+        public async Task<string> RetornarProfessor(long codigoCargo)
         {
             var cargo = await _cargoRepositorio.Consultar(lnq => lnq.Codigo == codigoCargo);
 
