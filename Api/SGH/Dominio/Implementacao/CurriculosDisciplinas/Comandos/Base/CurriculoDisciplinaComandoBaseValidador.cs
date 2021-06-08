@@ -27,7 +27,7 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Base
             RuleFor(lnq => lnq.CodigoCurriculo).NotEmpty().WithMessage("O campo código do currículo é obrigatório.");
             RuleFor(lnq => lnq.AulasSemanaisTeorica).GreaterThanOrEqualTo(0).WithMessage("O campo aulas semanais teóricas é obrigatório.");
             RuleFor(lnq => lnq.AulasSemanaisPratica).GreaterThanOrEqualTo(0).WithMessage("O campo aulas semanais práticas é obrigatório.");
-            RuleFor(lnq => lnq.DisciplinaTipo).NotEmpty().GreaterThan(0).WithMessage("O campo disciplina tipo é obrigatório.");
+            RuleFor(lnq => lnq.CodigoTipo).NotEmpty().WithMessage("O campo disciplina tipo é obrigatório.").GreaterThan(0);
 
             When(lnq => lnq.CodigoDisciplina > 0, () =>
             {
@@ -43,11 +43,11 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Base
                     .WithMessage(c => $"Não foi encontrado um currículo com o código {c.CodigoCurriculo}.");
             });
 
-            When(lnq => lnq.DisciplinaTipo > 0, () =>
+            When(lnq => lnq.CodigoTipo > 0, () =>
             {
-                RuleFor(lnq => lnq.DisciplinaTipo)
+                RuleFor(lnq => lnq.CodigoTipo)
                     .MustAsync(ValidarSeTipoDisciplinaExiste)
-                    .WithMessage(c => $"Não foi encontrado um tipo de disciplina com o código {c.DisciplinaTipo}.");
+                    .WithMessage(c => $"Não foi encontrado um tipo de disciplina com o código {c.CodigoTipo}.");
             });
 
         }
@@ -62,7 +62,7 @@ namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Base
             return await _disciplinaRepositorio.Contem(lnq => lnq.Codigo == codigoDisciplina);
         }
 
-        private async Task<bool> ValidarSeTipoDisciplinaExiste(int codigoDisciplinaTipo, CancellationToken arg2)
+        private async Task<bool> ValidarSeTipoDisciplinaExiste(long codigoDisciplinaTipo, CancellationToken arg2)
         {
             return await _disciplinaTipoRepositorio.Contem(lnq => lnq.Codigo == codigoDisciplinaTipo);
         }

@@ -32,6 +32,7 @@ namespace SGH.TestesDeIntegracao
         {
             var comando = new CriarCurriculoDisciplinaComando
             {
+                CodigoTipo = 1,
                 AulasSemanaisPratica = 3,
                 AulasSemanaisTeorica = 2,
                 CodigoCurriculo = 1,
@@ -53,6 +54,7 @@ namespace SGH.TestesDeIntegracao
         {
             var comando = new CriarCurriculoDisciplinaComando
             {
+                CodigoTipo = 1,
                 AulasSemanaisPratica = 3,
                 AulasSemanaisTeorica = 2,
                 CodigoCurriculo = 1,
@@ -80,11 +82,14 @@ namespace SGH.TestesDeIntegracao
 
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota(), comando);
 
-            var mensagemErroEsperada = $"O campo período é obrigatório.{Environment.NewLine}"+
-                                       $"O campo código da disciplina é obrigatório.{Environment.NewLine}" +
-                                       $"O campo código do currículo é obrigatório.{Environment.NewLine}" +
-                                       $"O campo aulas semanais teóricas é obrigatório.{Environment.NewLine}" +
-                                       $"O campo aulas semanais práticas é obrigatório.";                                      
+            var mensagemErroEsperada = new List<string>{
+                                       "O campo período é obrigatório.",
+                                       "O campo código da disciplina é obrigatório.",
+                                       "O campo código do currículo é obrigatório.",
+                                       "O campo aulas semanais teóricas é obrigatório.",
+                                       "O campo aulas semanais práticas é obrigatório.",
+                                       "O campo disciplina tipo é obrigatório." 
+            };
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemErroEsperada);
         }
@@ -95,6 +100,7 @@ namespace SGH.TestesDeIntegracao
         {
             var comando = new CriarCurriculoDisciplinaComando
             {
+                CodigoTipo = 1,
                 AulasSemanaisPratica = 4,
                 AulasSemanaisTeorica = 4,
                 CodigoCurriculo = 99,
@@ -142,7 +148,7 @@ namespace SGH.TestesDeIntegracao
         [Fact(DisplayName = "Realizar remoção de disciplina do currículo com cargo vinculado")]
         public async Task DisciplinaCurriculo_RealizarRemocao_DeveRetornarMensagemDisciplinaCargoVinculado()
         {
-            var codigoDisciplina = 1;
+            var codigoDisciplina = 2;
 
             var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"{codigoDisciplina}"));
 
@@ -206,7 +212,8 @@ namespace SGH.TestesDeIntegracao
                "O campo código do currículo é obrigatório.",
                "O campo aulas semanais teóricas é obrigatório.",
                "O campo aulas semanais práticas é obrigatório.",
-               "O campo código da disciplina do currículo é obrigatório"
+               "O campo disciplina tipo é obrigatório.",
+               "O campo código da disciplina do currículo é obrigatório",
             };
 
             await _testsFixture.TestarRequisicaoComErro(resposta, erros);
@@ -219,6 +226,7 @@ namespace SGH.TestesDeIntegracao
             var comando = new EditarCurriculoDisciplinaComando
             {
                 Codigo = 1,
+                CodigoTipo = 1,
                 AulasSemanaisPratica = 4,
                 AulasSemanaisTeorica = 4,
                 CodigoCurriculo = 99,
@@ -244,6 +252,7 @@ namespace SGH.TestesDeIntegracao
             var comando = new EditarCurriculoDisciplinaComando
             {
                 Codigo = 1,
+                CodigoTipo = 1,
                 AulasSemanaisPratica = 3,
                 AulasSemanaisTeorica = 2,
                 CodigoCurriculo = 1,
@@ -277,6 +286,7 @@ namespace SGH.TestesDeIntegracao
             var comando = new EditarCurriculoDisciplinaComando
             {
                 Codigo = 2,
+                CodigoTipo = 1,
                 AulasSemanaisPratica = 8,
                 AulasSemanaisTeorica = 2,
                 CodigoCurriculo = 1,
@@ -299,6 +309,7 @@ namespace SGH.TestesDeIntegracao
             var comando = new EditarCurriculoDisciplinaComando
             {
                 Codigo = 1,
+                CodigoTipo = 1,
                 AulasSemanaisPratica = 3,
                 AulasSemanaisTeorica = 2,
                 CodigoCurriculo = 1,
