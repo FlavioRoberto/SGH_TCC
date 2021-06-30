@@ -5,17 +5,6 @@ networks:
         driver: bridge 
 
 services:
-  sgh.api:
-    image: ${DOCKER_REGISTRY-}sgh
-    container_name: SGH.Api
-    build:
-      context: .
-      dockerfile: SGH/Dockerfile
-    ports:
-        - "5000:5000"
-        - "443:443"
-    networks:
-        - sgh-network
 
   sgh.database:
     image: postgres
@@ -29,3 +18,18 @@ services:
         - "5432:5432"
     networks:
         - sgh-network   
+
+  sgh.api:
+    image: ${DOCKER_REGISTRY-}sgh
+    container_name: SGH.Api
+    build:
+      context: .
+      dockerfile: SGH/Dockerfile
+    ports:
+        - "5000:5000"
+        - "443:443"
+    networks:
+        - sgh-network
+    depends_on:
+        - sgh.database
+

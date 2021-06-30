@@ -9,17 +9,17 @@ ENV CONNECTION_STRING=""
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["SGH/SGH.API.csproj", "SGH/"]
+COPY ["SGH/SGH.Api.csproj", "SGH/"]
 
-RUN dotnet restore "SGH.API/SGH.API.csproj"
+RUN dotnet restore "SGH/SGH.Api.csproj"
 COPY . .
 WORKDIR "/src/SGH"
-RUN dotnet build "SGH.API.csproj" -c Release -o /app/build
+RUN dotnet build "SGH.Api.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "SGH.API.csproj" -c Release -o /app/publish
+RUN dotnet publish "SGH.Api.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "SGH.API.dll"]
+ENTRYPOINT ["dotnet", "SGH.Api.dll"]

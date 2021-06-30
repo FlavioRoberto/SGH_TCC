@@ -32,8 +32,7 @@ namespace SHG.Data.Mapeamento
               .HasMaxLength(12);
 
             builder.Property(p => p.Matricula)
-              .HasColumnName("Prof_Matricula")
-              .HasMaxLength(10);
+              .HasColumnName("Prof_Matricula");
 
             builder.Property(p => p.Ativo)
               .HasConversion<int>()

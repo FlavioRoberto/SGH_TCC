@@ -7,8 +7,6 @@ using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Services.Extensions;
 using SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Comandos.Base;
 using SGH.Dominio.ViewModel;
-using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 

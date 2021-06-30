@@ -32,11 +32,11 @@ namespace SGH.TestesDeIntegracao
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("criar"), comando);
 
             var mensagemEsperada = new List<string> {
-                "O Dia da semana não pode ser vazio.",
-                "O campo hora não pode ser vazio.",
                 "O código da sala não pode ser vazio.",
                 "O código do horário não pode ser vazio.",
-                "O código da disciplina não pode ser vazio."
+                "O código da disciplina não pode ser vazio.",
+                "O Dia da semana não pode ser vazio.",
+                "O campo hora não pode ser vazio."
             };
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
@@ -71,7 +71,7 @@ namespace SGH.TestesDeIntegracao
         {
             var comando = new CriarAulaComando
             {
-                Reserva = new Reserva("Terça", "08:00"),
+                Reserva = new Reserva("Terça", "18:00"),
                 Desdobramento = false,
                 CodigoDisciplina = 1,
                 CodigoHorario = 1,
@@ -94,7 +94,7 @@ namespace SGH.TestesDeIntegracao
         {
             var comando = new CriarAulaComando
             {
-                Reserva = new Reserva("Terça", "08:00"),
+                Reserva = new Reserva("quinta", "08:00"),
                 Desdobramento = false,
                 CodigoDisciplina = 1,
                 CodigoHorario = 99,
@@ -117,7 +117,7 @@ namespace SGH.TestesDeIntegracao
         {
             var comando = new CriarAulaComando
             {
-                Reserva = new Reserva("Terça", "08:00"),
+                Reserva = new Reserva("quinta", "19:20"),
                 Desdobramento = false,
                 CodigoDisciplina = 99,
                 CodigoHorario = 1,
@@ -128,7 +128,8 @@ namespace SGH.TestesDeIntegracao
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("criar"), comando);
 
             var mensagemEsperada = new List<string> {
-                $"Não foi encontrada uma disciplina de cargo com o código {comando.CodigoDisciplina}."
+                $"Não foi encontrada uma disciplina de cargo com o código {comando.CodigoDisciplina}.",
+                "Não foi possível criar a aula, pois o cargo selecionado já está reservado para esse dia e horário."
             };
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
