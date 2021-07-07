@@ -1,9 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SGH.Dominio.Core.ObjetosValor;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Lancar;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Remover;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SGH.Api.Controllers
@@ -26,6 +29,25 @@ namespace SGH.Api.Controllers
             try
             {
                 var resultado = await _mediator.Send(comando);
+
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
+
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("lancar")]
+        public async Task<IActionResult> Lancar([FromBody] LancarAulasComando lancarAulaComando)
+        {
+            try
+            {
+                var resultado = await _mediator.Send(lancarAulaComando);
 
                 if (resultado.TemErro())
                     return BadRequest(resultado.GetErros());
