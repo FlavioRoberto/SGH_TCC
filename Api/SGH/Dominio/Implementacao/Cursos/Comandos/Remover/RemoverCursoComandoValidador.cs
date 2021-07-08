@@ -2,14 +2,12 @@
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.Contratos;
-using SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Remover;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Cursos.Comandos.Remover
 {
-    public class RemoverCursoComandoValidador : AbstractValidator<RemoverCursoComando>, IValidador<RemoverCursoComando>
+    public class RemoverCursoComandoValidador : Validador<RemoverCursoComando>
     {
         private readonly ICursoRepositorio _repositorio;
         private readonly ICurriculoRepositorio _curriculoRepositorio;

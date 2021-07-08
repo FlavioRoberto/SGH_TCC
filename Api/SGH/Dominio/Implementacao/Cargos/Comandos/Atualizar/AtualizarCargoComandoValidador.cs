@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Atualizar
 {
-    public class AtualizarCargoComandoValidador : CargoComandoValidadorBase<AtualizarCargoComando>, IValidador<AtualizarCargoComando>
+    public class AtualizarCargoComandoValidador : CargoComandoValidadorBase<AtualizarCargoComando>
     {
         private ICargoRepositorio _cargoRepositorio;
 

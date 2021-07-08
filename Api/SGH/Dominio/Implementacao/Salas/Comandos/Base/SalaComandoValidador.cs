@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Salas.Comandos.Base
 {
-    public abstract class SalaComandoValidador<T> : AbstractValidator<T> where T : SalaComando
+    public abstract class SalaComandoValidador<T> : Validador<T> where T : SalaComando
     {
         private readonly IBlocoRepositorio _blocoRepositorio;
 

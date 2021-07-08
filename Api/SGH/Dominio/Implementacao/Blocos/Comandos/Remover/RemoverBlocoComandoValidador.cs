@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Blocos.Comandos.Remover
 {
-    public class RemoverBlocoComandoValidador : AbstractValidator<RemoverBlocoComando>, IValidador<RemoverBlocoComando>
+    public class RemoverBlocoComandoValidador : Validador<RemoverBlocoComando>
     {
         private readonly IBlocoRepositorio _blocoRepositorio;
         private readonly ISalaRepositorio _salaRepositorio;

@@ -3,7 +3,7 @@ using SGH.Dominio.Services.Contratos;
 
 namespace SGH.Dominio.Services.Implementacao.Curriculos.Comandos.Atualizar
 {
-    public class AtualizarCurriculoComandoValidador : AbstractValidator<AtualizarCurriculoComando>, IValidador<AtualizarCurriculoComando>
+    public class AtualizarCurriculoComandoValidador : Validador<AtualizarCurriculoComando>
     {
         public AtualizarCurriculoComandoValidador()
         {

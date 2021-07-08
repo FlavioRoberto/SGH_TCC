@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Editar
 {
-    public class EditarCargoDisciplinaComandoValidador : CargoDisciplinaComandoValidadorBase<EditarCargoDisciplinaComando>, IValidador<EditarCargoDisciplinaComando>
+    public class EditarCargoDisciplinaComandoValidador : CargoDisciplinaComandoValidadorBase<EditarCargoDisciplinaComando>
     {
         private readonly ICargoDisciplinaRepositorio _cargoDisciplinaRepositorio;
 

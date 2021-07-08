@@ -6,7 +6,7 @@ using SGH.Dominio.Services.Contratos;
 
 namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.RedefinirSenha
 {
-    public class RedefinirSenhaComandoValidador : AbstractValidator<RedefinirSenhaComando>, IValidador<RedefinirSenhaComando>
+    public class RedefinirSenhaComandoValidador : Validador<RedefinirSenhaComando>
     {
         private readonly IUsuarioRepositorio _repositorio;
 

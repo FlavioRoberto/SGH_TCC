@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 {
-    public class GerarRelatorioHorarioGeralConsultaValidador : AbstractValidator<GerarHorarioGeralRelatorioConsulta>, IValidador<GerarHorarioGeralRelatorioConsulta>
+    public class GerarRelatorioHorarioGeralConsultaValidador : Validador<GerarHorarioGeralRelatorioConsulta>
     {
         private readonly ICurriculoRepositorio _curriculoRepositorio;
         private readonly ITurnoRepositorio _turnoRepositorio;

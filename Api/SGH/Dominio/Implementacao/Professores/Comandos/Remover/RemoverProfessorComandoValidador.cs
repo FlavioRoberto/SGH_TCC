@@ -1,15 +1,13 @@
 ﻿using FluentValidation;
-using Microsoft.IdentityModel.Tokens;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.Contratos;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Remover
 {
-    public class RemoverProfessorComandoValidador : AbstractValidator<RemoverProfessorComando>, IValidador<RemoverProfessorComando>
+    public class RemoverProfessorComandoValidador : Validador<RemoverProfessorComando>
     {
         private readonly IProfessorRepositorio _repositorio;
         private readonly ICargoRepositorio _cargoRepositorio;

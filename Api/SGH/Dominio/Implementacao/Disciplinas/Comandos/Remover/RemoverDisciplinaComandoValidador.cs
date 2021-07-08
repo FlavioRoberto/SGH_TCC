@@ -8,7 +8,7 @@ using SGH.Dominio.Services.Contratos;
 
 namespace SGH.Dominio.Services.Implementacao.Disciplinas.Comandos.Remover
 {
-    public class RemoverDisciplinaComandoValidador : AbstractValidator<RemoverDisciplinaComando>, IValidador<RemoverDisciplinaComando>
+    public class RemoverDisciplinaComandoValidador : Validador<RemoverDisciplinaComando>
     {
         private readonly IDisciplinaRepositorio _repositorio;
         private readonly ICurriculoRepositorio _curriculoRepositorio;

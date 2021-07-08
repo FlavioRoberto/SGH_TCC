@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Salas.Comandos.Remover
 {
-    public class RemoverSalaComandoValidador : AbstractValidator<RemoverSalaComando>, IValidador<RemoverSalaComando>
+    public class RemoverSalaComandoValidador : Validador<RemoverSalaComando>
     {
         private readonly ISalaRepositorio _salaRepositorio;
 

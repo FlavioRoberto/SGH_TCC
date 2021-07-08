@@ -3,7 +3,7 @@ using SGH.Dominio.Services.Contratos;
 
 namespace SGH.Dominio.Services.Implementacao.Turnos.Comandos.Base
 {
-    public abstract class TurnoCursoComandoValidador<T> : AbstractValidator<T>, IValidador<T> where T : TurnoComando
+    public abstract class TurnoCursoComandoValidador<T> : Validador<T> where T : TurnoComando
     {
         public TurnoCursoComandoValidador()
         {

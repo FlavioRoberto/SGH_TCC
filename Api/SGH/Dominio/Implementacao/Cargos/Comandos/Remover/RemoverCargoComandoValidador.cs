@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Remover
 {
-    public class RemoverCargoComandoValidador : AbstractValidator<RemoverCargoComando>, IValidador<RemoverCargoComando>
+    public class RemoverCargoComandoValidador : Validador<RemoverCargoComando>
     {
         private readonly ICargoRepositorio _cargoRepositorio;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
 {
-    public class ListarAulaPorHorarioValidador : AbstractValidator<ListarAulaPorHorarioConsulta>, IValidador<ListarAulaPorHorarioConsulta>
+    public class ListarAulaPorHorarioValidador : Validador<ListarAulaPorHorarioConsulta>
     {
         private readonly IHorarioAulaRepositorio _horarioAulaRepositorio;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Horarios.Comandos.Remover
 {
-    public class RemoverHorarioComandoValidador : AbstractValidator<RemoverHorarioComando>, IValidador<RemoverHorarioComando>
+    public class RemoverHorarioComandoValidador : Validador<RemoverHorarioComando>
     {
         private readonly IHorarioAulaRepositorio _horarioAulaRepositorio;
 

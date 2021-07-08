@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.UsuarioPerfis.Comando.Remover
 {
-    public class RemoverUsuarioPerfilComandoValidador : AbstractValidator<RemoverUsuarioPerfilComando>, IValidador<RemoverUsuarioPerfilComando>
+    public class RemoverUsuarioPerfilComandoValidador : Validador<RemoverUsuarioPerfilComando>
     {
         private IUsuarioPerfilRepositorio _repositorio;
 

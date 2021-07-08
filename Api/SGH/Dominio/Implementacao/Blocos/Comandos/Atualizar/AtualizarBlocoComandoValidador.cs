@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Blocos.Comandos.Atualizar
 {
-    public class AtualizarBlocoComandoValidador : BlocoComandoValidadorBase<AtualizarBlocoComando>, IValidador<AtualizarBlocoComando>
+    public class AtualizarBlocoComandoValidador : BlocoComandoValidadorBase<AtualizarBlocoComando>
     {
         private readonly IBlocoRepositorio _blocoRepositorio;
 

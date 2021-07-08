@@ -7,7 +7,7 @@ using SGH.Dominio.Shared.Extensions;
 
 namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos
 {
-    public abstract class UsuarioComandoValidador<T> : AbstractValidator<T> where T : IUsuarioComando
+    public abstract class UsuarioComandoValidador<T> : Validador<T> where T : IUsuarioComando
     {
         protected readonly IUsuarioRepositorio _repositorio;
         private readonly ICursoRepositorio _cursoRepositorio;

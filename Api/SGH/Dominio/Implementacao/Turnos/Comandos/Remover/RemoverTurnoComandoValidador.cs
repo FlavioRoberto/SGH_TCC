@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Turnos.Comandos.Remover
 {
-    public class RemoverTurnoComandoValidador : AbstractValidator<RemoverTurnoComando>, IValidador<RemoverTurnoComando>
+    public class RemoverTurnoComandoValidador : Validador<RemoverTurnoComando>
     {
         private readonly ITurnoRepositorio _repositorio;
         private readonly ICargoDisciplinaRepositorio _cargoDisciplinaRepositorio;

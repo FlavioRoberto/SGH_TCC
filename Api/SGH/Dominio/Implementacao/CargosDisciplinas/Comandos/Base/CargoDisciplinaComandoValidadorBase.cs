@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Base
 {
-    public class CargoDisciplinaComandoValidadorBase<T> : AbstractValidator<T> where T: CargoDisciplinaComandoBase
+    public class CargoDisciplinaComandoValidadorBase<T> : Validador<T> where T: CargoDisciplinaComandoBase
     {
         private readonly ICargoRepositorio _cargoRepositorio;
         private readonly ITurnoRepositorio _turnoRepositorio;

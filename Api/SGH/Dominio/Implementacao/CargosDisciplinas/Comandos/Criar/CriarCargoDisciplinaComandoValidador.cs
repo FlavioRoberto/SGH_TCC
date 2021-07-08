@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.CargosDisciplinas.Comandos.Criar
 {
-    public class CriarCargoDisciplinaComandoValidador : CargoDisciplinaComandoValidadorBase<CriarCargoDisciplinaComando>, IValidador<CriarCargoDisciplinaComando>
+    public class CriarCargoDisciplinaComandoValidador : CargoDisciplinaComandoValidadorBase<CriarCargoDisciplinaComando>
     {
         private readonly ICargoDisciplinaRepositorio _cargoDisciplinaRepositorio;
 

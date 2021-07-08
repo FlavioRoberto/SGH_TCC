@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Remover
 {
-    public class RemoverAulaComandoValidador : AbstractValidator<RemoverAulaComando>, IValidador<RemoverAulaComando>
+    public class RemoverAulaComandoValidador : Validador<RemoverAulaComando>
     {
         private readonly IAulaRepositorio _aulaRepositorio;
 

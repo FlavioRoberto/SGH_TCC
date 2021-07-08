@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Remover
 {
-    public class RemoverUsuarioComandoValidador : AbstractValidator<RemoverUsuarioComando>, IValidador<RemoverUsuarioComando>
+    public class RemoverUsuarioComandoValidador : Validador<RemoverUsuarioComando>
     {
         private readonly IUsuarioRepositorio _repositorio;
 

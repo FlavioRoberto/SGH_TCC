@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
+using SGH.Dominio.Services.Contratos;
 
 namespace SGH.Dominio.Services.Implementacao.Blocos.Base
 {
-    public abstract class  BlocoComandoValidadorBase<T> : AbstractValidator<T> where T : BlocoComandoBase
+    public abstract class  BlocoComandoValidadorBase<T> : Validador<T> where T : BlocoComandoBase
     {
         public BlocoComandoValidadorBase()
         {

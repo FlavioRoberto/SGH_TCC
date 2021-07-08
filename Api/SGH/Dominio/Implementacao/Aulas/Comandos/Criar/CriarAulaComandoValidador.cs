@@ -1,13 +1,12 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Base;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
 {
-    public class CriarAulaComandoValidador : AulaComandoBaseValidador<CriarAulaComando>, IValidador<CriarAulaComando>
+    public class CriarAulaComandoValidador : AulaComandoBaseValidador<CriarAulaComando>
     {
         private readonly IAulaRepositorio _aulaRepositorio;
         private readonly ICargoRepositorio _cargoRepositorio;

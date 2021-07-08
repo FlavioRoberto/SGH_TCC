@@ -4,7 +4,7 @@ using SGH.Dominio.Services.Contratos;
 
 namespace SGH.Dominio.Services.Implementacao.Professores.Comandos
 {
-    public abstract class ProfessorComandoValidador<T> : AbstractValidator<T> where T : IProfessorComando
+    public abstract class ProfessorComandoValidador<T> : Validador<T> where T : IProfessorComando
     {
         protected readonly IProfessorRepositorio _repositorio;
 

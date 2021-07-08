@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
 using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Services.Contratos;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Base
 {
-    public abstract class AulaComandoBaseValidador<T> : AbstractValidator<T> where T : AulaComandoBase
+    public abstract class AulaComandoBaseValidador<T> : Validador<T> where T : AulaComandoBase
     {
         protected readonly ISalaRepositorio _salaRepositorio;
         protected readonly IHorarioAulaRepositorio _horarioRepositorio;

@@ -1,15 +1,13 @@
 ﻿using FluentValidation;
 using System;
-using MediatR;
-using SGH.Dominio.Services.Contratos;
 
-namespace SGH.Dominio.Services.Extensions
+namespace SGH.Dominio.Services.Contratos
 {
-    public static class AbstractValidationExtension
+    public abstract class Validador<T> : AbstractValidator<T>, IValidador<T>
     {
-        public static string Validar<T>(this IValidador<T> value, T comando)
+        public string Validar(T comando)
         {
-            var resultado = value.Validate(comando);
+            var resultado = Validate(comando);
 
             if (!resultado.IsValid)
             {
@@ -24,6 +22,6 @@ namespace SGH.Dominio.Services.Extensions
             }
 
             return "";
-        } 
+        }
     }
 }

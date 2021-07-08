@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Implementacao.Horarios.Comandos.Comum
 {
-    public abstract class HorarioAulaComandoValidador<T> : AbstractValidator<T>, IValidador<T> where T : HorarioAulaComando
+    public abstract class HorarioAulaComandoValidador<T> : Validador<T>, IValidador<T> where T : HorarioAulaComando
     {
         private readonly ITurnoRepositorio _turnoRepositorio;
         private readonly ICurriculoRepositorio _curriculoRepositorio;
