@@ -50,16 +50,16 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
                 RuleFor(lnq => lnq)
 
                    .MustAsync(ValidarSeHorarioDisponivel)
-                   .WithMessage("Não foi possível criar a aula nesse horário, pois já tem uma aula reservada para esse dia e horário.")
+                   .WithMessage(x => $"Não foi possível criar a aula para {x.Reserva.DiaSemana} às {x.Reserva.Hora}h, pois já tem uma aula reservada para esse dia e horário.")
 
                    .MustAsync(ValidarSeCargoDisponivel)
-                   .WithMessage("Não foi possível criar a aula, pois o cargo selecionado já está reservado para esse dia e horário.")
+                   .WithMessage(x => $"Não foi possível criar a aula, pois o cargo selecionado já está reservado para {x.Reserva.DiaSemana} às {x.Reserva.Hora}h.")
 
                    .MustAsync(ValidarSeProfessorDisponivel)
-                   .WithMessage("Não foi possível criar a aula, pois o professor selecionado já está reservado para esse dia e horário.")
+                   .WithMessage(x => $"Não foi possível criar a aula, pois o professor selecionado já está reservado para {x.Reserva.DiaSemana} às {x.Reserva.Hora}h.")
 
                    .MustAsync(ValidarSeSalaDisponivel)
-                   .WithMessage("Não foi possível criar a aula, pois a sala selecionada já está reservada para esse dia e horário.");
+                   .WithMessage(x => $"Não foi possível criar a aula, pois a sala selecionada já está reservada para {x.Reserva.DiaSemana} às {x.Reserva.Hora}h.");
             });
 
         }

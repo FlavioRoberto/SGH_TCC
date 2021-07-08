@@ -4,6 +4,10 @@ networks:
     sgh-network:
         driver: bridge 
 
+volumes:
+  sgh-data-volume:
+    external: true
+    
 services:
 
   sgh.database:
@@ -13,7 +17,7 @@ services:
       POSTGRES_PASSWORD: "sghDb347#"
       PGDATA: /data/postgres
     volumes:
-     - ./postgres/data:/data/postgresss     
+     - sgh-data-volume:/data/postgresss     
     ports:
         - "5432:5432"
     networks:

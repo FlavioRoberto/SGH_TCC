@@ -129,7 +129,7 @@ namespace SGH.TestesDeIntegracao
 
             var mensagemEsperada = new List<string> {
                 $"Não foi encontrada uma disciplina de cargo com o código {comando.CodigoDisciplina}.",
-                "Não foi possível criar a aula, pois o cargo selecionado já está reservado para esse dia e horário."
+                $"Não foi possível criar a aula, pois o cargo selecionado já está reservado para {comando.Reserva.DiaSemana} às {comando.Reserva.Hora}h."
             };
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
@@ -154,7 +154,7 @@ namespace SGH.TestesDeIntegracao
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("criar"), comando);
 
             var mensagemEsperada = new List<string> {
-                "Não foi possível criar a aula nesse horário, pois já tem uma aula reservada para esse dia e horário."
+                $"Não foi possível criar a aula para {comando.Reserva.DiaSemana} às {comando.Reserva.Hora}h, pois já tem uma aula reservada para esse dia e horário."
             };
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
@@ -178,7 +178,7 @@ namespace SGH.TestesDeIntegracao
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("criar"), comando);
 
             var mensagemEsperada = new List<string> {
-                "Não foi possível criar a aula, pois a sala selecionada já está reservada para esse dia e horário."
+                $"Não foi possível criar a aula, pois a sala selecionada já está reservada para {comando.Reserva.DiaSemana} às {comando.Reserva.Hora}h."
             };
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
@@ -205,7 +205,7 @@ namespace SGH.TestesDeIntegracao
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("criar"), comando);
 
             var mensagemEsperada = new List<string> {
-                "Não foi possível criar a aula, pois o cargo selecionado já está reservado para esse dia e horário."
+                $"Não foi possível criar a aula, pois o cargo selecionado já está reservado para {comando.Reserva.DiaSemana} às {comando.Reserva.Hora}h."
             };
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
@@ -229,7 +229,7 @@ namespace SGH.TestesDeIntegracao
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("criar"), comando);
 
             var mensagemEsperada = new List<string> {
-                "Não foi possível criar a aula, pois o professor selecionado já está reservado para esse dia e horário."
+                $"Não foi possível criar a aula, pois o professor selecionado já está reservado para {comando.Reserva.DiaSemana} às {comando.Reserva.Hora}h."
             };
 
             await _testsFixture.TestarRequisicaoComErro(resposta, mensagemEsperada);
