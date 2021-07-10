@@ -2,6 +2,7 @@
 using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
+using SGH.Dominio.Core.Enums;
 
 namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Criar
 {
@@ -12,5 +13,6 @@ namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Criar
         public string Telefone { get; set; }
         public string Email { get; set; }
         public bool? Ativo { get; set; }
+        public EContratacao Contratacao { get; set; }
     }
 }

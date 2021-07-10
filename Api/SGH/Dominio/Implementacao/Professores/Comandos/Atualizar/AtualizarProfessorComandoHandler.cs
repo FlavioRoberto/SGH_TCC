@@ -36,7 +36,8 @@ namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Atualizar
             entidade.Matricula = request.Matricula;
             entidade.Nome = request.Nome;
             entidade.Telefone = request.Telefone;
-            
+            entidade.Contratacao = request.Contratacao;
+
             var professor = await _repositorio.Atualizar(entidade);
             return new Resposta<Professor>(professor);
         }

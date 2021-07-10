@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SGH.Dominio.Core.Enums;
+using System.Collections.Generic;
 
 namespace SGH.Dominio.Core.Model
 {
@@ -9,6 +10,7 @@ namespace SGH.Dominio.Core.Model
         public string Telefone { get; set; }
         public string Email { get; set; }
         public bool Ativo { get; set; }
+        public EContratacao Contratacao { get; set; }
 
         public IEnumerable<Cargo> Cargos { get; set; }
 

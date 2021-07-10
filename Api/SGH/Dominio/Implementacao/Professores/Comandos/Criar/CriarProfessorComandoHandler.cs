@@ -33,7 +33,8 @@ namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Criar
                 Email = request.Email,
                 Matricula = request.Matricula,
                 Nome = request.Nome,
-                Telefone = request.Telefone
+                Telefone = request.Telefone,
+                Contratacao = request.Contratacao
             };
 
             var professorCadastrado = await _repositorio.Criar(professor);

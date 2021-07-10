@@ -34,6 +34,9 @@ namespace SHG.Data.Mapeamento
             builder.Property(p => p.Matricula)
               .HasColumnName("Prof_Matricula");
 
+            builder.Property(p => p.Contratacao)
+                   .HasColumnName("Prof_Contratacao");
+
             builder.Property(p => p.Ativo)
               .HasConversion<int>()
               .HasColumnName("Prof_Ativo")

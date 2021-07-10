@@ -14,6 +14,7 @@ namespace SGH.Dominio.Services.Implementacao.Professores.Comandos
             RuleFor(lnq => lnq.Email).NotEmpty().WithMessage("O campo e-mail não pode ser vazio..");
             RuleFor(lnq => lnq.Matricula).NotEmpty().WithMessage("O campo matrícula não pode ser vazio.");
             RuleFor(lnq => lnq.Nome).NotEmpty().WithMessage("O campo nome não pode ser vazio.");
+            RuleFor(lnq => lnq.Contratacao).NotEmpty().WithMessage("O campo contratação não pode ser vazio.");
         }
     }
 }
