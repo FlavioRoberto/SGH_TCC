@@ -42,6 +42,10 @@ namespace SGH.Dominio.Services.Extensions
                         ))
                 ));
 
+                options.AddPolicy("infraestrutura", policy => policy.RequireAssertion(context =>
+                       context.User.IsInRole("Administrador") ||
+                       context.User.IsInRole("infraestrutura")));
+
                 options.AddPolicy("todos", policy => policy.RequireAssertion(context =>
                         context.User.HasClaim(c =>
                             (c.Type == "perfilId" && (Convert.ToInt32(c.Value) > 0)))));

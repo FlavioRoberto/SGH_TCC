@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace SGH.Api.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize("coordenacao")]
+    [Authorize("infraestrutura")]
     public class SalaController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -37,7 +37,6 @@ namespace SGH.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize("admin")]
         [Route("criar")]
         public async Task<IActionResult> Criar([FromBody] CriarSalaComando comando)
         {
@@ -103,7 +102,6 @@ namespace SGH.Api.Controllers
         }
 
         [HttpDelete]
-        [Authorize("admin")]
         [Route("Remover")]
         public async Task<IActionResult> Remover([FromQuery] int codigo)
         {

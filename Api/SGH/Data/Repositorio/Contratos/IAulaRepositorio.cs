@@ -1,4 +1,5 @@
-﻿using SGH.Dominio.Core.Model;
+﻿using SGH.Dominio.Core;
+using SGH.Dominio.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -15,5 +16,7 @@ namespace SGH.Data.Repositorio.Contratos
         Task<bool> VerificarDisponibilidadeCargo(long codigoCargo, string diaSemana, string hora);
         Task<bool> VerificarDisponibilidadeProfessor(long codigoProfessor, string diaSemana, string hora);
         Task<bool> Remover(Expression<Func<Aula, bool>> expressao);
+        Task<Aula> Consultar(long aulaId);
+        Task<bool> Atualizar(Aula aula);
     }
 }

@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 namespace SGH.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize("infraestrutura")]
     public class BlocoController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -24,7 +25,6 @@ namespace SGH.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize("admin")]
         [Route("listarTodos")]
         public async Task<IActionResult> ListarTodos()
         {
@@ -33,7 +33,6 @@ namespace SGH.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize("admin")]
         [Route("criar")]
         public async Task<IActionResult> Criar([FromBody] CriarBlocoComando comando)
         {
@@ -53,7 +52,6 @@ namespace SGH.Api.Controllers
         }
 
         [HttpPut]
-        [Authorize("admin")]
         [Route("editar")]
         public async Task<IActionResult> Atualizar([FromBody] AtualizarBlocoComando comando)
         {
@@ -73,7 +71,6 @@ namespace SGH.Api.Controllers
         }
 
         [HttpDelete]
-        [Authorize("admin")]
         [Route("remover")]
         public async Task<IActionResult> Remover([FromQuery] int codigo)
         {
@@ -98,7 +95,6 @@ namespace SGH.Api.Controllers
         }
 
         [HttpPost]
-        [Authorize("admin")]
         [Route("listarPaginacao")]
         public async Task<IActionResult> ListarPorPaginacao([FromBody] Paginacao<BlocoViewModel> entidadePaginada)
         {
