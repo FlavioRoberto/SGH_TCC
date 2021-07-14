@@ -35,6 +35,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGH.Relatorios", "SGH.Relat
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{17B7074D-FEC2-4C71-859B-A7EA0A50DE05}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SGH.Email", "..\SGH.Email\SGH.Email.csproj", "{0C214373-0CD8-4232-BD16-685FF80CC1EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{17B7074D-FEC2-4C71-859B-A7EA0A50DE05}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17B7074D-FEC2-4C71-859B-A7EA0A50DE05}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17B7074D-FEC2-4C71-859B-A7EA0A50DE05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C214373-0CD8-4232-BD16-685FF80CC1EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C214373-0CD8-4232-BD16-685FF80CC1EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C214373-0CD8-4232-BD16-685FF80CC1EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C214373-0CD8-4232-BD16-685FF80CC1EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -97,6 +103,7 @@ Global
 		{E28DFA06-84AA-4A0C-AD31-EA7B3D410F2B} = {A38DE793-9A59-4C1F-957B-7DA0D0002E67}
 		{A57792AF-806F-4BC5-B00E-64928EE11B3C} = {B1AAFA92-DEB2-407B-933D-4817F6FA3CD3}
 		{17B7074D-FEC2-4C71-859B-A7EA0A50DE05} = {E0987217-8314-4AFB-B8D0-335CDBB9D4B1}
+		{0C214373-0CD8-4232-BD16-685FF80CC1EE} = {B1AAFA92-DEB2-407B-933D-4817F6FA3CD3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DCD7CEF0-F189-4F93-BDE1-A18EC987BC43}

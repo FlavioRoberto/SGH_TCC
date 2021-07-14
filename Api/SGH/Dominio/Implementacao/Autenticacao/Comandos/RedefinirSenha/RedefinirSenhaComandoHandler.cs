@@ -1,29 +1,25 @@
 ﻿using System.Threading.Tasks;
-using AutoMapper;
 using MediatR;
 using System.Threading;
 using SGH.Dominio.Core;
 using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Services.Contratos;
-using SGH.Dominio.Services.Extensions;
 using SGH.Dominio.Services.Helpers;
 using SGH.Dominio.Shared.Extensions;
-using SGH.Dominio.Services.Email;
+using SGH.Dominio.Core.Events;
 
 namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.RedefinirSenha
 {
     public class RedefinirSenhaComandoHandler : IRequestHandler<RedefinirSenhaComando, Resposta<string>>
     {
         private readonly IUsuarioRepositorio _repositorio;
-        private readonly IMapper _mapper;
-        private readonly IEmailService _emailService;
+        private readonly IMediator _mediator;
         private readonly IValidador<RedefinirSenhaComando> _validador;
 
-        public RedefinirSenhaComandoHandler(IUsuarioRepositorio repositorio, IMapper mapper, IEmailService emailService, IValidador<RedefinirSenhaComando> validador)
+        public RedefinirSenhaComandoHandler(IUsuarioRepositorio repositorio, IMediator emailService, IValidador<RedefinirSenhaComando> validador)
         {
             _repositorio = repositorio;
-            _mapper = mapper;
-            _emailService = emailService;
+            _mediator = emailService;
             _validador = validador;
         }
 
@@ -47,7 +43,7 @@ namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.RedefinirSenh
                                 Senha: {senha}<br>
                                 click <a>aqui</a> para acessar o sistema.";
 
-            await _emailService.Enviar(usuario.Email, "Redefinição de senha no SGH", mensagem);
+            await _mediator.Send(new EnviarEmailEvent(usuario.Email, "Redefinição de senha no SGH", mensagem));
 
             return new Resposta<string>("Senha redefinida com sucesso! Foi enviado um e-mail com seus dados de acesso.", "");
         }

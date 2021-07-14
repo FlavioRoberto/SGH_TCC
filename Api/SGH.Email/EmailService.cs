@@ -4,9 +4,9 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace SGH.Dominio.Services.Email
+namespace SGH.Email.Services.Email
 {
-    public class EmailService : IEmailService
+    public class EmailService
     {
         private IConfiguration _configuration;
 

@@ -3,6 +3,8 @@ version: '3.4'
 networks:
     sgh-network:
         driver: bridge 
+    sgh-rabbitmq-network:
+         driver: bridge
 
 volumes:
   sgh-data-volume:
@@ -22,6 +24,17 @@ services:
         - "5432:5432"
     networks:
         - sgh-network   
+          
+  sgh.rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: SGH.Rabbitmq
+    ports:
+        - 5672:5672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - sgh-rabbitmq-network
 
   sgh.api:
     image: ${DOCKER_REGISTRY-}sgh
@@ -34,6 +47,9 @@ services:
         - "443:443"
     networks:
         - sgh-network
+        - sgh-rabbitmq-network
     depends_on:
         - sgh.database
+        - sgh.rabbitmq
 
+  

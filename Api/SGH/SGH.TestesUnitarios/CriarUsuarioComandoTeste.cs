@@ -12,7 +12,8 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-using SGH.Dominio.Services.Email;
+using MediatR;
+using SGH.Dominio.Core.Events;
 
 namespace SGH.TestesDeUnidade
 {
@@ -46,13 +47,13 @@ namespace SGH.TestesDeUnidade
 
             var mensagem = handler.GerarEmailMensagem(usuario.Login, usuario.Senha);
 
-            mocker.GetMock<IEmailService>().Setup(c => c.Enviar(usuario.Email, assunto, mensagem)).Returns(Task.CompletedTask);
+            mocker.GetMock<IMediator>().Setup(c => c.Send(It.IsAny<EnviarEmailEvent>(), It.IsAny<CancellationToken>())).Returns(Task.FromResult(Unit.Value));
 
             var resultado = await handler.Handle(comando, CancellationToken.None);
 
             mocker.GetMock<IUsuarioRepositorio>().Verify(c => c.Criar(It.IsAny<Usuario>()), Times.Once);
 
-            mocker.GetMock<IEmailService>().Verify(c => c.Enviar(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+            mocker.GetMock<IMediator>().Verify(c => c.Send(It.IsAny<EnviarEmailEvent>(), It.IsAny<CancellationToken>()), Times.Once);
 
             resultado.Should().NotBeNull();
             

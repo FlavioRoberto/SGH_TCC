@@ -5,24 +5,23 @@ using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
-using SGH.Dominio.Services.Extensions;
 using SGH.Dominio.Shared.Extensions;
 using SGH.Dominio.Services.Helpers;
-using SGH.Dominio.Services.Email;
+using SGH.Dominio.Core.Events;
 
 namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar
 {
     public class CriarUsuarioComandoHandler : IRequestHandler<CriarUsuarioComando, Resposta<Usuario>>
     {
         private readonly IUsuarioRepositorio _repositorio;
+        private readonly IMediator _mediator;
         private readonly IValidador<CriarUsuarioComando> _validador;
-        private readonly IEmailService _emailService;
                
-        public CriarUsuarioComandoHandler(IUsuarioRepositorio repositorio, IValidador<CriarUsuarioComando> validador, IEmailService emailService)
+        public CriarUsuarioComandoHandler(IUsuarioRepositorio repositorio, IValidador<CriarUsuarioComando> validador, IMediator mediator)
         {
             _repositorio = repositorio;
             _validador = validador;
-            _emailService = emailService;
+            _mediator = mediator;
         }
 
         public async Task<Resposta<Usuario>> Handle(CriarUsuarioComando request, CancellationToken cancellationToken)
@@ -62,7 +61,7 @@ namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar
 
             var assunto = GerarEmailAssunto();
 
-            await _emailService.Enviar(email, assunto, mensagem);
+            await _mediator.Send(new EnviarEmailEvent(email, assunto, mensagem));
         }
 
         public string GerarEmailAssunto()

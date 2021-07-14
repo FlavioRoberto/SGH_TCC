@@ -16,6 +16,8 @@ using System;
 using SHG.Data.Contexto;
 using SGH.Data.Extensios;
 using SGH.Dominio.Services.Extensions;
+using SGH.Email.Services.Email;
+using SGH.Email.Services;
 
 namespace SGH.APi
 {
@@ -38,8 +40,10 @@ namespace SGH.APi
             services.AddApiVersioning();
             services.AddPersistencia(_configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
             services.AddDominio();
+
+            services.AddScoped<EmailService, EmailService>();
+            services.AddHostedService<EmailEventHandler>();
 
             services.AddCors(o =>
                 o.AddPolicy("MyPolicy", builder =>

@@ -3,8 +3,40 @@ version: '3.4'
 networks:
     sgh-network:
         driver: bridge 
+    sgh-rabbitmq-network:
+         driver: bridge
 
+volumes:
+  sgh-data-volume:
+    external: true
+    
 services:
+
+  sgh.database:
+    image: postgres
+    container_name: SGH.Database
+    environment:
+      POSTGRES_PASSWORD: "sghDb347#"
+      PGDATA: /data/postgres
+    volumes:
+     - sgh-data-volume:/data/postgresss     
+    ports:
+        - "5432:5432"
+    networks:
+        - sgh-network   
+          
+  sgh.rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: SGH.Rabbitmq
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ~/.docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ~/.docker-conf/rabbitmq/log/:/var/log/rabbitmq
+    networks:
+        - sgh-rabbitmq-network
+
   sgh.api:
     image: ${DOCKER_REGISTRY-}sgh
     container_name: SGH.Api
@@ -16,17 +48,9 @@ services:
         - "443:443"
     networks:
         - sgh-network
+        - sgh-rabbitmq-network
+    depends_on:
+        - sgh.database
+        - sgh.rabbitmq
 
-  sgh.database:
-    image: postgres
-    container_name: SGH.Database
-    environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "sghDb347#"
-      PGDATA: /data/postgres
-    volumes:
-     - ./postgres/data:/data/postgresss     
-    ports:
-        - "5432:5432"
-    networks:
-        - sgh-network   
+  

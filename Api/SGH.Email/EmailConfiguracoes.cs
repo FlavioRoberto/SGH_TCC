@@ -1,4 +1,4 @@
-﻿namespace SGH.Dominio.Services.Email
+﻿namespace SGH.Email.Services.Email
 {
     public class EmailConfiguracoes
     {
