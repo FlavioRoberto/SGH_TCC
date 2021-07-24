@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\SGH.Email\SGH.Email.csproj" />
     <ProjectReference Include="..\Dominio\SGH.Dominio.Services.csproj" />
+    <ProjectReference Include="..\SGH.Dominio.Core\SGH.Dominio.Core.csproj" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1development_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
