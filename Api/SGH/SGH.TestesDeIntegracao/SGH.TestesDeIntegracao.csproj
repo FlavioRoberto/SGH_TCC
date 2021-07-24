@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Dominio\SGH.Dominio.Services.csproj" />
+    <ProjectReference Include="..\SGH.Dominio.Shared\SGH.Dominio.Shared.csproj" />
     <ProjectReference Include="..\SGH\SGH.Api.csproj" />
   </ItemGroup>
 

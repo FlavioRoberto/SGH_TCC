@@ -1,9 +1,19 @@
-FROM microsoft/dotnet:2.2-aspnetcore-runtime-alpine
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2 AS build
+WORKDIR /src
+COPY [".", "./"]
 
-LABEL version="2.0" maintainer="Flávio Roberto Teixeira"
+RUN dotnet restore "./SGH/SGH.Api.csproj"
+COPY . .
+RUN dotnet build "SGH/SGH.Api.csproj" -c Release -o /app
 
+FROM build AS publish
+RUN dotnet publish "SGH/SGH.Api.csproj" -c Release -o /app
+
+FROM mcr.microsoft.com/dotnet/core/aspnet:2.2 AS base
 WORKDIR /app
+EXPOSE 5001
 
-COPY ./SGH/bin/Debug/netcoreapp2.2 .
-
-ENTRYPOINT  ["dotnet", "SGH.Api.dll"]
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT ["dotnet", "SGH/SGH.Api.dll"]

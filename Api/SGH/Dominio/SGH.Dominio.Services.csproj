@@ -22,8 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SGH.Data\SGH.Data.csproj" />
-    <ProjectReference Include="..\SGH.Dominio.Core\SGH.Dominio.Core.csproj" />
-    <ProjectReference Include="..\SGH.Dominio.Shared\SGH.Dominio.Shared.csproj" />
     <ProjectReference Include="..\SGH.Relatorios\SGH.Relatorios.csproj" />
   </ItemGroup>
 

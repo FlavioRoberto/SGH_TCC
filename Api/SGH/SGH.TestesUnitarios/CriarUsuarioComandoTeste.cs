@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using Xunit;
 using MediatR;
 using SGH.Dominio.Core.Events;
-using SGH.Email.Services.Email;
 
 namespace SGH.TestesDeUnidade
 {
