@@ -30,6 +30,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGH.Relatorios", "SGH.Relatorios\SGH.Relatorios.csproj", "{A57792AF-806F-4BC5-B00E-64928EE11B3C}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{17B7074D-FEC2-4C71-859B-A7EA0A50DE05}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F65B83F9-63FF-4EB1-B600-3823ED8BF3EE} = {F65B83F9-63FF-4EB1-B600-3823ED8BF3EE}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SGH.Dominio.Core", "SGH.Dominio.Core\SGH.Dominio.Core.csproj", "{91B6F06D-8E1E-4744-8FEE-7F32E49E376D}"
 EndProject
@@ -69,8 +72,8 @@ Global
 		{A57792AF-806F-4BC5-B00E-64928EE11B3C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{17B7074D-FEC2-4C71-859B-A7EA0A50DE05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{17B7074D-FEC2-4C71-859B-A7EA0A50DE05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{17B7074D-FEC2-4C71-859B-A7EA0A50DE05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{17B7074D-FEC2-4C71-859B-A7EA0A50DE05}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17B7074D-FEC2-4C71-859B-A7EA0A50DE05}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{17B7074D-FEC2-4C71-859B-A7EA0A50DE05}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{91B6F06D-8E1E-4744-8FEE-7F32E49E376D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{91B6F06D-8E1E-4744-8FEE-7F32E49E376D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91B6F06D-8E1E-4744-8FEE-7F32E49E376D}.Release|Any CPU.ActiveCfg = Release|Any CPU

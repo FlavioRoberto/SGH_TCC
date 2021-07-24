@@ -15,20 +15,22 @@ services:
       POSTGRES_PASSWORD: "sghDb347#"
       PGDATA: /data/postgres
     volumes:
-     - ~/docker-conf/rabbitmq/data/:/data/postgresss     
+     - ./docker-conf/rabbitmq/data/:/var/lib/postgresql/data
     ports:
         - "5432:5432"
     networks:
         - sgh-network   
-          
+  
+    
+        
   sgh.rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: SGH.Rabbitmq
     ports:
         - 5672:5672
     volumes:
-        - ~/docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
-        - ~/docker-conf/rabbitmq/log/:/var/log/rabbitmq
+        - ./docker-conf/rabbitmq/data/:/var/lib/rabbitmq/
+        - ./docker-conf/rabbitmq/log/:/var/log/rabbitmq
     networks:
         - sgh-rabbitmq-network
 
