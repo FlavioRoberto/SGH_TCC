@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\SGH.Email\SGH.Email.csproj" />
     <ProjectReference Include="..\Dominio\SGH.Dominio.Services.csproj" />
   </ItemGroup>
 

@@ -19,5 +19,19 @@ namespace SGH.Relatorios.Factories.Exportacao
                 return ms.ToArray();
             }
         }
+
+        public MemoryStream ExportarStream(Report relatorio)
+        {
+            using (var ms = new MemoryStream())
+            {
+                ImageExport image = new ImageExport();
+                image.ImageFormat = ImageExportFormat.Jpeg;
+                image.JpegQuality = 90;
+                image.Resolution = 72;
+                image.SeparateFiles = false;
+                relatorio.Export(image, ms);
+                return ms;
+            }
+        }
     }
 }

@@ -25,6 +25,13 @@ namespace SGH.Relatorios.Implementacoes
             return _exportacaoFactory.Exportar(relatorio, ETipoExportacao.PDF);
         }
 
+        public MemoryStream GerarStream()
+        {
+            var caminhoRepx = RetornarCaminhoReport();
+            var relatorio = ConstruirRelatorio(caminhoRepx);
+            return _exportacaoFactory.ExportarStream(relatorio, ETipoExportacao.PDF);
+        }
+
         private Report ConstruirRelatorio(string caminhoRepx)
         {
             var relatorio = new Report();

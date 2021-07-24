@@ -15,5 +15,15 @@ namespace SGH.Relatorios.Factories.Exportacao
                 return ms.ToArray();
             }          
         }
+
+        public MemoryStream ExportarStream(Report relatorio)
+        {
+            using (var ms = new MemoryStream())
+            {
+                PDFSimpleExport pdfExport = new PDFSimpleExport();
+                pdfExport.Export(relatorio, ms);
+                return ms;
+            }
+        }
     }
 }

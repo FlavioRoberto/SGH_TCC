@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Xunit;
 using MediatR;
 using SGH.Dominio.Core.Events;
+using SGH.Email.Services.Email;
 
 namespace SGH.TestesDeUnidade
 {
@@ -75,7 +76,7 @@ namespace SGH.TestesDeUnidade
 
             cursoRepositorioMock.Setup(c => c.Contem(It.IsAny<Expression<Func<Curso, bool>>>())).Returns(Task.FromResult(false));
 
-            var emailServiceMock = new Mock<IEmailService>();
+            var emailServiceMock = new Mock<IMediator>();
             
             var validadorMock = new CriarUsuarioComandoValidador(repositorioMock.Object, cursoRepositorioMock.Object);
 
@@ -116,7 +117,7 @@ namespace SGH.TestesDeUnidade
 
             cursoRepositorioMock.Setup(c => c.Contem(It.IsAny<Expression<Func<Curso, bool>>>())).Returns(Task.FromResult(true));
 
-            var emailServiceMock = new Mock<IEmailService>();
+            var emailServiceMock = new Mock<IMediator>();
 
             var validadorMock = new CriarUsuarioComandoValidador(repositorioMock.Object, cursoRepositorioMock.Object);
 
