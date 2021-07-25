@@ -5,6 +5,8 @@ networks:
         driver: bridge 
     sgh-rabbitmq-network:
          driver: bridge
+    db-admin-network:
+         driver: bridge
     
 services:
 
@@ -20,6 +22,21 @@ services:
         - "5432:5432"
     networks:
         - sgh-network   
+        - db-admin-network
+
+  sgh.pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "flavio.r.teixeira@outlook.com"
+      PGADMIN_DEFAULT_PASSWORD: "PgAdminSuporte"
+    ports:
+      - "16543:80"
+    depends_on:
+      - sgh.database
+    networks:
+      - db-admin-network
+    volumes:
+      - ./docker-conf/pgadmin/:/var/lib/pgadmin
   
   sgh.rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -33,7 +50,7 @@ services:
         - sgh-rabbitmq-network
 
   sgh.api:
-    image: ${DOCKER_REGISTRY-}sgh.api
+    image: kenobirt/sgh.api
     container_name: SGH.Api
     build:
       context: .

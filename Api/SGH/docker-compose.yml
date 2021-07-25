@@ -33,7 +33,7 @@ services:
         - sgh-rabbitmq-network
 
   sgh.api:
-    image: ${DOCKER_REGISTRY-}sgh.api
+    image: ${DOCKER_REGISTRY-}/sgh.api
     container_name: SGH.Api
     build:
       context: .

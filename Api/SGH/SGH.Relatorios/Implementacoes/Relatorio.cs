@@ -1,6 +1,7 @@
 ﻿using FastReport;
 using SGH.Relatorios.Contratos;
 using SGH.Relatorios.Factories.Exportacao;
+using System;
 using System.IO;
 
 namespace SGH.Relatorios.Implementacoes
@@ -34,19 +35,26 @@ namespace SGH.Relatorios.Implementacoes
 
         private Report ConstruirRelatorio(string caminhoRepx)
         {
-            var relatorio = new Report();
+            try
+            {
+                var relatorio = new Report();
 
-            relatorio.Load(caminhoRepx);
+                relatorio.Load(caminhoRepx);
 
-            relatorio = RegistrarDataSet(relatorio);
+                relatorio = RegistrarDataSet(relatorio);
 
-            relatorio = RegistrarParametros(relatorio);
+                relatorio = RegistrarParametros(relatorio);
 
-            relatorio.Prepare();
+                relatorio.Prepare();
 
-            relatorio.Save(caminhoRepx);
+                relatorio.Save(caminhoRepx);
 
-            return relatorio;
+                return relatorio;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
 
         private string RetornarCaminhoReport()
