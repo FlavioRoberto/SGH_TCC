@@ -18,6 +18,8 @@ using SGH.Data.Extensios;
 using SGH.Dominio.Services.Extensions;
 using SGH.Email.Services.Email;
 using SGH.Email.Services;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 
 namespace SGH.APi
 {
@@ -84,6 +86,8 @@ namespace SGH.APi
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            DefineCurrentCulturePtBR(app);
+
             UpdateDatabase(app);
 
             //if (env.IsDevelopment())
@@ -101,6 +105,17 @@ namespace SGH.APi
                 var contexto = scope.ServiceProvider.GetRequiredService<IContexto>();
                 contexto.Database.Migrate();
             }
+        }
+
+        private static void DefineCurrentCulturePtBR(IApplicationBuilder app)
+        {
+            var supportedCultures = new[] { new CultureInfo("pt-BR") };
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(culture: "pt-BR", uiCulture: "pt-BR"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            });
         }
     }
 }

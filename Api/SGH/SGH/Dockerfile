@@ -15,6 +15,7 @@ RUN apt-get install -y apt-utils
 RUN apt-get install -y libgdiplus
 RUN apt-get install -y libc6-dev 
 RUN ln -s /usr/lib/libgdiplus.so/usr/lib/gdiplus.dll
+
 WORKDIR /app
 EXPOSE 5000
 
