@@ -25,7 +25,8 @@ namespace SGH.Data.Mapeamento
                    .HasColumnName("Aula_Horarario");
 
             builder.Property(lnq => lnq.CodigoSala)
-                   .HasColumnName("Aula_Sala");
+                   .HasColumnName("Aula_Sala")
+                   .IsRequired(false);
 
             builder.Property(lnq => lnq.DescricaoDesdobramento)
                    .HasColumnName("Aula_Descricao_Desdobramento");
@@ -54,6 +55,7 @@ namespace SGH.Data.Mapeamento
             builder.HasOne(lnq => lnq.Sala)
                    .WithMany(lnq => lnq.Aulas)
                    .HasForeignKey(lnq => lnq.CodigoSala)
+                   .IsRequired(false)
                    .HasConstraintName("FK_Sala_Aula");
 
             builder.HasOne(lnq => lnq.Disciplina)

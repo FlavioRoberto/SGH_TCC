@@ -7,7 +7,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Base
     {
         public int CodigoHorario { get; set; }
         public int CodigoDisciplina { get; set; }
-        public int CodigoSala { get; set; }
+        public long? CodigoSala { get; set; }
         public bool Laboratorio { get; set; }
     }
 }

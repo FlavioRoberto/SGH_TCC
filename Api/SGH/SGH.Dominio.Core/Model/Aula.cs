@@ -6,7 +6,7 @@ namespace SGH.Dominio.Core.Model
     {
         public long CodigoHorario { get; set; }
         public long CodigoDisciplina { get; set; }
-        public long CodigoSala { get; set; }
+        public long? CodigoSala { get; set; }
         public bool Laboratorio { get; set; }
         public bool Desdobramento { get; set; }
         public string DescricaoDesdobramento { get; set; }

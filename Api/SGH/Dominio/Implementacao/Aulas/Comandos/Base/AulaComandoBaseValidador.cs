@@ -22,9 +22,9 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Base
 
             ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
 
-            RuleFor(lnq => lnq.CodigoSala)
-                .NotEmpty()
-                .WithMessage("O código da sala não pode ser vazio.");
+            //RuleFor(lnq => lnq.CodigoSala)
+            //    .NotEmpty()
+            //    .WithMessage("O código da sala não pode ser vazio.");
 
             RuleFor(lnq => lnq.CodigoHorario)
                 .NotEmpty()
@@ -34,11 +34,18 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Base
                 .NotEmpty()
                 .WithMessage("O código da disciplina não pode ser vazio.");
 
+            When(lnq => lnq.CodigoSala.HasValue, () =>
+            {
+                RuleFor(lnq => lnq)
+                 .MustAsync(ValidarSeSalaExiste)
+                 .WithMessage(c => $"Não foi encontrada uma sala com o código {c.CodigoSala}.");
+            });
+
             When(ValidarSeCamposComandoForamInformados, () =>
             {
                 RuleFor(lnq => lnq)
-                   .MustAsync(ValidarSeSalaExiste)
-                   .WithMessage(c => $"Não foi encontrada uma sala com o código {c.CodigoSala}.")
+                   //  .MustAsync(ValidarSeSalaExiste)
+                   //  .WithMessage(c => $"Não foi encontrada uma sala com o código {c.CodigoSala}.")
 
                    .MustAsync(ValidarSeHorarioExiste)
                    .WithMessage(c => $"Não foi encontrado um horário com o código {c.CodigoHorario}")
@@ -50,8 +57,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Base
 
         private bool ValidarSeCamposComandoForamInformados(AulaComandoBase comando)
         {
-            return comando.CodigoSala > 0 &&
-                   comando.CodigoDisciplina > 0 &&
+            return comando.CodigoDisciplina > 0 &&
                    comando.CodigoSala > 0;
         }
 

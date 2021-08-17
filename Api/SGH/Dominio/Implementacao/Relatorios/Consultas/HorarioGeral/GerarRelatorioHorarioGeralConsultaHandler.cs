@@ -163,7 +163,7 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
             };
         }
 
-        private async Task<string> RetornarDescricaoSala(long codigoSala)
+        private async Task<string> RetornarDescricaoSala(long? codigoSala)
         {
             var sala = await _salaRepositorio.Consultar(lnq => lnq.Codigo == codigoSala);
 

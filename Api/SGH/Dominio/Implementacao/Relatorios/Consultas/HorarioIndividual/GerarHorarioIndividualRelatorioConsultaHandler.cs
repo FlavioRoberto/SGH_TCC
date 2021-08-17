@@ -160,7 +160,9 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioIndivid
 
             var disciplina = await ConsultarDisciplinaCurriculo(disciplinaCargo.CodigoCurriculoDisciplina);
 
-            return $"({disciplinaCurriculo.Periodo}° Período){Environment.NewLine}{disciplina.Descricao}";
+            var periodo = (int)disciplinaCurriculo.Periodo;
+
+            return $"({periodo}° Período){Environment.NewLine}{disciplina.Descricao}";
         }
 
         private async Task<Disciplina> ConsultarDisciplinaCurriculo(long codigoCurriculoDisciplina)

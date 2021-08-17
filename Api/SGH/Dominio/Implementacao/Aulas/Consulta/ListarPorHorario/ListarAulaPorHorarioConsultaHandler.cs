@@ -71,11 +71,11 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
                     CodigoHorario = aula.CodigoHorario,
                     Codigo = aula.Codigo,
                     CodigoCargo = cargo.Codigo,
-                    CodigoSala = aula.CodigoSala,
+                    CodigoSala = aula.CodigoSala ?? 0,
                     DescricaoDesdobramento = aula.DescricaoDesdobramento,
                     HorarioExtrapolado = horarioExtrapolado,
                     Laboratorio = aula.Laboratorio,
-                    Sala = sala.Descricao,
+                    Sala = sala?.Descricao,
                     Disciplina = disciplina.Descricao,
                     Professor = professor,
                     Reserva = aula.Reserva
@@ -118,7 +118,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
             return totalAula;
         }
 
-        private async Task<Sala> RetornarSalaDisciplina(long codigoSala)
+        private async Task<Sala> RetornarSalaDisciplina(long? codigoSala)
         {
             return await _salaRepositorio.Consultar(lnq => lnq.Codigo == codigoSala);
         }
