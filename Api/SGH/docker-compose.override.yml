@@ -24,19 +24,19 @@ services:
         - sgh-network   
         - db-admin-network
 
-  sgh.pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "flavio.r.teixeira@outlook.com"
-      PGADMIN_DEFAULT_PASSWORD: "PgAdminSuporte"
-    ports:
-      - "16543:80"
-    depends_on:
-      - sgh.database
-    networks:
-      - db-admin-network
-    volumes:
-      - ./docker-conf/pgadmin/:/var/lib/pgadmin
+  #sgh.pgadmin:
+  #  image: dpage/pgadmin4
+  #  environment:
+  #    PGADMIN_DEFAULT_EMAIL: "flavio.r.teixeira@outlook.com"
+  #    PGADMIN_DEFAULT_PASSWORD: "PgAdminSuporte"
+  #  ports:
+  #    - "16543:80"
+  #  depends_on:
+  #    - sgh.database
+  #  networks:
+  #    - db-admin-network
+  #  volumes:
+  #    - ./docker-conf/pgadmin/:/var/lib/pgadmin
   
   sgh.rabbitmq:
     image: rabbitmq:3-management-alpine

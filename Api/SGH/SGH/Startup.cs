@@ -44,7 +44,7 @@ namespace SGH.APi
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddDominio();
 
-            services.AddScoped<EmailService, EmailService>();
+            services.AddSingleton<EmailService>();
             services.AddHostedService<EmailEventHandler>();
 
             services.AddCors(o =>

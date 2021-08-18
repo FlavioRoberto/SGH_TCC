@@ -65,9 +65,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
 
         private bool ValidarSeCamposComandoForamInformados(CriarAulaComando comando)
         {
-            return comando.CodigoSala > 0 &&
-                   comando.CodigoDisciplina > 0 &&
-                   comando.CodigoSala > 0 &&
+            return comando.CodigoDisciplina > 0 &&
                    comando.Reserva != null &&
                    !string.IsNullOrEmpty(comando.Reserva.DiaSemana) &&
                    !string.IsNullOrEmpty(comando.Reserva.Hora);

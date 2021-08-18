@@ -32,7 +32,6 @@ namespace SGH.TestesDeIntegracao
             var resposta = await _testsFixture.Client.PostAsJsonAsync(GetRota("criar"), comando);
 
             var mensagemEsperada = new List<string> {
-                "O código da sala não pode ser vazio.",
                 "O código do horário não pode ser vazio.",
                 "O código da disciplina não pode ser vazio.",
                 "O Dia da semana não pode ser vazio.",
