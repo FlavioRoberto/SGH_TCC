@@ -11,7 +11,7 @@ namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Criar
     {
         public int? Codigo { get; set; }
         public int Numero { get; set; }
-        public int Edital { get; set; }
+        public string Edital { get; set; }
         public int Ano { get; set; }
         public ESemestre Semestre { get; set; }
         public int? CodigoProfessor { get; set; }

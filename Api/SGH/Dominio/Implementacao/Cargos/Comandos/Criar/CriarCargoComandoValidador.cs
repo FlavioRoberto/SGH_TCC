@@ -22,7 +22,7 @@ namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Criar
         {
             var resultado = await _cargoRepositorio.Contem(lnq => lnq.Semestre == comando.Semestre && 
                                                            lnq.Ano == comando.Ano && 
-                                                           lnq.Edital == comando.Edital && 
+                                                           lnq.Edital.Equals(comando.Edital) && 
                                                            lnq.Numero == comando.Numero);
             return !resultado;
         }

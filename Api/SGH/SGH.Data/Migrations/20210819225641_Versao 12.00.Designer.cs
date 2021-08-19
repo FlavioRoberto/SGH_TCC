@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SHG.Data.Contexto;
@@ -9,9 +10,10 @@ using SHG.Data.Contexto;
 namespace SGH.Data.Migrations
 {
     [DbContext(typeof(Contexto))]
-    partial class ContextoModelSnapshot : ModelSnapshot
+    [Migration("20210819225641_Versao 12.00")]
+    partial class Versao1200
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -286,7 +288,8 @@ namespace SGH.Data.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnName("Prof_Email");
+                        .HasColumnName("Prof_Email")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Matricula")
                         .HasColumnName("Prof_Matricula");
@@ -363,7 +366,8 @@ namespace SGH.Data.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnName("Usu_Email");
+                        .HasColumnName("Usu_Email")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Foto")
                         .HasColumnName("Usu_Foto");

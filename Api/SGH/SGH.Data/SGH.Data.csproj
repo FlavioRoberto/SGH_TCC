@@ -13,6 +13,8 @@
     <Compile Remove="Migrations\20210608213800_Versao 08.00.Designer.cs" />
     <Compile Remove="Migrations\20210608213942_Versao 07.00.cs" />
     <Compile Remove="Migrations\20210608213942_Versao 07.00.Designer.cs" />
+    <Compile Remove="Migrations\20210819230212_Versao 13.00.cs" />
+    <Compile Remove="Migrations\20210819230212_Versao 13.00.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

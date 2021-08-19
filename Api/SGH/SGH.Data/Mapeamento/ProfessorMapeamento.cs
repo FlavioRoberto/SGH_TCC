@@ -24,8 +24,7 @@ namespace SHG.Data.Mapeamento
 
             builder.Property(p => p.Email)
               .HasColumnName("Prof_Email")
-              .IsRequired(true)
-              .HasMaxLength(50);
+              .IsRequired(true);
 
             builder.Property(p => p.Telefone)
               .HasColumnName("Prof_Telefone")

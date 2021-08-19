@@ -86,7 +86,7 @@ namespace SGH.TestesDeIntegracao
         public async Task Cargo_RealizarCadastro_DeveRetornarMensagemCargoIgual()
         {
             var comando = GerarComandoCargo();
-            comando.Edital = 1;
+            comando.Edital = "1";
 
             var response = await _testsFixture.Client.PostAsync(GetRota("criar"), _testsFixture.GerarCorpoRequisicao(comando));
 
@@ -218,7 +218,7 @@ namespace SGH.TestesDeIntegracao
                         Codigo = 2,
                         Ano = 2020,
                         CodigoProfessor = 2,
-                        Edital = 2,
+                        Edital = "2",
                         Numero = 2,
                         Semestre = ESemestre.SEGUNDO
                     }
@@ -241,7 +241,7 @@ namespace SGH.TestesDeIntegracao
 
             response.Entidade.Should().Contain(lnq => lnq.CodigoProfessor == 2);
 
-            response.Entidade.Should().Contain(lnq => lnq.Edital == 2);
+            response.Entidade.Should().Contain(lnq => lnq.Edital == "2");
             
             response.Entidade.Should().Contain(lnq => lnq.Numero == 2);
 
@@ -286,7 +286,7 @@ namespace SGH.TestesDeIntegracao
                 Codigo = 2,
                 Ano = DateTime.Now.Year,
                 CodigoProfessor = 1,
-                Edital = 1,
+                Edital = "1",
                 Numero = 1,
                 Semestre = ESemestre.PRIMEIRO
             };
@@ -312,7 +312,7 @@ namespace SGH.TestesDeIntegracao
             {
                 Ano = 2020,
                 Codigo = 3,
-                Edital = 99,
+                Edital = "99",
                 Numero = 99,
                 Semestre = ESemestre.SEGUNDO
             };
@@ -343,7 +343,7 @@ namespace SGH.TestesDeIntegracao
 
             cargo.Numero.Should().BeGreaterThan(0);
 
-            cargo.Edital.Should().BeGreaterThan(0);
+            cargo.Edital.Should().BeNullOrEmpty();
 
         }
 
@@ -366,7 +366,7 @@ namespace SGH.TestesDeIntegracao
             return new CriarCargoComando
             {
                 Ano = DateTime.Now.Year,
-                Edital = 2,
+                Edital = "2",
                 Numero = 1,
                 Semestre = ESemestre.PRIMEIRO,
             };

@@ -25,7 +25,7 @@ namespace SGH.Api.Testes.Factory
                 {
                     Ano = DateTime.Now.Year,
                     CodigoProfessor = 1,
-                    Edital = 1,
+                    Edital = "1",
                     Numero = 1,
                     Semestre = ESemestre.PRIMEIRO
                 },
@@ -33,7 +33,7 @@ namespace SGH.Api.Testes.Factory
                 {
                     Ano = 2020,
                     CodigoProfessor = 2,
-                    Edital = 2,
+                    Edital = "2",
                     Numero = 2,
                     Semestre = ESemestre.SEGUNDO
                 },
@@ -41,7 +41,7 @@ namespace SGH.Api.Testes.Factory
                 {
                     Ano = 2020,
                     CodigoProfessor = 20,
-                    Edital = 2,
+                    Edital = "2",
                     Numero = 2,
                     Semestre = ESemestre.SEGUNDO
                 },
@@ -49,35 +49,35 @@ namespace SGH.Api.Testes.Factory
                 {
                     Ano = 2020,
                     CodigoProfessor = 2,
-                    Edital = 13,
+                    Edital = "13",
                     Semestre = ESemestre.PRIMEIRO
                 },
                 new Cargo //5
                 {
                     Ano = 2020,
                     CodigoProfessor = 2,
-                    Edital = 13,
+                    Edital = "13",
                     Semestre = ESemestre.PRIMEIRO
                 },
                 new Cargo //6
                 {
                     Ano = 2021,
                     CodigoProfessor = 3,
-                    Edital = 14,
+                    Edital = "14",
                     Semestre = ESemestre.PRIMEIRO
                 },
                 new Cargo //7
                 {
                     Ano = 2021,
                     CodigoProfessor = 3,
-                    Edital = 14,
+                    Edital = "14",
                     Semestre = ESemestre.PRIMEIRO
                 },
                 new Cargo //8 - Cargo remover
                 {
                     Ano = 2021,
                     CodigoProfessor = 5,
-                    Edital = 14,
+                    Edital = "14",
                     Semestre = ESemestre.PRIMEIRO
                 }
             };

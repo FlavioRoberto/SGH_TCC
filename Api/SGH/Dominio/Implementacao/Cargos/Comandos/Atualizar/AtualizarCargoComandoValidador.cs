@@ -32,7 +32,7 @@ namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Atualizar
         {
             var resultado = await _cargoRepositorio.Contem(lnq => lnq.Semestre == comando.Semestre &&
                                                            lnq.Ano == comando.Ano &&
-                                                           lnq.Edital == comando.Edital &&
+                                                           lnq.Edital.Equals(comando.Edital) &&
                                                            lnq.Numero == comando.Numero &&
                                                            lnq.Codigo != comando.Codigo);
             return !resultado;
