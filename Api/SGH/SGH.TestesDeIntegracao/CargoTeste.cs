@@ -343,7 +343,7 @@ namespace SGH.TestesDeIntegracao
 
             cargo.Numero.Should().BeGreaterThan(0);
 
-            cargo.Edital.Should().BeNullOrEmpty();
+            cargo.Edital.Should().NotBeNullOrEmpty();
 
         }
 

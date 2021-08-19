@@ -56,7 +56,7 @@ namespace SGH.Data.Repositorio.Implementacao
                 query = query.Where(lnq => lnq.CodigoProfessor == entidade.CodigoProfessor);
 
             if (!string.IsNullOrEmpty(entidade.Edital))
-                query = query.Where(lnq => lnq.Edital == entidade.Edital);
+                query = query.Where(lnq => lnq.Edital.Contains(entidade.Edital));
 
             if (entidade.Numero > 0)
                 query = query.Where(lnq => lnq.Numero == entidade.Numero);
