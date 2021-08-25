@@ -12,14 +12,17 @@ namespace SGH.Relatorios.DataSets
         public string Turno { get; private set; }
         public IList<QuadroHorarioData> Horarios { get; private set; }
         public IList<HorarioGeralAulaData> Aulas { get; private set; }
+        public IList<DisciplinaData> AulasSabado { get; private set; }
 
-        public HorarioGeralRelatorioData(int ano, string curso, string turno,string semestre, IList<QuadroHorarioData> horarios, IList<HorarioGeralAulaData> aulas)
+
+        public HorarioGeralRelatorioData(int ano, string curso, string turno,string semestre, IList<QuadroHorarioData> horarios, IList<HorarioGeralAulaData> aulas, IList<DisciplinaData> aulasSabado)
         {
             Ano = ano;
             Curso = curso;
             Turno = turno;
             Horarios = horarios;
             Aulas = aulas;
+            AulasSabado = aulasSabado;
             Semestre = semestre;
         }
 

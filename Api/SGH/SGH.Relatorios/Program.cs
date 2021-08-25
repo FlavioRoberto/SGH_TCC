@@ -155,7 +155,14 @@ namespace SGH.Relatorios
                }
             };
 
-            return new RelatorioServico().GerarRelatorioHorarioGeral(new HorarioGeralRelatorioData(2020, "Engenharia Civil", "Matutino", "1° Semestre", horarios, aulas));
+            return new RelatorioServico().GerarRelatorioHorarioGeral(new HorarioGeralRelatorioData(2020, "Engenharia Civil", "Matutino", "1° Semestre", horarios, aulas, new List<DisciplinaData> {
+                 new DisciplinaData{ Disciplina = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 511", Hora = "22:25" },
+                 new DisciplinaData{ Disciplina = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 511", Hora = "22:25" },
+                 new DisciplinaData{ Disciplina = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 511", Hora = "22:25" },
+                 new DisciplinaData{ Disciplina = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 511", Hora = "22:25" },
+                 new DisciplinaData{ Disciplina = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 511", Hora = "22:25" },
+                 new DisciplinaData{ Disciplina = "Introdução a Engenharia Civil \r\n (Osvaldo Sena Guimarães) \r\n Sala 511", Hora = "22:25" },
+            }));
         }
     }
 }

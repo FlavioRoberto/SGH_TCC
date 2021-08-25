@@ -35,6 +35,10 @@ namespace SGH.Relatorios.Implementacoes
             relatorio.RegisterData(datasetAula, "Aulas");
             relatorio.GetDataSource("Aulas").Enabled = true;
 
+            var datasetAulaSabado = _dados.AulasSabado;
+            relatorio.RegisterData(datasetAulaSabado, "AulasSabado");
+            relatorio.GetDataSource("AulasSabado").Enabled = true;
+
             var datasetHorarios = _dados.Horarios;
             relatorio.RegisterData(datasetHorarios, "Horarios");
             relatorio.GetDataSource("Horarios").Enabled = true;

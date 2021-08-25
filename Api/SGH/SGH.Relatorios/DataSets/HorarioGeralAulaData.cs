@@ -14,6 +14,7 @@
 
 public class DisciplinaData
 {
+    public long HorarioCodigo { get; set; }
     public string Disciplina { get; set; }
     public string Hora { get; set; }
 }

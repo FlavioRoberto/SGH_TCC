@@ -27,12 +27,19 @@ namespace SGH.Api.Controllers
         [Route("listarTodos")]
         public async Task<IActionResult> ListarTodos()
         {
-            var resultado = await _mediator.Send(new ListarTodasSalasConsulta());
+            try
+            {
+                var resultado = await _mediator.Send(new ListarTodasSalasConsulta());
 
-            if (resultado.TemErro())
-                return BadRequest(resultado.GetErros());
+                if (resultado.TemErro())
+                    return BadRequest(resultado.GetErros());
 
-            return Ok(resultado.GetResultado());
+                return Ok(resultado.GetResultado());
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
 
         [HttpPost]

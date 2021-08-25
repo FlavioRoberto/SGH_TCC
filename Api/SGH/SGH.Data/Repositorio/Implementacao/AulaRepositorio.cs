@@ -48,6 +48,9 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             return await _repositorioBase.GetDbSet<Aula>()
                                          .Include(lnq => lnq.Disciplina)
+                                         .Include(lnq => lnq.Reserva)
+                                         .OrderBy(lnq => lnq.Reserva.DiaSemana)
+                                         .ThenBy(lnq => TimeSpan.Parse(lnq.Reserva.Hora))
                                          .Where(expressao)
                                          .ToListAsync();
         }
