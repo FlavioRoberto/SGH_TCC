@@ -81,7 +81,7 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             return await _repositorio.GetDbSet<HorarioAula>()
                                      .Where(expressao)
-                                     .OrderBy(lnq => lnq.Periodo)
+                                     .OrderBy(lnq => (int)lnq.Periodo)
                                      .ToListAsync();
         }
 

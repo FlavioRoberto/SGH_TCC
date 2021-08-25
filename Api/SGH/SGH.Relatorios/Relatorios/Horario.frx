@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="05/31/2020 13:42:33" ReportInfo.Modified="08/24/2021 22:33:02" ReportInfo.CreatorVersion="2021.3.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="05/31/2020 13:42:33" ReportInfo.Modified="08/24/2021 22:53:43" ReportInfo.CreatorVersion="2021.3.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -83,7 +83,7 @@ namespace FastReport
     <Parameter Name="Data" DataType="System.String"/>
   </Dictionary>
   <ReportPage Name="Page1" Landscape="true" PaperWidth="400" PaperHeight="400" Guides="0,746.55,973.35,1431.35,9.45,529.2,1266.3,1455.3" Watermark.Font="Arial, 60pt">
-    <GroupHeaderBand Name="GroupHeader2" Width="1436.4" Height="160.65" StartNewPage="true" KeepWithData="true" RepeatOnEveryPage="true" Condition="[Horarios.Periodo]" KeepTogether="true">
+    <GroupHeaderBand Name="GroupHeader2" Width="1436.4" Height="160.65" StartNewPage="true" KeepWithData="true" RepeatOnEveryPage="true" Condition="[Horarios.Periodo]" SortOrder="None" KeepTogether="true">
       <TextObject Name="Text19" Top="9.45" Width="746.55" Height="18.9" Fill.Color="White" Text="[Data]" VertAlign="Center" Font="Arial, 10pt"/>
       <TextObject Name="Text1" Top="37.8" Width="746.55" Height="18.9" Text="HORÁRIOS DE AULA - [Semestre] De [Ano]" Font="Arial, 12pt, style=Bold"/>
       <TextObject Name="Text2" Top="66.15" Width="746.55" Height="18.9" Text="CURSO: [Curso]" Font="Arial, 12pt, style=Bold"/>
@@ -93,9 +93,6 @@ namespace FastReport
       <DataBand Name="Data1" Top="163.32" Width="1436.4" Height="47.25" CanGrow="true" DataSource="Horarios" KeepTogether="true" KeepDetail="true">
         <SubreportObject Name="Subreport1" Top="9.45" Width="945" Height="28.35" Anchor="Top, Bottom, Left, Right" GrowToBottom="true" ReportPage="Page3"/>
         <SubreportObject Name="Subreport2" Left="945" Top="9.45" Width="491.4" Height="28.35" Anchor="Top, Bottom, Left, Right" ReportPage="Page2"/>
-        <Sort>
-          <Sort Expression="[Horarios.Periodo]"/>
-        </Sort>
       </DataBand>
       <GroupFooterBand Name="GroupFooter2" Top="213.23" Width="1436.4" Height="37.8">
         <TextObject Name="Avisos" Width="1436.4" Height="18.9" AfterDataEvent="Avisos_AfterData" Text="[Horarios.Avisos]" VertAlign="Center" Font="Arial, 10pt"/>

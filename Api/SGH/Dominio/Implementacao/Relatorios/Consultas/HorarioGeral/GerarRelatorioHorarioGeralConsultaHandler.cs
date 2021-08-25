@@ -143,30 +143,46 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 
             foreach (var horas in horariosTurno)
             {
-                aulasRelatorio.Add(new HorarioGeralAulaData
+                var aula = new HorarioGeralAulaData
                 {
                     DisciplinaSegunda = await RetornarDisciplinaPorDiaSemanaHora(aulas, horas, "Segunda"),
                     DisciplinaTerca = await RetornarDisciplinaPorDiaSemanaHora(aulas, horas, "Terça"),
                     DisciplinaQuarta = await RetornarDisciplinaPorDiaSemanaHora(aulas, horas, "Quarta"),
                     DisciplinaQuinta = await RetornarDisciplinaPorDiaSemanaHora(aulas, horas, "Quinta"),
                     DisciplinaSexta = await RetornarDisciplinaPorDiaSemanaHora(aulas, horas, "Sexta"),
-                    DisciplinaSabado = await RetornarDisciplinaPorDiaSemanaHora(aulas, horas, "Sábado"),
                     HorarioCodigo = horario.Codigo
-                });
+                };
+
+                if (!AulaEstaVazia(aula)){
+                    var disciplinaDefault = new DisciplinaData { Hora = horas };
+                    aula.DisciplinaSegunda = aula.DisciplinaSegunda ?? disciplinaDefault;
+                    aula.DisciplinaTerca = aula.DisciplinaTerca ?? disciplinaDefault;
+                    aula.DisciplinaQuarta = aula.DisciplinaQuarta ?? disciplinaDefault;
+                    aula.DisciplinaQuinta = aula.DisciplinaQuinta ?? disciplinaDefault;
+                    aula.DisciplinaSexta = aula.DisciplinaSexta ?? disciplinaDefault;
+                    aulasRelatorio.Add(aula);
+                }
             }
 
             return aulasRelatorio;
+        }
+
+        private bool AulaEstaVazia(HorarioGeralAulaData aula)
+        {
+            return aula.DisciplinaSegunda == null &&
+                   aula.DisciplinaTerca == null &&
+                   aula.DisciplinaQuarta == null &&
+                   aula.DisciplinaQuinta == null &&
+                   aula.DisciplinaSexta == null;
         }
 
         private async Task<DisciplinaData> RetornarDisciplinaPorDiaSemanaHora(List<Aula> aulas, string horas, string diaSemana)
         {
             var aulaPosicao = aulas.Where(lnq => lnq.Reserva.DiaSemana == diaSemana && lnq.Reserva.Hora.Equals(horas))
                                    .FirstOrDefault();
-         
+
             if (aulaPosicao == null)
-                return new DisciplinaData { 
-                    Hora = horas
-                };
+                return null;
 
             return await RetornarDescricaoDisciplinaData(aulaPosicao);
         }
