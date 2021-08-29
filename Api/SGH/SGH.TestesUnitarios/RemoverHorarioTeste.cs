@@ -1,6 +1,6 @@
 ﻿using FluentAssertions;
 using Moq;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Repositories;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Remover;
 using System;

@@ -1,14 +1,12 @@
 ﻿using AutoMapper;
 using MediatR;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Repositories;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Services.ViewModel;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using SGH.Dominio.Core.Services;
 
 namespace SGH.Dominio.Services.Implementacao.Horarios.Consultas.Listar
 {

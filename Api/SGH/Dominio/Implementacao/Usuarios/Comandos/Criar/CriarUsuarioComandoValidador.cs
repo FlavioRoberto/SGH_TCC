@@ -1,5 +1,5 @@
-﻿using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Services.Contratos;
+﻿using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Core.Repositories;
 
 namespace SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar
 {

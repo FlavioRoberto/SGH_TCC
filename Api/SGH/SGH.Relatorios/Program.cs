@@ -1,4 +1,4 @@
-﻿using SGH.Relatorios.DataSets;
+﻿using SGH.Dominio.Core.DomainObjects.Datasets;
 using SGH.Relatorios.Implementacoes;
 using System;
 using System.Collections.Generic;

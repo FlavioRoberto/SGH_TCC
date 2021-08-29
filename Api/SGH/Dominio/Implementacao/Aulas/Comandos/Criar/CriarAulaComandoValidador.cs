@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Repositories;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Base;
 using System.Threading;
 using System.Threading.Tasks;

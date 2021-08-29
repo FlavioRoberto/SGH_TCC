@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Model;
+using SGH.Dominio.Core.Repositories;
+using SHG.Data.Contexto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,11 +12,13 @@ namespace SGH.Data.Repositorio.Implementacao
 {
     public class HorarioAulaRepositorio : IHorarioAulaRepositorio
     {
+        private readonly IContexto _contexto;
         private readonly IRepositorio<HorarioAula> _repositorio;
         private readonly IUsuarioRepositorio _usuarioRepositorio;
 
-        public HorarioAulaRepositorio(IRepositorio<HorarioAula> repositorio, IUsuarioRepositorio usuarioRepositorio)
+        public HorarioAulaRepositorio(IContexto contexto, IRepositorio<HorarioAula> repositorio, IUsuarioRepositorio usuarioRepositorio)
         {
+            _contexto = contexto;
             _repositorio = repositorio;
             _usuarioRepositorio = usuarioRepositorio;
         }
@@ -32,7 +35,7 @@ namespace SGH.Data.Repositorio.Implementacao
             if (horario == null)
                 return null;
 
-            return await _repositorio.GetDbSet<Turno>().FirstOrDefaultAsync(lnq => lnq.Codigo == horario.Codigo);
+            return await _contexto.Turno.FirstOrDefaultAsync(lnq => lnq.Codigo == horario.Codigo);
         }
 
         public async Task<bool> Contem(Expression<Func<HorarioAula, bool>> expressao)
@@ -47,7 +50,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<List<HorarioAula>> Listar(ListarHorarioFiltro filtro)
         {
-            var query = _repositorio.GetDbSet<HorarioAula>()
+            var query = _contexto.HorarioAula
                                     .Include(lnq => lnq.Curriculo)
                                     .AsNoTracking();
 
@@ -79,7 +82,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<List<HorarioAula>> Listar(Expression<Func<HorarioAula, bool>> expressao)
         {
-            return await _repositorio.GetDbSet<HorarioAula>()
+            return await _contexto.HorarioAula
                                      .Where(expressao)
                                      .OrderBy(lnq => (int)lnq.Periodo)
                                      .ToListAsync();

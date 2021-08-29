@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.2.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SGH\Dominio\SGH.Dominio.Services.csproj" />
+    <ProjectReference Include="..\SGH\SGH.Data\SGH.Data.csproj" />
+    <ProjectReference Include="..\SGH\SGH.Email\SGH.Email.csproj" />
+    <ProjectReference Include="..\SGH\SGH.Relatorios\SGH.Relatorios.csproj" />
+  </ItemGroup>
+
+</Project>

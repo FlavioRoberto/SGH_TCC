@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SGH.Dominio.Core\SGH.Dominio.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="Relatorios\Horario.frx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

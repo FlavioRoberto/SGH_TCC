@@ -2,8 +2,8 @@
 using FluentValidation.Results;
 using Moq;
 using Moq.AutoMock;
-using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Core.Repositories;
+using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Shared.Extensions;
 using SGH.Dominio.Services.Implementacao.Usuarios.Comandos.Criar;

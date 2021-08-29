@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
-using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Core.Repositories;
+using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
 
 namespace SGH.Dominio.Services.Implementacao.CurriculosDisciplinas.Consultas.ListarDisciplinas
 {

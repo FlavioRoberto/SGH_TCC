@@ -1,6 +1,6 @@
 ﻿using FastReport;
-using SGH.Relatorios.Contratos;
 using SGH.Relatorios.Factories.Exportacao;
+using SGH.Dominio.Core.Reports;
 using System;
 using System.IO;
 

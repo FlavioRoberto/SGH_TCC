@@ -1,5 +1,5 @@
-﻿using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Core.Model;
+﻿using SGH.Dominio.Core.Model;
+using SGH.Dominio.Core.Repositories;
 using SHG.Data.Contexto;
 
 namespace SGH.Data.Repositorio.Implementacao

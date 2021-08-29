@@ -1,5 +1,5 @@
-﻿using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Services.Contratos;
+﻿using SGH.Dominio.Core.Repositories;
+using SGH.Dominio.Core.Services;
 using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Servicos

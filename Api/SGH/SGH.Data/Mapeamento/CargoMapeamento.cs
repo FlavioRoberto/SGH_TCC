@@ -1,8 +1,6 @@
-using System;
 using SGH.Dominio.Core.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using FluentValidation;
 
 namespace SHG.Data.Mapeamento
 {

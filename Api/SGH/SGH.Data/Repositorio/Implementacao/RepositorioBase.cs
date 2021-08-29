@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SGH.Dominio.Core.Repositories;
 using SHG.Data.Contexto;
 using System;
 using System.Collections.Generic;

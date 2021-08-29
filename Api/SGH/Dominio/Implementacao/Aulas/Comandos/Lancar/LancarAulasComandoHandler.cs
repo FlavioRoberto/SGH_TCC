@@ -1,11 +1,12 @@
 ﻿using MediatR;
 using SGH.Dominio.Core;
-using SGH.Dominio.Services.Contratos;
-using SGH.Dominio.Services.Extensions;
+using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Core.Services;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
 
 namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Lancar
 {

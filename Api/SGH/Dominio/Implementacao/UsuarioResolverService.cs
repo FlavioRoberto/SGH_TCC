@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Core.Services;
 using System;
 using System.Security.Claims;
 

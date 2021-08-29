@@ -15,11 +15,13 @@ using MediatR;
 using System;
 using SHG.Data.Contexto;
 using SGH.Data.Extensios;
-using SGH.Dominio.Services.Extensions;
+using SGH.Dominio.Core.Services;
 using SGH.Email.Services.Email;
 using SGH.Email.Services;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
+using SGH.IoC;
+using SGH.Dominio.Services.Extensions;
 
 namespace SGH.APi
 {
@@ -42,9 +44,8 @@ namespace SGH.APi
             services.AddApiVersioning();
             services.AddPersistencia(_configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddDominio();
+            services.RegistrarServicos();
 
-            services.AddSingleton<EmailService>();
             services.AddHostedService<EmailEventHandler>();
 
             services.AddCors(o =>

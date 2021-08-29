@@ -1,7 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SGH.Data.Repositorio.Contratos;
 using SGH.Data.Repositorio.Helpers;
 using SGH.Dominio.Core.Model;
+using SGH.Dominio.Core.Repositories;
+using SHG.Data.Contexto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,13 @@ namespace SGH.Data.Repositorio.Implementacao
     public class SalaRepositorio : ISalaRepositorio
     {
         private readonly IRepositorio<Sala> _repositorioBase;
+        private readonly IContexto _contexto;
 
-        public SalaRepositorio(IRepositorio<Sala> repositorioBase)
+        public SalaRepositorio(IRepositorio<Sala> repositorioBase,
+                               IContexto contexto)
         {
             _repositorioBase = repositorioBase;
+            _contexto = contexto;
         }
 
         public async Task<Sala> Atualizar(Sala sala)
@@ -41,7 +45,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<Paginacao<Sala>> ListarPorPaginacao(Paginacao<Sala> entidadePaginada)
         {
-            var query = _repositorioBase.GetDbSet<Sala>().AsNoTracking();
+            var query = _contexto.Sala.AsNoTracking();
 
             if (entidadePaginada.Entidade == null)
                 entidadePaginada.Entidade = new List<Sala>();

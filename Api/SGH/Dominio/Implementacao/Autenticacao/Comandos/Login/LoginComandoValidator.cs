@@ -1,8 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
-using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Core.Repositories;
+using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core.Model;
 
 namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login
@@ -16,7 +16,7 @@ namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login
         {
             _repositorio = repositorio;
 
-            CascadeMode = CascadeMode.StopOnFirstFailure;
+            ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
 
             RuleFor(rule => rule.Login).NotEmpty().WithMessage("O campo de login não pode ser vazio.");
             RuleFor(rule => rule.Senha).NotEmpty().WithMessage("O campo de senha não pode ser vazio.");

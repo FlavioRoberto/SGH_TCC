@@ -1,9 +1,8 @@
 ﻿using FluentValidation;
-using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Services.Implementacao.Turnos.Comandos.Base;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
+using SGH.Dominio.Core.Repositories;
 using SGH.Dominio.Shared.Extensions;
 
 namespace SGH.Dominio.Services.Implementacao.Turnos.Comandos.Atualizar

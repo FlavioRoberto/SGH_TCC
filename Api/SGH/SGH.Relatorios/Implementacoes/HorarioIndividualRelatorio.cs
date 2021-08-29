@@ -1,5 +1,5 @@
 ﻿using FastReport;
-using SGH.Relatorios.DataSets;
+using SGH.Dominio.Core.DomainObjects.Datasets;
 
 namespace SGH.Relatorios.Implementacoes
 {

@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using SGH.Data.Repositorio.Contratos;
-
-namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Base
+﻿namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Base
 {
     public abstract class AulaComandoBase 
     {

@@ -1,17 +1,17 @@
 ﻿using MediatR;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Repositories;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Services.Contratos;
-using SGH.Dominio.Services.Extensions;
-using SGH.Relatorios.Contratos;
-using SGH.Relatorios.DataSets;
+using SGH.Dominio.Core.Services;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using SGH.Dominio.Core.Reports;
+using SGH.Dominio.Services.Extensions;
+using SGH.Dominio.Core.DomainObjects.Datasets;
+using SGH.Dominio.Services.Contratos;
 
 namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 {

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
-using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Core.Repositories;
+using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -16,7 +17,7 @@ namespace SGH.Dominio.Services.Implementacao.Horarios.Comandos.Comum
             _turnoRepositorio = turnoRepositorio;
             _curriculoRepositorio = curriculoRepositorio;
 
-            CascadeMode = CascadeMode.StopOnFirstFailure;
+            ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
 
             RuleFor(lnq => lnq.Ano).NotEmpty().WithMessage("O campo ano não pode ser vazio.");
             RuleFor(lnq => lnq.Periodo).NotEmpty().WithMessage("O campo período não pode ser vazio.");

@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Core.Repositories;
+using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core;
-using SGH.Dominio.Services.Extensions;
+using SGH.Dominio.Core.Services;
 
 namespace SGH.Dominio.Services.Implementacao.Disciplinas.Comandos.Remover
 {

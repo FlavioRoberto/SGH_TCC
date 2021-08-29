@@ -1,13 +1,13 @@
-﻿using FluentValidation;
-using SGH.Data.Repositorio.Contratos;
-using SGH.Dominio.Services.Implementacao.Cursos.Comandos.Base;
+﻿using SGH.Dominio.Services.Implementacao.Cursos.Comandos.Base;
 using System.Threading;
 using System.Threading.Tasks;
+using SGH.Dominio.Core.Repositories;
+using FluentValidation;
 using SGH.Dominio.Shared.Extensions;
 
 namespace SGH.Dominio.Services.Implementacao.Cursos.Comandos.Atualizar
 {
-    class AtualizarCursoComandoValidador : CursoComandoValidador<AtualizarCursoComando>
+    public class AtualizarCursoComandoValidador : CursoComandoValidador<AtualizarCursoComando>
     {
         private readonly ICursoRepositorio _cursoRepositorio;
 

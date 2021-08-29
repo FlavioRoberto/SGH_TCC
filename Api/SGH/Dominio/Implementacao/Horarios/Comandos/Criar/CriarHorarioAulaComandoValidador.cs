@@ -1,4 +1,4 @@
-﻿using SGH.Data.Repositorio.Contratos;
+﻿using SGH.Dominio.Core.Repositories;
 using SGH.Dominio.Services.Implementacao.Horarios.Comandos.Comum;
 
 namespace SGH.Dominio.Services.Implementacao.Horarios.Comandos.Criar

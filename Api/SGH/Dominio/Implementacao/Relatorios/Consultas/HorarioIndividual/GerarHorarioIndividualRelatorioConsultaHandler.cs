@@ -1,11 +1,12 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore.Internal;
-using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core;
+using SGH.Dominio.Core.DomainObjects.Datasets;
 using SGH.Dominio.Core.Model;
+using SGH.Dominio.Core.Reports;
+using SGH.Dominio.Core.Repositories;
+using SGH.Dominio.Core.Services;
 using SGH.Dominio.Services.Extensions;
-using SGH.Relatorios.Contratos;
-using SGH.Relatorios.DataSets;
 using System;
 using System.Collections.Generic;
 using System.Linq;

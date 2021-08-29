@@ -14,11 +14,13 @@ using MediatR;
 using System;
 using SHG.Data.Contexto;
 using SGH.Data.Extensios;
-using SGH.Dominio.Services.Extensions;
+using SGH.Dominio.Core.Services;
 using SGH.Api.Testes.Factory;
 using SGH.Api.Testes.Factory.Contratos;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using SGH.Dominio.Core.Model;
+using SGH.IoC;
+using SGH.Dominio.Services.Extensions;
 
 namespace SGH.APi
 {
@@ -76,7 +78,7 @@ namespace SGH.APi
                 })
            );
 
-            services.AddDominio();
+            services.RegistrarServicos();
 
             services.Configure<MvcOptions>(options =>
             {

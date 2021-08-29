@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SGH.Data.Repositorio.Contratos;
 using SGH.Data.Repositorio.Helpers;
 using SGH.Dominio.Core.Model;
 using SHG.Data.Contexto;
@@ -9,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using SGH.Dominio.Core.Repositories;
 
 namespace SGH.Data.Repositorio.Implementacao
 {

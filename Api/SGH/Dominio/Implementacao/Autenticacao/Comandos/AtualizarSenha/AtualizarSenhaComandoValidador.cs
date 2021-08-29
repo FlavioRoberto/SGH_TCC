@@ -1,10 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
-using SGH.Data.Repositorio.Contratos;
+using SGH.Dominio.Core.Repositories;
 using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Shared.Extensions;
 using SGH.Dominio.Core.Model;
+using SGH.Dominio.Core.Services;
 
 namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.AtualizarSenha
 {
@@ -19,7 +20,7 @@ namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.AtualizarSenh
             _repositorio = repositorio;
             _usuarioResolverService = usuarioResolverService;
 
-            CascadeMode = CascadeMode.StopOnFirstFailure;
+            ValidatorOptions.CascadeMode = CascadeMode.StopOnFirstFailure;
 
             RuleFor(lnq => lnq.Senha).NotEmpty().WithMessage("O campo de senha não pode ser vazio.");
             RuleFor(lnq => lnq.NovaSenha).NotEmpty().WithMessage("O campo de nova senha não pode ser vazio.");

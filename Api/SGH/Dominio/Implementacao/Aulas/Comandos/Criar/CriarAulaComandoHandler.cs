@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
-using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core;
+using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Services.Contratos;
-using SGH.Dominio.Services.Extensions;
+using SGH.Dominio.Core.Repositories;
 using SGH.Dominio.Services.Implementacao.Aulas.ViewModels;
 using System.Threading;
 using System.Threading.Tasks;

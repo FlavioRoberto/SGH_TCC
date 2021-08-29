@@ -1,10 +1,10 @@
-﻿using SGH.Relatorios.Contratos;
-using SGH.Relatorios.DataSets;
+﻿using SGH.Dominio.Core.DomainObjects.Datasets;
+using SGH.Dominio.Core.Reports;
 using System.IO;
 
 namespace SGH.Relatorios.Implementacoes
 {
-    internal class RelatorioServico : IRelatorioServico
+    public class RelatorioServico : IRelatorioServico
     {
         public byte[] GerarRelatorioHorarioGeral(HorarioGeralRelatorioData dados)
         {

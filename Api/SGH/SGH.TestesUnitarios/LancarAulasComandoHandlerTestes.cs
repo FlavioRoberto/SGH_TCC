@@ -3,7 +3,7 @@ using MediatR;
 using Moq;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.ObjetosValor;
-using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Lancar;
 using SGH.Dominio.Services.Implementacao.Aulas.ViewModels;

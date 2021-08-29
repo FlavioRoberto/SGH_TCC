@@ -1,8 +1,8 @@
 ﻿using MediatR;
-using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Core.Enums;
+using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
 
 namespace SGH.Dominio.Services.Implementacao.Professores.Comandos.Criar
 {

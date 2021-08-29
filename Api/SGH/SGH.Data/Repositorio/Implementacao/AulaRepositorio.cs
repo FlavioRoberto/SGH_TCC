@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SGH.Data.Repositorio.Contratos;
 using SGH.Dominio.Core.Model;
+using SGH.Dominio.Core.Repositories;
+using SHG.Data.Contexto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,12 @@ namespace SGH.Data.Repositorio.Implementacao
 {
     public class AulaRepositorio : IAulaRepositorio
     {
+        private readonly IContexto _contexto;
         private readonly IRepositorio<Aula> _repositorioBase;
 
-        public AulaRepositorio(IRepositorio<Aula>  repositorioBase)
+        public AulaRepositorio(IContexto contexto, IRepositorio<Aula>  repositorioBase)
         {
+            _contexto = contexto;
             _repositorioBase = repositorioBase;
         }
 
@@ -46,7 +49,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<List<Aula>> ListarComDisciplinas(Expression<Func<Aula, bool>> expressao)
         {
-            return await _repositorioBase.GetDbSet<Aula>()
+            return await _contexto.Aula
                                          .Include(lnq => lnq.Disciplina)
                                          .Include(lnq => lnq.Reserva)
                                          .OrderBy(lnq => lnq.Reserva.DiaSemana)
@@ -62,7 +65,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<bool> VerificarDisponibilidadeCargo(long codigoCargo, string diaSemana, string hora)
         {
-            return await _repositorioBase.GetDbSet<Aula>()
+            return await _contexto.Aula
                                         .Include(lnq => lnq.Disciplina)
                                         .AsNoTracking()
                                         .AnyAsync(lnq => lnq.Disciplina.CodigoCargo == codigoCargo &&
@@ -72,7 +75,7 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<bool> VerificarDisponibilidadeProfessor(long codigoProfessor, string diaSemana, string hora)
         {
-            return await _repositorioBase.GetDbSet<Aula>()
+            return await _contexto.Aula
                                     .Include(lnq => lnq.Disciplina)
                                     .ThenInclude(lnq => lnq.Cargo)
                                     .ThenInclude(lnq => lnq.Professor)
