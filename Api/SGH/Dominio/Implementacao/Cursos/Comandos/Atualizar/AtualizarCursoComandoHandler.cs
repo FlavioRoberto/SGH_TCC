@@ -2,9 +2,7 @@
 using SGH.Dominio.Core.Repositories;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
-using SGH.Dominio.Core.Services;
-using SHG.Data.Contexto;
+using SGH.Dominio.Services.Contratos;
 using System.Threading;
 using System.Threading.Tasks;
 

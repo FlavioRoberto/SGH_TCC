@@ -5,22 +5,17 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc.Cors.Internal;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Http;
 using FluentValidation.AspNetCore;
 using MediatR;
 using System;
-using SHG.Data.Contexto;
-using SGH.Data.Extensios;
-using SGH.Dominio.Core.Services;
 using SGH.Api.Testes.Factory;
 using SGH.Api.Testes.Factory.Contratos;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using SGH.Dominio.Core.Model;
 using SGH.IoC;
-using SGH.Dominio.Services.Extensions;
+using SGH.Api.Configs;
 
 namespace SGH.APi
 {

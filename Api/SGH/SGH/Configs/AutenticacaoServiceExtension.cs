@@ -1,15 +1,22 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using SGH.Data.Store;
-using System.Text;
-using System;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using SGH.Dominio.Services.Store;
+using System;
+using System.Text;
 
-namespace SGH.Dominio.Services.Extensions
+namespace SGH.Api.Configs
 {
     public static class AutenticacaoServiceExtension
     {
-        public static IServiceCollection AdicionarAutenticacao(this IServiceCollection services)
+
+        public static IServiceCollection AddAutenticacao(this IServiceCollection services)
+        {
+            services.AdicionarAutenticacao();
+            return services;
+        }
+
+        private static IServiceCollection AdicionarAutenticacao(this IServiceCollection services)
         {
             var key = Encoding.ASCII.GetBytes(Configuracoes.Secret);
             services.AddAuthentication(x =>

@@ -3,7 +3,6 @@ using SGH.Dominio.ViewModel;
 using SGH.Dominio.Core.Model;
 using System.Linq;
 using System.Collections.Generic;
-using System;
 using SGH.Dominio.Core;
 
 namespace SGH.Dominio.Services.AutoMapper
@@ -14,7 +13,7 @@ namespace SGH.Dominio.Services.AutoMapper
         {
             CreateMap<Turno, TurnoViewModel>()
                 .ForMember(DTO => DTO.Horarios, opt => opt.MapFrom(lnq => !string.IsNullOrEmpty(lnq.Horarios) ?
-                                                                          lnq.Horarios.Split(',', StringSplitOptions.RemoveEmptyEntries)
+                                                                             lnq.Horarios.Split(',')
                                                                              .ToList() : new List<string>()));
             CreateMap<TurnoViewModel, Turno>()
                 .ForMember(DTO => DTO.Horarios, opt => opt.MapFrom(lnq => string.Join(",", lnq.Horarios)));

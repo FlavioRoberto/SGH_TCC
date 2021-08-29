@@ -1,24 +1,20 @@
 ﻿using SGH.Dominio.Core.Repositories;
-using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core;
-using SHG.Data.Contexto;
 using System.Threading;
 using System.Threading.Tasks;
-using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
 using MediatR;
 
 namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Remover
 {
     public class RemoverCargoComandoHandler : IRequestHandler<RemoverCargoComando, Resposta<bool>>
     {
-        private readonly IContexto _contexto;
         private readonly ICargoRepositorio _cargoRepositorio;
         private readonly ICargoDisciplinaRepositorio _cargoDisciplinaRepositorio;
         private readonly IValidador<RemoverCargoComando> _validador;
 
-        public RemoverCargoComandoHandler(IContexto contexto, ICargoRepositorio cargoRepositorio, ICargoDisciplinaRepositorio cargoDisciplinaRepositorio, IValidador<RemoverCargoComando> validador)
+        public RemoverCargoComandoHandler(ICargoRepositorio cargoRepositorio, ICargoDisciplinaRepositorio cargoDisciplinaRepositorio, IValidador<RemoverCargoComando> validador)
         {
-            _contexto = contexto;
             _cargoRepositorio = cargoRepositorio;
             _validador = validador;
             _cargoDisciplinaRepositorio = cargoDisciplinaRepositorio;
@@ -33,16 +29,16 @@ namespace SGH.Dominio.Services.Implementacao.Cargos.Comandos.Remover
 
             var resultado = false;
 
-            await _contexto.IniciarTransacao();
+            await _cargoDisciplinaRepositorio.IniciarTransacao();
 
             var disciplinas = await _cargoDisciplinaRepositorio.Listar(lnq => lnq.CodigoCargo == request.Codigo);
 
-            foreach(var disciplina in disciplinas)
-               await _cargoDisciplinaRepositorio.Remover(lnq => lnq.Codigo == disciplina.Codigo);
-            
+            foreach (var disciplina in disciplinas)
+                await _cargoDisciplinaRepositorio.Remover(lnq => lnq.Codigo == disciplina.Codigo);
+
             resultado = _cargoRepositorio.Remover(lnq => lnq.Codigo == request.Codigo).Result;
 
-            _contexto.FecharTransacao();
+            _cargoDisciplinaRepositorio.FecharTransacao();
 
             return new Resposta<bool>(resultado);
         }

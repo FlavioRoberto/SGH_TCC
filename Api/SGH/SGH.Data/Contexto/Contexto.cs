@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SGH.Data.Mapeamento;
 using SGH.Dominio.Core.Model;
+using SGH.Dominio.Core.Repositories;
 using SHG.Data.Mapeamento;
 using System.Threading.Tasks;
 

@@ -3,9 +3,8 @@ using MediatR;
 using System.Threading;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Repositories;
-using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
-using SGH.Dominio.Core.Services;
-using SGH.Data.Extensios;
+using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Services.Extensions;
 
 namespace SGH.Dominio.Services.Implementacao.Autenticacao.Comandos.Login
 {

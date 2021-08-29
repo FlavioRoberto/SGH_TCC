@@ -1,11 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.EntityFrameworkCore.Internal;
 using SGH.Dominio.Core.Repositories;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
-using SGH.Dominio.Core.Services;
+using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.ViewModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,9 +30,10 @@ namespace SGH.Dominio.Services.Implementacao.Turnos.Comandos.Criar
             if (!string.IsNullOrEmpty(erro))
                 return new Resposta<TurnoViewModel>(erro);
 
-            var turno = new Turno { 
+            var turno = new Turno
+            {
                 Descricao = request.Descricao,
-                Horarios = request.Horarios.Join(",")
+                Horarios = string.Join(", ", request.Horarios)
             };
 
             var resultado = await _repositorio.Criar(turno);

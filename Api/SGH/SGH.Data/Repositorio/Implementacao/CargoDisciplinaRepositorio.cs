@@ -48,6 +48,16 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _repositorio.Criar(entidade);
         }
 
+        public void FecharTransacao()
+        {
+            _contexto.FecharTransacao();
+        }
+
+        public Task IniciarTransacao()
+        {
+            return _contexto.IniciarTransacao();
+        }
+
         public async Task<List<CargoDisciplina>> Listar(Expression<Func<CargoDisciplina, bool>> query)
         {
             return await _contexto.CargoDisciplina

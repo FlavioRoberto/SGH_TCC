@@ -139,7 +139,7 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 
             var turno = await _turnoRepositorio.Consultar(lnq => lnq.Codigo == horario.TurnoId);
 
-            var horariosTurno = turno.Horarios.Split(",");
+            var horariosTurno =  turno.Horarios.Split(',');
 
             foreach (var horas in horariosTurno)
             {

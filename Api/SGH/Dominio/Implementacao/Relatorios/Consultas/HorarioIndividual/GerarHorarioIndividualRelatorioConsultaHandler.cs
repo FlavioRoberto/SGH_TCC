@@ -1,11 +1,9 @@
 ﻿using MediatR;
-using Microsoft.EntityFrameworkCore.Internal;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.DomainObjects.Datasets;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Core.Reports;
 using SGH.Dominio.Core.Repositories;
-using SGH.Dominio.Core.Services;
 using SGH.Dominio.Services.Extensions;
 using System;
 using System.Collections.Generic;
@@ -72,7 +70,7 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioIndivid
             {
                 Ano = request.Ano,
                 Semestre = request.Semestre.RetornarDescricao(),
-                Cargo = cargos.Select(lnq => $"Cargo: {lnq.Numero} - Edital: {lnq.Edital}").Join(", "),
+                Cargo = string.Join(", ", cargos.Select(lnq => $"Cargo: {lnq.Numero} - Edital: {lnq.Edital}")),
                 Professor = professor.Nome,
                 DisciplinasMinistradas = await ListarDisciplinasMinistradas(disciplinasCargo),
                 Aulas = await CarregarAulas(disciplinasCargo)

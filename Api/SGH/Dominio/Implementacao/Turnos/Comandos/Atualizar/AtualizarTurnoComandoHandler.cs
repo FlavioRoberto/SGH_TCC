@@ -1,14 +1,12 @@
 ﻿using MediatR;
 using SGH.Dominio.Core.Repositories;
-using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Core;
-using SGH.Dominio.Core.Services;
-using SGH.Dominio.Core.Model;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Internal;
 using AutoMapper;
 using SGH.Dominio.ViewModel;
+using System.Linq;
 
 namespace SGH.Dominio.Services.Implementacao.Turnos.Comandos.Atualizar
 {
@@ -39,8 +37,9 @@ namespace SGH.Dominio.Services.Implementacao.Turnos.Comandos.Atualizar
                 return new Resposta<TurnoViewModel>("Não foi encontrado um turno com código informado.");
 
             turno.Descricao = request.Descricao;
-            turno.Horarios = request.Horarios.Join(",");
-            
+
+            turno.Horarios = string.Join(", ", request.Horarios);
+
             var resultado = await _repositorio.Atualizar(turno);
 
             var turnoViewModel = _mapper.Map<TurnoViewModel>(resultado);

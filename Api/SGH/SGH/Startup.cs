@@ -14,14 +14,11 @@ using FluentValidation.AspNetCore;
 using MediatR;
 using System;
 using SHG.Data.Contexto;
-using SGH.Data.Extensios;
-using SGH.Dominio.Core.Services;
-using SGH.Email.Services.Email;
 using SGH.Email.Services;
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using SGH.IoC;
-using SGH.Dominio.Services.Extensions;
+using SGH.Api.Configs;
 
 namespace SGH.APi
 {

@@ -18,6 +18,8 @@ namespace SGH.Dominio.Core.Repositories
         Task<Curriculo> RetornarCurriculoDisciplina(long codigoCurriculoDisciplina);
         Task<CargoDisciplina> Consultar(Expression<Func<CargoDisciplina, bool>> expressao);
         Task<Cargo> ConsultarCargo(long codigoDisciplina);
+        Task IniciarTransacao();
+        void FecharTransacao();
 
     }
 }
