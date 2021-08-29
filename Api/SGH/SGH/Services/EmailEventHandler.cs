@@ -1,4 +1,5 @@
 ﻿using EasyNetQ;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using SGH.Dominio.Core.Events;
 using SGH.Email.Services.Email;
@@ -11,16 +12,19 @@ namespace SGH.Email.Services
     public class EmailEventHandler : BackgroundService
     {
         private IBus _bus;
+        private IConfiguration _configuration;
         private EmailService _emailService;
 
-        public EmailEventHandler(EmailService emailService)
+        public EmailEventHandler(EmailService emailService, IConfiguration configuration)
         {
             _emailService = emailService;
+            _configuration = configuration;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            _bus = RabbitHutch.CreateBus("host=sgh.rabbitmq");
+            var host = _configuration["RabbitMq:connection"];
+            _bus = RabbitHutch.CreateBus($"host={host}");
             _bus.PubSub.Subscribe<EnviarEmailEvent>("PagamentoService", ProcessarEnvio);
 
             while (!stoppingToken.IsCancellationRequested)
