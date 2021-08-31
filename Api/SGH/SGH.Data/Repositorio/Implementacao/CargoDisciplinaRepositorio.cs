@@ -35,7 +35,7 @@ namespace SGH.Data.Repositorio.Implementacao
         public async Task<Cargo> ConsultarCargo(long codigoDisciplina)
         {
             var disciplina = await _repositorio.Consultar(lnq => lnq.Codigo == codigoDisciplina);
-            return await _contexto.Cargo.FirstOrDefaultAsync(lnq => lnq.Codigo == disciplina.CodigoCargo);
+            return await _contexto.Cargo.Include(lnq => lnq.Professor).FirstOrDefaultAsync(lnq => lnq.Codigo == disciplina.CodigoCargo);
         }
 
         public Task<bool> Contem(Expression<Func<CargoDisciplina, bool>> expressao)

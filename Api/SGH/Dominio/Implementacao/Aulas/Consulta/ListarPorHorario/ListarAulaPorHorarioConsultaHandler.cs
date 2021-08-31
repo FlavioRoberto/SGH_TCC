@@ -2,10 +2,8 @@
 using SGH.Dominio.Core.Repositories;
 using SGH.Dominio.Core;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
-using SGH.Dominio.Core.Services;
+using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Services.Implementacao.Aulas.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -17,28 +15,22 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
     {
         private readonly IAulaRepositorio _aulaRepositorio;
         private readonly ICargoDisciplinaRepositorio _cargoDisciplinaRepositorio;
-        private readonly ICargoRepositorio _cargoRepositorio;
         private readonly ISalaRepositorio _salaRepositorio;
         private readonly ICurriculoDisciplinaRepositorio _curriculoDisciplinaRepositorio;
         private readonly IValidador<ListarAulaPorHorarioConsulta> _validador;
-        private readonly ICargoService _cargoService;
 
 
-        public ListarAulaPorHorarioConsultaHandler(IAulaRepositorio aulaRepositorio, 
+        public ListarAulaPorHorarioConsultaHandler(IAulaRepositorio aulaRepositorio,
                                                    ICargoDisciplinaRepositorio cargoDisciplinaRepositorio,
-                                                   ICargoRepositorio cargoRepositorio,
                                                    ISalaRepositorio salaRepositorio,
                                                    ICurriculoDisciplinaRepositorio curriculoDisciplinaRepositorio,
-                                                   IValidador<ListarAulaPorHorarioConsulta> validador,
-                                                   ICargoService cargoService)
+                                                   IValidador<ListarAulaPorHorarioConsulta> validador)
         {
             _aulaRepositorio = aulaRepositorio;
             _cargoDisciplinaRepositorio = cargoDisciplinaRepositorio;
-            _cargoRepositorio = cargoRepositorio;
             _validador = validador;
             _salaRepositorio = salaRepositorio;
             _curriculoDisciplinaRepositorio = curriculoDisciplinaRepositorio;
-            _cargoService = cargoService;
         }
 
         public async Task<Resposta<ICollection<AulaViewModel>>> Handle(ListarAulaPorHorarioConsulta request, CancellationToken cancellationToken)
@@ -62,7 +54,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
             foreach(var aula in aulas)
             {
                 var cargo = await RetornarCargoDisciplina(aula.CodigoDisciplina);
-                var professor = await RetornarProfessores(aula, cargo);
+                var professor =  RetornarProfessores(aula, cargo);
                 var disciplina = await RetornarDisciplina(aula.CodigoDisciplina);
                 var sala = await RetornarSalaDisciplina(aula.CodigoSala);
                 var horarioExtrapolado = await VerificarSeHorarioExtrapolado(aula.CodigoHorario, disciplina, aula.Laboratorio);
@@ -88,13 +80,11 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
             return aulasViewModel;
         }
 
-        private async Task<string> RetornarProfessores(Aula aula, Cargo cargo)
+        private string RetornarProfessores(Aula aula, Cargo cargo)
         {
-            var professor = await _cargoService.RetornarProfessor(cargo.Codigo);
+            var professor = cargo.RetornarDescricao();
 
-            var cargosAuxiliares = aula.DisciplinasAuxiliar.Select(lnq => lnq.Disciplina.Cargo);
-
-            var professoresAuxiliares = cargosAuxiliares.Select(lnq => lnq.Professor?.Nome ?? $"Cargo {lnq.Numero}");
+            var professoresAuxiliares = aula.DisciplinasAuxiliar.Select(lnq => lnq.Disciplina.Cargo.RetornarDescricao());
 
             return professoresAuxiliares.Count() > 0 ? $"{professor}, {string.Join(", ", professoresAuxiliares)}" : professor;
         }

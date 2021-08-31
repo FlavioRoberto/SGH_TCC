@@ -13,5 +13,10 @@ namespace SGH.Dominio.Core.Model
 
         public virtual Professor Professor { get; set; }
         public virtual IEnumerable<CargoDisciplina> Disciplinas { get; set; }
+
+        public string RetornarDescricao()
+        {
+            return Professor?.Nome ?? $"Cargo {Numero}";
+        }
     }
 }
