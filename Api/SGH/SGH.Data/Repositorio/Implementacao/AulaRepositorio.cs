@@ -44,7 +44,13 @@ namespace SGH.Data.Repositorio.Implementacao
 
         public async Task<List<Aula>> Listar(Expression<Func<Aula, bool>> expressao)
         {
-            return await _repositorioBase.Listar(expressao);
+            return await _contexto.Aula
+                                  .Include(lnq => lnq.DisciplinasAuxiliar)
+                                  .ThenInclude(lnq => lnq.Disciplina)
+                                  .ThenInclude(lnq => lnq.Cargo)
+                                  .ThenInclude(lnq => lnq.Professor)
+                                  .Where(expressao)
+                                  .ToListAsync();
         }
 
         public async Task<List<Aula>> ListarComDisciplinas(Expression<Func<Aula, bool>> expressao)

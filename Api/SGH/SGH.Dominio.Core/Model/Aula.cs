@@ -1,4 +1,6 @@
 ﻿using SGH.Dominio.Core.ObjetosValor;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SGH.Dominio.Core.Model
 {
@@ -14,5 +16,17 @@ namespace SGH.Dominio.Core.Model
         public virtual HorarioAula Horario { get; set; }
         public virtual CargoDisciplina Disciplina { get; set; }
         public virtual Sala Sala { get; set; }
+        public virtual List<AulaDisciplinaAuxiliar> DisciplinasAuxiliar { get; private set; }
+
+        public Aula()
+        {
+            this.DisciplinasAuxiliar = new List<AulaDisciplinaAuxiliar>();
+        }
+
+        public void AdicionarDisciplinaAuxiliar(IEnumerable<CargoDisciplina> disciplinas)
+        {
+            var disciplinasAuxiliares = disciplinas.Select(lnq => new AulaDisciplinaAuxiliar(lnq.Codigo, this.Codigo));
+            this.DisciplinasAuxiliar.AddRange(disciplinasAuxiliares);
+        }
     }
 }

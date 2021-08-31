@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
 {
@@ -61,7 +62,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
             foreach(var aula in aulas)
             {
                 var cargo = await RetornarCargoDisciplina(aula.CodigoDisciplina);
-                var professor = await _cargoService.RetornarProfessor(cargo.Codigo);
+                var professor = await RetornarProfessores(aula, cargo);
                 var disciplina = await RetornarDisciplina(aula.CodigoDisciplina);
                 var sala = await RetornarSalaDisciplina(aula.CodigoSala);
                 var horarioExtrapolado = await VerificarSeHorarioExtrapolado(aula.CodigoHorario, disciplina, aula.Laboratorio);
@@ -85,6 +86,17 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario
             }
 
             return aulasViewModel;
+        }
+
+        private async Task<string> RetornarProfessores(Aula aula, Cargo cargo)
+        {
+            var professor = await _cargoService.RetornarProfessor(cargo.Codigo);
+
+            var cargosAuxiliares = aula.DisciplinasAuxiliar.Select(lnq => lnq.Disciplina.Cargo);
+
+            var professoresAuxiliares = cargosAuxiliares.Select(lnq => lnq.Professor?.Nome ?? $"Cargo {lnq.Numero}");
+
+            return professoresAuxiliares.Count() > 0 ? $"{professor}, {string.Join(", ", professoresAuxiliares)}" : professor;
         }
 
         private async Task<bool> VerificarSeHorarioExtrapolado(long codigoHorario, CargoDisciplina disciplina, bool laboratorio)

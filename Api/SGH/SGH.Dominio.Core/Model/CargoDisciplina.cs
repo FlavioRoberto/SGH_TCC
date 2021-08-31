@@ -12,5 +12,6 @@ namespace SGH.Dominio.Core.Model
         public virtual CurriculoDisciplina Disciplina { get; set; }
         public virtual Cargo Cargo { get; set; }
         public virtual ICollection<Aula> Aulas { get; set; }
+        public virtual ICollection<AulaDisciplinaAuxiliar> DisciplinasAuxiliar { get; set; }
     }
 }

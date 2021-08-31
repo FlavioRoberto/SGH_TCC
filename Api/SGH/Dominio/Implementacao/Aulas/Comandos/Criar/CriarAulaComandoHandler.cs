@@ -7,6 +7,7 @@ using SGH.Dominio.Core.Repositories;
 using SGH.Dominio.Services.Implementacao.Aulas.ViewModels;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
 {
@@ -31,6 +32,12 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
                 return new Resposta<AulaViewModel>(erros);
 
             var aula = _mapper.Map<Aula>(request);
+
+            if (request.DisciplinasAuxiliares?.Count > 0)
+            {
+                var disciplinasAuxiliares = request.DisciplinasAuxiliares.Select(lnq => new CargoDisciplina { Codigo = lnq });
+                aula.AdicionarDisciplinaAuxiliar(disciplinasAuxiliares);
+            }
 
             aula = await SalvarAula(aula);
 

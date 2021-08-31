@@ -31,6 +31,7 @@ namespace SHG.Data.Contexto
             modelBuilder.Entity<Sala>(b => new SalaMapeamento(b).Map());
             modelBuilder.Entity<HorarioAula>(b => new HorarioAulaMapeamento(b).Map());
             modelBuilder.Entity<Aula>(b => new AulaMapeamento(b).Map());
+            modelBuilder.Entity<AulaDisciplinaAuxiliar>(b => new AulaDisciplinaAuxiliarMapeamento(b).Map());
         }
 
         public DbSet<CurriculoDisciplina> CurriculoDisciplina { get; set; }
