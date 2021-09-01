@@ -1,6 +1,4 @@
-﻿using SGH.Dominio.Services.Implementacao.Aulas.ViewModels;
-using SGH.Dominio.ViewModel;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Base
 {

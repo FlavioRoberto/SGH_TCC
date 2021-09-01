@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using SGH.Dominio.Core.Repositories;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Base;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -10,7 +12,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
     {
         private readonly IAulaRepositorio _aulaRepositorio;
         private readonly ICargoRepositorio _cargoRepositorio;
-
+       
         public CriarAulaComandoValidador(ISalaRepositorio salaRepositorio,
                                          IHorarioAulaRepositorio horarioAulaRepositorio,
                                          IAulaRepositorio aulaRepositorio,
@@ -42,7 +44,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
                 RuleFor(lnq => lnq.DescricaoDesdobramento)
                     .NotEmpty()
                     .WithMessage("Não foi informada uma descrição para o desdobramento.");
-            });
+            });             
 
             When(ValidarSeCamposComandoForamInformados, () =>
             {
@@ -54,7 +56,10 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
                    .WithMessage(x => $"Não foi possível criar a aula, pois o cargo selecionado já está reservado para {x.Reserva.DiaSemana} às {x.Reserva.Hora}h.")
 
                    .MustAsync(ValidarSeProfessorDisponivel)
-                   .WithMessage(x => $"Não foi possível criar a aula, pois o professor selecionado já está reservado para {x.Reserva.DiaSemana} às {x.Reserva.Hora}h.");
+                   .WithMessage(x => $"Não foi possível criar a aula, pois o professor selecionado já está reservado para {x.Reserva.DiaSemana} às {x.Reserva.Hora}h.")
+
+                   .MustAsync(ValidarSeDisciplinaDiferenteDaPrincipal)
+                   .WithMessage(x => $"As disciplinas auxiliares são diferentes da disciplina selecionada."); ;
             });
 
             When(lnq => lnq.CodigoSala.HasValue, () =>
@@ -64,6 +69,25 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
                    .WithMessage(x => $"Não foi possível criar a aula, pois a sala selecionada já está reservada para {x.Reserva.DiaSemana} às {x.Reserva.Hora}h.");
             });
 
+        }
+
+        private async Task<bool> ValidarSeDisciplinaDiferenteDaPrincipal(CriarAulaComando comando, CancellationToken arg2)
+        {
+            if (comando.DisciplinasAuxiliares == null || comando.DisciplinasAuxiliares.Count <= 0)
+                return true;
+
+            var cargoDisciplinas = await _cargoDisciplinaRepositorio.Listar(lnq => comando.DisciplinasAuxiliares.Contains(lnq.Codigo));
+         
+            var disciplina = await _cargoDisciplinaRepositorio.Consultar(lnq => lnq.Codigo == comando.CodigoDisciplina);
+
+            var disciplinasAuxiliaresDiferenteDaPrincipal = cargoDisciplinas.Any(lnq => lnq.CodigoCurriculoDisciplina != disciplina.CodigoCurriculoDisciplina);
+
+            var disciplinaAuxiliarIgualPrincipal = cargoDisciplinas.Any(lnq => lnq.Codigo == disciplina.Codigo);
+
+            if (disciplinasAuxiliaresDiferenteDaPrincipal || disciplinaAuxiliarIgualPrincipal)
+                return false;
+
+            return true;
         }
 
         private bool ValidarSeCamposComandoForamInformados(CriarAulaComando comando)
