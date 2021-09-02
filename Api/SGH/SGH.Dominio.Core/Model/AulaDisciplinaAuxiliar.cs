@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-namespace SGH.Dominio.Core.Model
+﻿namespace SGH.Dominio.Core.Model
 {
     public class AulaDisciplinaAuxiliar : EntidadeBase
     {

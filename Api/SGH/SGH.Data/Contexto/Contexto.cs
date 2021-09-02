@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SGH.Data.Mapeamento;
 using SGH.Dominio.Core.Model;
-using SGH.Dominio.Core.Repositories;
 using SHG.Data.Mapeamento;
 using System.Threading.Tasks;
 
@@ -50,6 +49,7 @@ namespace SHG.Data.Contexto
         public DbSet<Sala> Sala { get; set; }
         public DbSet<HorarioAula> HorarioAula { get; set; }
         public DbSet<Aula> Aula { get; set; }
+        public DbSet<AulaDisciplinaAuxiliar> AulaDisciplinaAuxiliar { get; set; }
 
         public async Task IniciarTransacao()
         {

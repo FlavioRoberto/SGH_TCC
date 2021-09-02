@@ -12,6 +12,7 @@ namespace SGH.Dominio.Core.Repositories
         Task<Aula> Criar(Aula aula);
         Task<bool> Contem(Expression<Func<Aula, bool>> expressao);
         Task<List<Aula>> Listar(Expression<Func<Aula, bool>> expressao);
+        Task<List<Aula>> ListarAulasAuxiliares(IEnumerable<long> codigos);
         Task<List<Aula>> ListarComDisciplinas(Expression<Func<Aula, bool>> expressao);              
         Task<bool> VerificarDisponibilidadeCargo(long codigoCargo, string diaSemana, string hora);
         Task<bool> VerificarDisponibilidadeProfessor(long codigoProfessor, string diaSemana, string hora);

@@ -53,6 +53,17 @@ namespace SGH.Data.Repositorio.Implementacao
                                   .ToListAsync();
         }
 
+        public async Task<List<Aula>> ListarAulasAuxiliares(IEnumerable<long> codigosDisciplinas)
+        {
+            return await _contexto.Aula
+                                  .Include(lnq => lnq.DisciplinasAuxiliar)
+                                  .ThenInclude(lnq => lnq.Disciplina)
+                                  .ThenInclude(lnq => lnq.Cargo)
+                                  .ThenInclude(lnq => lnq.Professor)
+                                  .Where(lnq => lnq.DisciplinasAuxiliar.Any(x => codigosDisciplinas.Contains(x.CodigoCargoDisciplina)))
+                                  .ToListAsync();
+        }
+
         public async Task<List<Aula>> ListarComDisciplinas(Expression<Func<Aula, bool>> expressao)
         {
             return await _contexto.Aula

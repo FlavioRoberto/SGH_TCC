@@ -62,6 +62,7 @@ namespace SGH.Data.Repositorio.Implementacao
         {
             return await _contexto.CargoDisciplina
                                      .Include(lnq => lnq.Turno)
+                                     .Include(lnq => lnq.DisciplinasAuxiliar)
                                      .AsNoTracking()
                                      .Where(query)
                                      .ToListAsync();

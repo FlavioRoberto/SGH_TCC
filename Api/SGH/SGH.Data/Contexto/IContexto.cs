@@ -25,6 +25,7 @@ namespace SHG.Data.Contexto
         DbSet<Sala> Sala { get; set; }
         DbSet<HorarioAula> HorarioAula { get; set; }
         DbSet<Aula> Aula { get; set; }
+        DbSet<AulaDisciplinaAuxiliar> AulaDisciplinaAuxiliar { get; set; }
         DatabaseFacade Database { get; }
         Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken));
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken));

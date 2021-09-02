@@ -115,6 +115,10 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioIndivid
 
             var aulas = await _aulaRepositorio.Listar(lnq => codigosDisciplinas.Contains(lnq.CodigoDisciplina));
 
+            var aulasAuxiliares = await _aulaRepositorio.ListarAulasAuxiliares(codigosDisciplinas);
+
+            aulas.AddRange(aulasAuxiliares);
+
             var aulasPorHorario = aulas.GroupBy(lnq => lnq.Reserva.Hora).Select(lnq => lnq);
 
             foreach(var aulasHorarios in aulasPorHorario)
@@ -123,6 +127,9 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioIndivid
                 foreach (var aula in aulasHorarios)
                 {
                     var disciplinaCargo = disciplinasCargos.FirstOrDefault(lnq => lnq.Codigo == aula.CodigoDisciplina);
+
+                    if(disciplinaCargo == null)
+                        disciplinaCargo = disciplinasCargos.FirstOrDefault(lnq => aula.DisciplinasAuxiliar.Any(x => x.CodigoCargoDisciplina == lnq.Codigo));
 
                     aulaIndividual.Hora = aula.Reserva.Hora;
                     aulaIndividual.Turno = disciplinaCargo.Turno.Descricao;
