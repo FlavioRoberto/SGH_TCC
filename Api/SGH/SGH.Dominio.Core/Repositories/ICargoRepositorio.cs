@@ -1,6 +1,5 @@
 ﻿using SGH.Dominio.Core.Model;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -14,7 +13,8 @@ namespace SGH.Dominio.Core.Repositories
         Task<bool> Remover(Expression<Func<Cargo, bool>> expressao);
         Task<Cargo> Atualizar(Cargo entidade);
         Task<Cargo> Consultar(Expression<Func<Cargo, bool>> expressao);
-        Task<Professor> ConsultarProfessor(long codigoCargo);
+        Task<List<Professor>> ConsultarProfessor(List<long> codigosCargo);
         Task<List<Cargo>> Listar(Expression<Func<Cargo, bool>> expressao);
+        Task<List<Cargo>> Listar(List<long> codigosCargos);
     }
 }

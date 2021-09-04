@@ -1,9 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using SGH.Dominio.Core.Model;
+using System.Threading.Tasks;
 
 namespace SGH.Dominio.Core.Services
 {
     public interface ICargoService
     {
-        Task<string> RetornarProfessor(long codigoCargo);
+        Task<string> RetornarProfessor(Aula aula);
     }
 }

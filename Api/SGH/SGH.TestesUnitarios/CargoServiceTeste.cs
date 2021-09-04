@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Xunit;
 using SGH.Dominio.Core.Services;
+using System.Collections.Generic;
 
 namespace SGH.TestesDeUnidade
 {
@@ -31,7 +32,11 @@ namespace SGH.TestesDeUnidade
             
             _mockRepositorio.Setup(lnq => lnq.Consultar(It.IsAny<Expression<Func<Cargo, bool>>>())).Returns(Task.FromResult(cargoRetornado));
 
-            var nomeProfessor = await _cargoService.RetornarProfessor(1);
+            var aula = new Aula();
+
+            aula.Disciplina = new CargoDisciplina { CodigoCargo = 1 };
+
+            var nomeProfessor = await _cargoService.RetornarProfessor(aula);
 
             nomeProfessor.Should().Be("Cargo não encontrado");
         }
@@ -41,12 +46,15 @@ namespace SGH.TestesDeUnidade
         public async Task CargoService_RetornarProfessor_DeveRetornarNomeDeCargoParaProfessorNaoEncontrado()
         {
             Cargo cargoRetornado = new Cargo { Numero = 20 };
-            Professor professorRetornado = null;
 
-            _mockRepositorio.Setup(lnq => lnq.Consultar(It.IsAny<Expression<Func<Cargo, bool>>>())).Returns(Task.FromResult(cargoRetornado));
-            _mockRepositorio.Setup(lnq => lnq.ConsultarProfessor(It.IsAny<int>())).Returns(Task.FromResult(professorRetornado));
+            _mockRepositorio.Setup(lnq => lnq.Listar(It.IsAny<List<long>>())).Returns(Task.FromResult(new List<Cargo> { cargoRetornado }));
+            _mockRepositorio.Setup(lnq => lnq.ConsultarProfessor(It.IsAny<List<long>>())).Returns(Task.FromResult(new List<Professor>()));
 
-            var nomeProfessor = await _cargoService.RetornarProfessor(1);
+            var aula = new Aula();
+
+            aula.Disciplina = new CargoDisciplina { CodigoCargo = 1 };
+
+            var nomeProfessor = await _cargoService.RetornarProfessor(aula);
 
             nomeProfessor.Should().Be($"Cargo {cargoRetornado.Numero}");
         }
@@ -58,10 +66,15 @@ namespace SGH.TestesDeUnidade
             var cargoRetornado = new Cargo();
             var professorRetornado = new Professor { Codigo = 1, Nome = "Professor Teste" };
 
-            _mockRepositorio.Setup(lnq => lnq.Consultar(It.IsAny<Expression<Func<Cargo, bool>>>())).Returns(Task.FromResult(cargoRetornado));
-            _mockRepositorio.Setup(lnq => lnq.ConsultarProfessor(It.IsAny<long>())).Returns(Task.FromResult(professorRetornado));
+            cargoRetornado.Professor = professorRetornado;
 
-            var nomeProfessor = await _cargoService.RetornarProfessor(1);
+            _mockRepositorio.Setup(lnq => lnq.Listar(It.IsAny<List<long>>())).Returns(Task.FromResult(new List<Cargo> { cargoRetornado }));
+
+            var aula = new Aula();
+
+            aula.Disciplina = new CargoDisciplina { CodigoCargo = 1 };
+
+            var nomeProfessor = await _cargoService.RetornarProfessor(aula);
 
             nomeProfessor.Should().Be(professorRetornado.Nome);
         }

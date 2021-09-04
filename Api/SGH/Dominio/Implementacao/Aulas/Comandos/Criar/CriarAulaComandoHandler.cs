@@ -35,7 +35,7 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar
 
             if (request.DisciplinasAuxiliares?.Count > 0)
             {
-                var disciplinasAuxiliares = request.DisciplinasAuxiliares.Select(lnq => new CargoDisciplina { Codigo = lnq });
+                var disciplinasAuxiliares = request.DisciplinasAuxiliares.Select(lnq => new CargoDisciplina { Codigo = lnq }).ToList();
                 aula.AdicionarDisciplinaAuxiliar(disciplinasAuxiliares);
             }
 

@@ -199,7 +199,7 @@ namespace SGH.Dominio.Services.Implementacao.Relatorios.Consultas.HorarioGeral
 
         private async Task<DisciplinaData> RetornarDescricaoDisciplinaData(Aula aulaPosicao)
         {
-            var descricaoCargo = await _cargoService.RetornarProfessor(aulaPosicao.Disciplina.CodigoCargo);
+            var descricaoCargo = await _cargoService.RetornarProfessor(aulaPosicao);
             var descricaoSala = await RetornarDescricaoSala(aulaPosicao.CodigoSala);
             var descricaoDesdobramento = !string.IsNullOrEmpty(aulaPosicao.DescricaoDesdobramento) ? $" {aulaPosicao.DescricaoDesdobramento} { Environment.NewLine}" : "";
 

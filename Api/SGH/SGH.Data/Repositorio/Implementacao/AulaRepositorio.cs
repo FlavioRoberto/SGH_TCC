@@ -67,12 +67,14 @@ namespace SGH.Data.Repositorio.Implementacao
         public async Task<List<Aula>> ListarComDisciplinas(Expression<Func<Aula, bool>> expressao)
         {
             return await _contexto.Aula
-                                         .Include(lnq => lnq.Disciplina)
-                                         .Include(lnq => lnq.Reserva)
-                                         .OrderBy(lnq => lnq.Reserva.DiaSemana)
-                                         .ThenBy(lnq => TimeSpan.Parse(lnq.Reserva.Hora))
-                                         .Where(expressao)
-                                         .ToListAsync();
+                                  .Include(lnq => lnq.Disciplina)
+                                  .Include(lnq => lnq.Reserva)
+                                  .OrderBy(lnq => lnq.Reserva.DiaSemana)
+                                //  .ThenBy(lnq =>  TimeSpan.Parse(lnq.Reserva.Hora))
+                                  .Include(lnq => lnq.DisciplinasAuxiliar)
+                                  .ThenInclude(lnq => lnq.Disciplina)
+                                  .Where(expressao)
+                                  .ToListAsync();
         }
 
         public async Task<bool> Remover(Expression<Func<Aula, bool>> expressao)

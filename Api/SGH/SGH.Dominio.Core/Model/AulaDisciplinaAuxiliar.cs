@@ -17,5 +17,10 @@
             this.CodigoAula = codigoAula;
         }
 
+        public void AdicionarDisciplina(CargoDisciplina cargoDisciplina)
+        {
+            this.Disciplina = cargoDisciplina;
+        }
+
     }
 }

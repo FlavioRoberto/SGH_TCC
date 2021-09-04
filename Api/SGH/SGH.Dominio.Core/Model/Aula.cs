@@ -23,7 +23,7 @@ namespace SGH.Dominio.Core.Model
             this.DisciplinasAuxiliar = new List<AulaDisciplinaAuxiliar>();
         }
 
-        public void AdicionarDisciplinaAuxiliar(IEnumerable<CargoDisciplina> disciplinas)
+        public void AdicionarDisciplinaAuxiliar(List<CargoDisciplina> disciplinas)
         {
             var disciplinasAuxiliares = disciplinas.Select(lnq => new AulaDisciplinaAuxiliar(lnq.Codigo, this.Codigo));
             this.DisciplinasAuxiliar.AddRange(disciplinasAuxiliares);

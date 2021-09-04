@@ -3,38 +3,16 @@ using SGH.Data.Repositorio.Helpers;
 using SGH.Dominio.Core.Model;
 using SGH.Dominio.Core.Repositories;
 using SHG.Data.Contexto;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace SGH.Data.Repositorio.Implementacao
 {
-    public class CargoRepositorio :  ICargoRepositorio
+    public class CargoRepositorio : RepositorioBase<Cargo>, ICargoRepositorio
     {
-        private readonly IRepositorio<Cargo> _repositorio;
-        private readonly IContexto _contexto;
-
-        public CargoRepositorio(IRepositorio<Cargo> repositorio, IContexto contexto) 
+        public CargoRepositorio(IContexto contexto) : base(contexto)
         {
-            _repositorio = repositorio;
-            _contexto = contexto;
-        }
-
-        public Task<Cargo> Criar(Cargo entidade)
-        {
-            return _repositorio.Criar(entidade);
-        }
-      
-        public async Task<bool> Contem(Expression<Func<Cargo, bool>> expressao)
-        {
-            return await _repositorio.Contem(expressao);
-        }
-
-        public async Task<bool> Remover(Expression<Func<Cargo, bool>> expressao)
-        {
-            return await _repositorio.Remover(expressao);
         }
 
         public async Task<Paginacao<Cargo>> ListarPorPaginacao(Paginacao<Cargo> entidadePaginada)
@@ -69,25 +47,19 @@ namespace SGH.Data.Repositorio.Implementacao
             return await PaginacaoHelper<Cargo>.Paginar(entidadePaginada, query);
         }
 
-        public async Task<Cargo> Atualizar(Cargo entidade)
+        public Task<List<Professor>> ConsultarProfessor(List<long> codigosCargo)
         {
-            return await _repositorio.Atualizar(entidade);
+            return _contexto.Cargo
+                            .Include(lnq => lnq.Professor)
+                            .AsNoTracking()
+                            .Where(lnq => codigosCargo.Contains(lnq.Codigo))
+                            .Select(lnq => lnq.Professor)
+                            .ToListAsync();
         }
 
-        public async Task<Cargo> Consultar(Expression<Func<Cargo, bool>> expressao)
+        public Task<List<Cargo>> Listar(List<long> codigosCargos)
         {
-            return await _repositorio.Consultar(expressao);
-        }
-
-        public async Task<Professor> ConsultarProfessor(long codigoCargo)
-        {
-            var cargo = await _repositorio.Consultar(lnq => lnq.Codigo == codigoCargo);
-            return await _contexto.Professor.FirstOrDefaultAsync(lnq => lnq.Codigo == cargo.CodigoProfessor);
-        }
-
-        public async Task<List<Cargo>> Listar(Expression<Func<Cargo, bool>> expressao)
-        {
-            return await _repositorio.Listar(expressao);
+            return _contexto.Cargo.Include(lnq => lnq.Professor).AsNoTracking().Where(x => codigosCargos.Contains(x.Codigo)).ToListAsync();
         }
     }
 }
