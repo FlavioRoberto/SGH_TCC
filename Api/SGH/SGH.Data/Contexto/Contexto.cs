@@ -28,7 +28,7 @@ namespace SHG.Data.Contexto
             modelBuilder.Entity<CargoDisciplina>(b => new CargoDisciplinaMapeamento(b).Map());
             modelBuilder.Entity<Bloco>(b => new BlocoMapeamento(b).Map());
             modelBuilder.Entity<Sala>(b => new SalaMapeamento(b).Map());
-            modelBuilder.Entity<HorarioAula>(b => new HorarioAulaMapeamento(b).Map());
+            modelBuilder.Entity<Horario>(b => new HorarioMapeamento(b).Map());
             modelBuilder.Entity<Aula>(b => new AulaMapeamento(b).Map());
             modelBuilder.Entity<AulaDisciplinaAuxiliar>(b => new AulaDisciplinaAuxiliarMapeamento(b).Map());
         }
@@ -47,7 +47,7 @@ namespace SHG.Data.Contexto
         public DbSet<CargoDisciplina> CargoDisciplina { get; set; }
         public DbSet<Bloco> Bloco { get; set; }
         public DbSet<Sala> Sala { get; set; }
-        public DbSet<HorarioAula> HorarioAula { get; set; }
+        public DbSet<Horario> HorarioAula { get; set; }
         public DbSet<Aula> Aula { get; set; }
         public DbSet<AulaDisciplinaAuxiliar> AulaDisciplinaAuxiliar { get; set; }
 

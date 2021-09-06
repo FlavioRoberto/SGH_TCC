@@ -3,9 +3,10 @@ using System.Collections.Generic;
 
 namespace SGH.Dominio.Core.Model
 {
-    public class HorarioAula : EntidadeBase
+    public class Horario : EntidadeBase
     {
         public int Ano { get; set; }
+        public string Descricao { get; set; }
         public ESemestre Semestre { get; set; }
         public EPeriodo Periodo { get; set; }
         public long CodigoTurno { get; set; }

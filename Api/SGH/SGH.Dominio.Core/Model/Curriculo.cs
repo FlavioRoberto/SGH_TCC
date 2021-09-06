@@ -9,6 +9,6 @@ namespace SGH.Dominio.Core.Model
 
         public virtual Curso Curso { get; set; }
         public virtual IEnumerable<CurriculoDisciplina> Disciplinas { get; set; }
-        public virtual IEnumerable<HorarioAula> HorariosAula { get; set; }        
+        public virtual IEnumerable<Horario> HorariosAula { get; set; }        
     }
 }

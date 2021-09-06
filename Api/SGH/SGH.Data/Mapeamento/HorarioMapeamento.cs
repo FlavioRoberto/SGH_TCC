@@ -5,18 +5,21 @@ using SHG.Data.Mapeamento;
 
 namespace SGH.Data.Mapeamento
 {
-    public class HorarioAulaMapeamento : EntidadeMapeamento<HorarioAula>
+    public class HorarioMapeamento : EntidadeMapeamento<Horario>
     {
-        public HorarioAulaMapeamento(EntityTypeBuilder<HorarioAula> builder):base(builder)
+        public HorarioMapeamento(EntityTypeBuilder<Horario> builder):base(builder)
         {
         }
 
-        public override EntidadeMapeamento<HorarioAula> Map()
+        public override EntidadeMapeamento<Horario> Map()
         {
             builder.HasKey(lnq => lnq.Codigo);
 
             builder.Property(lnq => lnq.Ano)
                    .HasColumnName("Horario_Ano");
+
+            builder.Property(lnq => lnq.Descricao)
+                    .HasColumnName("Horario_Descricao");
 
             builder.Property(lnq => lnq.Codigo)
                    .HasColumnName("Horario_Codigo");

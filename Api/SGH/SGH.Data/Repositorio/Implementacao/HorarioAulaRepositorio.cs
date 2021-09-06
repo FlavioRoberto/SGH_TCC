@@ -13,17 +13,17 @@ namespace SGH.Data.Repositorio.Implementacao
     public class HorarioAulaRepositorio : IHorarioAulaRepositorio
     {
         private readonly IContexto _contexto;
-        private readonly IRepositorio<HorarioAula> _repositorio;
+        private readonly IRepositorio<Horario> _repositorio;
         private readonly IUsuarioRepositorio _usuarioRepositorio;
 
-        public HorarioAulaRepositorio(IContexto contexto, IRepositorio<HorarioAula> repositorio, IUsuarioRepositorio usuarioRepositorio)
+        public HorarioAulaRepositorio(IContexto contexto, IRepositorio<Horario> repositorio, IUsuarioRepositorio usuarioRepositorio)
         {
             _contexto = contexto;
             _repositorio = repositorio;
             _usuarioRepositorio = usuarioRepositorio;
         }
 
-        public async Task<HorarioAula> Atualizar(HorarioAula entidade)
+        public async Task<Horario> Atualizar(Horario entidade)
         {
             return await _repositorio.Atualizar(entidade);
         }
@@ -38,17 +38,17 @@ namespace SGH.Data.Repositorio.Implementacao
             return await _contexto.Turno.FirstOrDefaultAsync(lnq => lnq.Codigo == horario.Codigo);
         }
 
-        public async Task<bool> Contem(Expression<Func<HorarioAula, bool>> expressao)
+        public async Task<bool> Contem(Expression<Func<Horario, bool>> expressao)
         {
             return await _repositorio.Contem(expressao);
         }
 
-        public async Task<HorarioAula> Criar(HorarioAula entidade)
+        public async Task<Horario> Criar(Horario entidade)
         {
             return await _repositorio.Criar(entidade);
         }
 
-        public async Task<List<HorarioAula>> Listar(ListarHorarioFiltro filtro)
+        public async Task<List<Horario>> Listar(ListarHorarioFiltro filtro)
         {
             var query = _contexto.HorarioAula
                                     .Include(lnq => lnq.Curriculo)
@@ -80,7 +80,7 @@ namespace SGH.Data.Repositorio.Implementacao
                               .ToListAsync();
         }
 
-        public async Task<List<HorarioAula>> Listar(Expression<Func<HorarioAula, bool>> expressao)
+        public async Task<List<Horario>> Listar(Expression<Func<Horario, bool>> expressao)
         {
             return await _contexto.HorarioAula
                                      .Where(expressao)
@@ -88,7 +88,7 @@ namespace SGH.Data.Repositorio.Implementacao
                                      .ToListAsync();
         }
 
-        public async Task<bool> Remover(Expression<Func<HorarioAula, bool>> expressao)
+        public async Task<bool> Remover(Expression<Func<Horario, bool>> expressao)
         {
             return await _repositorio.Remover(expressao);
         }

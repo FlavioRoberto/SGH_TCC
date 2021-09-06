@@ -16,7 +16,7 @@ namespace SGH.Api.Testes.Factory
         private readonly IBancoTeste<Turno> _turnoTeste;
         private readonly IBancoTeste<Bloco> _blocoTeste;
         private readonly IBancoTeste<Sala> _salaTeste;
-        private readonly IBancoTeste<HorarioAula> _horarioAulaTeste;
+        private readonly IBancoTeste<Horario> _horarioAulaTeste;
         private readonly IBancoTeste<Aula> _aulaTeste;
 
         public BancoTesteFactory(IBancoTeste<UsuarioPerfil> usuarioPerfil,
@@ -30,7 +30,7 @@ namespace SGH.Api.Testes.Factory
                                  IBancoTeste<Turno> turnoTeste,
                                  IBancoTeste<Bloco> blocoTeste,
                                  IBancoTeste<Sala> salaTeste,
-                                 IBancoTeste<HorarioAula> horarioAulaTeste,
+                                 IBancoTeste<Horario> horarioAulaTeste,
                                  IBancoTeste<Aula> aulaTeste)
         {
             _usuarioPerfil = usuarioPerfil;

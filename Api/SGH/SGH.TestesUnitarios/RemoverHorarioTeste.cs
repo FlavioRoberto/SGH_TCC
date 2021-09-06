@@ -52,7 +52,7 @@ namespace SGH.TestesDeUnidade
 
             resultado.GetErros().Trim().Should().Be($"Não foi encontrado um horário com o código {comando.CodigoHorario}.");
 
-            mockRepositorio.Verify(lnq => lnq.Contem(It.IsAny<Expression<Func<HorarioAula, bool>>>()), Times.Once);
+            mockRepositorio.Verify(lnq => lnq.Contem(It.IsAny<Expression<Func<Horario, bool>>>()), Times.Once);
         }
 
         [Fact(DisplayName = "Remover horário - Deve remover com sucesso")]
@@ -64,9 +64,9 @@ namespace SGH.TestesDeUnidade
             var handle = new RemoverHorarioComandoHandler(mockRepositorio.Object, mockValidador);
             var comando = new RemoverHorarioComando { CodigoHorario = 1 };
 
-            mockRepositorio.Setup(lnq => lnq.Contem(It.IsAny<Expression<Func<HorarioAula, bool>>>())).Returns(Task.FromResult(true));
+            mockRepositorio.Setup(lnq => lnq.Contem(It.IsAny<Expression<Func<Horario, bool>>>())).Returns(Task.FromResult(true));
 
-            mockRepositorio.Setup(lnq => lnq.Remover(It.IsAny<Expression<Func<HorarioAula, bool>>>())).Returns(Task.FromResult(true));
+            mockRepositorio.Setup(lnq => lnq.Remover(It.IsAny<Expression<Func<Horario, bool>>>())).Returns(Task.FromResult(true));
 
             var resultado = await handle.Handle(comando, CancellationToken.None);
 
@@ -74,8 +74,8 @@ namespace SGH.TestesDeUnidade
 
             resultado.GetErros().Should().BeEmpty();
             
-            mockRepositorio.Verify(lnq => lnq.Contem(It.IsAny<Expression<Func<HorarioAula, bool>>>()), Times.Once);
-            mockRepositorio.Verify(lnq => lnq.Remover(It.IsAny<Expression<Func<HorarioAula, bool>>>()), Times.Once);
+            mockRepositorio.Verify(lnq => lnq.Contem(It.IsAny<Expression<Func<Horario, bool>>>()), Times.Once);
+            mockRepositorio.Verify(lnq => lnq.Remover(It.IsAny<Expression<Func<Horario, bool>>>()), Times.Once);
 
         }
 

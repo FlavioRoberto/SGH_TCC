@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace SGH.Api.Testes.Factory
 {
-    public class HorarioAulaTeste : IBancoTeste<HorarioAula>
+    public class HorarioAulaTeste : IBancoTeste<Horario>
     {
         private readonly IContexto _contexto;
 
@@ -17,8 +17,8 @@ namespace SGH.Api.Testes.Factory
 
         public void InicializarBanco()
         {
-            var horarios = new List<HorarioAula> { 
-                new HorarioAula //1
+            var horarios = new List<Horario> { 
+                new Horario //1
                 {
                     Ano = 2020,
                     CodigoCurriculo = 1,
@@ -26,7 +26,7 @@ namespace SGH.Api.Testes.Factory
                     Semestre = ESemestre.PRIMEIRO,
                     Periodo = EPeriodo.PRIMEIRO
                 },
-                new HorarioAula //2
+                new Horario //2
                 {
                     Ano = 2021,
                     CodigoCurriculo = 1,
@@ -34,7 +34,7 @@ namespace SGH.Api.Testes.Factory
                     Semestre = ESemestre.SEGUNDO,
                     Periodo = EPeriodo.SEGUNDO
                 },
-                new HorarioAula //3
+                new Horario //3
                 {
                     Ano = 2022,
                     CodigoCurriculo = 1,
@@ -42,7 +42,7 @@ namespace SGH.Api.Testes.Factory
                     Semestre = ESemestre.SEGUNDO,
                     Periodo = EPeriodo.TERCEIRO
                 },
-                new HorarioAula //4
+                new Horario //4
                 {
                     Ano = 2022,
                     CodigoCurriculo = 5,
@@ -50,7 +50,7 @@ namespace SGH.Api.Testes.Factory
                     Semestre = ESemestre.SEGUNDO,
                     Periodo = EPeriodo.TERCEIRO
                 },
-                 new HorarioAula //5
+                 new Horario //5
                 {
                     Ano = 2022,
                     CodigoCurriculo = 4,
@@ -58,7 +58,7 @@ namespace SGH.Api.Testes.Factory
                     Semestre = ESemestre.SEGUNDO,
                     Periodo = EPeriodo.SEGUNDO
                 },
-                 new HorarioAula //6
+                 new Horario //6
                 {
                     Ano = 2023,
                     CodigoCurriculo = 1,
@@ -66,7 +66,7 @@ namespace SGH.Api.Testes.Factory
                     Semestre = ESemestre.SEGUNDO,
                     Periodo = EPeriodo.SEGUNDO
                 },
-                new HorarioAula //7
+                new Horario //7
                 {
                     Ano = 2023,
                     CodigoCurriculo = 1,

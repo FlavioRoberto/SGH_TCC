@@ -33,7 +33,7 @@ namespace SGH.Dominio.Services.Implementacao.Horarios.Comandos.Criar
             if (!string.IsNullOrEmpty(erro))
                 return new Resposta<HorarioAulaViewModel>(erro);
 
-            var horarioInserir = _mapper.Map<HorarioAula>(request);
+            var horarioInserir = _mapper.Map<Horario>(request);
 
             var horario = await _horarioAulaRepositorio.Criar(horarioInserir);
 

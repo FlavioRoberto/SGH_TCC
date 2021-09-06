@@ -30,14 +30,14 @@ namespace SGH.Dominio.Services.Implementacao.Horarios.Consultas.Listar
 
         public async Task<List<HorarioAulaViewModel>> Handle(ListarHorarioAulaConsulta request, CancellationToken cancellationToken)
         {
-            List<HorarioAula> horarios = await ListarHorarios(request);
+            List<Horario> horarios = await ListarHorarios(request);
 
             var horariosViewModel = _mapper.Map<List<HorarioAulaViewModel>>(horarios);
 
             return horariosViewModel;
         }
 
-        private async Task<List<HorarioAula>> ListarHorarios(ListarHorarioAulaConsulta request)
+        private async Task<List<Horario>> ListarHorarios(ListarHorarioAulaConsulta request)
         {
             return await _horarioAulaRepositorio.Listar(new ListarHorarioFiltro
             {

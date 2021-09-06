@@ -10,11 +10,11 @@ namespace SGH.Dominio.Services.AutoMapper
     {
         public HorarioAulaProfile()
         {
-            CreateMap<HorarioAula, HorarioAulaViewModel>().ReverseMap();
+            CreateMap<Horario, HorarioAulaViewModel>().ReverseMap();
 
-            CreateMap<HorarioAula, CriarHorarioAulaComando>().ReverseMap();
+            CreateMap<Horario, CriarHorarioAulaComando>().ReverseMap();
 
-            CreateMap<AtualizarHorarioAulaComando, HorarioAula>().ReverseMap();
+            CreateMap<AtualizarHorarioAulaComando, Horario>().ReverseMap();
         }
     }
 }

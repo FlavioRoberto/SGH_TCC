@@ -13,7 +13,7 @@ namespace SGH.Dominio.Core.Model
         public bool Desdobramento { get; set; }
         public string DescricaoDesdobramento { get; set; }
         public Reserva Reserva { get; set; }
-        public virtual HorarioAula Horario { get; set; }
+        public virtual Horario Horario { get; set; }
         public virtual CargoDisciplina Disciplina { get; set; }
         public virtual Sala Sala { get; set; }
         public virtual List<AulaDisciplinaAuxiliar> DisciplinasAuxiliar { get; private set; }

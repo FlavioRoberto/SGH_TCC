@@ -33,7 +33,7 @@ namespace SGH.Dominio.Services.Implementacao.Horarios.Comandos.Atualizar
             if (!string.IsNullOrEmpty(erro))
                 return new Resposta<HorarioAulaViewModel>(erro);
 
-            var horarioModel = _mapper.Map<HorarioAula>(request);
+            var horarioModel = _mapper.Map<Horario>(request);
           
             horarioModel = await _horarioAulaRepositorio.Atualizar(horarioModel);
           
