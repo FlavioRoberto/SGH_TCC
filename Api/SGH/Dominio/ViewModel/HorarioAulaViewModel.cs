@@ -6,6 +6,7 @@ namespace SGH.Dominio.Services.ViewModel
     public class HorarioAulaViewModel
     {
         public int Codigo { get; set; }
+        public string Descricao { get; set; }
         public int Ano { get; set; }
         public ESemestre Semestre { get; set; }
         public EPeriodo Periodo { get; set; }
