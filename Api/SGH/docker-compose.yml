@@ -47,5 +47,9 @@ services:
     depends_on:
         - sgh.database
         - sgh.rabbitmq
+    environment:
+        - EMAIL=sgh.uemg@gmail.com
+        - EMAIL_SENHA=EngComp360!
+
 
   

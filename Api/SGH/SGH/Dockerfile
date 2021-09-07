@@ -20,6 +20,7 @@ WORKDIR /app
 EXPOSE 5000
 
 FROM base AS final
+
 WORKDIR /app
 COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "SGH.Api.dll"]

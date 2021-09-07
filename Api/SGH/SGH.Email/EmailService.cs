@@ -78,9 +78,9 @@ namespace SGH.Email.Services.Email
             {
                 CcoEmail = _configuration["ConfiguracoesEmail:CcoEmail"],
                 Dominio = _configuration["ConfiguracoesEmail:Dominio"],
-                Email = _configuration["ConfiguracoesEmail:Email"],
+                Email = _configuration["EMAIL"],
                 Porta = int.Parse(_configuration["ConfiguracoesEmail:Porta"]),
-                Senha = _configuration["ConfiguracoesEmail:Senha"]
+                Senha = _configuration["EMAIL_SENHA"]
             };
         }
 
