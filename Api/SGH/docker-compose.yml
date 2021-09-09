@@ -50,6 +50,8 @@ services:
     environment:
         - EMAIL=sgh.uemg@gmail.com
         - EMAIL_SENHA=EngComp360!
+        - SghSqlConnections=Host=sgh.database;Port=5432;Pooling=true;Database=sgh;User Id=postgres;Password=sghDb347#;
+        - RabbitMq=sgh.rabbitmq
 
 
   

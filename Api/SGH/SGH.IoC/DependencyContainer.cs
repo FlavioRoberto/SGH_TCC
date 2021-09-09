@@ -132,7 +132,7 @@ namespace SGH.IoC
 
         public static IServiceCollection AddPersistencia(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration["ConnectionStrings:SghSqlConnections"];
+            var connectionString = configuration["SghSqlConnections"];
 
             services.AddScoped<IContexto, Contexto>();
 
@@ -164,7 +164,7 @@ namespace SGH.IoC
 
         public static IServiceCollection AddPersistenciaEmMemoria(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration["ConnectionStrings:SghSqlConnections"];
+            var connectionString = configuration["SghSqlConnections"];
             services.AddDbContext<Contexto>(options =>
             {
                 options.UseInMemoryDatabase(connectionString)

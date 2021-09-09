@@ -23,7 +23,7 @@ namespace SGH.Email.Services
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var host = _configuration["RabbitMq:connection"];
+            var host = _configuration["RabbitMq"];
             _bus = RabbitHutch.CreateBus($"host={host}");
             _bus.PubSub.Subscribe<EnviarEmailEvent>("PagamentoService", ProcessarEnvio);
 

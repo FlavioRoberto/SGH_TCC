@@ -19,7 +19,7 @@ namespace SGH.Dominio.Services.Events
 
         public async Task<Unit> Handle(EnviarEmailEvent request, CancellationToken cancellationToken)
         {
-            var host = _configuration["RabbitMq:connection"];
+            var host = _configuration["RabbitMq"];
             var bus = RabbitHutch.CreateBus($"host={host}");
 
             bus.PubSub.Publish(request);
