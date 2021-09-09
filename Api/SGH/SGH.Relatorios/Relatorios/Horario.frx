@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="05/31/2020 13:42:33" ReportInfo.Modified="09/08/2021 20:48:00" ReportInfo.CreatorVersion="2021.3.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="05/31/2020 13:42:33" ReportInfo.Modified="09/08/2021 21:24:14" ReportInfo.CreatorVersion="2021.3.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -94,8 +94,8 @@ namespace FastReport
         <SubreportObject Name="Subreport1" Top="9.45" Width="945" Height="28.35" Anchor="Top, Bottom, Left, Right" GrowToBottom="true" ReportPage="Page3"/>
         <SubreportObject Name="Subreport2" Left="945" Top="9.45" Width="189" Height="28.35" Anchor="Top, Bottom, Left, Right" ReportPage="Page2"/>
       </DataBand>
-      <GroupFooterBand Name="GroupFooter2" Top="213.23" Width="1171.8" Height="37.8">
-        <TextObject Name="Avisos" Width="1171.8" Height="37.8" AfterDataEvent="Avisos_AfterData" Text="[Horarios.Avisos]" VertAlign="Center" Font="Arial, 10pt"/>
+      <GroupFooterBand Name="GroupFooter2" Top="213.23" Width="1171.8" Height="37.8" CanGrow="true">
+        <TextObject Name="Avisos" Width="1171.8" Height="37.8" CanGrow="true" AfterDataEvent="Avisos_AfterData" Text="[Horarios.Avisos]" VertAlign="Center" Font="Arial, 10pt"/>
       </GroupFooterBand>
     </GroupHeaderBand>
   </ReportPage>
