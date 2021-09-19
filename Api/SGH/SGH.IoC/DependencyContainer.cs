@@ -67,6 +67,20 @@ namespace SGH.IoC
     {
         public static IServiceCollection RegistrarServicos(this IServiceCollection services)
         {
+            services.AddSingleton<IBusService, BusService>();
+
+            return services.RegistrarServicoBase();
+        }
+
+        public static IServiceCollection RegistrarServicosTestes(this IServiceCollection services)
+        {
+            services.AddSingleton<IBusService, BusServiceTeste>();
+
+            return services.RegistrarServicoBase();
+        }
+
+        public static IServiceCollection RegistrarServicoBase(this IServiceCollection services)
+        {
             services.AddTransient<IRelatorioServico, RelatorioServico>();
 
             //email

@@ -73,7 +73,7 @@ namespace SGH.APi
                 })
            );
 
-            services.RegistrarServicos();
+            services.RegistrarServicosTestes();
 
             services.Configure<MvcOptions>(options =>
             {

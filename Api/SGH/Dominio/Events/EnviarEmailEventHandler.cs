@@ -1,7 +1,6 @@
-﻿using EasyNetQ;
-using MediatR;
-using Microsoft.Extensions.Configuration;
+﻿using MediatR;
 using SGH.Dominio.Core.Events;
+using SGH.Dominio.Core.Services;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -9,21 +8,16 @@ namespace SGH.Dominio.Services.Events
 {
     public class EnviarEmailEventHandler : IRequestHandler<EnviarEmailEvent>
     {
-        IBus _bus;
-        private IConfiguration _configuration;
+        IBusService _busService;
 
-        public EnviarEmailEventHandler(IConfiguration configuration)
+        public EnviarEmailEventHandler(IBusService busService)
         {
-            _configuration = configuration;
+            _busService = busService;
         }
 
         public async Task<Unit> Handle(EnviarEmailEvent request, CancellationToken cancellationToken)
         {
-            var host = _configuration["RabbitMq"];
-            var bus = RabbitHutch.CreateBus($"host={host}");
-
-            bus.PubSub.Publish(request);
-
+            _busService.AdicionarNaFila(request);
             return Unit.Value;
         }
     }
