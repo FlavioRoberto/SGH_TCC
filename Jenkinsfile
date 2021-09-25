@@ -1,50 +1,50 @@
 pipeline {
-  agent any
-  stages {
-    stage('Build') {
-      parallel {
+    agent any
+    stages {
         stage('Build') {
-          steps {
-            echo 'Starting Build SGH'
-          }
+            parallel {
+                stage('Build') {
+                    steps {
+                        echo 'Starting Build SGH'
+                    }
+                }
+
+                stage('Test') {
+                    steps {
+                        echo 'Starting Unit Test'
+                        sh 'dotnet test Api/SGH/SGH.TestesUnitarios'
+                        echo 'Finished Unit Test'
+                        echo 'Starting integration tests'
+                        sh 'dotnet test Api/SGH/SGH.TestesDeIntegracao'
+                        echo 'Finished integration tests'
+                    }
+                }
+
+                stage('Test Log') {
+                    steps {
+                        writeFile(file: 'LogTestFile.txt', text: 'This is an automation file')
+                    }
+                }
+            }
         }
 
-        stage('Test') {
-          steps {
-            echo 'Starting Unit Test'
-            sh 'dotnet test Api/SGH/SGH.TestesUnitarios'
-            echo 'Finished Unit Test'
-            echo 'Starting integration tests'
-            sh 'dotnet test Api/SGH/SGH.TestesDeIntegracao'
-            echo 'Finished integration tests'
-          }
-        }
-
-        stage('Test Log') {
-          steps {
-            writeFile(file: 'LogTestFile.txt', text: 'This is an automation file')
-          }
-        }
-
-      }
-    }
-
-    stage('Deploy') {
-      parallel {
         stage('Deploy') {
-          steps {
-            echo 'Starting deploy'
-          }
-        }
+            parallel {
+                when {
+                    branch 'master'
+                }
+                stage('Deploy') {
+                    steps {
+                        echo 'Starting deploy'
+                    }
+                }
 
-        stage('Artifacts') {
-          steps {
-            archiveArtifacts 'LogTestFile.txt'
-          }
+                stage('Artifacts') {
+                    steps {
+                        archiveArtifacts 'LogTestFile.txt'
+                    }
+                }
+            }
         }
-
-      }
     }
-
-  }
 }
