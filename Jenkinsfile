@@ -30,8 +30,19 @@ pipeline {
     }
 
     stage('Deploy') {
-      steps {
-        echo 'Starting deploy'
+      parallel {
+        stage('Deploy') {
+          steps {
+            echo 'Starting deploy'
+          }
+        }
+
+        stage('Artifacts') {
+          steps {
+            archiveArtifacts 'LogTestFile.txt'
+          }
+        }
+
       }
     }
 
