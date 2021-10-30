@@ -64,7 +64,7 @@ namespace SGH.Api.Controllers
 
         [HttpPut]
         [Route("definir-sala")]
-        [Authorize(Roles = "infraestrutura")]
+        [Authorize(Roles = "infraestrutura,administrador")]
         public async Task<IActionResult> DefinirSala([FromBody] DefinirSalaComando definirSalaComando)
         {
             try

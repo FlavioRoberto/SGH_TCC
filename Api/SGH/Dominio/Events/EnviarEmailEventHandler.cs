@@ -15,10 +15,10 @@ namespace SGH.Dominio.Services.Events
             _busService = busService;
         }
 
-        public async Task<Unit> Handle(EnviarEmailEvent request, CancellationToken cancellationToken)
+        public Task<Unit> Handle(EnviarEmailEvent request, CancellationToken cancellationToken)
         {
             _busService.AdicionarNaFila(request);
-            return Unit.Value;
+            return Task.FromResult(Unit.Value);
         }
     }
 }

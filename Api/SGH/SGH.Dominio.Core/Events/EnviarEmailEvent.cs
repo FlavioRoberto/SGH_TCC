@@ -2,7 +2,7 @@
 
 namespace SGH.Dominio.Core.Events
 {
-    public class EnviarEmailEvent : IRequest
+    public class EnviarEmailEvent : Message
     {
         public string Mensagem { get; private set; }
         public string Assunto { get; private set; }

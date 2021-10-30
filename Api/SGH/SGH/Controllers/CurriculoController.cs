@@ -16,7 +16,6 @@ namespace SGH.Api.Controllers
 {
 
     [Route("api/[controller]")]
-    [Authorize("coordenacao")]
     public class CurriculoController : ControllerBase
     {
         private readonly IMediator _mediator;

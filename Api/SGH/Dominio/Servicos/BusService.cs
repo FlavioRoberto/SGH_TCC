@@ -1,29 +1,40 @@
 ﻿using EasyNetQ;
-using MediatR;
 using Microsoft.Extensions.Configuration;
+using SGH.Dominio.Core.Events;
 using SGH.Dominio.Core.Services;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace SGH.Dominio.Services.Servicos
 {
     public class BusService : IBusService
     {
-        IBusService _bus;
         private IConfiguration _configuration;
+        private IBus _bus;
 
         public BusService(IConfiguration configuration)
         {
             _configuration = configuration;
+            var host = _configuration["RabbitMq"];
+            _bus = RabbitHutch.CreateBus($"host={host}");
         }
 
 
-        public void AdicionarNaFila(IRequest request)
+        public async Task AdicionarNaFila<T>(T request) where T : Message
         {
-            _bus.AdicionarNaFila(request);
+            await _bus.PubSub.PublishAsync(request).ConfigureAwait(false);
+        }
 
-            var host = _configuration["RabbitMq"];
-            var bus = RabbitHutch.CreateBus($"host={host}");
+        public async Task EscutarNaFila<T>(string messageId, Action<T> onMessage, CancellationToken stoppingToken) where T : Message
+        {
+            _bus.PubSub.Subscribe<T>(messageId, onMessage);
 
-            bus.PubSub.Publish(request);
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                await Task.Delay(TimeSpan.FromSeconds(15), stoppingToken);
+            }
+            _bus.Dispose();
         }
     }
 }

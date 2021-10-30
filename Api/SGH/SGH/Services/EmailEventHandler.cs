@@ -1,9 +1,7 @@
-﻿using EasyNetQ;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.Hosting;
 using SGH.Dominio.Core.Events;
+using SGH.Dominio.Core.Services;
 using SGH.Email.Services.Email;
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,32 +9,20 @@ namespace SGH.Email.Services
 {
     public class EmailEventHandler : BackgroundService
     {
-        private IBus _bus;
-        private IConfiguration _configuration;
+        private IBusService _bus;
         private EmailService _emailService;
 
-        public EmailEventHandler(EmailService emailService, IConfiguration configuration)
+        public EmailEventHandler(EmailService emailService, IBusService busService)
         {
             _emailService = emailService;
-            _configuration = configuration;
+            _bus = busService;
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken) 
         {
-            var host = _configuration["RabbitMq"];
-            _bus = RabbitHutch.CreateBus($"host={host}");
-            _bus.PubSub.Subscribe<EnviarEmailEvent>("PagamentoService", ProcessarEnvio);
-
-            while (!stoppingToken.IsCancellationRequested)
-            {
-                await Task.Delay(TimeSpan.FromSeconds(15), stoppingToken);
-            }
-            _bus.Dispose();
-        }
-
-        private void ProcessarEnvio(EnviarEmailEvent emailEvent)
-        {
-            _emailService.Enviar(emailEvent.Email, emailEvent.Assunto, emailEvent.Mensagem);
+            await _bus.EscutarNaFila<EnviarEmailEvent>("EnvioEmail", emailEvent => {
+                _emailService.Enviar(emailEvent.Email, emailEvent.Assunto, emailEvent.Mensagem);
+            }, stoppingToken);
         }
     }
 }

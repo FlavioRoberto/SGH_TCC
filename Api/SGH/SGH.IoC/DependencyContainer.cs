@@ -11,6 +11,7 @@ using SGH.Dominio.Services.AutoMapper;
 using SGH.Dominio.Services.Contratos;
 using SGH.Dominio.Services.Implementacao;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Aulas.Comandos.DefinirSala;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Lancar;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Remover;
 using SGH.Dominio.Services.Implementacao.Aulas.Consulta.ListarPorHorario;
@@ -67,7 +68,7 @@ namespace SGH.IoC
     {
         public static IServiceCollection RegistrarServicos(this IServiceCollection services)
         {
-            services.AddSingleton<IBusService, BusService>();
+            services.AddTransient<IBusService, BusService>();
 
             return services.RegistrarServicoBase();
         }
@@ -136,6 +137,7 @@ namespace SGH.IoC
             services.AddTransient<IValidador<CriarCursoComando>, CriarCursoComandoValidador>();
             services.AddTransient<IValidador<AtualizarCursoComando>, AtualizarCursoComandoValidador>();
             services.AddTransient<IValidador<LancarAulasComando>, LancarAulasComandoValidador>();
+            services.AddTransient<IValidador<DefinirSalaComando>, DefinirSalaComandoValidador>();
 
             #region AutoMapper
             services.AddAutoMapperConfig();
