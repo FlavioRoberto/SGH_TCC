@@ -1,7 +1,9 @@
 ﻿using FluentAssertions;
 using SGH.APi;
+using SGH.Dominio.Core;
 using SGH.Dominio.Core.ObjetosValor;
 using SGH.Dominio.Services.Implementacao.Aulas.Comandos.Criar;
+using SGH.Dominio.Services.Implementacao.Aulas.Comandos.DefinirSala;
 using SGH.Dominio.Services.Implementacao.Aulas.ViewModels;
 using SGH.TestesDeIntegracao.Config;
 using System.Collections.Generic;
@@ -356,6 +358,46 @@ namespace SGH.TestesDeIntegracao
             var resposta = await _testsFixture.Client.DeleteAsync(GetRota($"{codigoAula}"));
 
             resposta.EnsureSuccessStatusCode();
+        }
+
+        [Trait("Integração", "Aula")]
+        [Fact(DisplayName = "Definir sala - Deve definir a sala para a aula com sucesso")]
+        public async Task Aula_DefinirSala_DeveDefinirSalaComSucesso()
+        {
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("definir-sala"), new DefinirSalaComando(9,6));
+
+            resposta.EnsureSuccessStatusCode();
+
+            var conteudo = await _testsFixture.RecuperarConteudoRequisicao<bool>(resposta);
+
+            conteudo.Should().BeTrue();
+        }
+
+        [Trait("Integração", "Aula")]
+        [Fact(DisplayName = "Definir sala - Deve retornar a mensagem não foi encontrada uma aula com o id 99")]
+        public async Task Aula_DefinirSala_DeveRetornarMensagemAulaNaoEncontrada()
+        {
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("definir-sala"), new DefinirSalaComando(990, 6));
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, "Não foi encontrada uma aula com o id 990.");
+        }
+
+        [Trait("Integração", "Aula")]
+        [Fact(DisplayName = "Definir sala - Deve retornar a mensagem não foi encontrada uma sala com o id 99")]
+        public async Task Aula_DefinirSala_DeveRetornarMensagemSalaNaoEncontrada()
+        {
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("definir-sala"), new DefinirSalaComando(1, 990));
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, "Não foi encontrada uma sala com o id 990.");
+        }
+
+        [Trait("Integração", "Aula")]
+        [Fact(DisplayName = "Definir sala - Deve retornar a mensagem sala não disponível para esse dia e horário")]
+        public async Task Aula_DefinirSala_DeveRetornarMensagemSalaNaoDisponivelParaEsseDiaEHorario()
+        {
+            var resposta = await _testsFixture.Client.PutAsJsonAsync(GetRota("definir-sala"), new DefinirSalaComando(10, 1));
+
+            await _testsFixture.TestarRequisicaoComErro(resposta, "A sala selecionada não esta disponível nesse dia e horário.");
         }
 
         private string GetRota(string rota = "")

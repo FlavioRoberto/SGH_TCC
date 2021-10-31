@@ -270,7 +270,7 @@ namespace SGH.TestesDeIntegracao
 
             dados.Should().NotBeEmpty();
 
-            dados.Should().HaveCount(5);
+            dados.Should().HaveCount(6);
         }
 
         private string GetRota(string rota = "")

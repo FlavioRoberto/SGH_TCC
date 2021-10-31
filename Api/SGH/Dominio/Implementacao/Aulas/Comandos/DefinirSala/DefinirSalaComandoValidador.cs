@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using SGH.Dominio.Core.Repositories;
-using SGH.Dominio.Core.Repositories;
-using SGH.Dominio.Core.Commands;using SGH.Dominio.Services.Contratos;
+using SGH.Dominio.Services.Contratos;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -12,6 +12,8 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.DefinirSala
     {
         private readonly IAulaRepositorio _aulaRepositorio;
         private readonly ISalaRepositorio _salaRepositorio;
+        private bool salaEncontrada = false;
+        private bool aulaEncontrada = false;
 
         public DefinirSalaComandoValidador(IAulaRepositorio aulaRepositorio,
                                            ISalaRepositorio salaRepositorio)
@@ -31,16 +33,40 @@ namespace SGH.Dominio.Services.Implementacao.Aulas.Comandos.DefinirSala
                 .MustAsync(ValidarSeSalaExiste)
                 .WithMessage(x => $"Não foi encontrada uma sala com o id {x.SalaId}.");
 
+            When(lnq => salaEncontrada && aulaEncontrada, () =>
+            {
+                RuleFor(lnq => lnq)
+                  .MustAsync(ValidarSeSalaDisponivel)
+                  .WithMessage("A sala selecionada não esta disponível nesse dia e horário.");
+            });              
+
+        }
+
+        private async Task<bool> ValidarSeSalaDisponivel(DefinirSalaComando comando, CancellationToken arg2)
+        {
+            var aula = await _aulaRepositorio.Consultar(comando.AulaId);
+
+            var reserva = aula.Reserva;
+
+            var aulaReservada = await _aulaRepositorio.Contem(lnq => lnq.CodigoSala == comando.SalaId &&
+                                                                     lnq.Reserva.Hora == reserva.Hora &&
+                                                                     lnq.Reserva.DiaSemana == reserva.DiaSemana);
+            if (aulaReservada)
+                return false;
+
+            return true;
         }
 
         private async Task<bool> ValidarSeSalaExiste(long salaId, CancellationToken cancellationToken)
         {
-            return await _salaRepositorio.Contem(lnq => lnq.Codigo == salaId);
+            salaEncontrada = await _salaRepositorio.Contem(lnq => lnq.Codigo == salaId);
+            return salaEncontrada;
         }
 
         private async Task<bool> ValidarSeAulaExiste(long aulaId, CancellationToken cancellationToken)
         {
-            return await _aulaRepositorio.Contem(lnq => lnq.Codigo == aulaId);
+            aulaEncontrada = await _aulaRepositorio.Contem(lnq => lnq.Codigo == aulaId);
+            return aulaEncontrada;
         }
     }
 }

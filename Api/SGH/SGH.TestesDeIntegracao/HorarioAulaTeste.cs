@@ -490,7 +490,7 @@ namespace SGH.TestesDeIntegracao
 
         [Trait("Integração", "Horário de aula")]
         [InlineData(2, 1)]
-        [InlineData(4, 2)]
+        [InlineData(4, 3)]
         [Theory(DisplayName = "Listar - Deve retornar aulas de um horário")]
         public async Task Aula_RealizarCadastro_DeveRetornarAulaDeHorario(int codigoHorario, int quantidade)
         {

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 namespace SGH.Api.Controllers
 {
     [Route("api/horario-aula")]
+    [Authorize]
     public class HorarioAulaController : ControllerBase
     {
         private readonly IMediator _mediator;

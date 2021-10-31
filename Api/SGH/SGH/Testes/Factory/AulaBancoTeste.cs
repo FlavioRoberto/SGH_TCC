@@ -89,6 +89,23 @@ namespace SGH.Api.Testes.Factory
                     CodigoHorario = 2,
                     CodigoSala = 2,
                     Laboratorio = false
+                },
+                new Aula //9
+                {
+                    Reserva = new Reserva("Quinta", "19:00"),
+                    Desdobramento = false,
+                    CodigoDisciplina = 12,
+                    CodigoHorario = 4,
+                    CodigoSala = 2,
+                    Laboratorio = false
+                },
+                new Aula //10
+                {
+                    Reserva = new Reserva("Quarta", "08:00"),
+                    Desdobramento = false,
+                    CodigoDisciplina = 1,
+                    CodigoHorario = 1,
+                    Laboratorio = false
                 }
             });
 

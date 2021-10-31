@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace SGH.Api.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize("infraestrutura")]
+    [Authorize(Roles = "infraestrutura,administrador")]
     public class BlocoController : ControllerBase
     {
         private readonly IMediator _mediator;

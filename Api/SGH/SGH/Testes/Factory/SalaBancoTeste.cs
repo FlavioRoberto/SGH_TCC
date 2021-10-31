@@ -52,6 +52,13 @@ namespace SGH.Api.Testes.Factory
                     Descricao = "Sala Teste distribuição horários",
                     Laboratorio = true,
                     Numero = 3
+                },
+                 new Sala //6
+                {
+                    CodigoBloco = 4,
+                    Descricao = "Sala Teste vincular sala em aula",
+                    Laboratorio = true,
+                    Numero = 30
                 }
             };
 
