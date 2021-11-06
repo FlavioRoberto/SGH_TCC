@@ -13,10 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
    
-      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-        uses: actions/setup-dotnet@v1.7.2
-        with:
-          dotnet-version: ${{ matrix.dotnet-version }}
+      # - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+      #   uses: actions/setup-dotnet@v1.7.2
+      #   with:
+      #     dotnet-version: ${{ matrix.dotnet-version }}
    
       # - name: Install dependencies
       #   run: dotnet restore Api/SGH/SGH.sln
@@ -53,8 +53,8 @@ jobs:
           EC2_IP : ${{ secrets.EC2_IP }}
                         
         run: |
-          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          ssh -tt -o StrictHostKeyChecking=no -i private_key ${EC2_IP} 
+          sudo echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          sudo ssh -tt -o StrictHostKeyChecking=no -i private_key ${EC2_IP} 
           
           #Now we have got the access of EC2 and we will start the deploy .
           cd sgh &&
