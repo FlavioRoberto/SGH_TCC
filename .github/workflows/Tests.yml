@@ -66,7 +66,8 @@ jobs:
         with:
           key: ${{ secrets.EC2_PEM }}
           name: id_rsa
-          known_hosts: ububtu@${{ secrets.EC2_IP }}
+          known_hosts: ${{ secrets.EC2_IP }}
       - name: rsync over ssh
         run: |
-             ls
+             ssh ubuntu@${{ secrets.EC2_IP }} "ls"
+             echo "opaaa"
