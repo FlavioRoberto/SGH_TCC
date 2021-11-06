@@ -19,4 +19,4 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore Api/SGH/SGH.sln
       - name: Test
-        run: dotnet test --verbosity minimal --collect:"XPlat Code Coverage" Api/SGH/SGH.sln
+        run: dotnet test Api/SGH/SGH.sln --verbosity minimal 
