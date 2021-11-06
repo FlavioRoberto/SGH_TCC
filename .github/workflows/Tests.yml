@@ -51,13 +51,11 @@ jobs:
         env:
           PRIVATE_KEY: ${{ secrets.EC2_PEM  }}
           EC2_IP : ${{ secrets.EC2_IP }}
-                        
-        run: |
-          sudo echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
-          sudo ssh -tt -o StrictHostKeyChecking=no -i private_key ubuntu@${EC2_IP}
-   
+          
       - name: Teste
         run: |         
+          sudo echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          sudo ssh -tt -o StrictHostKeyChecking=no -i private_key ubuntu@${EC2_IP}
           cd sgh &&
           sudo docker-compose up -d &&
           ls &&
