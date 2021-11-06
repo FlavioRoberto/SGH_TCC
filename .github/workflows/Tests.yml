@@ -61,10 +61,10 @@ jobs:
       #     ls &&
       #     exit
 
-     - name: executing remote ssh commands using ssh key
-       uses: appleboy/ssh-action@master
-       with:
-        host: ${{ secrets.EC2_IP }}
-        username: ubuntu
-        key: ${{ secrets.EC2_PEM }}
-        script: ls
+      - name: executing remote ssh commands using ssh key
+         uses: appleboy/ssh-action@master
+         with:
+          host: ${{ secrets.EC2_IP }}
+          username: ubuntu
+          key: ${{ secrets.EC2_PEM }}
+          script: ls
