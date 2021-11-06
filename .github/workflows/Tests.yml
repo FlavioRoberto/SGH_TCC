@@ -56,7 +56,8 @@ jobs:
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
           ssh -o StrictHostKeyChecking=no -i private_key ${EC2_IP} 
           
-          #Now we have got the access of EC2 and we will start the deploy .
-          cd sgh &&
+          ls 
+          cd sgh 
+          ls
           sudo docker-compose up -d
     
