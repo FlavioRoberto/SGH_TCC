@@ -15,8 +15,8 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore SGH.sln
       - name: Build
-        run: dotnet build --configuration Release --no-restore
+        run: dotnet build --configuration Release --no-restore SGH.sln
       - name: Test
-        run: dotnet test --no-restore --verbosity normal
+        run: dotnet test --verbosity minimal --collect:"XPlat Code Coverage" SGH.sln
