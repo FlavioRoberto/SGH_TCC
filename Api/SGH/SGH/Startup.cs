@@ -35,15 +35,14 @@ namespace SGH.APi
             _logger = logger;
         }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddApiVersioning();
             services.AddPersistencia(_configuration);
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.RegistrarServicos();
-
             services.AddHostedService<EmailEventHandler>();
+            services.AddSwaggerConfiguration();
 
             services.AddCors(o =>
                 o.AddPolicy("MyPolicy", builder =>
@@ -88,10 +87,11 @@ namespace SGH.APi
 
             UpdateDatabase(app);
 
-            //if (env.IsDevelopment())
+            if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
             app.UseAuthentication();
+            app.UseSwaggerApplication();
             app.UseCors("MyPolicy");
             app.UseMvc();
         }

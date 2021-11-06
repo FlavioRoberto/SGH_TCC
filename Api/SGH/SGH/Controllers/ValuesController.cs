@@ -16,12 +16,5 @@ namespace SGH.Api.Controllers
         {
             return Ok(DateTime.Now);
         }
-
-        [HttpGet]
-        public IActionResult VerificarToken()
-        {
-            return Ok();
-        }
-
     }
 }
