@@ -47,9 +47,15 @@ jobs:
       #     tags: ${{ steps.meta.outputs.tags }}
       #     labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Conect to EC2
-        run: | 
-          echo "${{ secrets.EC2_PEM }}" > private_key && chmod 600 private_key
-          ssh -o StrictHostKeyChecking=no -i private_key {{ secrets.EC2_IP }}'
-          ls
+        - name: Deploy in EC2
+          env:
+              PRIVATE_KEY: ${{ secrets.EC2_PEM  }}
+              EC2_IP : ${{ secrets.EC2_IP }}
+                        
+          run: |
+            echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+            ssh -o StrictHostKeyChecking=no -i private_key ${EC2_IP} '
+          
+            #Now we have got the access of EC2 and we will start the deploy .
+            ls
     
