@@ -38,3 +38,9 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Conect to EC2
+        run: | 
+          ssh -i ${{ secrets.EC2_PEM }} {{secrets.EC2_IP}}
+          ls
+    
