@@ -47,29 +47,17 @@ jobs:
       #     tags: ${{ steps.meta.outputs.tags }}
       #     labels: ${{ steps.meta.outputs.labels }}
 
-      # - name: Deploy in EC2
-      #   env:
-      #     PRIVATE_KEY: ${{ secrets.EC2_PEM  }}
-      #     EC2_IP : ${{ secrets.EC2_IP }}
-                        
-      #   run: |
-      #     sudo echo "$PRIVATE_KEY" > private_key
-      #     sudo chmod 600 private_key
-      #     sudo ssh -tt -o StrictHostKeyChecking=no -i private_key ${EC2_IP} 
-          
-      #     ls 
-      #     cd sgh 
-      #     ls
-      #     sudo docker-compose up -d
-
-      - name: Deploy to my EC2 instance
-        uses: easingthemes/ssh-deploy@v2.1.5
+      - name: Deploy in EC2
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_PEM }}
-          SOURCE: "./"
-          REMOTE_HOST: ${{ secrets.EC2_IP }}
-          REMOTE_USER: "ubuntu"
-          TARGET: "/home/ubuntu/sgh"
-          run: ls
-
+          PRIVATE_KEY: ${{ secrets.EC2_PEM  }}
+          EC2_IP : ${{ secrets.EC2_IP }}
+                        
+        run: |
+          echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -tt -o StrictHostKeyChecking=no -i private_key ${EC2_IP} '
+          
+          #Now we have got the access of EC2 and we will start the deploy .
+          cd sgh &&
+          sudo docker-compose up -d
+    
     
