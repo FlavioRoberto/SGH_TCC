@@ -83,7 +83,7 @@ namespace SGH.TestesDeUnidade
 
             var resultado = await handler.Handle(comando, CancellationToken.None);
 
-            var mensagemErro = @$"O campo de e-mail não pode ser vazio.
+            var mensagemErro = $@"O campo de e-mail não pode ser vazio.
                                  O campo de login não pode ser vazio.
                                  O campo de nome não pode ser vazio.
                                  O campo de perfil não pode ser vazio.
@@ -124,7 +124,7 @@ namespace SGH.TestesDeUnidade
 
             var resultado = await handler.Handle(comando, CancellationToken.None);
 
-            var mensagemErro = @$"Somente usuários com perfil coordenador de curso podem ter cursos vinculados.";
+            var mensagemErro = $@"Somente usuários com perfil coordenador de curso podem ter cursos vinculados.";
 
             resultado.TemErro().Should().BeTrue();
 
